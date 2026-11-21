@@ -2,7 +2,7 @@
 
 **27 October 2026 · Komorebi P.**
 
-The [review publication check](https://github.com/KomorebiP/Operation-KOMOREBI/actions/runs/40580137408) stopped with `Availability/component ID mismatch`. The import configuration had grown from 153 to 166 components, while the availability and assessment indexes still contained 153. All 13 additional import receipts were already present at [commit 080487d6401a](https://github.com/KomorebiP/Operation-KOMOREBI/commit/080487d6401a7e9d90c415fd9ffbbf8d825e3842).
+The [review publication check](https://github.com/KomorebiP/The-Komorebi-Program/actions/runs/40580137408) stopped with `Availability/component ID mismatch`. The import configuration had grown from 153 to 166 components, while the availability and assessment indexes still contained 153. All 13 additional import receipts were already present at [commit 080487d6401a](https://github.com/KomorebiP/The-Komorebi-Program/commit/080487d6401a7e9d90c415fd9ffbbf8d825e3842).
 
 The indexes now include **166 imported components: 91 primary and 75 supporting**, owning **139,002 distinct source files**. The strict receipt validator checks configuration bindings, aggregate SHA-256 record digests, and every committed path, Git blob SHA-1 value, and mode. It found no missing or mismatched owned files. This comparison does not constitute a fresh SHA-256 read of every source blob.
 
@@ -10,11 +10,11 @@ The correction updates the availability index, contribution ledger, status catal
 
 | New component | Classification |
 |---|---|
-| [ARC-AGI-2 experiment](https://github.com/KomorebiP/Operation-KOMOREBI/tree/080487d6401a7e9d90c415fd9ffbbf8d825e3842/experiments/arc-agi2/) | Primary, needs assessment |
-| [Offline handoff](https://github.com/KomorebiP/Operation-KOMOREBI/tree/080487d6401a7e9d90c415fd9ffbbf8d825e3842/experiments/arc-agi2/supporting-sources/offline-handoff/) | Supporting, scientifically unassessed |
-| [Original solver](https://github.com/KomorebiP/Operation-KOMOREBI/tree/080487d6401a7e9d90c415fd9ffbbf8d825e3842/experiments/arc-agi2/supporting-sources/original-solver/) | Supporting, scientifically unassessed |
-| [Public evaluation](https://github.com/KomorebiP/Operation-KOMOREBI/tree/080487d6401a7e9d90c415fd9ffbbf8d825e3842/experiments/arc-agi2/supporting-sources/public-evaluation/) | Supporting, scientifically unassessed |
-| [Training evidence](https://github.com/KomorebiP/Operation-KOMOREBI/tree/080487d6401a7e9d90c415fd9ffbbf8d825e3842/experiments/arc-agi2/supporting-sources/training-evidence/) | Supporting, scientifically unassessed |
+| [ARC-AGI-2 experiment](https://github.com/KomorebiP/The-Komorebi-Program/tree/080487d6401a7e9d90c415fd9ffbbf8d825e3842/experiments/arc-agi2/) | Primary, needs assessment |
+| [Offline handoff](https://github.com/KomorebiP/The-Komorebi-Program/tree/080487d6401a7e9d90c415fd9ffbbf8d825e3842/experiments/arc-agi2/supporting-sources/offline-handoff/) | Supporting, scientifically unassessed |
+| [Original solver](https://github.com/KomorebiP/The-Komorebi-Program/tree/080487d6401a7e9d90c415fd9ffbbf8d825e3842/experiments/arc-agi2/supporting-sources/original-solver/) | Supporting, scientifically unassessed |
+| [Public evaluation](https://github.com/KomorebiP/The-Komorebi-Program/tree/080487d6401a7e9d90c415fd9ffbbf8d825e3842/experiments/arc-agi2/supporting-sources/public-evaluation/) | Supporting, scientifically unassessed |
+| [Training evidence](https://github.com/KomorebiP/The-Komorebi-Program/tree/080487d6401a7e9d90c415fd9ffbbf8d825e3842/experiments/arc-agi2/supporting-sources/training-evidence/) | Supporting, scientifically unassessed |
 | [Recovery v14](../packages/certified-inference/supporting-sources/recovery-v14/) | Supporting, scientifically unassessed |
 | [Large Signal Model software](../packages/large-signal-model/) | Primary, needs assessment |
 | [Supporting sources](../packages/large-signal-model/supporting-sources/) | Supporting, scientifically unassessed |

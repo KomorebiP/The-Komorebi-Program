@@ -2,9 +2,9 @@
 
 [All demonstrations](../DEMONSTRATIONS.md) · [Project map](../PROJECT_MAP.md#foundations) · [Glossary: transfer block](../GLOSSARY.md#transfer-block)
 
-[Run and edit this example in your browser](https://KomorebiP.github.io/Operation-KOMOREBI/playground.html#packets)
+[Run and edit this example in your browser](https://KomorebiP.github.io/The-Komorebi-Program/playground.html#packets)
 
-[Explore the interactive diagram](https://KomorebiP.github.io/Operation-KOMOREBI/interactive.html#packets)
+[Explore the interactive diagram](https://KomorebiP.github.io/The-Komorebi-Program/interactive.html#packets)
 to change the matrix and input coordinates, then switch individual blocks on and off.
 
 **Question:** Can we reproduce a matrix operation by calculating its action
@@ -92,10 +92,10 @@ output. Its calculations use integers exactly.
 | Continue to | Route and scope |
 |---|---|
 | Paper | [Paper I](../works/paper-i.md#read), for packet families and operator reconstruction. |
-| Exact claim | [Exact operator reconstruction](https://KomorebiP.github.io/Operation-KOMOREBI/claims.html#psc-i-t-operator-reconstruction). This record links the written statement, proof, and transcribed Lean declarations. |
+| Exact claim | [Exact operator reconstruction](https://KomorebiP.github.io/The-Komorebi-Program/claims.html#psc-i-t-operator-reconstruction). This record links the written statement, proof, and transcribed Lean declarations. |
 | Written proof | [Paper I, proof beginning at line 512](../../papers/paper-i/current/editable/traditional/03_packets_and_graphs.tex#L512). |
 | Lean | [Recorded coverage and setup](../works/paper-i.md#lean). The claim record names the existing correspondence. This demonstration adds no Lean verification. |
-| Program | [Read or download the complete program](https://KomorebiP.github.io/Operation-KOMOREBI/read/demonstrations.html). |
+| Program | [Read or download the complete program](https://KomorebiP.github.io/The-Komorebi-Program/read/demonstrations.html). |
 | Library use | [First packet program](https://github.com/KomorebiP/komorebi-math/blob/main/docs/USER_GUIDE.md#first-program-packet-analysis-and-reconstruction) and [installation](../FIRST_RUN.md). |
 | More hand calculations | [Packets](../examples/01_PACKETS.md), [transfer blocks](../examples/04_TRANSFER.md), [coordinate changes](../examples/03_COORDINATES.md). |
 

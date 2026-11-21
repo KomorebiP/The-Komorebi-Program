@@ -96,7 +96,7 @@ def publish(site):
           '<p>Run <code>python -B euler_packets.py</code>. Add <code>--output my-results</code> to save exact tables.</p>')
     body+=source_lines(contents['examples/euler_packets.py'].decode('utf-8'))
     site.page(READER,'Exact program for the Euler worked example',body,
-              'https://github.com/KomorebiP/Operation-KOMOREBI/blob/'+site.revision+'/examples/euler_packets.py')
+              'https://github.com/KomorebiP/The-Komorebi-Program/blob/'+site.revision+'/examples/euler_packets.py')
     if tap_example:
         tap_reader='read/euler-polyphase-taps.html'
         tap_body=('<h1>Polyphase and FIR tap split / exact program</h1>'
@@ -107,7 +107,7 @@ def publish(site):
                   '<p>Run <code>python -B euler_polyphase_taps.py</code> with Python 3.10 or later. Only the standard library is needed.</p>')
         tap_body+=source_lines(contents[tap_example['program']].decode('utf-8'))
         site.page(tap_reader,'Polyphase and FIR tap split / exact program',tap_body,
-                  'https://github.com/KomorebiP/Operation-KOMOREBI/blob/'+site.revision+'/'+tap_example['program'])
+                  'https://github.com/KomorebiP/The-Komorebi-Program/blob/'+site.revision+'/'+tap_example['program'])
         site.search.append(dict(title='Euler example / polyphase and FIR tap split',group='Collection',kind='Code',
             url=tap_reader,work_ids=record['work_ids'],text='Even odd filter taps signal phases forward shift lane advance exact Euler finite FIR standalone Python'))
     site.search.append(dict(title='Euler packets, polynomials, and residuals / exact program',

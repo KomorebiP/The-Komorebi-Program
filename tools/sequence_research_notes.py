@@ -4,8 +4,8 @@ from html import escape as e
 from math import gcd
 from urllib.parse import urlencode
 
-BASE='https://komorebip.github.io/Operation-KOMOREBI/'
-IDENTITIES='https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/research/sequence-connections/IDENTITIES.md'
+BASE='https://komorebip.github.io/The-Komorebi-Program/'
+IDENTITIES='https://github.com/KomorebiP/The-Komorebi-Program/blob/main/research/sequence-connections/IDENTITIES.md'
 EULER=BASE+'collection/demonstrations/EULER_PACKETS.html#transfer-the-euler-sequence-to-fibonacci-values'
 
 

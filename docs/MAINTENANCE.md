@@ -53,12 +53,12 @@ reading ZIPs, claim locations, library pins, and publication workflow. Update
 the reader registry and templates alongside generated pages. Keep the
 accessibility limitations and the scope of transcribed claim links explicit.
 
-These entries record two completed documentation/tooling updates from 27 October 2026. For later changes, see the [Git history](https://github.com/KomorebiP/Operation-KOMOREBI/commits/main/). Neither checkpoint adds a mathematical review or changes scientific status.
+These entries record two completed documentation/tooling updates from 27 October 2026. For later changes, see the [Git history](https://github.com/KomorebiP/The-Komorebi-Program/commits/main/). Neither checkpoint adds a mathematical review or changes scientific status.
 
 | Commit | Cleanup | Recorded checks |
 |---|---|---|
-| [f76b25c](https://github.com/KomorebiP/Operation-KOMOREBI/commit/f76b25c79978549b1725ff23c28b70f1ba931a63) | Added documentation, records, manifest, verification, and history indexes, preserved the older distribution page, and clarified the maintenance priority. | 41 local tooling tests. [Collection workflow passed](https://github.com/KomorebiP/Operation-KOMOREBI/actions/runs/40616404760). |
-| [543aed7](https://github.com/KomorebiP/Operation-KOMOREBI/commit/543aed7155f1c0d2ebd3dd6cccfa0a4e4f86d0f8) | Added contribution/citation guidance, report templates, workflow documentation, and checks for registered guides. | 44 local tooling tests. [Collection workflow passed](https://github.com/KomorebiP/Operation-KOMOREBI/actions/runs/40618882704). |
+| [f76b25c](https://github.com/KomorebiP/The-Komorebi-Program/commit/f76b25c79978549b1725ff23c28b70f1ba931a63) | Added documentation, records, manifest, verification, and history indexes, preserved the older distribution page, and clarified the maintenance priority. | 41 local tooling tests. [Collection workflow passed](https://github.com/KomorebiP/The-Komorebi-Program/actions/runs/40616404760). |
+| [543aed7](https://github.com/KomorebiP/The-Komorebi-Program/commit/543aed7155f1c0d2ebd3dd6cccfa0a4e4f86d0f8) | Added contribution/citation guidance, report templates, workflow documentation, and checks for registered guides. | 44 local tooling tests. [Collection workflow passed](https://github.com/KomorebiP/The-Komorebi-Program/actions/runs/40618882704). |
 
 The linked workflow results belong to those commits. A later green run does not replace an earlier receipt or expand its scientific scope.
 

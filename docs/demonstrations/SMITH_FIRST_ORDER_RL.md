@@ -1,6 +1,6 @@
 # One-inductor limit: an explicit passive circuit
 
-[Complete Smith chart research reading](https://komorebip.github.io/Operation-KOMOREBI/read/smith-chart/research.html#arbitrary-order-separation) · [Interactive Smith chart](https://komorebip.github.io/Operation-KOMOREBI/smith-chart.html)
+[Complete Smith chart research reading](https://komorebip.github.io/The-Komorebi-Program/read/smith-chart/research.html#arbitrary-order-separation) · [Interactive Smith chart](https://komorebip.github.io/The-Komorebi-Program/smith-chart.html)
 
 **Author:** Komorebi P.
 

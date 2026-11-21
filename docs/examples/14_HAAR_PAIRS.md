@@ -2,7 +2,7 @@
 
 [All examples](../HAND_WORKED_EXAMPLES.md) · [Glossary: Haar pair](../GLOSSARY.md#haar-pair) · [Papers, proofs, Lean, and code](#papers-proofs-lean-and-code)
 
-[Explore the 16-sample interactive Haar lab](https://KomorebiP.github.io/Operation-KOMOREBI/interactive.html#haar)
+[Explore the 16-sample interactive Haar lab](https://KomorebiP.github.io/The-Komorebi-Program/interactive.html#haar)
 for four levels of decomposition, selectable details, and exact reconstruction errors.
 
 Take the real signal $(2,6,10,14)$. For each neighboring pair $(u,v)$, define

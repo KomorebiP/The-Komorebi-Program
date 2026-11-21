@@ -2,7 +2,7 @@
 
 **27 October 2026 · Komorebi P. · AI-assisted self-review**
 
-This pass screened seven relatively small entries at [commit c4a0a9c57685](https://github.com/KomorebiP/Operation-KOMOREBI/commit/c4a0a9c57685da333c4254e7825beb1dee580ae9), audited three specific mathematical claims, and checked two implementation boundaries. It is not independent peer review, a whole-manuscript audit, or certification of the remaining collection. The [review record](../manifests/reader-curation-2026-10-27.json) pins the inspected source files.
+This pass screened seven relatively small entries at [commit c4a0a9c57685](https://github.com/KomorebiP/The-Komorebi-Program/commit/c4a0a9c57685da333c4254e7825beb1dee580ae9), audited three specific mathematical claims, and checked two implementation boundaries. It is not independent peer review, a whole-manuscript audit, or certification of the remaining collection. The [review record](../manifests/reader-curation-2026-10-27.json) pins the inspected source files.
 
 The standard is a precise claim with adequate support. Lean is optional. A short proof can be sufficient. A large archive or a Lean file can still leave its headline claim unsupported. Distinguish a written proof, a finite computation, an unexecuted protocol, and an implementation sketch.
 

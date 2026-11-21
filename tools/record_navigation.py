@@ -57,7 +57,7 @@ Use these guides to find works, software, and project records. Each dated review
 
 | Find | Guide |
 |---|---|
-| A starting point for your background or task | [Reading routes](READING_ROUTES.md) and the [public website](https://KomorebiP.github.io/Operation-KOMOREBI/) |
+| A starting point for your background or task | [Reading routes](READING_ROUTES.md) and the [public website](https://KomorebiP.github.io/The-Komorebi-Program/) |
 | The central idea and current direction | [Project overview](START_HERE.md) |
 | Future research priorities and site improvements | [Future Developments](FUTURE_DEVELOPMENTS.md) |
 | How the papers and books connect | [Project map and documented dependencies](PROJECT_MAP.md) |
@@ -115,7 +115,7 @@ Start with the guides below, then open a record for its scope, source revision, 
 | Which sources are available? | [Component index](COMPONENT_INDEX.md), [source coverage](SOURCE_COVERAGE.md) | [Source index](../manifests/source-components.json), [import receipts](../manifests/source-imports/) |
 | What is complete, checked, or still open? | [Status guide](COMPLETION_STATUS.md), [evidence catalogue](STATUS_CATALOG.md) | [Project status](../manifests/project-status.json) |
 | What remains to finish? | [Finalization queue](FINALIZATION_QUEUE.md) | Queue entries in [project status](../manifests/project-status.json) |
-| How are collection records maintained? | [Maintenance guide and selected cleanup checkpoints](MAINTENANCE.md) | [Git history](https://github.com/KomorebiP/Operation-KOMOREBI/commits/main/) |
+| How are collection records maintained? | [Maintenance guide and selected cleanup checkpoints](MAINTENANCE.md) | [Git history](https://github.com/KomorebiP/The-Komorebi-Program/commits/main/) |
 | What is publicly distributed? | [Publication status](PUBLICATION_STATUS.md), [distribution notice](DISTRIBUTION_STATUS.md) | [Public publication record](../manifests/release-candidate.json) |
 | What did a particular check establish? | [Verification guide](VERIFICATION.md), dated reports below | [Execution evidence](../verification/README.md) |
 | What did the earlier collection record? | [Historical snapshots](history/README.md) | [Historical manifests](../manifests/history/) |

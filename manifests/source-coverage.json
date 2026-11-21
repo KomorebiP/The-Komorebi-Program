@@ -2,7 +2,7 @@
   "schema": "komorebi.source-coverage.v1",
   "title": "Komorebi source coverage",
   "author": "Komorebi P.",
-  "repository": "https://github.com/KomorebiP/Operation-KOMOREBI",
+  "repository": "https://github.com/KomorebiP/The-Komorebi-Program",
   "inventory_date": "2026-10-25",
   "reconciled_date": "2026-10-30",
   "inventory": "Komorebi Release Audit, 25 October 2026",
@@ -53,12 +53,12 @@
         {
           "component_id": "paper-i",
           "destination": "papers/paper-i/current",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/papers/paper-i/current",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/papers/paper-i/current",
           "title": "Paper I: Typed Operator Systems, Seed Rank, and Exact Packet Coordinates",
           "original_archive": {
             "filename": "Paper_I_Frozen_Release_2026-10-20.zip",
             "sha256": "17605418b0d1be02bb3dba75348f350e063e7c8479021418b1b068208c0fb5d5",
-            "public_archive_url": "https://github.com/KomorebiP/Operation-KOMOREBI/releases/download/papers-2026-10-25/Paper_I_Frozen_Release_2026-10-20.zip"
+            "public_archive_url": "https://github.com/KomorebiP/The-Komorebi-Program/releases/download/papers-2026-10-25/Paper_I_Frozen_Release_2026-10-20.zip"
           }
         }
       ],
@@ -78,12 +78,12 @@
         {
           "component_id": "paper-ii",
           "destination": "papers/paper-ii/current",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/papers/paper-ii/current",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/papers/paper-ii/current",
           "title": "Paper II: Refinement Towers, Weighted Transfer, and Integral Separation of Operator Packets",
           "original_archive": {
             "filename": "Paper_II_Frozen_Release_2026-10-20.zip",
             "sha256": "1c4c9e4231408bd7b360d163c862f781c163b909e619e4c7913f5c4d9e171c23",
-            "public_archive_url": "https://github.com/KomorebiP/Operation-KOMOREBI/releases/download/papers-2026-10-25/Paper_II_Frozen_Release_2026-10-20.zip"
+            "public_archive_url": "https://github.com/KomorebiP/The-Komorebi-Program/releases/download/papers-2026-10-25/Paper_II_Frozen_Release_2026-10-20.zip"
           }
         }
       ],
@@ -103,12 +103,12 @@
         {
           "component_id": "paper-iii",
           "destination": "papers/paper-iii/current",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/papers/paper-iii/current",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/papers/paper-iii/current",
           "title": "Paper III: Typed Transfer, Nonlinear Packets, and Obstruction Theory",
           "original_archive": {
             "filename": "Paper_III_Frozen_Release_2026-10-20.zip",
             "sha256": "5ac92df41d7478d7393d6b95f1538f3002540a787c751d9a9c1bedb4afb3e048",
-            "public_archive_url": "https://github.com/KomorebiP/Operation-KOMOREBI/releases/download/papers-2026-10-25/Paper_III_Frozen_Release_2026-10-20.zip"
+            "public_archive_url": "https://github.com/KomorebiP/The-Komorebi-Program/releases/download/papers-2026-10-25/Paper_III_Frozen_Release_2026-10-20.zip"
           }
         }
       ],
@@ -128,12 +128,12 @@
         {
           "component_id": "paper-iv",
           "destination": "papers/paper-iv/current",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/papers/paper-iv/current",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/papers/paper-iv/current",
           "title": "Paper IV: Cyclic Analytic Functions, Reciprocal Families, and Spectral Zero Data",
           "original_archive": {
             "filename": "Paper_IV_Frozen_Release_2026-10-20.zip",
             "sha256": "ec5a41a1664231f3d873be381e7be220863eb123ea6bee88fd19485699ea104d",
-            "public_archive_url": "https://github.com/KomorebiP/Operation-KOMOREBI/releases/download/papers-2026-10-25/Paper_IV_Frozen_Release_2026-10-20.zip"
+            "public_archive_url": "https://github.com/KomorebiP/The-Komorebi-Program/releases/download/papers-2026-10-25/Paper_IV_Frozen_Release_2026-10-20.zip"
           }
         }
       ],
@@ -153,12 +153,12 @@
         {
           "component_id": "paper-v",
           "destination": "papers/paper-v/current",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/papers/paper-v/current",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/papers/paper-v/current",
           "title": "Paper V: Polyphase Signal Calculus",
           "original_archive": {
             "filename": "Paper_V_Frozen_Release_2026-10-20.zip",
             "sha256": "fb8eee74d4a43759517c804a4e85c01095c1d06a3edb9e1191a742a7b991b15c",
-            "public_archive_url": "https://github.com/KomorebiP/Operation-KOMOREBI/releases/download/papers-2026-10-25/Paper_V_Frozen_Release_2026-10-20.zip"
+            "public_archive_url": "https://github.com/KomorebiP/The-Komorebi-Program/releases/download/papers-2026-10-25/Paper_V_Frozen_Release_2026-10-20.zip"
           }
         }
       ],
@@ -178,12 +178,12 @@
         {
           "component_id": "paper-vi",
           "destination": "papers/paper-vi/current",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/papers/paper-vi/current",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/papers/paper-vi/current",
           "title": "Paper VI: Transfer Semigroups: Stochastic, Bayesian, Fractional, and PDE Realizations",
           "original_archive": {
             "filename": "Paper_VI_Frozen_Release_2026-10-20.zip",
             "sha256": "cc89a482b85ceeba8faac89753b9635efccd2dcb40eb4d88e396e1bf3c3cce13",
-            "public_archive_url": "https://github.com/KomorebiP/Operation-KOMOREBI/releases/download/papers-2026-10-25/Paper_VI_Frozen_Release_2026-10-20.zip"
+            "public_archive_url": "https://github.com/KomorebiP/The-Komorebi-Program/releases/download/papers-2026-10-25/Paper_VI_Frozen_Release_2026-10-20.zip"
           }
         }
       ],
@@ -203,12 +203,12 @@
         {
           "component_id": "paper-vii",
           "destination": "papers/paper-vii/current",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/papers/paper-vii/current",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/papers/paper-vii/current",
           "title": "Paper VII: Quantum Seed Calculus",
           "original_archive": {
             "filename": "Paper_VII_Frozen_Release_2026-10-20.zip",
             "sha256": "1b6614080fb9570e813a4f7c675d0aed3e464ee8d98256d7e8b3e92d2eea5ce1",
-            "public_archive_url": "https://github.com/KomorebiP/Operation-KOMOREBI/releases/download/papers-2026-10-25/Paper_VII_Frozen_Release_2026-10-20.zip"
+            "public_archive_url": "https://github.com/KomorebiP/The-Komorebi-Program/releases/download/papers-2026-10-25/Paper_VII_Frozen_Release_2026-10-20.zip"
           }
         }
       ],
@@ -229,12 +229,12 @@
         {
           "component_id": "paper-viii",
           "destination": "papers/paper-viii/current",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/papers/paper-viii/current",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/papers/paper-viii/current",
           "title": "Paper VIII: Packet Operator Algorithms, Exact Compilation, and GPU Realization",
           "original_archive": {
             "filename": "Paper_VIII_Frozen_Release_2026-10-21.zip",
             "sha256": "fa33c613e4497d80ed17fdf8b37494ab41452f0fb80b6004261381f0019c78cc",
-            "public_archive_url": "https://github.com/KomorebiP/Operation-KOMOREBI/releases/download/papers-2026-10-25/Paper_VIII_Frozen_Release_2026-10-21.zip"
+            "public_archive_url": "https://github.com/KomorebiP/The-Komorebi-Program/releases/download/papers-2026-10-25/Paper_VIII_Frozen_Release_2026-10-21.zip"
           }
         }
       ],
@@ -255,12 +255,12 @@
         {
           "component_id": "paper-ix",
           "destination": "papers/paper-ix/current",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/papers/paper-ix/current",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/papers/paper-ix/current",
           "title": "Paper IX: Arithmetic Packets, Dyadic Towers, and Local Polynomial Deformation",
           "original_archive": {
             "filename": "Paper_IX_Frozen_Release_2026-10-21.zip",
             "sha256": "b69ef90ebba1a8f6a7ffec6dabade984efd5a151d1dfb6593b1929de7fe9e7f3",
-            "public_archive_url": "https://github.com/KomorebiP/Operation-KOMOREBI/releases/download/papers-2026-10-25/Paper_IX_Frozen_Release_2026-10-21.zip"
+            "public_archive_url": "https://github.com/KomorebiP/The-Komorebi-Program/releases/download/papers-2026-10-25/Paper_IX_Frozen_Release_2026-10-21.zip"
           }
         }
       ],
@@ -281,12 +281,12 @@
         {
           "component_id": "paper-x",
           "destination": "papers/paper-x/current",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/papers/paper-x/current",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/papers/paper-x/current",
           "title": "Paper X: Universal Residual Seeds and Conditional Occupied-System Completion",
           "original_archive": {
             "filename": "Paper_X_Frozen_Release_2026-10-21.zip",
             "sha256": "77bed1edfb5b9e1064e7a19a813a69ab3a58e8c2f37da2d1e55f0f8c7364a639",
-            "public_archive_url": "https://github.com/KomorebiP/Operation-KOMOREBI/releases/download/papers-2026-10-25/Paper_X_Frozen_Release_2026-10-21.zip"
+            "public_archive_url": "https://github.com/KomorebiP/The-Komorebi-Program/releases/download/papers-2026-10-25/Paper_X_Frozen_Release_2026-10-21.zip"
           }
         }
       ],
@@ -307,12 +307,12 @@
         {
           "component_id": "paper-xi",
           "destination": "papers/paper-xi/current",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/papers/paper-xi/current",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/papers/paper-xi/current",
           "title": "Paper XI: Packets, Arithmetic Realization, and Conditional Comparison",
           "original_archive": {
             "filename": "Paper_XI_Frozen_Release_2026-10-21.zip",
             "sha256": "e569e174acd49dd527918b49758b386c241c5aacfe5866e96757b0fb4c573b9a",
-            "public_archive_url": "https://github.com/KomorebiP/Operation-KOMOREBI/releases/download/papers-2026-10-25/Paper_XI_Frozen_Release_2026-10-21.zip"
+            "public_archive_url": "https://github.com/KomorebiP/The-Komorebi-Program/releases/download/papers-2026-10-25/Paper_XI_Frozen_Release_2026-10-21.zip"
           }
         }
       ],
@@ -333,12 +333,12 @@
         {
           "component_id": "paper-xii",
           "destination": "papers/paper-xii/current",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/papers/paper-xii/current",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/papers/paper-xii/current",
           "title": "Paper XII: Patching Support, Hecke Packets, and Conditional Automorphic Completion",
           "original_archive": {
             "filename": "Paper_XII_Frozen_Release_2026-10-21.zip",
             "sha256": "1278a5307f674480cc3ac53e5685559437a2ef6563dc71655bcd6a9f5657c4a7",
-            "public_archive_url": "https://github.com/KomorebiP/Operation-KOMOREBI/releases/download/papers-2026-10-25/Paper_XII_Frozen_Release_2026-10-21.zip"
+            "public_archive_url": "https://github.com/KomorebiP/The-Komorebi-Program/releases/download/papers-2026-10-25/Paper_XII_Frozen_Release_2026-10-21.zip"
           }
         }
       ],
@@ -359,7 +359,7 @@
         {
           "component_id": "realization-boundaries",
           "destination": "monographs/realization-boundaries",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/monographs/realization-boundaries",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/monographs/realization-boundaries",
           "title": "Realization Boundaries",
           "original_archive": {
             "filename": "Realization_Boundaries_v1.0.0_GitHub_Ready.zip",
@@ -383,7 +383,7 @@
         {
           "component_id": "komorebi-space",
           "destination": "monographs/komorebi-space",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/monographs/komorebi-space",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/monographs/komorebi-space",
           "title": "Komorebi Space",
           "original_archive": {
             "filename": "Komorebi_Space_Release_1.16.0.zip",
@@ -407,13 +407,13 @@
         {
           "component_id": "realization-calculus-twin-edition",
           "destination": "monographs/realization-calculus-twin-edition",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/monographs/realization-calculus-twin-edition",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/monographs/realization-calculus-twin-edition",
           "title": "Komorebi Space and Realization Boundaries: paired edition",
           "original_archive": {
             "filename": "Realization_Calculus_Twin_Volumes_GitHub_Ready.zip",
             "sha256": "6f31d38cb876f201844122d8b422ac78ad1abf5b1d742bdff817ce824bcae4b1"
           },
-          "publication_metadata_update_url": "https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/monographs/realization-calculus-twin-edition/PUBLICATION_METADATA_UPDATE.json"
+          "publication_metadata_update_url": "https://github.com/KomorebiP/The-Komorebi-Program/blob/main/monographs/realization-calculus-twin-edition/PUBLICATION_METADATA_UPDATE.json"
         }
       ],
       "scope_note": "Paired books, shared editorial source and worked proofs form a distinct publication. The component mathematical developments retain separate version and verification scopes.",
@@ -432,12 +432,12 @@
         {
           "component_id": "proof-path-theory",
           "destination": "monographs/proof-path-theory",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/monographs/proof-path-theory",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/monographs/proof-path-theory",
           "title": "Proof Path Theory",
           "original_archive": {
             "filename": "Proof_Path_Theory_Monograph_1.8.0.zip",
             "sha256": "f3c429f841a0f8c508556f6220fd902f0b9724370531927cacb7f971d2dff577",
-            "public_archive_url": "https://github.com/KomorebiP/Operation-KOMOREBI/releases/download/papers-2026-10-25/Proof_Path_Theory_Monograph_1.8.0.zip"
+            "public_archive_url": "https://github.com/KomorebiP/The-Komorebi-Program/releases/download/papers-2026-10-25/Proof_Path_Theory_Monograph_1.8.0.zip"
           }
         }
       ],
@@ -457,7 +457,7 @@
         {
           "component_id": "constructive-repair",
           "destination": "packages/constructive-repair",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/packages/constructive-repair",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/packages/constructive-repair",
           "title": "Constructive Repair",
           "original_archive": {
             "filename": "Komorebi_Constructive_Repair_v1.0.0-rc3.zip",
@@ -481,7 +481,7 @@
         {
           "component_id": "information-realization",
           "destination": "research/information-realization",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/information-realization",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/information-realization",
           "title": "Information Realization",
           "original_archive": {
             "filename": "komorebi_information_realization_v0_4_lean.zip",
@@ -505,7 +505,7 @@
         {
           "component_id": "kzfc-multiverse",
           "destination": "research/kzfc-multiverse",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/kzfc-multiverse",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/kzfc-multiverse",
           "title": "KZFC and Residual Reflection",
           "original_archive": {
             "filename": "Komorebi_KZFC_ResidualReflection_v0.11.0.zip",
@@ -529,7 +529,7 @@
         {
           "component_id": "resolution-semantics",
           "destination": "research/resolution-semantics",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/resolution-semantics",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/resolution-semantics",
           "title": "Resolution Semantics",
           "original_archive": {
             "filename": "Komorebi_Resolution_Semantics_v0.1.0.zip",
@@ -553,7 +553,7 @@
         {
           "component_id": "seeded-two-axis",
           "destination": "research/seeded-two-axis",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/seeded-two-axis",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/seeded-two-axis",
           "title": "Seeded Two-Axis Calculus",
           "original_archive": {
             "filename": "Komorebi_Seeded_Two_Axis_Calculus_v0.11.0_Full_Package.zip",
@@ -577,12 +577,12 @@
         {
           "component_id": "realization-calculus-book",
           "destination": "monographs/realization-calculus",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/monographs/realization-calculus",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/monographs/realization-calculus",
           "title": "Realization Calculus",
           "original_archive": {
             "filename": "Realization_Calculus_Publication_Package.zip",
             "sha256": "1f90d055d6d337e30ee42e024509923ce857dc3fe463cb1243880bc1bbf3ed11",
-            "public_archive_url": "https://github.com/KomorebiP/Operation-KOMOREBI/releases/download/papers-2026-10-25/Realization_Calculus_Publication_Package.zip"
+            "public_archive_url": "https://github.com/KomorebiP/The-Komorebi-Program/releases/download/papers-2026-10-25/Realization_Calculus_Publication_Package.zip"
           }
         }
       ],
@@ -602,7 +602,7 @@
         {
           "component_id": "monographs-special-functions",
           "destination": "monographs/special-functions",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/monographs/special-functions",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/monographs/special-functions",
           "title": "Special Functions",
           "original_archive": {
             "filename": "Special_Functions_Lean_B01_COMPLETE.zip",
@@ -626,7 +626,7 @@
         {
           "component_id": "monographs-large-signal-model",
           "destination": "monographs/large-signal-model",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/monographs/large-signal-model",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/monographs/large-signal-model",
           "title": "Large Signal Model",
           "original_archive": {
             "filename": "Large_Signal_Model_Final_GitHub_Release_1.0.0.zip",
@@ -650,7 +650,7 @@
         {
           "component_id": "monographs-machine-native-reasoning",
           "destination": "monographs/machine-native-reasoning",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/monographs/machine-native-reasoning",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/monographs/machine-native-reasoning",
           "title": "Machine Native Reasoning",
           "original_archive": {
             "filename": "Machine_Native_Reasoning_Reviewed_Core_1.0.0.zip",
@@ -674,13 +674,13 @@
         {
           "component_id": "large-signal-model",
           "destination": "packages/large-signal-model",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/packages/large-signal-model",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/packages/large-signal-model",
           "title": "PR-LASM 2.3",
           "original_archive": {
             "filename": "Komorebi_Large_Signal_Model_2.3.0_Final_Release.zip",
             "sha256": "632deab37bbbebb5fbb8552c73f83f311ed716b61092111a8b6afd1b6700174b"
           },
-          "publication_metadata_update_url": "https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/packages/large-signal-model/PUBLICATION_METADATA_UPDATE.json"
+          "publication_metadata_update_url": "https://github.com/KomorebiP/The-Komorebi-Program/blob/main/packages/large-signal-model/PUBLICATION_METADATA_UPDATE.json"
         }
       ],
       "scope_note": "Beta and work in progress. The finite controls do not establish a pretrained general agent or an official ARC result.",
@@ -688,7 +688,7 @@
         {
           "component_id": "large-signal-model-ancestry-supporting-sources",
           "destination": "packages/large-signal-model/supporting-sources",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/packages/large-signal-model/supporting-sources",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/packages/large-signal-model/supporting-sources",
           "title": "supporting-sources",
           "original_archive": {
             "filename": "Komorebi_Large_Signal_Model_2.3.0_Final_Release.zip",
@@ -711,7 +711,7 @@
         {
           "component_id": "monographs-grounded-abstraction",
           "destination": "monographs/grounded-abstraction",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/monographs/grounded-abstraction",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/monographs/grounded-abstraction",
           "title": "Grounded Abstraction",
           "original_archive": {
             "filename": "Grounded_Abstraction_v1.0.0_complete.zip",
@@ -735,7 +735,7 @@
         {
           "component_id": "monographs-self-improving-intelligence",
           "destination": "monographs/self-improving-intelligence",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/monographs/self-improving-intelligence",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/monographs/self-improving-intelligence",
           "title": "Self-Improving Intelligence",
           "original_archive": {
             "filename": "Self_Improving_Intelligence_v1.0.0_complete.zip",
@@ -745,7 +745,7 @@
         {
           "component_id": "monographs-self-improving-intelligence-visual-guide",
           "destination": "monographs/self-improving-intelligence/visual-guide",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/monographs/self-improving-intelligence/visual-guide",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/monographs/self-improving-intelligence/visual-guide",
           "title": "Self-Improving Intelligence: visual guide",
           "original_archive": {
             "filename": "Self_Improving_Intelligence_Visual_Guide_v1.0.0_complete.zip",
@@ -770,7 +770,7 @@
         {
           "component_id": "experiments-agent-dynamics",
           "destination": "experiments/agent-dynamics",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/experiments/agent-dynamics",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/experiments/agent-dynamics",
           "title": "Agent Dynamics",
           "original_archive": {
             "filename": "Agent_Dynamics_Python_v1.0_complete.zip",
@@ -794,7 +794,7 @@
         {
           "component_id": "monographs-machine-societies",
           "destination": "monographs/machine-societies",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/monographs/machine-societies",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/monographs/machine-societies",
           "title": "Machine Societies",
           "original_archive": {
             "filename": "Machine_Societies_v1.0.0_complete.zip",
@@ -818,7 +818,7 @@
         {
           "component_id": "monographs-quantum-and-circuits",
           "destination": "monographs/quantum-and-circuits",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/monographs/quantum-and-circuits",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/monographs/quantum-and-circuits",
           "title": "Quantum and Circuits",
           "original_archive": {
             "filename": "Quantum_and_Circuits_Completed_Release_v1.0.0.zip",
@@ -842,7 +842,7 @@
         {
           "component_id": "monographs-quantum-and-circuits",
           "destination": "monographs/quantum-and-circuits",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/monographs/quantum-and-circuits",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/monographs/quantum-and-circuits",
           "title": "Quantum and Circuits",
           "original_archive": {
             "filename": "Quantum_and_Circuits_Completed_Release_v1.0.0.zip",
@@ -866,7 +866,7 @@
         {
           "component_id": "monographs-quantum-and-circuits",
           "destination": "monographs/quantum-and-circuits",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/monographs/quantum-and-circuits",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/monographs/quantum-and-circuits",
           "title": "Quantum and Circuits",
           "original_archive": {
             "filename": "Quantum_and_Circuits_Completed_Release_v1.0.0.zip",
@@ -887,7 +887,7 @@
         {
           "component_id": "machine-theory-compendium",
           "destination": "monographs/machine-theory-compendium",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/monographs/machine-theory-compendium",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/monographs/machine-theory-compendium",
           "title": "Machine Theory Compendium",
           "original_archive": {
             "filename": "Komorebi_Machine_Theory_Compendium_v1.0.0_Collection.zip",
@@ -959,12 +959,12 @@
         {
           "component_id": "komorebi-am-spd",
           "destination": "packages/komorebi-am-spd",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/packages/komorebi-am-spd",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/packages/komorebi-am-spd",
           "title": "komorebi-am-spd",
           "original_archive": {
             "filename": "komorebi_am_spd-1.0.0.tar.gz",
             "sha256": "06e532a63235bb0ba03f7cad89742df33741134f9a516b225a9c49a66b38279b",
-            "public_archive_url": "https://github.com/KomorebiP/Operation-KOMOREBI/releases/download/am-spd-v1.0.0/komorebi_am_spd-1.0.0.tar.gz"
+            "public_archive_url": "https://github.com/KomorebiP/The-Komorebi-Program/releases/download/am-spd-v1.0.0/komorebi_am_spd-1.0.0.tar.gz"
           }
         }
       ],
@@ -981,7 +981,7 @@
         {
           "component_id": "monographs-cos-method",
           "destination": "monographs/cos-method",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/monographs/cos-method",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/monographs/cos-method",
           "title": "COS Method",
           "original_archive": {
             "filename": "K_COS_Monograph_Final_Package.zip",
@@ -1005,7 +1005,7 @@
         {
           "component_id": "monographs-cos-method-formal-continuation",
           "destination": "monographs/cos-method/formal-continuation",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/monographs/cos-method/formal-continuation",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/monographs/cos-method/formal-continuation",
           "title": "COS Method: formal continuation",
           "original_archive": {
             "filename": "K_COS_End_to_End_v0.1.0.zip",
@@ -1029,7 +1029,7 @@
         {
           "component_id": "experiments-jspace-causal-lab",
           "destination": "experiments/jspace-causal-lab",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/experiments/jspace-causal-lab",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/experiments/jspace-causal-lab",
           "title": "J-Space Causal Lab",
           "original_archive": {
             "filename": "Komorebi_JSpace_Causal_Lab_v1_4_Source.zip",
@@ -1053,7 +1053,7 @@
         {
           "component_id": "experiments-workspace-incubator",
           "destination": "experiments/workspace-incubator",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/experiments/workspace-incubator",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/experiments/workspace-incubator",
           "title": "Workspace Incubator",
           "original_archive": {
             "filename": "Komorebi_Workspace_Incubator_v0_6.zip",
@@ -1075,8 +1075,8 @@
       "disposition_label": "Collection repository",
       "canonical_sources": [
         {
-          "repository_url": "https://github.com/KomorebiP/Operation-KOMOREBI",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI"
+          "repository_url": "https://github.com/KomorebiP/The-Komorebi-Program",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program"
         }
       ],
       "scope_note": "The collection repository supplies navigation and individual import receipts. Each component retains its own scientific and software contract."
@@ -1092,7 +1092,7 @@
         {
           "component_id": "monographs-physics",
           "destination": "monographs/physics",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/monographs/physics",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/monographs/physics",
           "title": "Physics",
           "original_archive": {
             "filename": "Komorebi_Physics_Open_Publication_Package.zip",
@@ -1117,7 +1117,7 @@
         {
           "component_id": "physics-energy-backreaction",
           "destination": "research/physics-energy-backreaction",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/physics-energy-backreaction",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/physics-energy-backreaction",
           "title": "Physics: energy and backreaction",
           "original_archive": {
             "filename": "Komorebi_Physics_Energy_Backreaction_Study.zip",
@@ -1127,7 +1127,7 @@
         {
           "component_id": "physics-origin-locking",
           "destination": "research/physics-origin-locking",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/physics-origin-locking",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/physics-origin-locking",
           "title": "Physics: origin locking",
           "original_archive": {
             "filename": "Komorebi_Physics_Origin_Locking_Study.zip",
@@ -1152,7 +1152,7 @@
         {
           "component_id": "physics-curvature-states",
           "destination": "research/physics-curvature-states",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/physics-curvature-states",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/physics-curvature-states",
           "title": "Physics: curvature states"
         }
       ],
@@ -1162,25 +1162,25 @@
           "filename": "Komorebi_Physics_Curvature_States_and_Subtraction.pdf",
           "sha256": "0b275b228c4671109cca97d1e7fda2864eaf7629f063b27921f0492b8952cb7a",
           "bytes": 270761,
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/research/physics-curvature-states/Komorebi_Physics_Curvature_States_and_Subtraction.pdf"
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/blob/main/research/physics-curvature-states/Komorebi_Physics_Curvature_States_and_Subtraction.pdf"
         },
         {
           "filename": "Komorebi_Physics_Curvature_State_Ledger_v0.4.0.md",
           "sha256": "588fdc7281249c9cb95c408871301f0de6017c96b3cf0853fd4ef595216a7404",
           "bytes": 5923,
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/research/physics-curvature-states/Komorebi_Physics_Curvature_State_Ledger_v0.4.0.md"
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/blob/main/research/physics-curvature-states/Komorebi_Physics_Curvature_State_Ledger_v0.4.0.md"
         },
         {
           "filename": "Komorebi_Physics_Curvature_State_Verification.md",
           "sha256": "70b24b0c971914bd2411d216b94fab738cbd9c15465ad8d16aecec36edddc35f",
           "bytes": 6491,
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/research/physics-curvature-states/Komorebi_Physics_Curvature_State_Verification.md"
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/blob/main/research/physics-curvature-states/Komorebi_Physics_Curvature_State_Verification.md"
         },
         {
           "filename": "verification(20261021-215116).json",
           "sha256": "9aa62cc201e0b5417b38f57147ff91f2183b21bdfa1fd4890b496048ed582ef9",
           "bytes": 4219,
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/research/physics-curvature-states/verification%2820261021-215116%29.json"
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/blob/main/research/physics-curvature-states/verification%2820261021-215116%29.json"
         }
       ]
     },
@@ -1195,12 +1195,12 @@
         {
           "component_id": "komorebi-methodology",
           "destination": "monographs/komorebi-methodology",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/monographs/komorebi-methodology",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/monographs/komorebi-methodology",
           "title": "Komorebi Methodology",
           "original_archive": {
             "filename": "Komorebi_Methodology_Reviewed_Professional_Source.zip",
             "sha256": "b0885a55ef994b7eb47c26477665aa823dd8e0195bde39b49d2a62751674fed8",
-            "public_archive_url": "https://github.com/KomorebiP/Operation-KOMOREBI/releases/download/papers-2026-10-25/Komorebi_Methodology_Reviewed_Professional_Source.zip"
+            "public_archive_url": "https://github.com/KomorebiP/The-Komorebi-Program/releases/download/papers-2026-10-25/Komorebi_Methodology_Reviewed_Professional_Source.zip"
           }
         }
       ],
@@ -1220,7 +1220,7 @@
         {
           "component_id": "abc-global-rr8",
           "destination": "research/abc-global-rr8",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/abc-global-rr8",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/abc-global-rr8",
           "title": "ABC: global RR8 branch",
           "original_archive": {
             "filename": "ABC_Komorebi_Global_RR8_2026-10-25.zip",
@@ -1244,7 +1244,7 @@
         {
           "component_id": "abc-reader",
           "destination": "research/abc-reader",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/abc-reader",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/abc-reader",
           "title": "ABC: source and evidence reader",
           "original_archive": {
             "filename": "Komorebi_ABC_Source_and_Evidence_v1.0.zip",
@@ -1268,7 +1268,7 @@
         {
           "component_id": "iut-valuation-hulls",
           "destination": "research/iut-valuation-hulls",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/iut-valuation-hulls",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/iut-valuation-hulls",
           "title": "IUT Valuation Hulls",
           "original_archive": {
             "filename": "Komorebi_IUT_Valuation_Hulls_B05_Checked.zip",
@@ -1292,7 +1292,7 @@
         {
           "component_id": "addmul-arithmetic-reconstruction",
           "destination": "research/addmul-arithmetic-reconstruction",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/addmul-arithmetic-reconstruction",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/addmul-arithmetic-reconstruction",
           "title": "AddMul Arithmetic Reconstruction",
           "original_archive": {
             "filename": "Komorebi_AddMul_Arithmetic_Reconstruction_Block03_2026-10-25.zip",
@@ -1316,7 +1316,7 @@
         {
           "component_id": "collatz-and-riemann-readers",
           "destination": "research/collatz-and-riemann-readers",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/collatz-and-riemann-readers",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/collatz-and-riemann-readers",
           "title": "Collatz and Riemann: source and evidence",
           "original_archive": {
             "filename": "Komorebi_Collatz_and_Riemann_Source_and_Evidence_v1.1.zip",
@@ -1340,7 +1340,7 @@
         {
           "component_id": "collatz-and-riemann-readers",
           "destination": "research/collatz-and-riemann-readers",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/collatz-and-riemann-readers",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/collatz-and-riemann-readers",
           "title": "Collatz and Riemann: source and evidence",
           "original_archive": {
             "filename": "Komorebi_Collatz_and_Riemann_Source_and_Evidence_v1.1.zip",
@@ -1364,7 +1364,7 @@
         {
           "component_id": "strong-artin-reader",
           "destination": "research/strong-artin-reader",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/strong-artin-reader",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/strong-artin-reader",
           "title": "Strong Artin: source and evidence",
           "original_archive": {
             "filename": "Komorebi_Strong_Artin_Source_and_Evidence_v1.0.zip",
@@ -1388,7 +1388,7 @@
         {
           "component_id": "beal-reader",
           "destination": "research/beal-reader",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/beal-reader",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/beal-reader",
           "title": "Beal: source and evidence",
           "original_archive": {
             "filename": "Komorebi_Beal_Source_and_Evidence_v1.0.zip",
@@ -1412,7 +1412,7 @@
         {
           "component_id": "hodge-reader",
           "destination": "research/hodge-reader",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/hodge-reader",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/hodge-reader",
           "title": "Hodge: source and evidence",
           "original_archive": {
             "filename": "Komorebi_Hodge_Source_and_Evidence_v1.0.zip",
@@ -1436,7 +1436,7 @@
         {
           "component_id": "lehmer-reader",
           "destination": "research/lehmer-reader",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/lehmer-reader",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/lehmer-reader",
           "title": "Lehmer: source and evidence",
           "original_archive": {
             "filename": "Komorebi_Lehmer_Source_and_Evidence_v1.0.zip",
@@ -1460,7 +1460,7 @@
         {
           "component_id": "catalan-constant-reader",
           "destination": "research/catalan-constant-reader",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/catalan-constant-reader",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/catalan-constant-reader",
           "title": "Catalan Constant: source and evidence",
           "original_archive": {
             "filename": "Komorebi_Catalan_Constant_Source_and_Evidence_v1.0.zip",
@@ -1484,7 +1484,7 @@
         {
           "component_id": "inverse-galois-reader",
           "destination": "research/inverse-galois-reader",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/inverse-galois-reader",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/inverse-galois-reader",
           "title": "Inverse Galois: source and evidence",
           "original_archive": {
             "filename": "Komorebi_Inverse_Galois_Source_and_Evidence_v1.0.zip",
@@ -1508,7 +1508,7 @@
         {
           "component_id": "hilbert12-cubic-divisor",
           "destination": "research/hilbert12-cubic-divisor",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/hilbert12-cubic-divisor",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/hilbert12-cubic-divisor",
           "title": "Hilbert 12: cubic divisor development",
           "original_archive": {
             "filename": "Komorebi_H12_Cubic_Divisor_Final_2026-10-07.zip",
@@ -1518,7 +1518,7 @@
         {
           "component_id": "hilbert12-closure-attempt",
           "destination": "research/hilbert12-closure-attempt",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/hilbert12-closure-attempt",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/hilbert12-closure-attempt",
           "title": "Hilbert 12: closure attempt",
           "original_archive": {
             "filename": "H12_Closure_Attempt_Package.zip",
@@ -1528,7 +1528,7 @@
         {
           "component_id": "hilbert12-contracting-ambient-torsion",
           "destination": "research/hilbert12-contracting-ambient-torsion",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/hilbert12-contracting-ambient-torsion",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/hilbert12-contracting-ambient-torsion",
           "title": "Hilbert 12: contracting ambient torsion",
           "original_archive": {
             "filename": "H12_Contracting_Ambient_Torsion_Research_Package.zip",
@@ -1538,7 +1538,7 @@
         {
           "component_id": "hilbert12-analytic-fourier",
           "destination": "research/hilbert12-analytic-fourier",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/hilbert12-analytic-fourier",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/hilbert12-analytic-fourier",
           "title": "Hilbert 12: analytic Fourier branch",
           "original_archive": {
             "filename": "H12_Analytic_Fourier_Research_Package.zip",
@@ -1548,7 +1548,7 @@
         {
           "component_id": "hilbert12-ambient-dual-slice",
           "destination": "research/hilbert12-ambient-dual-slice",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/hilbert12-ambient-dual-slice",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/hilbert12-ambient-dual-slice",
           "title": "Hilbert 12: ambient dual slice",
           "original_archive": {
             "filename": "H12_Ambient_Dual_Slice.zip",
@@ -1572,7 +1572,7 @@
         {
           "component_id": "model-theory-normalization",
           "destination": "research/model-theory-normalization",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/model-theory-normalization",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/model-theory-normalization",
           "title": "Model-Theory Normalization",
           "original_archive": {
             "filename": "Komorebi_ModelTheory_Normalization_v0.10.zip",
@@ -1596,7 +1596,7 @@
         {
           "component_id": "logical-resolution",
           "destination": "research/logical-resolution",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/logical-resolution",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/logical-resolution",
           "title": "Logical Resolution",
           "original_archive": {
             "filename": "Komorebi_Logical_Resolution_v0.2.zip",
@@ -1620,7 +1620,7 @@
         {
           "component_id": "representation-calculus",
           "destination": "research/representation-calculus",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/representation-calculus",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/representation-calculus",
           "title": "Representation Calculus",
           "original_archive": {
             "filename": "Komorebi_Representation_Calculus_v0.4.zip",
@@ -1644,7 +1644,7 @@
         {
           "component_id": "padic-canonical-realization",
           "destination": "research/padic-canonical-realization",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/padic-canonical-realization",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/padic-canonical-realization",
           "title": "p-adic Canonical Realization",
           "original_archive": {
             "filename": "Komorebi_Padic_Block34_Canonical_Realization_Lean_Checked_2026-09-21.zip",
@@ -1668,7 +1668,7 @@
         {
           "component_id": "sufficient-resolution",
           "destination": "monographs/sufficient-resolution",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/monographs/sufficient-resolution",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/monographs/sufficient-resolution",
           "title": "Sufficient Resolution",
           "original_archive": {
             "filename": "Komorebi_Sufficient_Resolution_Final_Edition_2026-10-06.zip",
@@ -1692,7 +1692,7 @@
         {
           "component_id": "certified-inference",
           "destination": "packages/certified-inference",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/packages/certified-inference",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/packages/certified-inference",
           "title": "Certified Inference",
           "original_archive": {
             "filename": "FD_Certified_Inference_Core_v1.0.0_Checked.zip",
@@ -1702,7 +1702,7 @@
         {
           "component_id": "certified-inference-recovery-v14-supporting-sources",
           "destination": "packages/certified-inference/supporting-sources/recovery-v14",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/packages/certified-inference/supporting-sources/recovery-v14",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/packages/certified-inference/supporting-sources/recovery-v14",
           "title": "recovery-v14",
           "original_archive": {
             "filename": "Komorebi_Inference_Full_Source_v14_Recovery_2026-09-19.zip",
@@ -1726,7 +1726,7 @@
         {
           "component_id": "stratified-universality",
           "destination": "research/stratified-universality",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/stratified-universality",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/stratified-universality",
           "title": "Stratified Universality",
           "original_archive": {
             "filename": "Komorebi_Stratified_Universality_Final_Edition_2026-10-06.zip",
@@ -1750,7 +1750,7 @@
         {
           "component_id": "signal-reconstruction",
           "destination": "research/signal-reconstruction",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/signal-reconstruction",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/signal-reconstruction",
           "title": "Signal Reconstruction",
           "original_archive": {
             "filename": "Komorebi_Signal_Reconstruction_Final_Edition_2026-10-06.zip",
@@ -1774,7 +1774,7 @@
         {
           "component_id": "streaming-skat",
           "destination": "research/streaming-skat",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/streaming-skat",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/streaming-skat",
           "title": "Streaming Polyphase Factor Decomposition / SKAT",
           "original_archive": {
             "filename": "Streaming_Polyphase_Factor_Decomposition_SKAT_v0.9_Realistic_SKAT_Validation_Source.zip",
@@ -1798,7 +1798,7 @@
         {
           "component_id": "euler-signal-bridge",
           "destination": "research/euler-signal-bridge",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/euler-signal-bridge",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/euler-signal-bridge",
           "title": "Euler Signal Bridge",
           "original_archive": {
             "filename": "Komorebi_Euler_Signal_Bridge.zip",
@@ -1822,7 +1822,7 @@
         {
           "component_id": "universal-generative-deformation",
           "destination": "packages/universal-generative-deformation",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/packages/universal-generative-deformation",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/packages/universal-generative-deformation",
           "title": "Universal Generative Deformation Calculus",
           "original_archive": {
             "filename": "Universal_Generative_Deformation_Calculus_1.1.0_Complete_Release.zip",
@@ -1846,7 +1846,7 @@
         {
           "component_id": "gaussian-elimination-guide",
           "destination": "research/gaussian-elimination-guide",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/gaussian-elimination-guide",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/gaussian-elimination-guide",
           "title": "Gaussian Elimination: collected guide",
           "original_archive": {
             "filename": "Komorebi_Gaussian_Elimination_Collected_Pages.pdf",
@@ -1867,7 +1867,7 @@
         {
           "component_id": "machine-native-mathematics-essay",
           "destination": "research/machine-native-mathematics-essay",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/machine-native-mathematics-essay",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/machine-native-mathematics-essay",
           "title": "The Possibility for a Machine Native Mathematics",
           "original_archive": {
             "filename": "The_Possibility_for_a_Machine_Native_Mathematics_v10.pdf",
@@ -1888,7 +1888,7 @@
         {
           "component_id": "prime-contact-coherence",
           "destination": "research/prime-contact-coherence",
-          "url": "https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/research/prime-contact-coherence",
+          "url": "https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/prime-contact-coherence",
           "title": "Prime-Contact Coherence Calculus",
           "original_archive": {
             "filename": "Projector_Resolved_Prime_Contact_Coherence_Calculus_Verified_Final_Source.zip",

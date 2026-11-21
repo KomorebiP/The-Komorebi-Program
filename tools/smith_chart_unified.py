@@ -101,13 +101,14 @@ def chapter(site, manifest, files, entry):
 def local_routes(content):
     """Point current reading links directly into the canonical article."""
     def link(match):
-        value = html.unescape(match[1])
+        from project_urls import canonical_project_url
+        value = canonical_project_url(html.unescape(match[1]))
         parts = urlsplit(value)
-        if parts.scheme and not (parts.netloc.lower()=='komorebip.github.io' and parts.path.startswith('/Operation-KOMOREBI/')):
+        if parts.scheme and not (parts.netloc.lower()=='komorebip.github.io' and parts.path.startswith('/The-Komorebi-Program/')):
             return match[0]
         target = unquote(parts.path)
         if parts.scheme:
-            target = target[len('/Operation-KOMOREBI/'):]
+            target = target[len('/The-Komorebi-Program/'):]
         elif target:
             target = posixpath.normpath(posixpath.join(posixpath.dirname(PAGE),target))
         else:
@@ -225,7 +226,7 @@ def build_source_body(site):
         'is proved for almost every real open-family target; no individual rational R minimum follows. '
         'A practical global margin remains open. All new comparisons use positive-real Laplace samples.</p>'
         '<p><a href="../../downloads/smith-rlc-current-source.zip">Download the complete current source and checks</a> · '
-        '<a href="https://github.com/KomorebiP/Operation-KOMOREBI/tree/'+site.revision+'/'+BASE+'">'
+        '<a href="https://github.com/KomorebiP/The-Komorebi-Program/tree/'+site.revision+'/'+BASE+'">'
         'Proof, computation and source-binding records</a>. The original checkpoint ZIPs and earlier Lean receipts '
         'are retained unchanged in that source package.</p>')
     article = local_routes(diagrams(''.join(assembled),site))

@@ -26,7 +26,7 @@ The background advice is an editorial starting point. The work itself states its
 
 305 reading pages: 160 treatments, 72 visual studies, and 73 verification pages. The HTML sequences retain the source wording, equations, and evidence limits.
 
-[Start here](https://KomorebiP.github.io/Operation-KOMOREBI/read/monographs-physics/start.html) · [Treatments](https://KomorebiP.github.io/Operation-KOMOREBI/read/monographs-physics/index.html) · [Visual atlases](https://KomorebiP.github.io/Operation-KOMOREBI/read/monographs-physics/atlas/index.html) · [Verification companions](https://KomorebiP.github.io/Operation-KOMOREBI/read/monographs-physics/verification/index.html)
+[Start here](https://KomorebiP.github.io/The-Komorebi-Program/read/monographs-physics/start.html) · [Treatments](https://KomorebiP.github.io/The-Komorebi-Program/read/monographs-physics/index.html) · [Visual atlases](https://KomorebiP.github.io/The-Komorebi-Program/read/monographs-physics/atlas/index.html) · [Verification companions](https://KomorebiP.github.io/The-Komorebi-Program/read/monographs-physics/verification/index.html)
 
 Use the links below to read this work and its supporting files. Ctrl+click (Command+click on macOS) opens a link in another tab. Your browser’s Back button returns here.
 

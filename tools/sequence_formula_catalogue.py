@@ -10,7 +10,7 @@ from math import comb, factorial
 import re
 
 REGISTRY_PATH = 'monographs/special-functions/supporting-sources/projector-special-functions-registry/Projector_Special_Functions_Registry.tex'
-REGISTRY_URL = 'https://github.com/KomorebiP/Operation-KOMOREBI/blob/62973b08e84a71db189423e1fff67de56409fc96/' + REGISTRY_PATH
+REGISTRY_URL = 'https://github.com/KomorebiP/The-Komorebi-Program/blob/62973b08e84a71db189423e1fff67de56409fc96/' + REGISTRY_PATH
 COUNT = 24
 
 
@@ -108,7 +108,7 @@ def formula_variants(entry):
         return entry['formulas']
     kind=entry['kind'];source=entry['source']
     if not source.startswith('https:'):
-        source='https://komorebip.github.io/Operation-KOMOREBI/'+source
+        source='https://komorebip.github.io/The-Komorebi-Program/'+source
     result=[variant('Defining representation','definition',entry['formula'],source=source)]
     from sequence_linear_research import legacy_representations
     result+=legacy_representations(entry)
@@ -198,7 +198,7 @@ def expanded_catalogue():
             for j in range(N):
                 m=f'({N}n+{j})'
                 source_formula=re.sub(r'(?<![A-Za-z])n(?![A-Za-z])','m',original['formula']).replace('a(m)','b(m)')
-                forms=[variant('Subsequence definition','term formula',f'a(n)=b({N}n+{j}), where b is {original["title"]}. Source formula (index m): '+source_formula,f'n=0 selects the source index {j}; each step advances the source index by {N}. The source formula uses m, while the local subsequence uses n.', 'https://komorebip.github.io/Operation-KOMOREBI/sequences/'+original['id']+'.html'),
+                forms=[variant('Subsequence definition','term formula',f'a(n)=b({N}n+{j}), where b is {original["title"]}. Source formula (index m): '+source_formula,f'n=0 selects the source index {j}; each step advances the source index by {N}. The source formula uses m, while the local subsequence uses n.', 'https://komorebip.github.io/The-Komorebi-Program/sequences/'+original['id']+'.html'),
                     variant('Root-of-unity generating section','generating function',f'sum a(n) z^({N}n+{j}) = (1/{N}) sum_(ell=0)^({N}-1) omega^(-{j}ell) F(omega^ell z); omega=exp(2pi i/{N})', 'F(z)=sum b(m)z^m. This is a formal coefficient-selection identity.')]
                 if kind in ('catalan','central-binomial'):
                     denominator=2 if kind=='catalan' else 1

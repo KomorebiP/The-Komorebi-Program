@@ -27,7 +27,7 @@ function client(options={}) {
   const calls=[];
   let active=0,maxActive=0;
   const fetch=async url=>{
-    const relative=new URL(url).pathname.replace('/Operation-KOMOREBI/','');
+    const relative=new URL(url).pathname.replace('/The-Komorebi-Program/','');
     calls.push(relative);active++;maxActive=Math.max(maxActive,active);
     await new Promise(setImmediate);
     active--;
@@ -35,7 +35,7 @@ function client(options={}) {
     const value=JSON.parse(fs.readFileSync(path.join(fixture,relative),'utf8'));
     return {ok:true,json:async()=>options.transform ? options.transform(relative,value) : value};
   };
-  return {engine:new Client('https://example.test/Operation-KOMOREBI/search-index.json?v=fixture',{fetch}),calls,maxActive:()=>maxActive};
+  return {engine:new Client('https://example.test/The-Komorebi-Program/search-index.json?v=fixture',{fetch}),calls,maxActive:()=>maxActive};
 }
 
 test('opening the catalogue loads metadata without terms or result bodies',async()=>{

@@ -1,6 +1,6 @@
 const assert = require('node:assert/strict');
 const api = require('../website/assets/side-reader-sessions.js');
-const base = 'https://example.test/Operation-KOMOREBI/';
+const base = 'https://example.test/The-Komorebi-Program/';
 const data = {pages:{'read/one.html':'One','read/two.html':'Two'}};
 const original = {schema:1,left:'read/one.html#L37',right:'read/two.html',view:'right',width:60,focus:true,
   send:{left:true,right:false},updatedAt:12345,
@@ -61,3 +61,5 @@ assert.equal(api.initialSession(recovered,samePair.href,base,data,'navigate'),nu
 samePair.searchParams.set('right','read/one.html');
 assert.equal(api.initialSession(recovered,samePair.href,base,data,'reload'),null,'Reloading a different requested pair cannot restore the old one');
 console.log('PASS: saved reading positions, PDF state, safe targets, bookmark updates, storage failure and explicit-link priority');
+
+assert.equal(api.storageKey("https://komorebip.github.io/The-Komorebi-Program/"), api.storageKey("https://komorebip.github.io/Operation-KOMOREBI/"));

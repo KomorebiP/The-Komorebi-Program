@@ -17,10 +17,10 @@ error from the additional assumptions needed for a chemical calculation.
 > example certifies arithmetic in a reduced H10 model. Novelty, approximation
 > error for the full molecule, and a practical speed advantage remain open.
 
-[Start with notation and reading routes](https://KomorebiP.github.io/Operation-KOMOREBI/read/computational-chemistry/notation.html)
-· [Read the normal-form proof](https://KomorebiP.github.io/Operation-KOMOREBI/read/computational-chemistry/normal-form.html)
-· [Read the three-query theorem](https://KomorebiP.github.io/Operation-KOMOREBI/read/computational-chemistry/three-queries.html)
-· [Download the validated replay bundle](https://KomorebiP.github.io/Operation-KOMOREBI/assets/chemistry/validation-v1/Stage14_Validated_Replay.zip)
+[Start with notation and reading routes](https://KomorebiP.github.io/The-Komorebi-Program/read/computational-chemistry/notation.html)
+· [Read the normal-form proof](https://KomorebiP.github.io/The-Komorebi-Program/read/computational-chemistry/normal-form.html)
+· [Read the three-query theorem](https://KomorebiP.github.io/The-Komorebi-Program/read/computational-chemistry/three-queries.html)
+· [Download the validated replay bundle](https://KomorebiP.github.io/The-Komorebi-Program/assets/chemistry/validation-v1/Stage14_Validated_Replay.zip)
 · [Return to the Physics collection](PHYSICS_COLLECTION.md)
 
 ## What is being recovered?
@@ -70,7 +70,7 @@ Each probe has three signed unit entries and norm \(\sqrt 3\). The
 for every member of the family. Their rank and stability claims use exact
 integer and rational arithmetic, rather than a numerical rank threshold.
 
-The [complete theorem and certificate](https://KomorebiP.github.io/Operation-KOMOREBI/read/computational-chemistry/three-queries.html)
+The [complete theorem and certificate](https://KomorebiP.github.io/The-Komorebi-Program/read/computational-chemistry/three-queries.html)
 give the basis order, minor, and frame bound. The lower bound applies to
 the integral-symmetry family and its positive-integral relaxation. Necessity
 for the smaller set of actually Coulomb-realizable molecules is unproved.
@@ -100,7 +100,7 @@ is exactly the condition \(C\succeq0\). This is a useful admissibility
 test. It does not prove that an arbitrary such tensor comes from actual
 orbitals interacting through the Coulomb potential.
 
-[Read the derivation, integral gauge, and positivity statement](https://KomorebiP.github.io/Operation-KOMOREBI/read/computational-chemistry/normal-form.html).
+[Read the derivation, integral gauge, and positivity statement](https://KomorebiP.github.io/The-Komorebi-Program/read/computational-chemistry/normal-form.html).
 
 ## Recovery with imperfect actions
 
@@ -146,7 +146,7 @@ Zero noise, an inconsistent cache, and a singleton compatible set are
 handled explicitly. Positivity **existence** is distinct from a guarantee
 that **every** compatible operator has a positive-integral representative.
 Failing a sufficient all-compatible margin does not imply infeasibility.
-The [complete case distinctions](https://KomorebiP.github.io/Operation-KOMOREBI/read/computational-chemistry/three-queries.html#positivity-existence-and-an-all-compatible-guarantee)
+The [complete case distinctions](https://KomorebiP.github.io/The-Komorebi-Program/read/computational-chemistry/three-queries.html#positivity-existence-and-an-all-compatible-guarantee)
 also explain when the decoder returns an unresolved feasibility status.
 
 ## Information beyond total spin
@@ -170,7 +170,7 @@ strict information gain from integral structure even after spin conservation
 is supplied to the comparison class. It does not establish a runtime
 advantage over a method targeted at one observable.
 
-[Inspect the exact operators, fractions, and error comparison](https://KomorebiP.github.io/Operation-KOMOREBI/read/computational-chemistry/spin-comparison.html).
+[Inspect the exact operators, fractions, and error comparison](https://KomorebiP.github.io/The-Komorebi-Program/read/computational-chemistry/spin-comparison.html).
 
 ## A reduced model from the H10 integrals
 
@@ -205,9 +205,9 @@ neutral state. The source is an exact Slater determinant, rather than the
 original neutral-state annihilation source. The evaluation energy uses the
 stored approximate neutral reference as a fixed coordinate.
 
-[Read the model contract](https://KomorebiP.github.io/Operation-KOMOREBI/read/computational-chemistry/frozen-core.html)
-· [Inspect the saved qualification](https://KomorebiP.github.io/Operation-KOMOREBI/assets/chemistry/stage14/chemistry_stage14/molecular-audit-001/qualification.json)
-· [Inspect the rational response certificate](https://KomorebiP.github.io/Operation-KOMOREBI/assets/chemistry/stage14/chemistry_stage14/molecular-audit-001/molecular_certificate.json).
+[Read the model contract](https://KomorebiP.github.io/The-Komorebi-Program/read/computational-chemistry/frozen-core.html)
+· [Inspect the saved qualification](https://KomorebiP.github.io/The-Komorebi-Program/assets/chemistry/stage14/chemistry_stage14/molecular-audit-001/qualification.json)
+· [Inspect the rational response certificate](https://KomorebiP.github.io/The-Komorebi-Program/assets/chemistry/stage14/chemistry_stage14/molecular-audit-001/molecular_certificate.json).
 
 ## Evidence and replay
 
@@ -229,13 +229,13 @@ checks support the written derivations; they do not replace the general
 proofs. Fresh bounded-run manifests and a standard-library verifier are
 included in the validated replay bundle.
 
-- [Read the review and correction report](https://KomorebiP.github.io/Operation-KOMOREBI/read/computational-chemistry/review.html).
-- [Read the fresh exact audit results](https://KomorebiP.github.io/Operation-KOMOREBI/assets/chemistry/validation-v1/validation/exact-001/checks.json).
-- [Inspect the added derivation and boundary checks](https://KomorebiP.github.io/Operation-KOMOREBI/assets/chemistry/validation-v1/validation/extensions-001/checks.json).
-- [Download the validated replay bundle](https://KomorebiP.github.io/Operation-KOMOREBI/assets/chemistry/validation-v1/Stage14_Validated_Replay.zip): proofs, code, probes, input arrays, saved certificates, completed-run manifests, and a verifier.
-- [Follow the replay instructions](https://KomorebiP.github.io/Operation-KOMOREBI/read/computational-chemistry/reproduce.html).
-- [Inspect the validated export manifest](https://KomorebiP.github.io/Operation-KOMOREBI/assets/chemistry/validation-v1/export.json) for file hashes and input-view provenance.
-- [Obtain the original focused archive](https://KomorebiP.github.io/Operation-KOMOREBI/assets/chemistry/stage14/Stage14_Fixed_Spin_Recovery.zip) as a separately identified historical export.
+- [Read the review and correction report](https://KomorebiP.github.io/The-Komorebi-Program/read/computational-chemistry/review.html).
+- [Read the fresh exact audit results](https://KomorebiP.github.io/The-Komorebi-Program/assets/chemistry/validation-v1/validation/exact-001/checks.json).
+- [Inspect the added derivation and boundary checks](https://KomorebiP.github.io/The-Komorebi-Program/assets/chemistry/validation-v1/validation/extensions-001/checks.json).
+- [Download the validated replay bundle](https://KomorebiP.github.io/The-Komorebi-Program/assets/chemistry/validation-v1/Stage14_Validated_Replay.zip): proofs, code, probes, input arrays, saved certificates, completed-run manifests, and a verifier.
+- [Follow the replay instructions](https://KomorebiP.github.io/The-Komorebi-Program/read/computational-chemistry/reproduce.html).
+- [Inspect the validated export manifest](https://KomorebiP.github.io/The-Komorebi-Program/assets/chemistry/validation-v1/export.json) for file hashes and input-view provenance.
+- [Obtain the original focused archive](https://KomorebiP.github.io/The-Komorebi-Program/assets/chemistry/stage14/Stage14_Fixed_Spin_Recovery.zip) as a separately identified historical export.
 
 The small replay input retains exactly the shapes, types, and element bytes
 of the original fixture's `h1`, `eri`, and `ground_energy` arrays. Unused
@@ -249,7 +249,7 @@ this focused export.
 
 ## How a reduced certificate could reach the full model
 
-The [conditional model-error bridge](https://KomorebiP.github.io/Operation-KOMOREBI/read/computational-chemistry/model-error.html)
+The [conditional model-error bridge](https://KomorebiP.github.io/The-Komorebi-Program/read/computational-chemistry/model-error.html)
 proves an enclosure that combines numerical recovery error with block-model
 mismatch, discarded-space coupling, source leakage, and energy-reference
 error. It also specifies the embedding and operator conventions needed
@@ -277,5 +277,5 @@ are established methods; see Halikias and Townsend's
 The exact normal form, explicit probe certificate, and response-separation
 construction are candidate contributions. **Originality, priority, and
 publication significance remain unestablished.** The
-[bounded source comparison](https://KomorebiP.github.io/Operation-KOMOREBI/read/computational-chemistry/literature.html)
+[bounded source comparison](https://KomorebiP.github.io/The-Komorebi-Program/read/computational-chemistry/literature.html)
 records what was inspected and what is still missing.

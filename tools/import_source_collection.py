@@ -22,7 +22,7 @@ import urllib.request
 import zipfile
 from pathlib import Path, PurePosixPath
 
-REPOSITORY = "KomorebiP/Operation-KOMOREBI"
+REPOSITORY = "KomorebiP/The-Komorebi-Program"
 MAX_FILE_BYTES = 100 * 1024 * 1024
 COPY_CHUNK = 1024 * 1024
 OMIT_DIRS = {".git", ".lake", "__pycache__", "node_modules", ".venv", "venv",

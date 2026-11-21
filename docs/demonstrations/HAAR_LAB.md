@@ -1,6 +1,6 @@
 # Decompose and reconstruct a signal through four Haar levels
 
-[Open the interactive Haar lab](https://KomorebiP.github.io/Operation-KOMOREBI/interactive.html#haar) · [Four-sample introduction](../examples/14_HAAR_PAIRS.md) · [All demonstrations](../DEMONSTRATIONS.md)
+[Open the interactive Haar lab](https://KomorebiP.github.io/The-Komorebi-Program/interactive.html#haar) · [Four-sample introduction](../examples/14_HAAR_PAIRS.md) · [All demonstrations](../DEMONSTRATIONS.md)
 
 For the complete operator calculation, see
 [Wavelets and polyphase transfer: one signal through the whole calculus](WAVELET_POLYPHASE.md).
@@ -122,6 +122,6 @@ its inverse, and the normalization identity. Follow its links to
 for the broader setting and recorded evidence. This teaching extension adds no
 new formal verification or production software qualification.
 
-[Read Paper V's wavelet-packet chapter](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-v/wavelet-packets.html) or follow the [extended wavelet and polyphase calculation](WAVELET_POLYPHASE.md).
+[Read Paper V's wavelet-packet chapter](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-v/wavelet-packets.html) or follow the [extended wavelet and polyphase calculation](WAVELET_POLYPHASE.md).
 
-[Return to the lab](https://KomorebiP.github.io/Operation-KOMOREBI/interactive.html#haar)
+[Return to the lab](https://KomorebiP.github.io/The-Komorebi-Program/interactive.html#haar)

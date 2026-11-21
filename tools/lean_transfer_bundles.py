@@ -9,7 +9,7 @@ from lean_runner import safe_path
 
 CATALOG_SHA256 = '5609899b76c98512a3f34c619c5e2194aeba2c87a58480c29d7f8e7a480c0ee1'
 ASSET_COMMIT = '79b101ea1cf3f769baaa229039b09e8b03e60b07'
-ASSET_PREFIX = 'https://raw.githubusercontent.com/KomorebiP/Operation-KOMOREBI/' + ASSET_COMMIT + '/lean-transfer-bundles/'
+ASSET_PREFIX = 'https://raw.githubusercontent.com/KomorebiP/The-Komorebi-Program/' + ASSET_COMMIT + '/lean-transfer-bundles/'
 MAX_BYTES = 1024 * 1024
 CATALOG_ASSET = 'transfers/catalog.json'
 

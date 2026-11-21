@@ -81,7 +81,7 @@ def publish(site):
             'Add <code>--output quantum-results</code> to reproduce the records.</p>')
     site.page(READER, 'Quantum phase and measurement / exact Python',
               body+source_lines(sources[PROGRAM].decode('utf-8')),
-              'https://github.com/KomorebiP/Operation-KOMOREBI/blob/'+site.revision+'/'+PROGRAM)
+              'https://github.com/KomorebiP/The-Komorebi-Program/blob/'+site.revision+'/'+PROGRAM)
     site.search.append(dict(title='Quantum phase and measurement / exact Python',
                             group='Collection', kind='Code', work_ids=['paper-vii', 'monographs-quantum-and-circuits'],
                             url=READER, text='quantum phase dephasing coherence density matrix '

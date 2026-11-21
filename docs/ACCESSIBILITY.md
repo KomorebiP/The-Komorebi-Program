@@ -1,6 +1,6 @@
 # Accessibility and reading options
 
-The [Komorebi website](https://KomorebiP.github.io/Operation-KOMOREBI/) offers
+The [Komorebi website](https://KomorebiP.github.io/The-Komorebi-Program/) offers
 HTML reading editions, original PDFs, and selectable manuscript and program
 sources. You can also read the maintained Markdown guides directly on GitHub.
 Choose the format and controls that work best with your browser and assistive
@@ -10,11 +10,11 @@ technology.
 <caption>Choose a reading format or tool</caption>
 <thead><tr><th scope="col">What you want to do</th><th scope="col">Where to begin</th></tr></thead>
 <tbody>
-<tr><th scope="row">Read a paper or book in HTML</th><td><a href="https://KomorebiP.github.io/Operation-KOMOREBI/read/index.html">Reading library</a></td></tr>
-<tr><th scope="row">Read diagrams and worked visual guides</th><td><a href="https://KomorebiP.github.io/Operation-KOMOREBI/read/visual-guides.html">Visual guides</a></td></tr>
-<tr><th scope="row">Keep two documents open together</th><td><a href="https://KomorebiP.github.io/Operation-KOMOREBI/side-by-side.html">Read side by side</a></td></tr>
-<tr><th scope="row">Find a passage or term</th><td><a href="https://KomorebiP.github.io/Operation-KOMOREBI/search.html">Site search</a> or the <a href="GLOSSARY.md">glossary</a></td></tr>
-<tr><th scope="row">Open or download an original PDF</th><td><a href="https://KomorebiP.github.io/Operation-KOMOREBI/documents.html">Papers and PDFs</a></td></tr>
+<tr><th scope="row">Read a paper or book in HTML</th><td><a href="https://KomorebiP.github.io/The-Komorebi-Program/read/index.html">Reading library</a></td></tr>
+<tr><th scope="row">Read diagrams and worked visual guides</th><td><a href="https://KomorebiP.github.io/The-Komorebi-Program/read/visual-guides.html">Visual guides</a></td></tr>
+<tr><th scope="row">Keep two documents open together</th><td><a href="https://KomorebiP.github.io/The-Komorebi-Program/side-by-side.html">Read side by side</a></td></tr>
+<tr><th scope="row">Find a passage or term</th><td><a href="https://KomorebiP.github.io/The-Komorebi-Program/search.html">Site search</a> or the <a href="GLOSSARY.md">glossary</a></td></tr>
+<tr><th scope="row">Open or download an original PDF</th><td><a href="https://KomorebiP.github.io/The-Komorebi-Program/documents.html">Papers and PDFs</a></td></tr>
 </tbody>
 </table>
 
@@ -95,7 +95,7 @@ controls are omitted when printing.
 ### Save a page or passage
 
 Use **Save page**, or the bookmark beside a section heading, to keep a place in
-[Saved reading](https://KomorebiP.github.io/Operation-KOMOREBI/reading-list.html).
+[Saved reading](https://KomorebiP.github.io/The-Komorebi-Program/reading-list.html).
 Saved places stay in this browser. Saving entries and viewing the list require
 JavaScript and available browser storage; browser bookmarks are another option.
 Clearing the site's browser data removes the saved list.
@@ -103,7 +103,7 @@ Clearing the site's browser data removes the saved list.
 ## Read side by side
 
 Choose **Read side by side** in **Reading tools** or **Browse** to open the
-[two-pane reader](https://KomorebiP.github.io/Operation-KOMOREBI/side-by-side.html).
+[two-pane reader](https://KomorebiP.github.io/The-Komorebi-Program/side-by-side.html).
 The page you were reading opens on the left, including its HTML passage anchor.
 Each pane has a document picker with work, type, and text filters. You can keep
 papers, claims, proof passages, Lean sources, code, notation, and examples open
@@ -166,12 +166,12 @@ pair links remain available.
 
 ## Find a statement or term
 
-The [claim index](https://KomorebiP.github.io/Operation-KOMOREBI/claims.html)
+The [claim index](https://KomorebiP.github.io/The-Komorebi-Program/claims.html)
 covers all twelve core papers. Filter by paper or statement type, or search
 indexed titles, text, source labels, and recorded Lean names. Each record has
 a permanent link and routes to its recorded reading and evidence.
 
-[Site search](https://KomorebiP.github.io/Operation-KOMOREBI/search.html)
+[Site search](https://KomorebiP.github.io/The-Komorebi-Program/search.html)
 includes indexed HTML and source passages, claims, and glossary entries.
 Filter by repository, result type, or work. **Search this work** limits the
 results to the current work. Spaces and common punctuation are treated alike,
@@ -206,13 +206,13 @@ search the current page; use the PDF viewer's search for the full text of a PDF.
 ### HTML reading and visual-guide coverage
 
 All twelve core papers have formatted chapters in the
-[reading library](https://KomorebiP.github.io/Operation-KOMOREBI/read/index.html),
+[reading library](https://KomorebiP.github.io/The-Komorebi-Program/read/index.html),
 with equations, figures, tables, statement and proof links, and bibliographies.
 The editions retain their manuscripts' assumptions, open questions, and
 evidence qualifications. Reviewed punctuation corrections in the HTML are
-listed in the [correction record](https://KomorebiP.github.io/Operation-KOMOREBI/documents/reader-copyediting.json).
+listed in the [correction record](https://KomorebiP.github.io/The-Komorebi-Program/documents/reader-copyediting.json).
 
-The [visual-guide directory](https://KomorebiP.github.io/Operation-KOMOREBI/read/visual-guides.html)
+The [visual-guide directory](https://KomorebiP.github.io/The-Komorebi-Program/read/visual-guides.html)
 links all twelve core guides, the Quantum and Circuits visual collection, and
 their original PDFs. Current HTML coverage is:
 
@@ -221,7 +221,7 @@ their original PDFs. Current HTML coverage is:
 <thead><tr><th scope="col">Works</th><th scope="col">Visual-guide reading options</th></tr></thead>
 <tbody>
 <tr><th scope="row">I–XII</th><td>Complete HTML visual guides, alongside the original PDFs. The guides retain source prose, equations, and drawing labels, with text descriptions and structured tables where applicable.</td></tr>
-<tr><th scope="row">Quantum and Circuits</th><td><a href="https://KomorebiP.github.io/Operation-KOMOREBI/read/monographs-quantum-and-circuits/visual-guides.html">Two complete visual sequences</a>: 25 quantum-arithmetic pages and 25 circuit-obstruction pages, with original drawings, selectable equations, and links to the volume.</td></tr>
+<tr><th scope="row">Quantum and Circuits</th><td><a href="https://KomorebiP.github.io/The-Komorebi-Program/read/monographs-quantum-and-circuits/visual-guides.html">Two complete visual sequences</a>: 25 quantum-arithmetic pages and 25 circuit-obstruction pages, with original drawings, selectable equations, and links to the volume.</td></tr>
 </tbody>
 </table>
 
@@ -251,7 +251,7 @@ every mathematical expression or diagram has an adequate spoken description.
 
 ## Recovery Laboratory
 
-The [Recovery Laboratory](https://KomorebiP.github.io/Operation-KOMOREBI/recovery-lab.html)
+The [Recovery Laboratory](https://KomorebiP.github.io/The-Komorebi-Program/recovery-lab.html)
 has a collapsible four-step guide, prediction explanations, a notation guide,
 and numerical examples for the current matrices. “Read the rows as equations”
 connects the editable coefficients to weighted sums.
@@ -304,7 +304,7 @@ a fresh Lean replay; each work retains its separately recorded evidence.
 
 ## Report an access problem
 
-Use the [accessibility and reading problem template](https://github.com/KomorebiP/Operation-KOMOREBI/issues/new?template=04-accessibility.md)
+Use the [accessibility and reading problem template](https://github.com/KomorebiP/The-Komorebi-Program/issues/new?template=04-accessibility.md)
 or the [contribution guidance](../CONTRIBUTING.md). Include the page URL, the
 section or control, what you expected, and what happened. Browser and assistive
 technology details are useful when you can provide them. You do not need to

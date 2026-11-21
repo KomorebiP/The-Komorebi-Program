@@ -19,7 +19,7 @@ from update_completion_status import status_cells
 from browse_navigation import Browser, REGISTRY, card_path
 from update_publication_metadata import LIBRARIES, validate_library_records
 
-REPO_URL = 'https://github.com/KomorebiP/Operation-KOMOREBI'
+REPO_URL = 'https://github.com/KomorebiP/The-Komorebi-Program'
 CATEGORY_LABELS = {'papers':'Core papers','foundations':'Foundations and semantics',
     'applications':'Analysis, signals, and physical models','arithmetic':'Arithmetic and open mathematical programs',
     'machine':'Machine reasoning and workspace models','inference':'Inference and statistical models',
@@ -228,7 +228,7 @@ The Komorebi Program studies how mathematical objects can be represented in part
 
 Realization Calculus develops the mathematics of decomposition, transfer, refinement, and reconstruction. Komorebi Space provides a setting for comparing realizations and the conditions under which they are compatible.
 
-[Open the reading website](https://KomorebiP.github.io/Operation-KOMOREBI/).
+[Open the reading website](https://KomorebiP.github.io/The-Komorebi-Program/).
 
 ## Future Developments
 
@@ -243,7 +243,7 @@ GitHub repositories easier to access and use is another priority.
 | What would you like to do? | Begin here |
 |---|---|
 | Understand the ideas | [Read the introduction](docs/START_HERE.md), then explore the [complete demonstrations](docs/DEMONSTRATIONS.md). |
-| Browse by field or proof status | [Filter mathematics, computer science, physics, and other works](https://KomorebiP.github.io/Operation-KOMOREBI/works.html) by completion, Lean coverage, and evidence. The [repository reading index](docs/BROWSE.md) provides file links. |
+| Browse by field or proof status | [Filter mathematics, computer science, physics, and other works](https://KomorebiP.github.io/The-Komorebi-Program/works.html) by completion, Lean coverage, and evidence. The [repository reading index](docs/BROWSE.md) provides file links. |
 | Use the software | [Install a library and run a first example](docs/FIRST_RUN.md), or explore the [software guide](docs/LIBRARIES.md). |
 
 > **Author’s note:** This work remains in progress and has, in many respects, been rushed because of circumstances shaped by the AI industry. I am continuing to correct, verify, and organize it.
@@ -296,7 +296,7 @@ The [software guide](docs/LIBRARIES.md) links documentation and instructions for
 
 ## Research preview: Euler numbers
 
-Read [Euler numbers through packets, polynomials, and residuals](https://komorebip.github.io/Operation-KOMOREBI/collection/demonstrations/EULER_PACKETS.html). The extended derivation follows Euler numbers through reciprocal series, polynomial coordinates, exact transfer matrices, and residual correction. It includes hand calculations, failure controls, source references, and downloadable results.
+Read [Euler numbers through packets, polynomials, and residuals](https://komorebip.github.io/The-Komorebi-Program/collection/demonstrations/EULER_PACKETS.html). The extended derivation follows Euler numbers through reciprocal series, polynomial coordinates, exact transfer matrices, and residual correction. It includes hand calculations, failure controls, source references, and downloadable results.
 
 From a collection checkout, run the exact checker with Python 3.10 or later:
 
@@ -304,9 +304,9 @@ From a collection checkout, run the exact checker with Python 3.10 or later:
 python -B examples/euler_packets.py
 ```
 
-The checker uses Python's standard library. A successful run ends with `PASS: Euler packets, polynomials and residuals`. The example records the tested ranges and provides a [standalone checker](https://komorebip.github.io/Operation-KOMOREBI/downloads/euler-packets/euler_packets.py) and a [source and results bundle](https://komorebip.github.io/Operation-KOMOREBI/downloads/euler-packets/source-and-checks.zip).
+The checker uses Python's standard library. A successful run ends with `PASS: Euler packets, polynomials and residuals`. The example records the tested ranges and provides a [standalone checker](https://komorebip.github.io/The-Komorebi-Program/downloads/euler-packets/euler_packets.py) and a [source and results bundle](https://komorebip.github.io/The-Komorebi-Program/downloads/euler-packets/source-and-checks.zip).
 
-The [verification guide](docs/VERIFICATION.md) explains how to obtain a Git checkout, run the collection checks, reproduce component results, and interpret failures. The [collection workflow](https://github.com/KomorebiP/Operation-KOMOREBI/actions/workflows/artifact-checks.yml) reports checks for individual commits.
+The [verification guide](docs/VERIFICATION.md) explains how to obtain a Git checkout, run the collection checks, reproduce component results, and interpret failures. The [collection workflow](https://github.com/KomorebiP/The-Komorebi-Program/actions/workflows/artifact-checks.yml) reports checks for individual commits.
 
 ## Read the mathematics with its evidence
 
@@ -326,11 +326,11 @@ A finished reading edition can contain open conjectures. A passing collection ch
 
 ## Find a specific resource
 
-[Discipline and evidence filters](https://KomorebiP.github.io/Operation-KOMOREBI/works.html) · [Reading routes](docs/READING_ROUTES.md) · [Project map](docs/PROJECT_MAP.md) · [Glossary](docs/GLOSSARY.md) · [Completion and confidence](docs/COMPLETION_STATUS.md)
+[Discipline and evidence filters](https://KomorebiP.github.io/The-Komorebi-Program/works.html) · [Reading routes](docs/READING_ROUTES.md) · [Project map](docs/PROJECT_MAP.md) · [Glossary](docs/GLOSSARY.md) · [Completion and confidence](docs/COMPLETION_STATUS.md)
 
 [Hand-worked examples](docs/HAND_WORKED_EXAMPLES.md) · [Papers](docs/browse/PAPERS.md) · [Written proofs](docs/browse/PROOFS.md) · [Lean sources](docs/browse/LEAN.md) · [Code](docs/browse/CODE.md) · [Downloads](docs/DOWNLOADS.md)
 
-[Accessibility and reading options](docs/ACCESSIBILITY.md) · [Report an accessibility or reading problem](https://github.com/KomorebiP/Operation-KOMOREBI/issues/new?template=04-accessibility.md)
+[Accessibility and reading options](docs/ACCESSIBILITY.md) · [Report an accessibility or reading problem](https://github.com/KomorebiP/The-Komorebi-Program/issues/new?template=04-accessibility.md)
 
 ## Repository map
 
@@ -351,7 +351,7 @@ The [component index](docs/COMPONENT_INDEX.md) links selected source directories
 
 Read the [collection reuse terms](LICENSE.md), together with the license files and third-party notices in the relevant component. The current collection grant explains how to interpret retained historical licensing notices. Use the [citation guide](CITATION.md) to credit **Komorebi P.**, the specific work, and the source revision used.
 
-The [contribution guide](CONTRIBUTING.md) explains how to report a correction and which records to update. Use the [issue templates](https://github.com/KomorebiP/Operation-KOMOREBI/issues/new/choose) for documentation or mathematical corrections, software problems, and source-record discrepancies. Include the exact component and source revision so the report can be checked.
+The [contribution guide](CONTRIBUTING.md) explains how to report a correction and which records to update. Use the [issue templates](https://github.com/KomorebiP/The-Komorebi-Program/issues/new/choose) for documentation or mathematical corrections, software problems, and source-record discrepancies. Include the exact component and source revision so the report can be checked.
 
 Original source packages and dated evidence are preserved. Corrections to a sealed component need an identified revision and new evidence. Navigation pages are generated by `tools/update_source_navigation.py` and refreshed with `python -B tools/update_completion_status.py`. See the [maintenance instructions](docs/VERIFICATION.md#maintaining-reader-pages).
 
@@ -431,7 +431,7 @@ Use a component's documented installation and examples. A mathematical result in
 ''')
         self.put('docs/LIBRARIES.md','''# Software guide
 
-[Read the software website](https://KomorebiP.github.io/Operation-KOMOREBI/software.html) · [First runs and expected output](FIRST_RUN.md) · [Hand-worked examples](HAND_WORKED_EXAMPLES.md) · [Glossary](GLOSSARY.md)
+[Read the software website](https://KomorebiP.github.io/The-Komorebi-Program/software.html) · [First runs and expected output](FIRST_RUN.md) · [Hand-worked examples](HAND_WORKED_EXAMPLES.md) · [Glossary](GLOSSARY.md)
 
 **All Komorebi software is beta and work in progress.** Version numbers and earlier release names identify revisions. The current public software status is beta.
 
@@ -525,7 +525,7 @@ The [extended case-study index](DEMONSTRATIONS.md#extended-case-studies) include
 Start with the subject or kind of work that interests you. Each route leads to the relevant manuscripts, sources, and recorded evidence.
 
 For papers and books with a complete online manuscript and visual guide,
-[choose a guided reading path](https://KomorebiP.github.io/Operation-KOMOREBI/read/start.html):
+[choose a guided reading path](https://KomorebiP.github.io/The-Komorebi-Program/read/start.html):
 begin with the visual introduction, study the work, or inspect its supporting evidence.
 
 '''+table(['Goal','Begin with'],[
@@ -580,13 +580,13 @@ Each route includes a worked calculation, expected program output, and links to 
 
 [Euler numbers through packets, polynomials, and residuals](demonstrations/EULER_PACKETS.md) follows one extended derivation through reciprocal series, polynomial coordinates, exact transfer matrices, and residual correction. The page includes hand calculations, failure controls, source references, and downloadable results.
 
-Read the derivation [on the website](https://komorebip.github.io/Operation-KOMOREBI/collection/demonstrations/EULER_PACKETS.html), or run the exact checker from the collection root:
+Read the derivation [on the website](https://komorebip.github.io/The-Komorebi-Program/collection/demonstrations/EULER_PACKETS.html), or run the exact checker from the collection root:
 
 ```text
 python -B examples/euler_packets.py
 ```
 
-Python 3.10 or later is sufficient; the checker uses only the standard library. A successful run ends with `PASS: Euler packets, polynomials and residuals`. You can also download the [standalone checker](https://komorebip.github.io/Operation-KOMOREBI/downloads/euler-packets/euler_packets.py) or the [complete source and results bundle](https://komorebip.github.io/Operation-KOMOREBI/downloads/euler-packets/source-and-checks.zip).
+Python 3.10 or later is sufficient; the checker uses only the standard library. A successful run ends with `PASS: Euler packets, polynomials and residuals`. You can also download the [standalone checker](https://komorebip.github.io/The-Komorebi-Program/downloads/euler-packets/euler_packets.py) or the [complete source and results bundle](https://komorebip.github.io/The-Komorebi-Program/downloads/euler-packets/source-and-checks.zip).
 
 The example records its sources and tested ranges. The [workflow guide](WORKFLOWS.md) explains the collection's verification commands.
 
@@ -674,7 +674,7 @@ Earlier Papers I–IV, the Quadratic-Form Engine / K-COS, Research Preview 1, an
 
 ## Release assets
 
-The [Realization Calculus publication collection](https://github.com/KomorebiP/Operation-KOMOREBI/releases/tag/papers-2026-10-25) preserves the original frozen distributions and companion assets. The initial publication contained 21 assets. Availability as a release asset and availability as browsable source files are separate records.
+The [Realization Calculus publication collection](https://github.com/KomorebiP/The-Komorebi-Program/releases/tag/papers-2026-10-25) preserves the original frozen distributions and companion assets. The initial publication contained 21 assets. Availability as a release asset and availability as browsable source files are separate records.
 
 The two independent libraries have public beta prereleases. These tagged source snapshots were checked on 28 October 2026. Neither has separate build artifacts attached.
 
@@ -816,7 +816,7 @@ def current_ledger(root, state):
             'title':component['title'],'mathematical_status':'Scoped results and open obligations as stated in the component',
             'evidence_method':'Verified source-file identity; retained component-specific mathematical and computational evidence' if component['available'] else 'Selected source declaration; no verified source-import receipt',
             'status_as_of':state['as_of'],'boundary':component['boundary'],'counting_unit':'Source component',
-            'disposition':component['disposition'],'destination_repository':'Operation-KOMOREBI',
+            'disposition':component['disposition'],'destination_repository':'The-Komorebi-Program',
             'local_path':component['destination'] if component['available'] else None,
             'source_component_id':identifier,'source_receipt':component['receipt'],'source_file_count':component['file_count'],
             'source_tree_sha256':component['tree_sha256'],'replayed_this_assembly':False,

@@ -37,7 +37,7 @@ def publish_fixture(output):
         search=[], cache=None, editorial_editions={}, registry=registry, status=status,
         assessments={c['id']:c for c in status['components']},
         components={c['id']:c for c in components},
-        repos={'collection':'KomorebiP/Operation-KOMOREBI'},
+        repos={'collection':'KomorebiP/The-Komorebi-Program'},
         revisions={'collection':'machine-native-reasoning-reading-test'},
         roots={'collection':ROOT}, documents={}, asset_count=0)
     for name in ('rel','write','page','read_source','resolve'):

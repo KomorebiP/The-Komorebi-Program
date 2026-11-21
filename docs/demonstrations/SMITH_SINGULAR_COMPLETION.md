@@ -1,6 +1,6 @@
 # Singular Pick data: prediction and an exact feasibility boundary
 
-[Smith chart research reading](https://komorebip.github.io/Operation-KOMOREBI/read/smith-chart/research.html#when-uniqueness-fails-quantify-the-possible-answers) · [Interactive laboratory](https://komorebip.github.io/Operation-KOMOREBI/smith-chart.html)
+[Smith chart research reading](https://komorebip.github.io/The-Komorebi-Program/read/smith-chart/research.html#when-uniqueness-fails-quantify-the-possible-answers) · [Interactive laboratory](https://komorebip.github.io/The-Komorebi-Program/smith-chart.html)
 
 **Author:** Komorebi P.  
 **Status:** A mathematical supplement to the 11 November 2026 draft. The proofs

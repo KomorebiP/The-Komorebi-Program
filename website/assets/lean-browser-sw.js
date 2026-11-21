@@ -29,7 +29,7 @@ function transferIndex(source) {
       if (!/^transfers\/[0-9a-f]{64}\.bundle$/.test(item.file) || files.has(item.file) ||
           !record || !/^[0-9a-f]{64}$/.test(record.sha256) || item.file !== `transfers/${record.sha256}.bundle` ||
           !Number.isSafeInteger(record.size) || record.size < 1 || record.size > MAX_TRANSFER_BYTES ||
-          !/^https:\/\/raw\.githubusercontent\.com\/KomorebiP\/Operation-KOMOREBI\/[0-9a-f]{40}\/lean-transfer-bundles\/[0-9a-f]{64}\.bundle$/.test(record.url) ||
+          !/^https:\/\/raw\.githubusercontent\.com\/KomorebiP\/(?:The-Komorebi-Program|Operation-KOMOREBI)\/[0-9a-f]{40}\/lean-transfer-bundles\/[0-9a-f]{64}\.bundle$/.test(record.url) ||
           !Array.isArray(item.members) || item.members.length < 2 || item.members.length > 1024) throw Error('Invalid transfer');
       const group = {key:`${serial}:${item.file}`,file:item.file,record,members:[]}; let offset = 0;
       for (const path of item.members) {

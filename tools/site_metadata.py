@@ -9,7 +9,7 @@ import re
 from urllib.parse import quote
 import xml.etree.ElementTree as ET
 
-BASE_URL = 'https://komorebip.github.io/Operation-KOMOREBI/'
+BASE_URL = 'https://komorebip.github.io/The-Komorebi-Program/'
 from smith_chart_unified import ALIASES as SMITH_ALIASES, PAGE as SMITH_BOOK
 CARD_RECORD = 'assets/brand/sharing-card.json'
 NOINDEX = {'404.html', 'search.html', 'side-by-side.html', 'reading-list.html', 'lean/run.html'}

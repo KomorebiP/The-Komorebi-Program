@@ -17,8 +17,8 @@ import subprocess
 from urllib.parse import quote, unquote, urlsplit
 import zipfile
 
-REPOSITORY = 'KomorebiP/Operation-KOMOREBI'
-BASE_URL = 'https://KomorebiP.github.io/Operation-KOMOREBI/'
+REPOSITORY = 'KomorebiP/The-Komorebi-Program'
+BASE_URL = 'https://KomorebiP.github.io/The-Komorebi-Program/'
 READ_KINDS = {'guide', 'pdf', 'visual', 'formal_guide', 'text', 'claims', 'lean_setup'}
 
 
@@ -414,6 +414,8 @@ class Site:
         def reader_target(destination,fragment=''):
             destination,fragment=smith_target(destination,fragment)
             return self.rel(destination,page)+('#'+fragment if fragment else '')
+        from project_urls import canonical_project_url
+        target=canonical_project_url(html.unescape(target))
         parts=urlsplit(html.unescape(target))
         if parts.scheme or parts.netloc:
             # Keep cross-repository documentation within the public reading site.

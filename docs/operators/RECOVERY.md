@@ -75,7 +75,7 @@ Adding the two measured values gives the requested answer. Recovery matrices
 can have different extensions on inconsistent measurement vectors, even when
 their answers on attained summaries agree.
 
-[Try exact matrix recovery in the laboratory](https://komorebip.github.io/Operation-KOMOREBI/recovery-lab.html).
+[Try exact matrix recovery in the laboratory](https://komorebip.github.io/The-Komorebi-Program/recovery-lab.html).
 
 ## 4. Collision and kernel witnesses
 

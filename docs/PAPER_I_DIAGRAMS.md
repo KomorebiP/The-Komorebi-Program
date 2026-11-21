@@ -5,7 +5,7 @@ figures and twenty-two visual-atlas plates. They identify the arrows, axes,
 matrix entries and comparisons without relying on colour. They are reading
 aids for the retained manuscript, with its hypotheses and proof scope.
 
-[Read Paper I](https://komorebip.github.io/Operation-KOMOREBI/read/paper-i/index.html)
+[Read Paper I](https://komorebip.github.io/The-Komorebi-Program/read/paper-i/index.html)
 · [Accessibility and reading options](ACCESSIBILITY.md)
 
 <a id="figure-1-from-seeds-to-a-realization"></a>
@@ -20,7 +20,7 @@ A separate box below gives an optional packet view: project to expose blocks
 when projectors are available. This is a guide to the presentation data, rather
 than a claim that every object comes with all these choices automatically.
 
-[Figure and surrounding text](https://komorebip.github.io/Operation-KOMOREBI/read/paper-i/foundations-and-seed-rank.html#L203)
+[Figure and surrounding text](https://komorebip.github.io/The-Komorebi-Program/read/paper-i/foundations-and-seed-rank.html#L203)
 
 <a id="figure-2-transfer-blocks-of-a-sampled-operator"></a>
 <h2 id="figure-02" tabindex="-1">Figure 2: transfer blocks of a sampled operator</h2>
@@ -45,7 +45,7 @@ Diagonal blocks act within a packet. Off-diagonal blocks transfer between
 different packets. A norm gives the size of a block; it does not retain the
 block’s signs or its complete linear action.
 
-[Figure and surrounding text](https://komorebip.github.io/Operation-KOMOREBI/read/paper-i/packets-and-transfer-graphs.html#L900)
+[Figure and surrounding text](https://komorebip.github.io/The-Komorebi-Program/read/paper-i/packets-and-transfer-graphs.html#L900)
 
 <a id="figure-3-one-seed-can-span-the-space-or-stall"></a>
 <h2 id="figure-03" tabindex="-1">Figure 3: one seed can span the space or stall</h2>
@@ -59,7 +59,7 @@ coincide through the fourth vector; one then rises to the full dimension while
 the other remains at four. The repeated blocks cannot be separated by this
 single polynomial orbit.
 
-[Figure and surrounding text](https://komorebip.github.io/Operation-KOMOREBI/read/paper-i/foundations-and-seed-rank.html#L1013)
+[Figure and surrounding text](https://komorebip.github.io/The-Komorebi-Program/read/paper-i/foundations-and-seed-rank.html#L1013)
 
 <a id="figure-4-semisimple-multiplicity-and-seed-rank"></a>
 <h2 id="figure-04" tabindex="-1">Figure 4: semisimple multiplicity and seed rank</h2>
@@ -73,7 +73,7 @@ are d = 8, m = 8: one seed; d = 4, m = 12: three seeds; d = 2, m = 16: eight
 seeds; and d = 1, m = 24: twenty-four seeds. This is the displayed split simple
 block formula under the manuscript’s semisimple hypotheses.
 
-[Figure and surrounding text](https://komorebip.github.io/Operation-KOMOREBI/read/paper-i/foundations-and-seed-rank.html#L867)
+[Figure and surrounding text](https://komorebip.github.io/The-Komorebi-Program/read/paper-i/foundations-and-seed-rank.html#L867)
 
 <a id="figure-5-one-seed-for-path-adjacency"></a>
 <h2 id="figure-05" tabindex="-1">Figure 5: one seed for path adjacency</h2>
@@ -86,7 +86,7 @@ operator to an endpoint reaches a new furthest vertex at each step. The
 finite plot illustrates the manuscript’s general endpoint argument; the
 plotted cases alone are not its proof.
 
-[Figure and surrounding text](https://komorebip.github.io/Operation-KOMOREBI/read/paper-i/worked-models.html#L359)
+[Figure and surrounding text](https://komorebip.github.io/The-Komorebi-Program/read/paper-i/worked-models.html#L359)
 
 <a id="figure-6-two-seeds-for-cycle-adjacency"></a>
 <h2 id="figure-06" tabindex="-1">Figure 6: two seeds for cycle adjacency</h2>
@@ -99,7 +99,7 @@ span. Read this with the complex-field hypotheses in the accompanying cycle
 result. The figure concerns the undirected adjacency operator, not a directed
 cyclic shift.
 
-[Figure and surrounding text](https://komorebip.github.io/Operation-KOMOREBI/read/paper-i/worked-models.html#L402)
+[Figure and surrounding text](https://komorebip.github.io/The-Komorebi-Program/read/paper-i/worked-models.html#L402)
 
 <a id="figure-7-periodic-shift-through-six-residue-packets"></a>
 <h2 id="figure-07" tabindex="-1">Figure 7: periodic shift through six residue packets</h2>
@@ -114,7 +114,7 @@ The right panel draws the same routing as the directed cycle
 infinite bilateral shift, whose phase-boundary block retains an address shift;
 see atlas plate 19 below.
 
-[Figure and surrounding text](https://komorebip.github.io/Operation-KOMOREBI/read/paper-i/worked-models.html#L241)
+[Figure and surrounding text](https://komorebip.github.io/The-Komorebi-Program/read/paper-i/worked-models.html#L241)
 
 <a id="figure-8-multiplication-by-y-exchanges-two-packets"></a>
 <h2 id="figure-08" tabindex="-1">Figure 8: multiplication by y exchanges two packets</h2>
@@ -127,7 +127,7 @@ weight one. The return arrow from odd to even has weight x cubed − x. There
 are no within-packet arrows for one application of multiplication by y.
 Two applications multiply each packet by x cubed − x, matching the relation.
 
-[Figure and surrounding text](https://komorebip.github.io/Operation-KOMOREBI/read/paper-i/worked-models.html#L130)
+[Figure and surrounding text](https://komorebip.github.io/The-Komorebi-Program/read/paper-i/worked-models.html#L130)
 
 <a id="figure-9-projector-products-after-a-change-of-basis"></a>
 <h2 id="figure-09" tabindex="-1">Figure 9: projector products after a change of basis</h2>
@@ -146,7 +146,7 @@ and Q_i Q_j = zero for different indices. A nonorthogonal change of coordinates
 can give large projector norms. The tiny off-diagonal numerical values are
 roundoff in this illustration, rather than nonzero terms in the exact identity.
 
-[Figure and surrounding text](https://komorebip.github.io/Operation-KOMOREBI/read/paper-i/transport-and-realization.html#L369)
+[Figure and surrounding text](https://komorebip.github.io/The-Komorebi-Program/read/paper-i/transport-and-realization.html#L369)
 
 <a id="figure-10-two-proof-families-meet-in-the-worked-models"></a>
 <h2 id="figure-10" tabindex="-1">Figure 10: two proof families meet in the worked models</h2>
@@ -161,7 +161,7 @@ selecting input and output packets around an operator. This is a structural
 overview of the arguments, not an exhaustive dependency graph of Lean
 declarations.
 
-[Figure and surrounding text](https://komorebip.github.io/Operation-KOMOREBI/read/paper-i/worked-models.html#L454)
+[Figure and surrounding text](https://komorebip.github.io/The-Komorebi-Program/read/paper-i/worked-models.html#L454)
 
 ## Visual atlas: twenty-two plates
 

@@ -15,7 +15,7 @@ export function localSource(entry,base){
     sourceDegrees:Array.isArray(entry.source_degrees)?entry.source_degrees.slice():null,
     offset:entry.offset,terms:entry.terms,url:base?new URL(entry.url,base).href:entry.url,collection:entry.collection,receipt};
 }
-export function familySource(engine,params,base='https://komorebip.github.io/Operation-KOMOREBI/sequence-library.html'){
+export function familySource(engine,params,base='https://komorebip.github.io/The-Komorebi-Program/sequence-library.html'){
   const result=generateFamily(engine,params),descriptor=familyDescriptor(engine,result.params),family=Object.entries(FAMILY_ENGINES).find(([,value])=>value===engine)[0];
   const appellReadout=engine==='appell'?(result.params.appellMode==='column'?', column='+result.params.column:', x='+result.params.x):'';
   return {key:'FAMILY:'+JSON.stringify(descriptor),type:'family',id:'FAMILY-'+engine,title:result.title+' · '+(['linear','kbonacci'].includes(engine)?`k=${result.params.k}, r=${result.params.r}, c=${result.params.c}, ${result.params.seedMode}`:engine==='theta'?`x=${result.params.x}`:engine==='theta-column'?`column=${result.params.column}`:`N=${result.params.N}, r=${result.params.r}, j=${result.params.j}${appellReadout}${engine==='secancy'?', column='+result.params.column:''}${engine==='section'?', '+result.params.parent:''}`)+(result.rationalTerms?' · '+result.params.component:''),indexKind:'local family n'+(result.rationalTerms?' · reduced '+result.params.component+'; original q(n) in family explorer':''),offset:result.offset,terms:result.terms,url:familyURL(base,family,result.params),familyDescriptor:descriptor};

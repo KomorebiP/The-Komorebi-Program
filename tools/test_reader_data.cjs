@@ -7,7 +7,7 @@ const crypto = require('node:crypto');
 const path = require('node:path');
 const loader = fs.readFileSync(path.join(__dirname, '../website/assets/reader-data.js'), 'utf8');
 const fallback = fs.readFileSync(path.join(__dirname, '../website/assets/vendor/fflate-0.8.3.js'), 'utf8');
-const base = 'https://komorebip.github.io/Operation-KOMOREBI/';
+const base = 'https://komorebip.github.io/The-Komorebi-Program/';
 const hash = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
 
 function fixture({native = true, corrupt = false, missing = false, legacy = false} = {}) {

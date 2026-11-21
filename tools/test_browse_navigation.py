@@ -160,12 +160,12 @@ class BrowseNavigationTests(unittest.TestCase):
             for component in status['components']:
                 component.update(scope='Selected statements only.',next_step='Continue the open obligations.')
             text=Browser(root,state,status,tracked).work_page(state['components'][0])
-            self.assertIn('[Read online: chapters, proof appendices, figures, and glossary](https://KomorebiP.github.io/Operation-KOMOREBI/read/monographs-special-functions/index.html)',text)
+            self.assertIn('[Read online: chapters, proof appendices, figures, and glossary](https://KomorebiP.github.io/The-Komorebi-Program/read/monographs-special-functions/index.html)',text)
             for label,target in [
                 ('Guided reading','read/monographs-special-functions/start.html'),
                 ('Expanded visual lessons','read/monographs-special-functions/atlas/index.html'),
                 ('Interactive coupled-function laboratory','special-functions-lab.html')]:
-                self.assertIn('['+label+'](https://KomorebiP.github.io/Operation-KOMOREBI/'+target+')',text)
+                self.assertIn('['+label+'](https://KomorebiP.github.io/The-Komorebi-Program/'+target+')',text)
             lean=text.split('## Lean\n')[1].split('## Code\n')[0]
             self.assertIn('[Current formalization checkpoint and continuation](../../research/open-work/current/README.md)',lean)
             self.assertIn('(../../research/open-work/formal/)',lean)

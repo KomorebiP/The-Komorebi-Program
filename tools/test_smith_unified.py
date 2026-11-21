@@ -25,7 +25,7 @@ def fixture(output):
     site.root,site.output,site.revision = ROOT,Path(output),'a'*40
     site.search = []
     site.reader = SimpleNamespace(lean_works={},resolve=lambda *args:None,image_url=lambda *args:None,document_works=lambda *args:[])
-    site.roots,site.repos,site.revisions = {'collection':ROOT},{'collection':'KomorebiP/Operation-KOMOREBI'},{'collection':site.revision}
+    site.roots,site.repos,site.revisions = {'collection':ROOT},{'collection':'KomorebiP/The-Komorebi-Program'},{'collection':site.revision}
     site.asset_count = 0
     site.documents = {('collection','docs/demonstrations/'+name+'.md'):
         (ROOT/'docs/demonstrations'/(name+'.md')).read_text(encoding='utf-8')
@@ -119,7 +119,7 @@ class UnifiedSmithTests(unittest.TestCase):
             pair_link('javascript:read/smith-chart/exact-six.html','read/a.html','index.html')
         self.assertTrue(all(row['url'].split('#')[0]==book.PAGE for row in self.site.search))
         self.assertEqual(self.site.resolve('collection','docs/a.md','read/x.html',
-            'https://komorebip.github.io/Operation-KOMOREBI/playground.html?example=1#library'), '../playground.html?example=1#library')
+            'https://komorebip.github.io/The-Komorebi-Program/playground.html?example=1#library'), '../playground.html?example=1#library')
     def test_current_source_bundle_and_kernel_bindings(self):
         archive=self.site.output/'downloads/smith-rlc-current-source.zip'
         first=hashlib.sha256(archive.read_bytes()).hexdigest()

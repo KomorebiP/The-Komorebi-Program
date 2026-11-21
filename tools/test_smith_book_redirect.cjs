@@ -9,7 +9,7 @@ function destination(page, anchor, hash) {
   const prefix = page.startsWith('collection/') ? '../../read/smith-chart/' : '';
   let result;
   vm.runInNewContext(source,{URL,document:{currentScript:{dataset:{bookTarget:prefix+'research.html#'+anchor,bookPrefix:anchor}}},
-    location:{href:'https://komorebip.github.io/Operation-KOMOREBI/'+page,hash,replace:value=>result=value}});
+    location:{href:'https://komorebip.github.io/The-Komorebi-Program/'+page,hash,replace:value=>result=value}});
   return result;
 }
 
@@ -20,7 +20,7 @@ test('old chapter and supplement bookmarks lead to canonical section anchors',()
     ['collection/demonstrations/SMITH_CHART.html','companion-guide','cyclic-reachability'],
     ['collection/demonstrations/SMITH_FIRST_ORDER_RL.html','one-inductor','the-affine-reflection-function'],
     ['collection/demonstrations/SMITH_SINGULAR_COMPLETION.html','singular-completion','the-range-condition-at-a-singular-matrix']]) {
-    assert.equal(destination(page,anchor,'#'+fragment),'https://komorebip.github.io/Operation-KOMOREBI/read/smith-chart/research.html#'+anchor+'--'+fragment);
+    assert.equal(destination(page,anchor,'#'+fragment),'https://komorebip.github.io/The-Komorebi-Program/read/smith-chart/research.html#'+anchor+'--'+fragment);
   }
 });
 test('hub sections and malformed hashes have safe canonical destinations',()=>{

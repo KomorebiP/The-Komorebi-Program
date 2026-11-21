@@ -185,7 +185,7 @@ def publish(site):
         if index:target,label=PAGES[order[index-1]];pagination+='<a rel="prev" href="'+target+'">Previous: '+html.escape(label)+'</a>'
         if index+1<len(order):target,label=PAGES[order[index+1]];pagination+='<a rel="next" href="'+target+'">Next: '+html.escape(label)+'</a>'
         pagination+='</nav>'
-        site.page(path,title,nav+'<article class="chemistry-note">'+body+provenance+'</article>'+pagination,'https://github.com/KomorebiP/Operation-KOMOREBI/blob/'+site.revision+'/'+quote(source_file,safe='/'))
+        site.page(path,title,nav+'<article class="chemistry-note">'+body+provenance+'</article>'+pagination,'https://github.com/KomorebiP/The-Komorebi-Program/blob/'+site.revision+'/'+quote(source_file,safe='/'))
         plain=html.unescape(re.sub(r'<[^>]+>',' ',rendered))
         kind='Written proofs' if name in {'normal-form.html','three-queries.html','spin-comparison.html','model-error.html'} else 'Guides'
         site.search.append(dict(title=title,group='Collection',kind=kind,url=path,work_ids=[],text=re.sub(r'\s+',' ',plain)[:50000]))

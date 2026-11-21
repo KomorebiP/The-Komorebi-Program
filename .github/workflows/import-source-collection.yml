@@ -23,7 +23,7 @@ concurrency:
 
 jobs:
   import:
-    if: github.repository == 'KomorebiP/Operation-KOMOREBI'
+    if: github.repository == 'KomorebiP/The-Komorebi-Program'
     runs-on: ubuntu-24.04
     timeout-minutes: 120
     env:

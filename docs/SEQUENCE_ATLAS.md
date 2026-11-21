@@ -1,15 +1,15 @@
 # Sequence and Formula Atlas
 
-The [Sequence library](https://komorebip.github.io/Operation-KOMOREBI/sequence-library.html)
+The [Sequence library](https://komorebip.github.io/The-Komorebi-Program/sequence-library.html)
 is the main search for all 2,292 records and is available from the homepage.
-The [curated generators](https://komorebip.github.io/Operation-KOMOREBI/sequence-explorer.html)
+The [curated generators](https://komorebip.github.io/The-Komorebi-Program/sequence-explorer.html)
 provide the extensible plotting interface for 38 of those records. Existing
 atlas links retain their search or plot state. The Math display preference is
 shared with the rest of the site.
 
 ## Recovered research library
 
-The [research sequence library](https://komorebip.github.io/Operation-KOMOREBI/sequence-archive.html)
+The [research sequence library](https://komorebip.github.io/The-Komorebi-Program/sequence-archive.html)
 adds 90 recovered KOM records across 18 families, with 5,487 exact terms.
 Its fielded and exact-term search, family and review filters, and shareable
 searches use the complete library with the archive filter applied. It retains
@@ -39,7 +39,7 @@ bounded implementation agreement, not originality, infinite sequence identity,
 or any of the research program's global conjectures. The archive's annotations
 of OEIS references are retained as source annotations, not fresh corpus checks.
 
-[Open the curated generators](https://komorebip.github.io/Operation-KOMOREBI/sequence-explorer.html) · [Sequence derivations](demonstrations/SEQUENCE_SHAPES.md)
+[Open the curated generators](https://komorebip.github.io/The-Komorebi-Program/sequence-explorer.html) · [Sequence derivations](demonstrations/SEQUENCE_SHAPES.md)
 
 The atlas organizes source-linked integer sequences and formulas, with exact
 term tables and an interactive plot explorer. Its catalogue contains

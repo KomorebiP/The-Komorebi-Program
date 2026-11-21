@@ -53,6 +53,6 @@ def build(site):
     from chemistry_budget import add as add_budget
     body,planner=add_budget(site,body,polynomial)
     body=enhance(body,polynomial,site.root)
-    site.page(PAGE,'Computational chemistry: reusable response scans',body,'https://github.com/KomorebiP/Operation-KOMOREBI/blob/'+site.revision+'/research/computational-chemistry/stage15/RESPONSE_CERTIFICATES.md')
+    site.page(PAGE,'Computational chemistry: reusable response scans',body,'https://github.com/KomorebiP/The-Komorebi-Program/blob/'+site.revision+'/research/computational-chemistry/stage15/RESPONSE_CERTIFICATES.md')
     site.search.append(dict(title='Computational chemistry: reusable response scans',group='Collection',kind='Examples',work_ids=[],url=PAGE,text='H10 52920 determinants reusable Hamiltonian actions source Krylov Lanczos response energy scan residual certificate error bounds finite model nine states coupling leakage practical computational chemistry'))
     return dict(samples=len(data['points']),data_sha256=digest,replay_sha256=hashlib.sha256(package).hexdigest(),replay_bytes=len(package),physical_accuracy_claim=False,continuous=continuous,planner=planner,polynomial=polynomial)

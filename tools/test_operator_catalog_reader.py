@@ -41,7 +41,7 @@ class CatalogHTML(HTMLParser):
 
 def minimal_site():
     return SimpleNamespace(
-        root=ROOT, repos={'collection': 'KomorebiP/Operation-KOMOREBI'},
+        root=ROOT, repos={'collection': 'KomorebiP/The-Komorebi-Program'},
         components={'paper-i': {'destination': 'papers/paper-i'},
                     'paper-iii': {'destination': 'papers/paper-iii'}},
         reader=SimpleNamespace(document_works=lambda repo, path:
@@ -119,11 +119,11 @@ class OperatorCatalogReaderTests(unittest.TestCase):
     def test_work_filters_follow_sources_without_guessing_from_family_names(self):
         site = minimal_site()
         catalog = {'sources': {
-            'paper': {'url': 'https://github.com/KomorebiP/Operation-KOMOREBI/blob/abc/papers/paper-iii/current/main.tex'},
-            'demo': {'url': 'https://github.com/KomorebiP/Operation-KOMOREBI/blob/abc/docs/demonstrations/PACKETS.md'},
+            'paper': {'url': 'https://github.com/KomorebiP/The-Komorebi-Program/blob/abc/papers/paper-iii/current/main.tex'},
+            'demo': {'url': 'https://github.com/KomorebiP/The-Komorebi-Program/blob/abc/docs/demonstrations/PACKETS.md'},
             'other_repo': {'url': 'https://github.com/KomorebiP/komorebi-math/blob/abc/papers/paper-i/main.tex'},
-            'neighbor': {'url': 'https://github.com/KomorebiP/Operation-KOMOREBI/blob/abc/papers/paper-iii-extra/main.tex'},
-            'traversal': {'url': 'https://github.com/KomorebiP/Operation-KOMOREBI/blob/abc/papers/paper-i/../other.tex'},
+            'neighbor': {'url': 'https://github.com/KomorebiP/The-Komorebi-Program/blob/abc/papers/paper-iii-extra/main.tex'},
+            'traversal': {'url': 'https://github.com/KomorebiP/The-Komorebi-Program/blob/abc/papers/paper-i/../other.tex'},
         }}
         self.assertEqual(source_work_ids(site, {'source_codes': ['paper', 'demo']}, catalog), ['paper-i', 'paper-iii'])
         self.assertEqual(source_work_ids(site, {'source_codes': ['other_repo', 'neighbor', 'traversal']}, catalog), [])

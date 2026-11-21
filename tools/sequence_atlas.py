@@ -261,7 +261,7 @@ def build(site):
 <p>These entries organize existing published definitions and classical benchmarks. Formula novelty and sequence novelty require separate review. A finite match does not prove identity; an absent match does not establish novelty. Period suggestions and residue frequencies describe the selected finite window.</p>
 <p>Integer terms, differences, sums, and residues are exact. Ratios and averages are exact fractions. Plot coordinates use floating-point approximations; logarithmic views omit nonpositive values. Modular views use the integer transform before any plotting approximation, and are unavailable for fraction-valued transforms.</p>
 <p>OEIS reference names and matching excerpts are credited to <a href="https://oeis.org/">The Online Encyclopedia of Integer Sequences</a> and the OEIS Foundation, under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. Matching and presentation are our adaptations. Each reference links to its OEIS entry. This atlas is an independent Komorebi project.</p>
-<p><a href="assets/sequence-atlas-data.json">Download catalogue and reference data details</a> · <a href="https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/docs/SEQUENCE_ATLAS.md">Sources and reproduction</a> · <a href="collection/demonstrations/SEQUENCE_SHAPES.html">Sequence derivations and Python experiments</a></p>
+<p><a href="assets/sequence-atlas-data.json">Download catalogue and reference data details</a> · <a href="https://github.com/KomorebiP/The-Komorebi-Program/blob/main/docs/SEQUENCE_ATLAS.md">Sources and reproduction</a> · <a href="collection/demonstrations/SEQUENCE_SHAPES.html">Sequence derivations and Python experiments</a></p>
 </section></div>'''
     body=refine_body(body,entries)
     body=body.replace('<figure class="sa-figure">','<div id="sa-plot-presets" class="sp-preset-bar" role="group" aria-label="Plot view presets"></div><p class="sa-note">View presets keep your sequence and index window. Appearance settings are shared across the sequence library.</p><div id="sa-plot-options"></div><figure class="sa-figure">')
@@ -321,7 +321,7 @@ def build(site):
         csv = 'n,a_n\n'+''.join(f'{n},{value}\n' for n, value in enumerate(entry['terms']))
         site.write('sequences/'+identifier+'.csv', csv)
         site.write('sequences/'+identifier+'.txt','# '+identifier+' '+entry['title']+'\n# Stored terms only; index starts at 0.\n'+''.join(f'{n} {value}\n' for n,value in enumerate(entry['terms'])))
-        public_base='https://komorebip.github.io/Operation-KOMOREBI/'
+        public_base='https://komorebip.github.io/The-Komorebi-Program/'
         export=dict(entry,public_url=public_base+'sequences/'+identifier+'.html',source_url=entry['source'] if entry['source'].startswith('https:') else public_base+entry['source'],oeis_reference=dict(license='CC-BY-SA-4.0',attribution='The Online Encyclopedia of Integer Sequences, OEIS Foundation Inc.',source='https://oeis.org/',snapshot_retrieved_at=snapshot['retrieved_at'] if snapshot else None))
         site.write('sequences/'+identifier+'.json',json.dumps(export,ensure_ascii=False,indent=2)+'\n')
         rows = ''.join('<tr id="n-'+str(n)+'" tabindex="-1"><th scope="row">'+str(n)+'</th><td>'+value+'</td></tr>' for n, value in enumerate(entry['terms']))

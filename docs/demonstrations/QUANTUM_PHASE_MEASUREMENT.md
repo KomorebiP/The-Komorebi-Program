@@ -8,11 +8,11 @@ density matrix. Then remove the coherence and identify precisely which
 questions can still be answered. Continue through amplitude damping, the
 collection's modulus-12 interference example, and a three-qubit recovery code.
 
-[Run the phase comparison](https://KomorebiP.github.io/Operation-KOMOREBI/playground.html#physics-phase) ·
-[Run partial dephasing and tomography](https://KomorebiP.github.io/Operation-KOMOREBI/playground.html#physics-dephasing) ·
-[Run the modulus-12 phase experiment](https://KomorebiP.github.io/Operation-KOMOREBI/playground.html#physics-arithmetic-phase) ·
+[Run the phase comparison](https://KomorebiP.github.io/The-Komorebi-Program/playground.html#physics-phase) ·
+[Run partial dephasing and tomography](https://KomorebiP.github.io/The-Komorebi-Program/playground.html#physics-dephasing) ·
+[Run the modulus-12 phase experiment](https://KomorebiP.github.io/The-Komorebi-Program/playground.html#physics-arithmetic-phase) ·
 [Read the exact Python program](../../examples/quantum_phase_measurement.py) ·
-[Download source and results](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/quantum-phase-measurement/source-and-results.zip)
+[Download source and results](https://KomorebiP.github.io/The-Komorebi-Program/downloads/quantum-phase-measurement/source-and-results.zip)
 
 This is a standard finite quantum-mechanics calculation presented through
 the collection's packet and recovery language. All displayed probabilities
@@ -97,7 +97,7 @@ part of \(z\) increases the Y-plus probability.
 | \(-i\) | \(1/2\) | \(1/50\) | \(9/25\) |
 | \((3+4i)/5\) | \(197/250\) | \(221/250\) | \(9/25\) |
 
-![For five phases, Z-plus stays at 9/25 while X-plus and Y-plus vary as listed in the preceding exact table.](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/quantum-phase-measurement/measurement-comparison.svg)
+![For five phases, Z-plus stays at 9/25 while X-plus and Y-plus vary as listed in the preceding exact table.](https://KomorebiP.github.io/The-Komorebi-Program/downloads/quantum-phase-measurement/measurement-comparison.svg)
 
 *Figure 1. One state family measured in three settings. The Python program
 generates this diagram and its exact CSV. Bar widths use rounded drawing
@@ -203,7 +203,7 @@ For \(z=1\), selected exact checkpoints are:
 | \(1/2\) | \(37/50\) | \(1/2\) | \(409/625\) |
 | \(1\) | \(49/50\) | \(1/2\) | \(1\) |
 
-The [browser experiment](https://KomorebiP.github.io/Operation-KOMOREBI/playground.html#physics-dephasing)
+The [browser experiment](https://KomorebiP.github.io/The-Komorebi-Program/playground.html#physics-dephasing)
 plots nine rational values of \(t\) and exports their exact fractions.
 
 ## 5. Recover the density matrix from three settings
@@ -470,7 +470,7 @@ This is [QA20 in the book](../../monographs/quantum-and-circuits/volume/generate
 Replacing negative amplitudes by positive ones leaves a coherent state;
 it is not the dephasing channel. The book records QA19 and QA20 as prose
 results beyond its inherited Lean package. The new program and
-[browser experiment](https://KomorebiP.github.io/Operation-KOMOREBI/playground.html#physics-arithmetic-phase)
+[browser experiment](https://KomorebiP.github.io/The-Komorebi-Program/playground.html#physics-arithmetic-phase)
 check this finite example with exact rational projector arithmetic.
 
 ## 11. A syndrome can reveal an error without revealing the logical state
@@ -529,7 +529,7 @@ with probabilities \((1/2,1/4,1/8,1/8)\).
 
 ## Reproduce the calculation
 
-Download the [standalone program](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/quantum-phase-measurement/quantum_phase_measurement.py)
+Download the [standalone program](https://KomorebiP.github.io/The-Komorebi-Program/downloads/quantum-phase-measurement/quantum_phase_measurement.py)
 and run it with Python 3.10 or later. It uses only the standard library.
 
 ```text
@@ -561,13 +561,13 @@ These finite checks accompany the hand
 derivations; they are not a proof about all quantum systems or a replay of
 the collection's Lean evidence.
 
-[Measurement settings CSV](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/quantum-phase-measurement/measurement-settings.csv) ·
-[Partial dephasing CSV](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/quantum-phase-measurement/partial-dephasing.csv) ·
-[Exact results JSON](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/quantum-phase-measurement/results.json) ·
-[Amplitude damping CSV](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/quantum-phase-measurement/amplitude-damping.csv) ·
-[Arithmetic phase CSV](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/quantum-phase-measurement/arithmetic-phase.csv) ·
-[Syndrome recovery CSV](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/quantum-phase-measurement/syndrome-recovery.csv) ·
-[Revision and SHA-256 source record](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/quantum-phase-measurement/source-record.json)
+[Measurement settings CSV](https://KomorebiP.github.io/The-Komorebi-Program/downloads/quantum-phase-measurement/measurement-settings.csv) ·
+[Partial dephasing CSV](https://KomorebiP.github.io/The-Komorebi-Program/downloads/quantum-phase-measurement/partial-dephasing.csv) ·
+[Exact results JSON](https://KomorebiP.github.io/The-Komorebi-Program/downloads/quantum-phase-measurement/results.json) ·
+[Amplitude damping CSV](https://KomorebiP.github.io/The-Komorebi-Program/downloads/quantum-phase-measurement/amplitude-damping.csv) ·
+[Arithmetic phase CSV](https://KomorebiP.github.io/The-Komorebi-Program/downloads/quantum-phase-measurement/arithmetic-phase.csv) ·
+[Syndrome recovery CSV](https://KomorebiP.github.io/The-Komorebi-Program/downloads/quantum-phase-measurement/syndrome-recovery.csv) ·
+[Revision and SHA-256 source record](https://KomorebiP.github.io/The-Komorebi-Program/downloads/quantum-phase-measurement/source-record.json)
 
 ## Papers, written proofs, and scope
 
@@ -575,18 +575,18 @@ the collection's Lean evidence.
 
 | Topic | Illustrated chapter | Statement and proof |
 |---|---|---|
-| Which measurements detect coherence? | [Measurements](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-vii/measurements.html) | [Measurement invariance](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-vii/measurements.html#L685) · [Proof](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-vii/measurements.html#L705) |
-| What does a channel transfer? | [Kraus channels and amplitude damping](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-vii/quantum-channels.html) | [Finite Kraus channel](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-vii/quantum-channels.html#L722) · [Proof](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-vii/quantum-channels.html#L736) |
-| When can an error be corrected? | [Error correction and syndrome packets](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-vii/error-correction.html) | [Finite correction criterion](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-vii/error-correction.html#L809) · [Proof](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-vii/error-correction.html#L822) |
+| Which measurements detect coherence? | [Measurements](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-vii/measurements.html) | [Measurement invariance](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-vii/measurements.html#L685) · [Proof](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-vii/measurements.html#L705) |
+| What does a channel transfer? | [Kraus channels and amplitude damping](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-vii/quantum-channels.html) | [Finite Kraus channel](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-vii/quantum-channels.html#L722) · [Proof](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-vii/quantum-channels.html#L736) |
+| When can an error be corrected? | [Error correction and syndrome packets](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-vii/error-correction.html) | [Finite correction criterion](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-vii/error-correction.html#L809) · [Proof](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-vii/error-correction.html#L822) |
 
-[Bell-state circuit and packet paths](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-vii/circuits-and-bell-states.html#L329) ·
-[All Paper VII chapters](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-vii/index.html)
+[Bell-state circuit and packet paths](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-vii/circuits-and-bell-states.html#L329) ·
+[All Paper VII chapters](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-vii/index.html)
 
 For the retained worked drawings, continue with
-[measurement and coherence, V16](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-vii/atlas/v16.html),
-[amplitude damping, V17](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-vii/atlas/v17.html),
-or [syndrome recovery, V19](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-vii/atlas/v19.html).
-The [complete 40-plate atlas](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-vii/atlas/index.html)
+[measurement and coherence, V16](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-vii/atlas/v16.html),
+[amplitude damping, V17](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-vii/atlas/v17.html),
+or [syndrome recovery, V19](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-vii/atlas/v19.html).
+The [complete 40-plate atlas](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-vii/atlas/index.html)
 includes source equations, drawing-label transcripts, and manuscript links.
 
 The starting state is the one in [hand-worked example 17](../examples/17_QUANTUM_MEASUREMENT.md).

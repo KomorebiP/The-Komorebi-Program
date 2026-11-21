@@ -39,6 +39,6 @@ The retained AM-SPD workflow name and versioned release machinery describe that 
 
 For an executed check, retain the workflow/run URL, full source SHA, input parameters, relevant environment, conclusion, and artifact/receipt location. A failed setup, a failed intended negative control, and a successful proof rejection are different outcomes. Read the diagnostic record before assigning a status.
 
-The [Actions page](https://github.com/KomorebiP/Operation-KOMOREBI/actions) shows current runs. The [records guide](RECORDS.md) links the collection's retained reports. The [publication status](PUBLICATION_STATUS.md) describes what is publicly available.
+The [Actions page](https://github.com/KomorebiP/The-Komorebi-Program/actions) shows current runs. The [records guide](RECORDS.md) links the collection's retained reports. The [publication status](PUBLICATION_STATUS.md) describes what is publicly available.
 
 [Documentation](README.md) · [Run and verify](VERIFICATION.md) · [Contributing](../CONTRIBUTING.md)

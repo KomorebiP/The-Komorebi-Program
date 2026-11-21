@@ -8,20 +8,20 @@ Begin with a calculation you can inspect. Each selection connects to its written
 
 ## Read the book online
 
-The complete reading volume is available as **305 HTML reading pages**: 160 treatment pages, 72 visual studies, and 73 verification pages. Use [Start here](https://KomorebiP.github.io/Operation-KOMOREBI/read/monographs-physics/start.html) to choose an introduction, a full study route or a proof-and-evidence route.
+The complete reading volume is available as **305 HTML reading pages**: 160 treatment pages, 72 visual studies, and 73 verification pages. Use [Start here](https://KomorebiP.github.io/The-Komorebi-Program/read/monographs-physics/start.html) to choose an introduction, a full study route or a proof-and-evidence route.
 
-- [Read the treatments](https://KomorebiP.github.io/Operation-KOMOREBI/read/monographs-physics/index.html): foundations, free fields, gauge, gravity, arithmetic refinement, covariant fiber dynamics, and cosmology.
-- [Explore the visual atlases](https://KomorebiP.github.io/Operation-KOMOREBI/read/monographs-physics/atlas/index.html): 60 original plates with their explanations and selectable equations.
-- [Read the verification scope and companions](https://KomorebiP.github.io/Operation-KOMOREBI/read/monographs-physics/verification/index.html): source correspondence, recorded checks, assumptions, and remaining obligations.
+- [Read the treatments](https://KomorebiP.github.io/The-Komorebi-Program/read/monographs-physics/index.html): foundations, free fields, gauge, gravity, arithmetic refinement, covariant fiber dynamics, and cosmology.
+- [Explore the visual atlases](https://KomorebiP.github.io/The-Komorebi-Program/read/monographs-physics/atlas/index.html): 60 original plates with their explanations and selectable equations.
+- [Read the verification scope and companions](https://KomorebiP.github.io/The-Komorebi-Program/read/monographs-physics/verification/index.html): source correspondence, recorded checks, assumptions, and remaining obligations.
 
 ## Choose a starting point
 
 | Explore | Start here | Continue to |
 |---|---|---|
-| Probability flowing between packets | [Run the two-packet rotation](https://KomorebiP.github.io/Operation-KOMOREBI/playground.html#physics-current) | [Local balance and boundary currents](#packet-current) |
-| Phase and quantum measurement | [Run the phase comparison](https://KomorebiP.github.io/Operation-KOMOREBI/playground.html#physics-phase) | [Exact probabilities and dephasing](#quantum-phase) |
-| A discrete symbol approaching a continuum one | [Run the centered-symbol comparison](https://KomorebiP.github.io/Operation-KOMOREBI/playground.html#physics-centered) | [The formal continuum extension](#continuum-limit) |
-| Functions, recurrences, and recovery | [Explore the existing sequence plots](https://KomorebiP.github.io/Operation-KOMOREBI/playground.html#sequence-growth) | [Special Functions](#special-functions) |
+| Probability flowing between packets | [Run the two-packet rotation](https://KomorebiP.github.io/The-Komorebi-Program/playground.html#physics-current) | [Local balance and boundary currents](#packet-current) |
+| Phase and quantum measurement | [Run the phase comparison](https://KomorebiP.github.io/The-Komorebi-Program/playground.html#physics-phase) | [Exact probabilities and dephasing](#quantum-phase) |
+| A discrete symbol approaching a continuum one | [Run the centered-symbol comparison](https://KomorebiP.github.io/The-Komorebi-Program/playground.html#physics-centered) | [The formal continuum extension](#continuum-limit) |
+| Functions, recurrences, and recovery | [Explore the existing sequence plots](https://KomorebiP.github.io/The-Komorebi-Program/playground.html#sequence-growth) | [Special Functions](#special-functions) |
 | Energy exchange and backreaction | [Read the finite model](works/physics-energy-backreaction.md) | [Conservation and physical acceptance](#energy-exchange) |
 | Molecular Hamiltonian recovery | [Read the three-query chemistry checkpoint](COMPUTATIONAL_CHEMISTRY.md) | Exact recovery, numerical error certificates, and physical limits |
 | Origin locking and curved backgrounds | [Read the research sequence](#origin-and-curvature) | [Origin locking](works/physics-origin-locking.md) and [curvature states](works/physics-curvature-states.md) |
@@ -50,7 +50,7 @@ Internal currents cancel when packets are grouped, leaving only current across t
 
 For the coordinate projectors, $A=\begin{pmatrix}0&-1\\1&0\end{pmatrix}$ and $\psi(0)=(1,1)^{\mathsf T}$, the initial packet squared norms are $(1,1)$, and their derivatives are $(-2,2)$. The exact trajectory is $(\cos t-\sin t,\sin t+\cos t)^{\mathsf T}$. Its total squared norm stays at $2$; divide packet squared norms by $2$ to obtain normalized probabilities.
 
-[Run this example](https://KomorebiP.github.io/Operation-KOMOREBI/playground.html#physics-current). For the analytic statements and their hypotheses, follow the [source-to-Lean map](../monographs/physics/formal/continuum/docs/SOURCE_MAP.md): `Atlas.hasDerivAt_subset_energy` derives the boundary balance from the supplied vector evolution equation. The map also distinguishes a supplied trajectory from a theorem of flow existence.
+[Run this example](https://KomorebiP.github.io/The-Komorebi-Program/playground.html#physics-current). For the analytic statements and their hypotheses, follow the [source-to-Lean map](../monographs/physics/formal/continuum/docs/SOURCE_MAP.md): `Atlas.hasDerivAt_subset_energy` derives the boundary balance from the supplied vector evolution equation. The map also distinguishes a supplied trajectory from a theorem of flow existence.
 
 <a id="quantum-phase"></a>
 
@@ -64,21 +64,21 @@ The normalized states $\psi=(3/5,4i/5)^{\mathsf T}$ and $\phi=(3/5,4/5)^{\mathsf
 
 Equal probabilities in one basis therefore leave information about relative phase unresolved. Forgetting the result of a coordinate measurement removes the off-diagonal density-matrix entries; the resulting purity is $337/625$ for either of these states.
 
-[Run the comparison](https://KomorebiP.github.io/Operation-KOMOREBI/playground.html#physics-phase), then follow the [complete hand calculation](examples/17_QUANTUM_MEASUREMENT.md) into [Paper VII](works/paper-vii.md). The [Quantum and Circuits book](works/monographs-quantum-and-circuits.md) extends the reading route into arithmetic, symmetry, finite gate costs, and projected quantum trajectories. Its [edition guide](../monographs/quantum-and-circuits/README.md) separates the written results, finite computations, and selected formal developments.
+[Run the comparison](https://KomorebiP.github.io/The-Komorebi-Program/playground.html#physics-phase), then follow the [complete hand calculation](examples/17_QUANTUM_MEASUREMENT.md) into [Paper VII](works/paper-vii.md). The [Quantum and Circuits book](works/monographs-quantum-and-circuits.md) extends the reading route into arithmetic, symmetry, finite gate costs, and projected quantum trajectories. Its [edition guide](../monographs/quantum-and-circuits/README.md) separates the written results, finite computations, and selected formal developments.
 
 The extended [phase, measurement, and information-loss derivation](demonstrations/QUANTUM_PHASE_MEASUREMENT.md)
 continues through exact tomography, partial dephasing, coherent versus classical
-records, and parity-packet refinement. [Run its editable coherence experiment](https://KomorebiP.github.io/Operation-KOMOREBI/playground.html#physics-dephasing)
+records, and parity-packet refinement. [Run its editable coherence experiment](https://KomorebiP.github.io/The-Komorebi-Program/playground.html#physics-dephasing)
 and export the exact measurement probabilities and purity.
 The same walkthrough includes amplitude damping, three-qubit syndrome
 recovery, and the Quantum and Circuits book's modulus-12 arithmetic phase
-example. [Run the arithmetic comparison](https://KomorebiP.github.io/Operation-KOMOREBI/playground.html#physics-arithmetic-phase)
+example. [Run the arithmetic comparison](https://KomorebiP.github.io/The-Komorebi-Program/playground.html#physics-arithmetic-phase)
 to distinguish coherent sign replacement from complete coordinate dephasing.
 
 Continue in Paper VII's illustrated chapters on
-[measurements](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-vii/measurements.html),
-[Kraus channels](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-vii/quantum-channels.html), and
-[error correction](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-vii/error-correction.html).
+[measurements](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-vii/measurements.html),
+[Kraus channels](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-vii/quantum-channels.html), and
+[error correction](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-vii/error-correction.html).
 Their statement/proof links lead into the retained manuscript, with figures
 displayed inline and text descriptions available alongside them.
 
@@ -92,7 +92,7 @@ A centered spatial symbol replaces a momentum coordinate $k$ by
 s_h(k)=\frac{\sin(hk)}{h},\qquad h\ne0.
 ```
 
-The scalar error obeys $|s_h(k)-k|\le h^2|k|^3/6$. [Compare the symbols and their errors](https://KomorebiP.github.io/Operation-KOMOREBI/playground.html#physics-centered). The plot keeps the momentum fixed while changing spacing. For momentum $(1,2,-1)$ and a unit spinor, the modal operator-error envelope is $h^2\sqrt{66}/6$. The downloadable CSV contains four floating-point comparisons.
+The scalar error obeys $|s_h(k)-k|\le h^2|k|^3/6$. [Compare the symbols and their errors](https://KomorebiP.github.io/The-Komorebi-Program/playground.html#physics-centered). The plot keeps the momentum fixed while changing spacing. For momentum $(1,2,-1)$ and a unit spinor, the modal operator-error envelope is $h^2\sqrt{66}/6$. The downloadable CSV contains four floating-point comparisons.
 
 The larger result concerns the free Dirac field on a fixed flat torus. The centered and continuum operators act on the same infinite Fourier coefficient space. For a square-summable Fourier spinor field $f$, write $k_j(n)$ for the physical momentum coordinates of mode $n$, and define
 

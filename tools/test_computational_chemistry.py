@@ -19,7 +19,7 @@ ROOT=Path(__file__).resolve().parents[1]
 def fixture_site(output,revision='a'*40):
     site=object.__new__(Site);site.root=ROOT;site.output=output;site.revision=revision;site.search=[]
     site.documents={('collection','docs/'+name):(ROOT/'docs'/name).read_text(encoding='utf-8') for name in ['COMPUTATIONAL_CHEMISTRY.md','PHYSICS_COLLECTION.md']}
-    site.roots={'collection':ROOT};site.repos={'collection':'KomorebiP/Operation-KOMOREBI','math':'KomorebiP/komorebi-math','polyphase':'KomorebiP/polyphase-float'}
+    site.roots={'collection':ROOT};site.repos={'collection':'KomorebiP/The-Komorebi-Program','math':'KomorebiP/komorebi-math','polyphase':'KomorebiP/polyphase-float'}
     site.revisions={key:revision for key in site.repos}
     site.reader=SimpleNamespace(resolve=lambda *args:None,image_url=lambda *args:None,document_works=lambda *args:[],lean_works={})
     return site
