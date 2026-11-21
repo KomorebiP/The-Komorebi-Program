@@ -2,7 +2,7 @@
 
 **27 October 2026 · Komorebi P. · AI-assisted sequential self-review · Batch 2**
 
-This pass checks eight additional statement/proof pairs in the final 1.0.0 manuscript at [commit 33537b585dd3](https://github.com/KomorebiP/The-Komorebi-Program/commit/33537b585dd30e8d755ad987865ff3a55a810d65). **Seven pass as written in their declared contexts. The memory proposition needs an explicit positive finite-index qualification for its numerical bit bound.** The issue concerns the statement's domain. The intended finite counting argument is sound.
+This pass checks eight additional statement/proof pairs in the final 1.0.0 manuscript at [commit 33537b585dd3](https://github.com/KomorebiP/Operation-KOMOREBI/commit/33537b585dd30e8d755ad987865ff3a55a810d65). **Seven pass as written in their declared contexts. The memory proposition needs an explicit positive finite-index qualification for its numerical bit bound.** The issue concerns the statement's domain. The intended finite counting argument is sound.
 
 Together with the original 15-claim review and the [previous three-claim pass](MACHINE_SOCIETIES_PROOF_REVIEW_2026-10-27.md), the records now cover **26 distinct pairs out of 62: 25 recorded as proved as written, one qualified, and 36 unreviewed**. The original 15 verdicts are inherited from that review. This pass verifies their source binding and disjoint coverage without claiming to have re-audited all 15 proofs. These counts are review coverage, not a probability of correctness or whole-book certification.
 

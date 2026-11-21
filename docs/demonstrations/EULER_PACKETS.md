@@ -1220,7 +1220,7 @@ They are distinct and increase strictly. In each nonempty tail there is a unique
 
 ## Factor the omitted dyadic tail exactly
 
-The uniform boundary is already optimal. There is nevertheless more information about the error at an individual row. Paper IX's [classical-tail appendix](https://github.com/KomorebiP/The-Komorebi-Program/blob/9cc61ba61d42a885b4912e6e1acd97e2d6f5f396/papers/paper-ix/current/sources/root_scope.tex) gives an exact factorization.
+The uniform boundary is already optimal. There is nevertheless more information about the error at an individual row. Paper IX's [classical-tail appendix](https://github.com/KomorebiP/Operation-KOMOREBI/blob/9cc61ba61d42a885b4912e6e1acd97e2d6f5f396/papers/paper-ix/current/sources/root_scope.tex) gives an exact factorization.
 
 Write \(r=L+1\) for the first omitted index, and let
 
@@ -2446,7 +2446,7 @@ Interleaving the two output phases recovers the direct four-tap output
 For a failure control, omit the advance in the lower-left entry. The first odd output would then be
 \((-2\cdot1+5)+(-1+3(-61))=-181\), which disagrees with \(1191\).
 
-The [tap-split program](https://komorebip.github.io/The-Komorebi-Program/read/euler-polyphase-taps.html) shows both implementations. Download the [standalone checker](https://komorebip.github.io/The-Komorebi-Program/downloads/euler-packets/euler_polyphase_taps.py), then run:
+The [tap-split program](https://komorebip.github.io/Operation-KOMOREBI/read/euler-polyphase-taps.html) shows both implementations. Download the [standalone checker](https://komorebip.github.io/Operation-KOMOREBI/downloads/euler-packets/euler_polyphase_taps.py), then run:
 
 ```bash
 python -B euler_polyphase_taps.py
@@ -2463,7 +2463,7 @@ Finite comparisons: 600 signal cases and 468 impulse cases
 PASS: exact polyphase/tap split
 ```
 
-The [exact result record](https://komorebip.github.io/The-Komorebi-Program/downloads/euler-packets/polyphase-taps.json) contains the phase contributions and finite test ranges. These are exact integer calculations with complete input windows; no zero padding, periodic extension, or Fourier transform of the Euler sequence is used. The finite comparisons support the implementation in their stated ranges. The general phase law follows from the finite-sum reindexing above.
+The [exact result record](https://komorebip.github.io/Operation-KOMOREBI/downloads/euler-packets/polyphase-taps.json) contains the phase contributions and finite test ranges. These are exact integer calculations with complete input windows; no zero padding, periodic extension, or Fourier transform of the Euler sequence is used. The finite comparisons support the implementation in their stated ranges. The general phase law follows from the finite-sum reindexing above.
 
 ## See what a single sampled lane forgets
 
@@ -2891,7 +2891,7 @@ This is the transported recurrence. Applying \(S^2-S-I\) directly to \(a\) produ
 
 ## Sample Fibonacci packets and derive their Lucas recurrence
 
-[Paper IX](../works/paper-ix.md) develops companion jumps and the Fibonacci specialization. Its [companion-jump theorem and Fibonacci consequence](https://github.com/KomorebiP/The-Komorebi-Program/blob/2dc495d16c5c76d2e55e04f73b9e9872193fd4c2/papers/paper-ix/current/sources/main/parts/10_foundations.tex#L406) let us continue the transfer calculation at a coarser sampling step.
+[Paper IX](../works/paper-ix.md) develops companion jumps and the Fibonacci specialization. Its [companion-jump theorem and Fibonacci consequence](https://github.com/KomorebiP/Operation-KOMOREBI/blob/2dc495d16c5c76d2e55e04f73b9e9872193fd4c2/papers/paper-ix/current/sources/main/parts/10_foundations.tex#L406) let us continue the transfer calculation at a coarser sampling step.
 
 Use the state order of the polynomial companion at \(x=1\):
 
@@ -2964,7 +2964,7 @@ Each retained row is complete. The target now follows the step-two Lucas recurre
 
 ## Refine a Fibonacci packet and increase its congruence precision
 
-Paper IX's [matrix precision amplification and dyadic Fibonacci example](https://github.com/KomorebiP/The-Komorebi-Program/blob/2dc495d16c5c76d2e55e04f73b9e9872193fd4c2/papers/paper-ix/current/sources/main/parts/72_recovered.tex#L2363) start from an explicit integral jump:
+Paper IX's [matrix precision amplification and dyadic Fibonacci example](https://github.com/KomorebiP/Operation-KOMOREBI/blob/2dc495d16c5c76d2e55e04f73b9e9872193fd4c2/papers/paper-ix/current/sources/main/parts/72_recovered.tex#L2363) start from an explicit integral jump:
 
 \[
 \mathsf C^{12}=\begin{pmatrix}233&144\\144&89\end{pmatrix}
@@ -3070,7 +3070,7 @@ This is an exact finite expansion at nonnegative integer indices. Extending it t
 
 ## Obtain simultaneous congruences from one integral jump
 
-Paper IX also gives a [simultaneous Fibonacci jump](https://github.com/KomorebiP/The-Komorebi-Program/blob/2dc495d16c5c76d2e55e04f73b9e9872193fd4c2/papers/paper-ix/current/sources/main/parts/72_recovered.tex#L1739):
+Paper IX also gives a [simultaneous Fibonacci jump](https://github.com/KomorebiP/Operation-KOMOREBI/blob/2dc495d16c5c76d2e55e04f73b9e9872193fd4c2/papers/paper-ix/current/sources/main/parts/72_recovered.tex#L1739):
 
 \[
 \mathsf C^{24}-I
@@ -3237,7 +3237,7 @@ K_j(t)^{-1}=\sum_{n\geq0}C_j(n)\frac{t^{4n}}{(4n)!},\qquad
 U_j(n)=j!C_j(n),\quad 0\leq j<4.
 \]
 
-The [defining triangular system](https://github.com/KomorebiP/The-Komorebi-Program/blob/4b1afc89549ae9c8e101f32459fb514203baaabd/papers/paper-ix/current/sources/main/parts/20_arithmetic.tex#L11) becomes
+The [defining triangular system](https://github.com/KomorebiP/Operation-KOMOREBI/blob/4b1afc89549ae9c8e101f32459fb514203baaabd/papers/paper-ix/current/sources/main/parts/20_arithmetic.tex#L11) becomes
 
 \[
 \boxed{
@@ -3279,7 +3279,7 @@ At address zero, \(C_0(n)=(-1)^n b_n\), where \(b_n\) is the quartic carrier alr
 
 ## Use the all-row bound to isolate a dominant Newton coefficient
 
-Paper IX proves the [all-row dyadic difference bound](https://github.com/KomorebiP/The-Komorebi-Program/blob/4b1afc89549ae9c8e101f32459fb514203baaabd/papers/paper-ix/current/sources/main/parts/20_arithmetic.tex#L470): for \(n,k\geq0\) and positive integer \(u\),
+Paper IX proves the [all-row dyadic difference bound](https://github.com/KomorebiP/Operation-KOMOREBI/blob/4b1afc89549ae9c8e101f32459fb514203baaabd/papers/paper-ix/current/sources/main/parts/20_arithmetic.tex#L470): for \(n,k\geq0\) and positive integer \(u\),
 
 \[
 v_2\!\left(\Delta_u^k C_j(n)\right)\geq k\bigl(1+v_2(u)\bigr).
@@ -3342,7 +3342,7 @@ The identity \(k\binom Tk=T\binom{T-1}{k-1}\) implies
 
 ## Determine the least periods of the quartic packets
 
-We have recovered Paper IX's [exact displacement law](https://github.com/KomorebiP/The-Komorebi-Program/blob/4b1afc89549ae9c8e101f32459fb514203baaabd/papers/paper-ix/current/sources/main/parts/20_arithmetic.tex#L654):
+We have recovered Paper IX's [exact displacement law](https://github.com/KomorebiP/Operation-KOMOREBI/blob/4b1afc89549ae9c8e101f32459fb514203baaabd/papers/paper-ix/current/sources/main/parts/20_arithmetic.tex#L654):
 
 \[
 \boxed{v_2\!\left(C_j(n+T)-C_j(n)\right)=v_2(T)+c_j.}
@@ -3399,7 +3399,7 @@ The displacement law gives \(\Phi_j(n)\in\mathbb Z_2\), \(\Phi_j(0)=0\), and
 v_2\!\left(\Phi_j(n)-\Phi_j(m)\right)=v_2(n-m)\qquad(n\ne m).
 \]
 
-This is the [isometric coordinate map](https://github.com/KomorebiP/The-Komorebi-Program/blob/4b1afc89549ae9c8e101f32459fb514203baaabd/papers/paper-ix/current/sources/main/parts/20_arithmetic.tex#L1043) from Paper IX. It has a constructive inverse. Modulo \(2^s\), its value depends only on the input residue, and two distinct input residues have distinct output residues. Since there are \(2^s\) of each, it permutes them.
+This is the [isometric coordinate map](https://github.com/KomorebiP/Operation-KOMOREBI/blob/4b1afc89549ae9c8e101f32459fb514203baaabd/papers/paper-ix/current/sources/main/parts/20_arithmetic.tex#L1043) from Paper IX. It has a constructive inverse. Modulo \(2^s\), its value depends only on the input residue, and two distinct input residues have distinct output residues. Since there are \(2^s\) of each, it permutes them.
 
 At the next precision, an input \(n_s\) has two possible children: \(n_s\) and \(n_s+2^s\). Their images agree modulo \(2^s\) and differ by exactly the next binary digit. Exactly one child matches any prescribed target modulo \(2^{s+1}\).
 
@@ -3448,7 +3448,7 @@ with one preimage in \(\mathbb Z_2\) for each point of that image. The statement
 
 ## Invert the Euler source in a finite Hurwitz mode algebra
 
-Another part of [Paper IX](https://github.com/KomorebiP/The-Komorebi-Program/blob/4b1afc89549ae9c8e101f32459fb514203baaabd/papers/paper-ix/current/sources/main/parts/72_recovered.tex#L121) keeps coefficient multiplication meaningful in finite characteristic. For sequences over a ring, define
+Another part of [Paper IX](https://github.com/KomorebiP/Operation-KOMOREBI/blob/4b1afc89549ae9c8e101f32459fb514203baaabd/papers/paper-ix/current/sources/main/parts/72_recovered.tex#L121) keeps coefficient multiplication meaningful in finite characteristic. For sequences over a ring, define
 
 \[
 (a\star b)_n=\sum_{k=0}^n\binom nk a_kb_{n-k},\qquad
@@ -3514,7 +3514,7 @@ This also explains why the finite-characteristic calculation used Hurwitz coordi
 
 ## Change to logarithmic Euler coordinates with Stirling matrices
 
-Paper IX's [formal Amice pullback](https://github.com/KomorebiP/The-Komorebi-Program/blob/4b1afc89549ae9c8e101f32459fb514203baaabd/papers/paper-ix/current/sources/main/parts/72_recovered.tex#L1769) gives another exact coordinate system. Here the coefficient domain is \(\mathbb Q\), and all substitutions are formal. Put
+Paper IX's [formal Amice pullback](https://github.com/KomorebiP/Operation-KOMOREBI/blob/4b1afc89549ae9c8e101f32459fb514203baaabd/papers/paper-ix/current/sources/main/parts/72_recovered.tex#L1769) gives another exact coordinate system. Here the coefficient domain is \(\mathbb Q\), and all substitutions are formal. Put
 
 \[
 \widehat F(T)=F(\log(1+T)).
@@ -3630,7 +3630,7 @@ The rational form, Stirling matrices, and conjugated derivative describe the sam
 
 ## Run the exact checks
 
-Download the [standalone checker](https://komorebip.github.io/The-Komorebi-Program/downloads/euler-packets/euler_packets.py), or the [complete source and results bundle](https://komorebip.github.io/The-Komorebi-Program/downloads/euler-packets/source-and-checks.zip). From the download directory, run:
+Download the [standalone checker](https://komorebip.github.io/Operation-KOMOREBI/downloads/euler-packets/euler_packets.py), or the [complete source and results bundle](https://komorebip.github.io/Operation-KOMOREBI/downloads/euler-packets/source-and-checks.zip). From the download directory, run:
 
 ```text
 python -B euler_packets.py
@@ -3675,7 +3675,7 @@ python -B euler_packets.py --output my-euler-results
 
 The program refuses to replace existing result files. The CSV values retain integers and rational numbers, including the ordinary coefficients and their factorial normalization.
 
-You can also inspect the published [coefficient table](https://komorebip.github.io/The-Komorebi-Program/downloads/euler-packets/euler-coefficients.csv), [parameter-polynomial table](https://komorebip.github.io/The-Komorebi-Program/downloads/euler-packets/power-polynomials.csv), [local reconstruction and error table](https://komorebip.github.io/The-Komorebi-Program/downloads/euler-packets/local-reconstruction.csv), [matrix-entry table](https://komorebip.github.io/The-Komorebi-Program/downloads/euler-packets/coefficient-matrices.csv), [supercongruence table](https://komorebip.github.io/The-Komorebi-Program/downloads/euler-packets/congruence-ladders.csv), [Fibonacci transfer matrices](https://komorebip.github.io/The-Komorebi-Program/downloads/euler-packets/fibonacci-transfer.csv), [Fibonacci precision ladders](https://komorebip.github.io/The-Komorebi-Program/downloads/euler-packets/fibonacci-precision.csv), [polynomial calculus matrices](https://komorebip.github.io/The-Komorebi-Program/downloads/euler-packets/polynomial-calculus.csv), [quartic address coefficients](https://komorebip.github.io/The-Komorebi-Program/downloads/euler-packets/quartic-addresses.csv), [binary inversion trace](https://komorebip.github.io/The-Komorebi-Program/downloads/euler-packets/dyadic-inverse.csv), [Euler coordinate table](https://komorebip.github.io/The-Komorebi-Program/downloads/euler-packets/euler-coordinate-atlas.csv), [exact dyadic tails](https://komorebip.github.io/The-Komorebi-Program/downloads/euler-packets/dyadic-edge-tails.csv), [exact results](https://komorebip.github.io/The-Komorebi-Program/downloads/euler-packets/results.json), and [source identities](https://komorebip.github.io/The-Komorebi-Program/downloads/euler-packets/source-record.json).
+You can also inspect the published [coefficient table](https://komorebip.github.io/Operation-KOMOREBI/downloads/euler-packets/euler-coefficients.csv), [parameter-polynomial table](https://komorebip.github.io/Operation-KOMOREBI/downloads/euler-packets/power-polynomials.csv), [local reconstruction and error table](https://komorebip.github.io/Operation-KOMOREBI/downloads/euler-packets/local-reconstruction.csv), [matrix-entry table](https://komorebip.github.io/Operation-KOMOREBI/downloads/euler-packets/coefficient-matrices.csv), [supercongruence table](https://komorebip.github.io/Operation-KOMOREBI/downloads/euler-packets/congruence-ladders.csv), [Fibonacci transfer matrices](https://komorebip.github.io/Operation-KOMOREBI/downloads/euler-packets/fibonacci-transfer.csv), [Fibonacci precision ladders](https://komorebip.github.io/Operation-KOMOREBI/downloads/euler-packets/fibonacci-precision.csv), [polynomial calculus matrices](https://komorebip.github.io/Operation-KOMOREBI/downloads/euler-packets/polynomial-calculus.csv), [quartic address coefficients](https://komorebip.github.io/Operation-KOMOREBI/downloads/euler-packets/quartic-addresses.csv), [binary inversion trace](https://komorebip.github.io/Operation-KOMOREBI/downloads/euler-packets/dyadic-inverse.csv), [Euler coordinate table](https://komorebip.github.io/Operation-KOMOREBI/downloads/euler-packets/euler-coordinate-atlas.csv), [exact dyadic tails](https://komorebip.github.io/Operation-KOMOREBI/downloads/euler-packets/dyadic-edge-tails.csv), [exact results](https://komorebip.github.io/Operation-KOMOREBI/downloads/euler-packets/results.json), and [source identities](https://komorebip.github.io/Operation-KOMOREBI/downloads/euler-packets/source-record.json).
 
 The matrix table contains twelve-by-twelve blocks of each forward and inverse local transform for charts 2, 3, 5 and 7, the Pascal pair, the displayed three-by-five sampling block, and five-by-five base changes from chart three to charts five and two. The Fibonacci table adds the degree-twelve polynomial connection and its inverse, and sixteen-by-sixteen recurrence analysis, synthesis, ordinary sequence transfer and inverse matrices. These finite tables can be inspected entry by entry. The formulas and proofs above define the infinite operators.
 
@@ -3717,7 +3717,7 @@ The permutation control uses a different definition of the numbers. At length \(
 
 The [bounded run manifest](../../verification/euler-packets/run-007/manifest.json) records the command, Python version, source hashes before and after execution, time limit, observed completion, and result hashes. The [dyadic-tail self-review](../../verification/euler-packets/PROOF_REVIEW_EDGE.md) links the preceding proof reviews and checks the added arguments separately. There is no new Lean run for this example.
 
-A separate check compares 605 reciprocal coefficient values with the pinned Komorebi Math source, using both its integer sequence API and its logarithmic reciprocal-power implementation. It also makes 1,012 comparisons in the local Euler charts: 220 source, kernel and reconstruction values, 528 truncation values and errors, and 264 row weights, across prime charts 2, 3, 5 and 7 through ordinary degree twenty. Its [comparison record](https://komorebip.github.io/The-Komorebi-Program/downloads/euler-packets/library-comparison.json) retains the source identity and declared ranges.
+A separate check compares 605 reciprocal coefficient values with the pinned Komorebi Math source, using both its integer sequence API and its logarithmic reciprocal-power implementation. It also makes 1,012 comparisons in the local Euler charts: 220 source, kernel and reconstruction values, 528 truncation values and errors, and 264 row weights, across prime charts 2, 3, 5 and 7 through ordinary degree twenty. Its [comparison record](https://komorebip.github.io/Operation-KOMOREBI/downloads/euler-packets/library-comparison.json) retains the source identity and declared ranges.
 
 That supplementary checker also verifies twelve complete rows of the infinite sampling-kernel witness and 18 Euler index-shift supercongruences, for primes 3, 5 and 7 with even starting degree 2–12. It retains the failing degree-zero boundary as a negative control. It also makes 921 Fibonacci comparisons with the pinned library: 169 polynomial connection entries, 52 polynomial companion entries, 13 centered Euler values, 512 recurrence matrix entries, 150 recurrence checks, and 25 full-index records. The full and even-index streams are checked separately at every prefix length from two through twenty-six. A further 3,506 comparisons check the new literature examples against pinned APIs: 780 packet values, 1,560 packet-state coordinates, 68 jump-matrix entries, and 1,098 polynomial-calculus entries. The [source check](../../verification/euler-packets/LITERATURE_FIBONACCI.md) records the exact source statements and distinguishes their written consequences. The coordinate atlas adds 1,164 comparisons: 96 quartic coefficients, 150 modular Hurwitz inverse/product values, 578 Stirling entries, 51 formal-coordinate values, and 289 substitution entries. Its [source record](../../verification/euler-packets/LITERATURE_ATLAS.md) identifies the all-row theorem used in the universal displacement proof. The universal statements have the written proofs or checked source inputs above.
 

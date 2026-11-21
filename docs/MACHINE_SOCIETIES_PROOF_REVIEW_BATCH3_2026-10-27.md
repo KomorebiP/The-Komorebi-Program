@@ -2,7 +2,7 @@
 
 **27 October 2026 · Komorebi P. · AI-assisted sequential self-review · Batch 3**
 
-Six additional statement/proof pairs were checked against [commit c1ac19ba8e5c](https://github.com/KomorebiP/The-Komorebi-Program/commit/c1ac19ba8e5c5557be02145f56d2f0e5bf37dd69). **All six are proved as written under their declared hypotheses.** The main boundaries are uniform rather than training-average error, the permitted control policy, the report/transition independence convention, and a fixed review schedule.
+Six additional statement/proof pairs were checked against [commit c1ac19ba8e5c](https://github.com/KomorebiP/Operation-KOMOREBI/commit/c1ac19ba8e5c5557be02145f56d2f0e5bf37dd69). **All six are proved as written under their declared hypotheses.** The main boundaries are uniform rather than training-average error, the permitted control policy, the report/transition independence convention, and a fixed review schedule.
 
 Combined coverage is now **32 distinct pairs out of 62: 31 recorded passes, one qualified memory bound, and 30 unreviewed**. The original 15-claim record and the previous [three-claim](MACHINE_SOCIETIES_PROOF_REVIEW_2026-10-27.md) and [eight-claim](MACHINE_SOCIETIES_PROOF_REVIEW_BATCH2_2026-10-27.md) review batches retain their dates, exact scope, and provenance. Their verdicts are not presented as a fresh independent review. The memory statement still needs its positive finite-index condition integrated into a revised source edition.
 
