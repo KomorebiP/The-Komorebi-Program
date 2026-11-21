@@ -1,4 +1,5 @@
 """Resolve former project URLs without altering retained source documents."""
+import re
 from urllib.parse import urlsplit, urlunsplit
 
 REPOSITORY = 'KomorebiP/The-Komorebi-Program'
@@ -23,3 +24,8 @@ def canonical_project_url(url):
     if path.casefold() == previous.casefold() or path.casefold().startswith(previous.casefold() + '/'):
         return urlunsplit(parts._replace(path=current + path[len(previous):]))
     return url
+
+
+def canonical_project_links(text):
+    """Use current addresses in generated navigation, retaining its source records."""
+    return re.sub(r"https?://[^\s<>\"']+", lambda match: canonical_project_url(match[0]), text)

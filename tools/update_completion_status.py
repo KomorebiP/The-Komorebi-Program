@@ -497,6 +497,8 @@ def main():
     outputs.update(navigation.outputs)
     from record_navigation import render_record_pages
     outputs.update(render_record_pages(root, data, tree))
+    from project_urls import canonical_project_links
+    outputs = {path: canonical_project_links(content) for path, content in outputs.items()}
     maintained = {p: (root/p).read_text(encoding='utf-8') for p in data.get('maintained_documents', [])}
     documents = {**maintained, **outputs}
     known = set(tree) | set(documents) | set(data.get('assessment_records', [])) | {'manifests/project-status.json'}
