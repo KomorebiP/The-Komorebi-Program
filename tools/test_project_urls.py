@@ -1,7 +1,7 @@
 """Repository migration must preserve deep links and leave other sites alone."""
 import unittest
 
-from project_urls import canonical_project_url
+from project_urls import canonical_project_url, canonical_project_links
 
 
 class ProjectURLTests(unittest.TestCase):
@@ -20,6 +20,11 @@ class ProjectURLTests(unittest.TestCase):
             with self.subTest(previous=previous):
                 self.assertEqual(canonical_project_url(previous), current)
                 self.assertEqual(canonical_project_url(current), current)
+
+    def test_generated_navigation_rewrites_historical_link_targets_without_changing_prose(self):
+        source = 'Published the [qualified beta](https://github.com/KomorebiP/Operation-KOMOREBI/releases/tag/v1). The recorded scope stays unchanged.'
+        expected = source.replace('/Operation-KOMOREBI/', '/The-Komorebi-Program/')
+        self.assertEqual(canonical_project_links(source), expected)
 
     def test_similar_repositories_other_owners_and_relative_links_are_unchanged(self):
         for url in [
