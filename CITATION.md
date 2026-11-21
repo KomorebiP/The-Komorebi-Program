@@ -27,7 +27,7 @@ When discussing the collection as a whole, use:
 
 > Komorebi P. *The Komorebi Program: Realization Calculus and Komorebi Space.* GitHub research collection. Work in progress.
 
-Add the [repository URL](https://github.com/KomorebiP/Operation-KOMOREBI), the full commit you used, and your access date. For a component-specific claim, add the particular work and locator rather than relying on this collection-level attribution alone.
+Add the [repository URL](https://github.com/KomorebiP/The-Komorebi-Program), the full commit you used, and your access date. For a component-specific claim, add the particular work and locator rather than relying on this collection-level attribution alone.
 
 Publication, review, and verification vary by component. A citation does not turn a conditional statement into an unconditional result or imply whole-collection verification. All executable software remains beta / work in progress.
 
@@ -37,6 +37,6 @@ The [worked-example source guide](docs/SOURCES_AND_CONTRIBUTIONS.md) gives
 specific references, credited OEIS contributions, and contribution descriptions
 for the Euler, wavelet/polyphase, and seed-generation starting points.
 
-The project's own citation record is incomplete and is being reconstructed and corrected. The [citation and prior-work disclosure](docs/PROJECT_STATEMENT.md#citations-and-acknowledgment-of-prior-work) describes the extensive use of research papers and OEIS material, the estimated scale of that use, and the ongoing work to add specific source attribution. Reports of missing or inaccurate credit are welcome through the [issue chooser](https://github.com/KomorebiP/Operation-KOMOREBI/issues/new/choose).
+The project's own citation record is incomplete and is being reconstructed and corrected. The [citation and prior-work disclosure](docs/PROJECT_STATEMENT.md#citations-and-acknowledgment-of-prior-work) describes the extensive use of research papers and OEIS material, the estimated scale of that use, and the ongoing work to add specific source attribution. Reports of missing or inaccurate credit are welcome through the [issue chooser](https://github.com/KomorebiP/The-Komorebi-Program/issues/new/choose).
 
 [Project statement](docs/PROJECT_STATEMENT.md) · [Publication status](docs/PUBLICATION_STATUS.md) · [Collection terms](LICENSE.md)

@@ -34,7 +34,7 @@ The [extended case-study index](DEMONSTRATIONS.md#extended-case-studies) include
 Start with the subject or kind of work that interests you. Each route leads to the relevant manuscripts, sources, and recorded evidence.
 
 For papers and books with a complete online manuscript and visual guide,
-[choose a guided reading path](https://KomorebiP.github.io/Operation-KOMOREBI/read/start.html):
+[choose a guided reading path](https://KomorebiP.github.io/The-Komorebi-Program/read/start.html):
 begin with the visual introduction, study the work, or inspect its supporting evidence.
 
 | Goal | Begin with |
@@ -91,13 +91,13 @@ Each route includes a worked calculation, expected program output, and links to 
 
 [Euler numbers through packets, polynomials, and residuals](demonstrations/EULER_PACKETS.md) follows one extended derivation through reciprocal series, polynomial coordinates, exact transfer matrices, and residual correction. The page includes hand calculations, failure controls, source references, and downloadable results.
 
-Read the derivation [on the website](https://komorebip.github.io/Operation-KOMOREBI/collection/demonstrations/EULER_PACKETS.html), or run the exact checker from the collection root:
+Read the derivation [on the website](https://komorebip.github.io/The-Komorebi-Program/collection/demonstrations/EULER_PACKETS.html), or run the exact checker from the collection root:
 
 ```text
 python -B examples/euler_packets.py
 ```
 
-Python 3.10 or later is sufficient; the checker uses only the standard library. A successful run ends with `PASS: Euler packets, polynomials and residuals`. You can also download the [standalone checker](https://komorebip.github.io/Operation-KOMOREBI/downloads/euler-packets/euler_packets.py) or the [complete source and results bundle](https://komorebip.github.io/Operation-KOMOREBI/downloads/euler-packets/source-and-checks.zip).
+Python 3.10 or later is sufficient; the checker uses only the standard library. A successful run ends with `PASS: Euler packets, polynomials and residuals`. You can also download the [standalone checker](https://komorebip.github.io/The-Komorebi-Program/downloads/euler-packets/euler_packets.py) or the [complete source and results bundle](https://komorebip.github.io/The-Komorebi-Program/downloads/euler-packets/source-and-checks.zip).
 
 The example records its sources and tested ranges. The [workflow guide](WORKFLOWS.md) explains the collection's verification commands.
 

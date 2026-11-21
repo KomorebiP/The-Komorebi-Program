@@ -19,7 +19,7 @@ function fixture({groups=1,perGroup=4,quota=false,openFailure=false,delay=false,
       source.remote_files[path]={size:bytes.length,sha256:sha(bytes),url};raw.set(url,bytes);members.push(path);parts.push(bytes);
     }
     const bytes=Buffer.concat(parts),digest=sha(bytes),file=`transfers/${digest}.bundle`;
-    const url=`https://raw.githubusercontent.com/KomorebiP/Operation-KOMOREBI/${'b'.repeat(40)}/lean-transfer-bundles/${digest}.bundle`;
+    const url=`https://raw.githubusercontent.com/KomorebiP/The-Komorebi-Program/${'b'.repeat(40)}/lean-transfer-bundles/${digest}.bundle`;
     source.remote_files[file]={size:bytes.length,sha256:digest,url};raw.set(url,bytes);groupURLs.push(url);
     source.transfer_groups.groups.push({file,members});paths.push([...members]);
   }

@@ -8,7 +8,7 @@ The three canonical repositories are public:
 
 | Repository | Role |
 |---|---|
-| [The Komorebi Program](https://github.com/KomorebiP/Operation-KOMOREBI) | Realization Calculus, Komorebi Space, papers, companion volumes, formal developments, experiments, and additional software. |
+| [The Komorebi Program](https://github.com/KomorebiP/The-Komorebi-Program) | Realization Calculus, Komorebi Space, papers, companion volumes, formal developments, experiments, and additional software. |
 | [komorebi-math](https://github.com/KomorebiP/komorebi-math) | Python library, **beta / work in progress**. |
 | [polyphase-float](https://github.com/KomorebiP/polyphase-float) | C numerical library, **beta / work in progress**. |
 
@@ -28,7 +28,7 @@ Earlier Papers I–IV, the Quadratic-Form Engine / K-COS, Research Preview 1, an
 
 ## Release assets
 
-The [Realization Calculus publication collection](https://github.com/KomorebiP/Operation-KOMOREBI/releases/tag/papers-2026-10-25) preserves the original frozen distributions and companion assets. The initial publication contained 21 assets. Availability as a release asset and availability as browsable source files are separate records.
+The [Realization Calculus publication collection](https://github.com/KomorebiP/The-Komorebi-Program/releases/tag/papers-2026-10-25) preserves the original frozen distributions and companion assets. The initial publication contained 21 assets. Availability as a release asset and availability as browsable source files are separate records.
 
 The two independent libraries have public beta prereleases. These tagged source snapshots were checked on 28 October 2026. Neither has separate build artifacts attached.
 

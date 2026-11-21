@@ -23,7 +23,7 @@ def add(site,body,polynomial=None):
     for name in ['PRECISION_PLANNER.md','SELF_REVIEW.json']:
         target=site.output/'assets/chemistry/stage17'/name;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes((site.root/AREA/name).read_bytes())
     proof=markdown.markdown((site.root/AREA/'PRECISION_PLANNER.md').read_text(encoding='utf-8'),extensions=['fenced_code'])
-    site.page(PROOF,'Planning a certified chemistry response scan','<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../../chemistry-responses.html#cr-plan">Precision planner</a> / Proof and scope</nav>'+proof+'<p><a href="../../assets/chemistry/stage17/PRECISION_PLANNER.md">Markdown source</a> · <a href="../../assets/chemistry/stage17/SELF_REVIEW.json">Project self-review</a></p>','https://github.com/KomorebiP/Operation-KOMOREBI/blob/'+site.revision+'/'+(AREA/'PRECISION_PLANNER.md').as_posix())
+    site.page(PROOF,'Planning a certified chemistry response scan','<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../../chemistry-responses.html#cr-plan">Precision planner</a> / Proof and scope</nav>'+proof+'<p><a href="../../assets/chemistry/stage17/PRECISION_PLANNER.md">Markdown source</a> · <a href="../../assets/chemistry/stage17/SELF_REVIEW.json">Project self-review</a></p>','https://github.com/KomorebiP/The-Komorebi-Program/blob/'+site.revision+'/'+(AREA/'PRECISION_PLANNER.md').as_posix())
     report=json.loads((site.root/VERIFY/'study-001/results/checks.json').read_bytes());rows=[]
     for eta,tol in [('1/2','1/100'),('1/10','1/10'),('1/100','1/10')]:
         p=next(x['plan'] for x in report['examples'] if x['eta']==eta and x['tolerance']==tol and x['objective']=='actions')

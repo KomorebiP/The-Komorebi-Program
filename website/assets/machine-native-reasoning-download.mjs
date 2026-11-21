@@ -41,7 +41,7 @@ export async function assembleAsset(kind, asset, { revision, fetcher = fetch, si
     while (next < asset.parts.length) {
       controller.signal.throwIfAborted();
       const i = next++, p = asset.parts[i];
-      const response = await fetcher('https://raw.githubusercontent.com/KomorebiP/Operation-KOMOREBI/' + revision + '/' + p.path, { signal: controller.signal, credentials: 'omit' });
+      const response = await fetcher('https://raw.githubusercontent.com/KomorebiP/The-Komorebi-Program/' + revision + '/' + p.path, { signal: controller.signal, credentials: 'omit' });
       if (!response.ok) throw Error('A download could not be retrieved (' + response.status + ')');
       const raw = new Uint8Array(await response.arrayBuffer());
       if (raw.byteLength !== p.bytes || await sha256(raw) !== p.sha256) throw Error('Download integrity check failed');

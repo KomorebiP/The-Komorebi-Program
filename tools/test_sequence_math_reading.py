@@ -44,7 +44,7 @@ class MathematicalReadingTests(unittest.TestCase):
         self.assertIn('(1-4z^2)',content)
         self.assertIn('Initial',content)
         self.assertIn('differential',content.lower())
-        self.assertIn('https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/',content)
+        self.assertIn('https://github.com/KomorebiP/The-Komorebi-Program/blob/main/',content)
         self.assertNotIn('href="POLYNOMIAL_HANKEL_STRUCTURE.md"',content)
         self.assertEqual(content.count('class="arithmatex sl-math-display"'),source.count(r'\['))
         self.assertIn(r'\boxed',content)

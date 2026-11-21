@@ -65,7 +65,7 @@ def library_entries(atlas):
     for collection,values,prefix in groups:
         for original in values:
             entry=dict(original,collection=collection,url=prefix+original['id']+'.html')
-            entry.setdefault('source','https://komorebip.github.io/Operation-KOMOREBI/'+entry['url']+'#definition')
+            entry.setdefault('source','https://komorebip.github.io/The-Komorebi-Program/'+entry['url']+'#definition')
             entry.setdefault('index_symbol','n');entry.setdefault('classification','family' if collection=='formulas' else 'reference')
             if entry['id']=='KOM084':entry['tags']=[*entry['tags'],'triangle']
             entry['formulas']=formula_variants(entry)
@@ -248,7 +248,7 @@ def build(site,atlas):
             raw=(site.root/name).read_bytes() if name.endswith('.pdf') else (site.root/name).read_text(encoding='utf-8').encode('utf-8')
             bundle.writestr(info,raw)
         info=ZipInfo('README.txt',date_time=(2026,11,15,0,0,0));info.create_system=3;info.compress_type=ZIP_DEFLATED;info.external_attr=0o100644<<16
-        bundle.writestr(info,'Final edition 1.0: read research/sequence-closed-forms/final-edition/v1.0/PAPER.pdf or its standalone PAPER.html. Editable manuscript, assembly report, review, and reproduction instructions are beside them. Replay: python -B tools/verify_sequence_final_edition.py --output final-edition-checks.\n\nExact formula catalogue. Python 3.10+ standard library. The browser arithmetic and cross-language checks also require Node.js 24. Text sources use UTF-8/LF for portable reproduction.\nRun: python tools/sequence_formula_catalogue.py --id KFOR-S-catalan-03-01\nExport all records: python tools/sequence_formula_catalogue.py --output records.json\nCheck closed-form formulas: python -B -m unittest discover -s tools -p \"test_sequence_closed_forms*.py\" -v\nCheck weighted binomial recurrence: python -B -m unittest discover -s tools -p test_sequence_closed_forms_central.py -v\nCheck algebraic-kernel examples: python -B -m unittest discover -s tools -p test_sequence_algebraic_kernel_examples.py -v\nPrint worked example terms: python tools/sequence_algebraic_kernel_examples.py\nCheck browser arithmetic: node --test tools/test_sequence_closed_forms_core.mjs\nCheck indexed calculator presets: python -B -m unittest discover -s tools -p test_sequence_closed_form_handoffs.py -v\nCompare Python and JavaScript: python -B -m unittest discover -s tools -p test_sequence_differential_hankel_bridge.py -v\nRational Hankel proofs and reproduction: research/sequence-closed-forms/RATIONAL_HANKEL_REPRODUCE.md\nVerify rational Hankel certificates: python -B tools/verify_sequence_rational_hankel.py --output rational-hankel-checks.json\nVerify the uniform linear-weight identity: python -B tools/verify_sequence_linear_hankel.py --output linear-hankel-certificate.json\nCompare linear-weight Python and BigInt values: python -B -m unittest discover -s tools -p test_sequence_linear_hankel_bridge.py -v\nParity, quadratic, and mixed certificates: follow the five standard-library commands in research/sequence-closed-forms/HANKEL_COMPRESSION_REPRODUCE.md\nSharp uniform quadratic bound: python -B tools/verify_sequence_sharp_quadratic.py --output sharp-quadratic.json; proof and instructions in research/sequence-closed-forms/SHARP_QUADRATIC_REPRODUCE.md\nUniform mixed-linear bound: python -B tools/verify_sequence_uniform_mixed.py --sample-certificate verification/sequence-library/hankel-compression/mixed-certificate.json --output uniform-mixed.json\nCoordinate-boundary classification: python -B tools/verify_sequence_exceptional_hankel.py --certificate verification/sequence-library/hankel-compression/exceptional-certificate.json --output exceptional-orders.json; proof and instructions in research/sequence-closed-forms/EXCEPTIONAL_ORDERS_REPRODUCE.md\nComplete nonzero mixed-family orders: follow research/sequence-closed-forms/INTERIOR_ORDERS_REPRODUCE.md; standard-library replay and exact normalized-parameter classifier are included.\nScalar records store 24 terms beginning at their explicit offsets, except standard k-bonacci records, which store 48. Coefficient triangles store complete rows n=0..12, including zeros. Triangle j is a flat cell index. Its row and column are n and k. Parameter records are not claims of novelty or pairwise distinctness.\n\nReproduce finite OEIS comparisons using the retained snapshot:\nThe comparison receipt and updater are included. The two bulk gzip files are separate downloads, not duplicated in this source ZIP. Download https://komorebip.github.io/Operation-KOMOREBI/assets/oeis/stripped.gz and https://komorebip.github.io/Operation-KOMOREBI/assets/oeis/names.gz. Place both files in research/oeis-snapshot/ beside the included snapshot.json. That file records the required byte counts and SHA-256 hashes; the updater rejects different bytes before scanning.\nRun: python tools/update_sequence_library_oeis.py --source research/oeis-snapshot --output reproduced-oeis-comparison.json\nThe reproduction timestamp changes. Compare the snapshot hashes, catalogue_terms_sha256, matches and total_matches with manifests/sequence-library-oeis.json. Comparisons use the first eight stored terms at every exported position and extend each hit. Export positions are not mathematical offsets; finite hits are not proofs of infinite identity or novelty.\n')
+        bundle.writestr(info,'Final edition 1.0: read research/sequence-closed-forms/final-edition/v1.0/PAPER.pdf or its standalone PAPER.html. Editable manuscript, assembly report, review, and reproduction instructions are beside them. Replay: python -B tools/verify_sequence_final_edition.py --output final-edition-checks.\n\nExact formula catalogue. Python 3.10+ standard library. The browser arithmetic and cross-language checks also require Node.js 24. Text sources use UTF-8/LF for portable reproduction.\nRun: python tools/sequence_formula_catalogue.py --id KFOR-S-catalan-03-01\nExport all records: python tools/sequence_formula_catalogue.py --output records.json\nCheck closed-form formulas: python -B -m unittest discover -s tools -p \"test_sequence_closed_forms*.py\" -v\nCheck weighted binomial recurrence: python -B -m unittest discover -s tools -p test_sequence_closed_forms_central.py -v\nCheck algebraic-kernel examples: python -B -m unittest discover -s tools -p test_sequence_algebraic_kernel_examples.py -v\nPrint worked example terms: python tools/sequence_algebraic_kernel_examples.py\nCheck browser arithmetic: node --test tools/test_sequence_closed_forms_core.mjs\nCheck indexed calculator presets: python -B -m unittest discover -s tools -p test_sequence_closed_form_handoffs.py -v\nCompare Python and JavaScript: python -B -m unittest discover -s tools -p test_sequence_differential_hankel_bridge.py -v\nRational Hankel proofs and reproduction: research/sequence-closed-forms/RATIONAL_HANKEL_REPRODUCE.md\nVerify rational Hankel certificates: python -B tools/verify_sequence_rational_hankel.py --output rational-hankel-checks.json\nVerify the uniform linear-weight identity: python -B tools/verify_sequence_linear_hankel.py --output linear-hankel-certificate.json\nCompare linear-weight Python and BigInt values: python -B -m unittest discover -s tools -p test_sequence_linear_hankel_bridge.py -v\nParity, quadratic, and mixed certificates: follow the five standard-library commands in research/sequence-closed-forms/HANKEL_COMPRESSION_REPRODUCE.md\nSharp uniform quadratic bound: python -B tools/verify_sequence_sharp_quadratic.py --output sharp-quadratic.json; proof and instructions in research/sequence-closed-forms/SHARP_QUADRATIC_REPRODUCE.md\nUniform mixed-linear bound: python -B tools/verify_sequence_uniform_mixed.py --sample-certificate verification/sequence-library/hankel-compression/mixed-certificate.json --output uniform-mixed.json\nCoordinate-boundary classification: python -B tools/verify_sequence_exceptional_hankel.py --certificate verification/sequence-library/hankel-compression/exceptional-certificate.json --output exceptional-orders.json; proof and instructions in research/sequence-closed-forms/EXCEPTIONAL_ORDERS_REPRODUCE.md\nComplete nonzero mixed-family orders: follow research/sequence-closed-forms/INTERIOR_ORDERS_REPRODUCE.md; standard-library replay and exact normalized-parameter classifier are included.\nScalar records store 24 terms beginning at their explicit offsets, except standard k-bonacci records, which store 48. Coefficient triangles store complete rows n=0..12, including zeros. Triangle j is a flat cell index. Its row and column are n and k. Parameter records are not claims of novelty or pairwise distinctness.\n\nReproduce finite OEIS comparisons using the retained snapshot:\nThe comparison receipt and updater are included. The two bulk gzip files are separate downloads, not duplicated in this source ZIP. Download https://komorebip.github.io/The-Komorebi-Program/assets/oeis/stripped.gz and https://komorebip.github.io/The-Komorebi-Program/assets/oeis/names.gz. Place both files in research/oeis-snapshot/ beside the included snapshot.json. That file records the required byte counts and SHA-256 hashes; the updater rejects different bytes before scanning.\nRun: python tools/update_sequence_library_oeis.py --source research/oeis-snapshot --output reproduced-oeis-comparison.json\nThe reproduction timestamp changes. Compare the snapshot hashes, catalogue_terms_sha256, matches and total_matches with manifests/sequence-library-oeis.json. Comparisons use the first eight stored terms at every exported position and extend each hit. Export positions are not mathematical offsets; finite hits are not proofs of infinite identity or novelty.\n')
     generalized=generalized_catalogue(entries)
     site.write('assets/sequence-generalized-data.json',json.dumps(generalized,ensure_ascii=False,separators=(',',':'))+'\n')
     scripts=['math-display.mjs','sequence-research-ui.mjs','sequence-reading-theme.mjs','sequence-oeis-core.mjs','sequence-family-core.mjs','sequence-transfer-core.mjs','sequence-math.mjs','sequence-graph-core.mjs','sequence-modular-core.mjs','sequence-discovery-core.mjs','sequence-notebook-core.mjs','sequence-research-worker.mjs','sequence-research-common.mjs','sequence-oeis-worker.mjs','sequence-oeis-client.mjs','sequence-comparison-chart.mjs','sequence-chart-labels.mjs','sequence-workbench-core.mjs','sequence-comparison-certificate.mjs','sequence-certificate-inspection.mjs','sequence-workbench.mjs','sequence-triangle-core.mjs','sequence-triangle.mjs','sequence-transfers.mjs','sequence-families-ui.mjs','sequence-connections-ui.mjs','sequence-identification-ui.mjs','sequence-modular-ui.mjs','sequence-notebooks-ui.mjs','sequence-library-membership.mjs','sequence-research-studio.mjs','sequence-library-search.mjs','sequence-inspection-links.mjs','sequence-differential-hankel.mjs','sequence-closed-forms-core.mjs','sequence-closed-forms-worker.mjs','sequence-closed-forms-ui.mjs','sequence-library.js']
@@ -412,7 +412,7 @@ def build(site,atlas):
  <p>Matrix rows and columns use anchored tail positions. The displayed four-by-four matrices are exact inverses, with the original Euler and Fibonacci indices tracked separately.</p>
  <p>Only four coefficients are verified here. The cited derivation addresses the separate infinite formal relation and the boundary term required to transport a recurrence.</p>
  </details>
- <details class="sr-transfer-sources"><summary>Sources and derivations</summary><p class="sr-transfer-links"><a href="https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/research/sequence-connections/IDENTITIES.md">Recurrence and transfer derivations</a> · <a href="https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/research/sequence-connections/AUDIT.md">Research audit</a> · <a href="collection/demonstrations/EULER_PACKETS.html#transfer-the-euler-sequence-to-fibonacci-values">Euler and Fibonacci worked derivation</a> · <a download href="assets/sequence-research-connections.json">Related connections JSON</a></p></details>
+ <details class="sr-transfer-sources"><summary>Sources and derivations</summary><p class="sr-transfer-links"><a href="https://github.com/KomorebiP/The-Komorebi-Program/blob/main/research/sequence-connections/IDENTITIES.md">Recurrence and transfer derivations</a> · <a href="https://github.com/KomorebiP/The-Komorebi-Program/blob/main/research/sequence-connections/AUDIT.md">Research audit</a> · <a href="collection/demonstrations/EULER_PACKETS.html#transfer-the-euler-sequence-to-fibonacci-values">Euler and Fibonacci worked derivation</a> · <a download href="assets/sequence-research-connections.json">Related connections JSON</a></p></details>
  <details class="sr-transfer-compose-details"><summary>Composition through a third sequence</summary><div class="sr-transfer-compose-static">
  <h3>Composition through an intermediate sequence</h3>
  <p>For three anchored series with nonzero constant coefficients, formal division gives the following finite composition:</p>
@@ -509,9 +509,9 @@ def build(site,atlas):
       in c. An arbitrary nonconstant polynomial weight does not preserve
       positivity, so the unweighted all-real-zero theorem cannot be
       carried over without a separate argument.</p>
-      <p><a href="https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/research/sequence-closed-forms/POLYNOMIAL_HANKEL_STRUCTURE.md">Read the complete polynomial-weight theorem and proof</a> ·
-      <a href="https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/tools/sequence_polynomial_hankel.py">Run the exact structured solver</a> ·
-      <a href="https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/tools/test_sequence_polynomial_hankel.py">Inspect independent tests</a>.</p>
+      <p><a href="https://github.com/KomorebiP/The-Komorebi-Program/blob/main/research/sequence-closed-forms/POLYNOMIAL_HANKEL_STRUCTURE.md">Read the complete polynomial-weight theorem and proof</a> ·
+      <a href="https://github.com/KomorebiP/The-Komorebi-Program/blob/main/tools/sequence_polynomial_hankel.py">Run the exact structured solver</a> ·
+      <a href="https://github.com/KomorebiP/The-Komorebi-Program/blob/main/tools/test_sequence_polynomial_hankel.py">Inspect independent tests</a>.</p>
       </details>
       <details id="differential-hankel-theorem"><summary>Finite-order differential Hankel calculus</summary>
       <p>For a polynomial P(m) of degree D and a finite constant-coefficient
@@ -530,9 +530,9 @@ def build(site,atlas):
       1, 1, 2, -84, -456, 52197296.</p>
       <p><a href="sequence-library.html?cf-version=1&cf-mode=differential_hankel&cf-start=0&cf-count=7&cf-a0=1&cf-a1=1&cf-a2=0&cf-a3=0&cf-c0=1&cf-c1=2&cf-c2=1&cf-c3=0#closed-calculator-panel">Calculate the differential Hankel example</a> ·
       <a href="sequence-differential-hankel.html#differential-hankel">Read the complete proof on .io</a> ·
-      <a href="https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/research/sequence-closed-forms/FINITE_DIFFERENTIAL_HANKEL.md">Read the complete source proof</a> ·
-      <a href="https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/tools/sequence_differential_hankel.py">Run the general exact solver</a> ·
-      <a href="https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/tools/test_sequence_differential_hankel.py">Inspect independent tests</a>.</p>
+      <a href="https://github.com/KomorebiP/The-Komorebi-Program/blob/main/research/sequence-closed-forms/FINITE_DIFFERENTIAL_HANKEL.md">Read the complete source proof</a> ·
+      <a href="https://github.com/KomorebiP/The-Komorebi-Program/blob/main/tools/sequence_differential_hankel.py">Run the general exact solver</a> ·
+      <a href="https://github.com/KomorebiP/The-Komorebi-Program/blob/main/tools/test_sequence_differential_hankel.py">Inspect independent tests</a>.</p>
       </details>
       <details id="differential-moment-generating"><summary>Algebraic generating functions for all finite differential moment sequences</summary>
       <p>For any polynomial weight P(m) of degree D and any finite differential
@@ -624,13 +624,13 @@ def build(site,atlas):
         '<details class="sl-topic-disclosure"><summary>Open source notes and exact verification programs</summary>'
         '<p><a href="sequence-closed-forms.html#closed-theorems">Full Closed Forms reading page</a> · '
         '<a href="sequence-central-binomial.html">Weighted binomial recurrence proof</a> · '
-        '<a href="https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/research/sequence-closed-forms/COLLECTION_II_ADDITIONS.md">'
+        '<a href="https://github.com/KomorebiP/The-Komorebi-Program/blob/main/research/sequence-closed-forms/COLLECTION_II_ADDITIONS.md">'
         'Complete mathematical supplement</a> · '
-        '<a href="https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/tools/test_sequence_closed_forms_extended.py">'
+        '<a href="https://github.com/KomorebiP/The-Komorebi-Program/blob/main/tools/test_sequence_closed_forms_extended.py">'
         'Independent Python regression tests</a> · '
-        '<a href="https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/research/sequence-closed-forms/POLYNOMIAL_HANKEL_STRUCTURE.md">'
+        '<a href="https://github.com/KomorebiP/The-Komorebi-Program/blob/main/research/sequence-closed-forms/POLYNOMIAL_HANKEL_STRUCTURE.md">'
         'Arbitrary polynomial-weight Hankel theorem</a> · '
-        '<a href="https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/tools/test_sequence_closed_forms_core.mjs">'
+        '<a href="https://github.com/KomorebiP/The-Komorebi-Program/blob/main/tools/test_sequence_closed_forms_core.mjs">'
         'Exact browser arithmetic tests</a></p>'
         '<p>The retained OEIS snapshot has finite comparisons for '+f'{len(checked_ids):,}'+' of '+f'{len(entries):,}'+' current records. '
         'Each comparison is bound to the stored integer terms and retained reference data. '
@@ -705,13 +705,13 @@ def build(site,atlas):
         '24 exact values, at least two formula representations, a stated index convention, and CSV/JSON downloads. '
         +str(sum(item['oeis_checked'] for item in closed_entries))+' of '+str(len(closed_entries))+' records have finite comparisons against the retained OEIS snapshot. '
         'A finite hit does not prove infinite identity, and an absent hit does not establish novelty.</p>'
-        '<p><a href="https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/research/sequence-closed-forms/IDENTITIES.md">'
+        '<p><a href="https://github.com/KomorebiP/The-Komorebi-Program/blob/main/research/sequence-closed-forms/IDENTITIES.md">'
         'Read definitions, proofs and reproduction notes</a> · '
-        '<a href="https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/tools/test_sequence_closed_forms.py">'
+        '<a href="https://github.com/KomorebiP/The-Komorebi-Program/blob/main/tools/test_sequence_closed_forms.py">'
         'Review the exact independent tests</a> · '
         '<a href="sequence-library.html#library-search">Search the full library</a> · '
-        '<a href="https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/research/sequence-closed-forms/COLLECTION_II_ADDITIONS.md">Read the complete theorem supplement</a> · '
-        '<a href="https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/tools/test_sequence_closed_forms_extended.py">Review the extended exact tests</a></p></section>'+closed_theorems+
+        '<a href="https://github.com/KomorebiP/The-Komorebi-Program/blob/main/research/sequence-closed-forms/COLLECTION_II_ADDITIONS.md">Read the complete theorem supplement</a> · '
+        '<a href="https://github.com/KomorebiP/The-Komorebi-Program/blob/main/tools/test_sequence_closed_forms_extended.py">Review the extended exact tests</a></p></section>'+closed_theorems+
         closed_calculator+
         '<section><h2>'+str(len(closed_families))+' source-linked families</h2><div class="sar-grid">'+closed_cards+'</div></section>'+
         '<section><h2>'+str(len(closed_entries))+' integer records</h2><p>Displayed prefixes retain their original offsets. '
@@ -739,7 +739,7 @@ def build(site,atlas):
         '<a href="sequence-library.html#sequence-research-desk">Sequence research desk</a> · '
         '<a href="sequence-closed-forms.html#differential-hankel-theorem">Closed Forms collection</a> · '
         '<a href="sequence-rational-hankel.html">Rational Hankel continuation</a> · '
-        '<a href="https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/research/sequence-closed-forms/FINITE_DIFFERENTIAL_HANKEL.md">Versioned source</a></nav>'
+        '<a href="https://github.com/KomorebiP/The-Komorebi-Program/blob/main/research/sequence-closed-forms/FINITE_DIFFERENTIAL_HANKEL.md">Versioned source</a></nav>'
         '<section id="differential-hankel" class="sl-math-reading-intro"><h2>Reproduce the worked example</h2>'
         r'<p>For <span class="arithmatex">\(P(m)=1+m\)</span> and <span class="arithmatex">\(\mathcal D=1+2\partial_x+\partial_x^2\)</span>, the first exact determinants are '
         '1, 1, 2, −84, −456, 52197296. The browser calculates sizes 0 through 64 '
@@ -818,8 +818,8 @@ def build(site,atlas):
         'cover the uniform identity by the proved degree bound. '
         'The review is a project self-review; historical novelty is unassessed.</p>'
         '<p><a download href="assets/sequence-formula-source.zip">Download proofs, exact solvers, and verifiers</a> · '
-        '<a href="https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/research/sequence-closed-forms/RATIONAL_HANKEL_REVIEW.md">Read the self-review</a> · '
-        '<a href="https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/research/sequence-closed-forms/RATIONAL_HANKEL_LITERATURE.md">Read the literature scope</a></p>'
+        '<a href="https://github.com/KomorebiP/The-Komorebi-Program/blob/main/research/sequence-closed-forms/RATIONAL_HANKEL_REVIEW.md">Read the self-review</a> · '
+        '<a href="https://github.com/KomorebiP/The-Komorebi-Program/blob/main/research/sequence-closed-forms/RATIONAL_HANKEL_LITERATURE.md">Read the literature scope</a></p>'
         '<p>The large transfer bound establishes existence; it is not an efficiency '
         'claim. The existing Schur calculator remains available for higher-order '
         'differential examples.</p></section>'
@@ -1051,15 +1051,15 @@ def build(site,atlas):
         'polynomial ring. The worked examples include separate tensor and '
         'bitmask implementations and degree-preserving coprimality certificates.</p>'
         '<p><a download href="assets/sequence-formula-source.zip">Download proofs, coefficients, and standard-library verifiers</a> · '
-        '<a href="https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/research/sequence-closed-forms/SHARP_QUADRATIC_REVIEW.md">Read the sharp-theorem self-review</a> · '
-        '<a href="https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/research/sequence-closed-forms/UNIFORM_MIXED_REVIEW.md">Read the uniform mixed-family self-review</a> · '
-        '<a href="https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/research/sequence-closed-forms/EXCEPTIONAL_ORDERS_REVIEW.md">Read the boundary-classification self-review</a> · '
-        '<a href="https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/research/sequence-closed-forms/INTERIOR_ORDERS_REVIEW.md">Read the interior-classification self-review</a> · '
-        '<a href="https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/research/sequence-closed-forms/HANKEL_COMPRESSION_REVIEW.md">Read the earlier self-review</a> · '
-        '<a href="https://raw.githubusercontent.com/KomorebiP/Operation-KOMOREBI/main/research/sequence-closed-forms/retained-sources/sequence-formula-source-595aa4a6.zip">Retained previous compression edition</a> · '
-        '<a href="https://raw.githubusercontent.com/KomorebiP/Operation-KOMOREBI/main/research/sequence-closed-forms/retained-sources/sequence-formula-source-15a218cb.zip">Retained uniform-theorem edition</a> · '
-        '<a href="https://raw.githubusercontent.com/KomorebiP/Operation-KOMOREBI/main/research/sequence-closed-forms/retained-sources/sequence-formula-source-5ab2d295.zip">Retained boundary-classification edition</a> · '
-        '<a href="https://raw.githubusercontent.com/KomorebiP/Operation-KOMOREBI/main/research/sequence-closed-forms/retained-sources/sequence-formula-source-f3da1097.zip">Retained rationality edition</a></p>'
+        '<a href="https://github.com/KomorebiP/The-Komorebi-Program/blob/main/research/sequence-closed-forms/SHARP_QUADRATIC_REVIEW.md">Read the sharp-theorem self-review</a> · '
+        '<a href="https://github.com/KomorebiP/The-Komorebi-Program/blob/main/research/sequence-closed-forms/UNIFORM_MIXED_REVIEW.md">Read the uniform mixed-family self-review</a> · '
+        '<a href="https://github.com/KomorebiP/The-Komorebi-Program/blob/main/research/sequence-closed-forms/EXCEPTIONAL_ORDERS_REVIEW.md">Read the boundary-classification self-review</a> · '
+        '<a href="https://github.com/KomorebiP/The-Komorebi-Program/blob/main/research/sequence-closed-forms/INTERIOR_ORDERS_REVIEW.md">Read the interior-classification self-review</a> · '
+        '<a href="https://github.com/KomorebiP/The-Komorebi-Program/blob/main/research/sequence-closed-forms/HANKEL_COMPRESSION_REVIEW.md">Read the earlier self-review</a> · '
+        '<a href="https://raw.githubusercontent.com/KomorebiP/The-Komorebi-Program/main/research/sequence-closed-forms/retained-sources/sequence-formula-source-595aa4a6.zip">Retained previous compression edition</a> · '
+        '<a href="https://raw.githubusercontent.com/KomorebiP/The-Komorebi-Program/main/research/sequence-closed-forms/retained-sources/sequence-formula-source-15a218cb.zip">Retained uniform-theorem edition</a> · '
+        '<a href="https://raw.githubusercontent.com/KomorebiP/The-Komorebi-Program/main/research/sequence-closed-forms/retained-sources/sequence-formula-source-5ab2d295.zip">Retained boundary-classification edition</a> · '
+        '<a href="https://raw.githubusercontent.com/KomorebiP/The-Komorebi-Program/main/research/sequence-closed-forms/retained-sources/sequence-formula-source-f3da1097.zip">Retained rationality edition</a></p>'
         '<p>Review provenance is project self-review. Independent review, Lean '
         'formalization, and historical novelty are unassessed. Pointwise '
         'quadratic-weight orders and general higher-degree or '
@@ -1096,7 +1096,7 @@ def build(site,atlas):
         '<nav class="sl-tool-back" aria-label="Weighted binomial research routes">'
         '<a href="sequence-closed-forms.html#central-binomial-recurrence">Closed Forms collection</a> · '
         '<a href="generalized-families/GF-CF-CENTRAL-BINOMIAL.html">Family and indexed examples</a> · '
-        '<a href="https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/research/sequence-closed-forms/CENTRAL_BINOMIAL_RECURRENCE.md">Source manuscript</a></nav>'
+        '<a href="https://github.com/KomorebiP/The-Komorebi-Program/blob/main/research/sequence-closed-forms/CENTRAL_BINOMIAL_RECURRENCE.md">Source manuscript</a></nav>'
         '<nav class="sl-binomial-jumps" aria-label="Reading routes">'
         '<a href="#math-proof-using-the-formula">Start with a calculation</a>'
         '<a href="#math-proof-1-definition-and-universal-recurrence">Theorem and proof</a>'
@@ -1145,7 +1145,7 @@ def build(site,atlas):
         +central_examples+
         '<p class="sl-tool-back"><a href="sequence-rational-hankel.html">'
         'Continue to the common rational moment kernel and Hankel determinant recurrences</a>.</p>'
-        '<p class="sl-tool-back"><a href="https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/research/sequence-closed-forms/ALGEBRAIC_KERNEL_EXAMPLES.md">'
+        '<p class="sl-tool-back"><a href="https://github.com/KomorebiP/The-Komorebi-Program/blob/main/research/sequence-closed-forms/ALGEBRAIC_KERNEL_EXAMPLES.md">'
         'Read the complete example source</a> · <a download href="assets/sequence-formula-source.zip">'
         'Download all derivations and exact checks</a></p>'
         '<nav class="sl-tool-back" aria-label="Return to sequence research">'

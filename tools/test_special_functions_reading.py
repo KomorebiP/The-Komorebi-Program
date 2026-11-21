@@ -25,7 +25,7 @@ class SpecialFunctionsReadingTests(unittest.TestCase):
         sections.update({'read/'+WORK+'/start.html',CONFIG['atlas_index']})
         hub=(ROOT/'docs/SPECIAL_FUNCTIONS.md').read_text(encoding='utf-8')
         links=[urlsplit(target) for target in inline_targets(hub)]
-        reading_links={link.path.removeprefix('/Operation-KOMOREBI/') for link in links
+        reading_links={link.path.removeprefix('/The-Komorebi-Program/') for link in links
                        if '/read/'+WORK+'/' in link.path}
         self.assertTrue(reading_links)
         self.assertLessEqual(reading_links,sections)

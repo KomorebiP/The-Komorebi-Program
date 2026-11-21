@@ -52,7 +52,7 @@ def publish(site,previous,reader_body):
     book=(site.output/BOOK).read_text(encoding='utf-8')
     book=book.replace('<h1>Machine-Native Reasoning</h1>','<h1>Machine-Native Reasoning</h1><p class="eyebrow">Synchronized reconstructed edition · v1.0.1</p>',1)
     book=book.replace('Download editable TeX (30.6 MB)','Download editable TeX ('+f'{data["assets"]["source"]["bytes"]/1000000:.1f}'+' MB)')
-    book=book.replace('<section id="mnr-delivery"','<p><a href="'+e(site.rel(HISTORICAL_BOOK,BOOK),quote=True)+'">Earlier PDF and full archival source</a> · <a href="'+e(record['release_url'],quote=True)+'">Version record</a> · <a href="https://github.com/KomorebiP/Operation-KOMOREBI/releases/tag/mnr-reconstructed-v1.0.0">Previous v1.0.0 release</a></p><section id="mnr-delivery"',1)
+    book=book.replace('<section id="mnr-delivery"','<p><a href="'+e(site.rel(HISTORICAL_BOOK,BOOK),quote=True)+'">Earlier PDF and full archival source</a> · <a href="'+e(record['release_url'],quote=True)+'">Version record</a> · <a href="https://github.com/KomorebiP/The-Komorebi-Program/releases/tag/mnr-reconstructed-v1.0.0">Previous v1.0.0 release</a></p><section id="mnr-delivery"',1)
     site.write(BOOK,book)
     return record
 

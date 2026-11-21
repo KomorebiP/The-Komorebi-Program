@@ -15,8 +15,8 @@ import posixpath
 import re
 from urllib.parse import unquote, urlsplit
 
-REPOSITORY = 'KomorebiP/Operation-KOMOREBI'
-BASE_PATH = '/Operation-KOMOREBI/'
+REPOSITORY = 'KomorebiP/The-Komorebi-Program'
+BASE_PATH = '/The-Komorebi-Program/'
 JSON_FILES = {'notation/index.json', 'notation/search.json', 'side-reader-index.json',
               'downloads/selection.json', 'search-index.json'}
 

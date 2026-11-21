@@ -67,6 +67,7 @@ class HTMLMNRTests(unittest.TestCase):
                     if target in pages and url.fragment:
                         self.assertIn(unquote(url.fragment),pages[target].ids,(name,href));checked+=1
             self.assertGreater(checked,2000)
-            self.assertLess(sum(p.stat().st_size for p in Path(tmp).rglob('*') if p.is_file()),1900000)
+            # The longer canonical project URL is repeated across all 121 reader shells.
+            self.assertLess(sum(p.stat().st_size for p in Path(tmp).rglob('*') if p.is_file()),1920000)
 
 if __name__=='__main__':unittest.main()

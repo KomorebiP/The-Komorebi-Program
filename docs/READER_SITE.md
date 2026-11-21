@@ -1,6 +1,6 @@
 # Maintain the reader website
 
-The public site is at <https://KomorebiP.github.io/Operation-KOMOREBI/>.
+The public site is at <https://KomorebiP.github.io/The-Komorebi-Program/>.
 Its source is in this repository. The site combines maintained collection
 pages with documentation from two explicitly pinned library revisions.
 
@@ -112,7 +112,7 @@ modification dates are invented from deployment time. CI verifies all metadata,
 canonical targets, image bytes and dimensions, sitemap coverage, and site size.
 Run `python -B -m unittest discover -s tools -p 'test_site_metadata.py' -v`.
 
-This project is hosted below `/Operation-KOMOREBI/`. A project-level `robots.txt`
+This project is hosted below `/The-Komorebi-Program/`. A project-level `robots.txt`
 does not control the host, so the build does not publish one. The sitemap can be
 submitted through a verified Search Console property; deployment does not claim
 that a search engine has indexed the pages or that a platform has refreshed its
@@ -841,7 +841,7 @@ workflow runs the rendering and browser-state regressions alongside reader tests
 
 ## Paper V HTML reading edition
 
-[Paper V](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-v/index.html)
+[Paper V](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-v/index.html)
 has 40 reading pages plus contents and bibliography. Its contiguous source ranges
 retain both manuscript branches, four appendices, 1,219 mathematical expressions,
 83 proof bodies, 35 manuscript figures, and ten tables. Chapter navigation uses
@@ -873,7 +873,7 @@ attached to the edition; this conversion adds no proof review or Lean replay.
 
 ## Paper VI worked visual atlas
 
-[All 42 Paper VI atlas plates](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-vi/atlas/index.html)
+[All 42 Paper VI atlas plates](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-vi/atlas/index.html)
 have HTML pages. The conversion retains 40 original drawings, 588 selectable
 drawing labels and 931 expressions, with 76 manuscript passage links and
 return links. The two evidence-guide plates retain their original wording
@@ -891,7 +891,7 @@ conversion adds no mathematical example execution, proof audit or Lean replay.
 
 ## Paper VIII HTML reading edition
 
-[Paper VIII](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-viii/index.html)
+[Paper VIII](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-viii/index.html)
 has 23 reading pages, contents, and a bibliography: the opening orientation,
 three exact models, 15 manuscript sections, and Appendices A–F. The conversion
 retains 1,192 mathematical expressions, 56 proof bodies, 25 figures, and 12
@@ -913,14 +913,14 @@ proof assessment, Lean replay or new hardware measurement.
 
 ## Paper IX HTML reading edition
 
-[Paper IX](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-ix/index.html)
+[Paper IX](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-ix/index.html)
 has 56 reading pages and a bibliography. The route covers all 13 main sections,
 the edition summary and all five mathematical appendices. It retains 5,252
 mathematical expressions, 153 proof environments, 14 manuscript figures,
 33 tables and all 27 bibliography entries. Historical headings and checkpoint
 notices keep their source scope.
 
-The [complete visual guide](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-ix/atlas/index.html)
+The [complete visual guide](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-ix/atlas/index.html)
 has 23 HTML sections, 20 original figures, 278 mathematical expressions, six
 source tables and 35 manuscript routes with return links. The entrypoint
 `sources/visual.tex` includes both `visual_body.tex` and `worked_atlas.tex`;
@@ -962,7 +962,7 @@ bibliography and reading links. No proof assessment or Lean replay is added.
 
 ## Paper X HTML reading edition
 
-The [complete Paper X visual guide](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-x/atlas/index.html)
+The [complete Paper X visual guide](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-x/atlas/index.html)
 has 30 numbered HTML plates and retains both opening scope sections on its
 contents page. Its 29 drawings include the opening diagram that distinguishes
 the transported target family from the independently recovered carrier summand.
@@ -1007,7 +1007,7 @@ chapter notation search retain their existing data and behavior. This storage
 change keeps both K-COS and Machine Native Reasoning within the publication
 budget without removing reading material or weakening the size check.
 
-[Paper X](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-x/index.html)
+[Paper X](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-x/index.html)
 has 30 reading pages and a bibliography. It covers all 15 main sections,
 the algorithms, and reproducibility appendices, the dated Block 27 discussion,
 the residue-counting continuation and the final conditional completion.
@@ -1030,7 +1030,7 @@ This conversion adds no proof assessment or Lean execution.
 
 ## Paper XI HTML reading edition
 
-[Paper XI](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-xi/index.html)
+[Paper XI](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-xi/index.html)
 has 38 reading pages and a bibliography. All 19 main sections, 68 main proof
 environments and fifteen construction appendices are retained. The conversion
 preserves 1,030 typeset mathematical expressions, 275 literal derivation blocks,
@@ -1055,7 +1055,7 @@ assessment, arithmetic realization result or Lean execution.
 
 ## Paper XII HTML reading edition
 
-[Paper XII](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-xii/index.html)
+[Paper XII](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-xii/index.html)
 has 16 reading pages and a bibliography, covering all 13 main sections, the
 reading map and the full verification/revision record. The conversion retains
 873 mathematical expressions, 52 proof bodies, all 82 statement environments,
@@ -1307,7 +1307,7 @@ guide links to the existing 26 HTML plates and their complete label transcripts.
 
 ## Proof Path Theory reading edition
 
-The [Proof Path Theory HTML edition](https://KomorebiP.github.io/Operation-KOMOREBI/read/proof-path-theory/index.html) follows the retained manuscript from the preface through five parts, its theorem ledger, source-bound tables, and the final reproducible example. Chapter navigation, original TeX line links, selectable mathematics, original figures, PDF and visual sampler links, and routes to Lean, code, and evidence are retained. Source expressions are checked against the unchanged TeX. The reading presentation adds no proof or formal verification assessments.
+The [Proof Path Theory HTML edition](https://KomorebiP.github.io/The-Komorebi-Program/read/proof-path-theory/index.html) follows the retained manuscript from the preface through five parts, its theorem ledger, source-bound tables, and the final reproducible example. Chapter navigation, original TeX line links, selectable mathematics, original figures, PDF and visual sampler links, and routes to Lean, code, and evidence are retained. Source expressions are checked against the unchanged TeX. The reading presentation adds no proof or formal verification assessments.
 
 The converter also reads the five part-opening figures and four explanatory
 paragraphs from the manuscript's preamble macro. All 25 figure numbers follow
@@ -1388,7 +1388,7 @@ page and fragment. Claim types and existing evidence assessments are unchanged.
 
 ## Browser Python
 
-The [Python playground](https://KomorebiP.github.io/Operation-KOMOREBI/playground.html)
+The [Python playground](https://KomorebiP.github.io/The-Komorebi-Program/playground.html)
 runs the three teaching demonstrations and the pinned Komorebi Math introductory
 example. A labelled preset dropdown loads the selected editor, source routes, and
 expected output. Choices retain their page fragments, and switching presets keeps
@@ -1538,9 +1538,9 @@ The [Papers V and VI proofreading record](../manifests/reader-proofreading-paper
 covers 88 non-atlas reading sections, their abstracts, notation, preambles, and
 bibliography syntax. It recommends two wording corrections for a later edition:
 “minimum cost among all admissible prunings” in
-[Paper V's best-basis theorem](https://komorebip.github.io/Operation-KOMOREBI/read/paper-v/admissible-packet-trees.html#L2436),
+[Paper V's best-basis theorem](https://komorebip.github.io/The-Komorebi-Program/read/paper-v/admissible-packet-trees.html#L2436),
 and “potential weight” in
-[Paper VI's alternating-product theorem](https://komorebip.github.io/Operation-KOMOREBI/read/paper-vi/extended-finite-state-feynman-kac-transfer.html#L4417).
+[Paper VI's alternating-product theorem](https://komorebip.github.io/The-Komorebi-Program/read/paper-vi/extended-finite-state-feynman-kac-transfer.html#L4417).
 Both adjacent interpretations already explain the intended meaning. The record
 binds four source files and reports the syntax checks. The retained text and
 mathematics are unchanged; the same review exclusions apply.

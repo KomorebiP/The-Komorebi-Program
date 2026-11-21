@@ -28,20 +28,20 @@ def _inline(raw):
             'UNIFORM_MIXED_RECURRENCE.md':'sequence-hankel-compression.html#uniform-mixed-proof',
             'PARITY_HANKEL_RECURRENCES.md':'sequence-hankel-compression.html#parity-compression-proof',
             'MIXED_HANKEL_RECURRENCE.md':'sequence-hankel-compression.html#mixed-recurrence-proof',
-            'HANKEL_COMPRESSION_REVIEW.md':('https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/'
+            'HANKEL_COMPRESSION_REVIEW.md':('https://github.com/KomorebiP/The-Komorebi-Program/blob/main/'
                                            'research/sequence-closed-forms/HANKEL_COMPRESSION_REVIEW.md'),
             'RATIONAL_HANKEL_TAILS.md':'sequence-rational-hankel.html#rational-hankel-proof',
             'LINEAR_WEIGHT_RECURRENCE.md':'sequence-rational-hankel.html#linear-weight-proof',
             'FINITE_DIFFERENTIAL_HANKEL.md':'sequence-differential-hankel.html',
-            'RATIONAL_HANKEL_REVIEW.md':('https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/'
+            'RATIONAL_HANKEL_REVIEW.md':('https://github.com/KomorebiP/The-Komorebi-Program/blob/main/'
                                        'research/sequence-closed-forms/RATIONAL_HANKEL_REVIEW.md'),
-            'RATIONAL_HANKEL_LITERATURE.md':('https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/'
+            'RATIONAL_HANKEL_LITERATURE.md':('https://github.com/KomorebiP/The-Komorebi-Program/blob/main/'
                                            'research/sequence-closed-forms/RATIONAL_HANKEL_LITERATURE.md'),
         }
         local=href in local_notes
         href=local_notes.get(href,href)
         if href=='POLYNOMIAL_HANKEL_STRUCTURE.md':
-            href=('https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/'
+            href=('https://github.com/KomorebiP/The-Komorebi-Program/blob/main/'
                   'research/sequence-closed-forms/POLYNOMIAL_HANKEL_STRUCTURE.md')
         if not (local or re.fullmatch(r'#[A-Za-z][A-Za-z0-9_.:-]*',href)
                 or href.startswith('https://') or href.startswith('http://')):

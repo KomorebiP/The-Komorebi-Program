@@ -6,7 +6,7 @@ import posixpath
 import re
 from urllib.parse import quote
 
-SITE = 'https://KomorebiP.github.io/Operation-KOMOREBI/'
+SITE = 'https://KomorebiP.github.io/The-Komorebi-Program/'
 GUIDED_DEMONSTRATIONS = {
     'docs/demonstrations/PACKETS.md': ('Reconstruct an operator', ['paper-i']),
     'docs/demonstrations/REFINEMENT.md': ('Refine a signal', ['paper-ii','paper-v']),
@@ -209,7 +209,7 @@ def render_reader_pages(root, components, assessments):
         else:
             claims+='A detailed statement index has not yet been transcribed for this work. Follow its written proofs and any linked correspondence map. This does not imply that a map or proof is absent from the source edition.\n\n'
         claims += link('Written proofs','docs/works/'+identifier+'.md#written-proofs','docs/CLAIM_LINKS.md')+' · '+link('Lean','docs/works/'+identifier+'.md#lean','docs/CLAIM_LINKS.md')+' · '+link('Code','docs/works/'+identifier+'.md#code','docs/CLAIM_LINKS.md')+' · '+link('Evidence','docs/works/'+identifier+'.md#evidence','docs/CLAIM_LINKS.md')+'\n\n'
-    downloads+='## Obtain a full component\n\nUse Git 2.25 or later for sparse checkout. Replace COMPONENT_PATH with the exact source directory linked from the work page. Record the checked-out revision.\n\n```text\ngit clone --filter=blob:none --no-checkout https://github.com/KomorebiP/Operation-KOMOREBI.git komorebi-work\ncd komorebi-work\ngit sparse-checkout init --cone\ngit sparse-checkout set COMPONENT_PATH\ngit checkout main\ngit rev-parse HEAD\n```\n\nThis obtains the selected component and root files. Dependencies or sibling projects named by its build instructions may still need to be added. For the complete collection checks, use a full checkout as described in [Verification](VERIFICATION.md).\n\n[Browse works](BROWSE.md) · [Reading routes](READING_ROUTES.md)\n'
+    downloads+='## Obtain a full component\n\nUse Git 2.25 or later for sparse checkout. Replace COMPONENT_PATH with the exact source directory linked from the work page. Record the checked-out revision.\n\n```text\ngit clone --filter=blob:none --no-checkout https://github.com/KomorebiP/The-Komorebi-Program.git komorebi-work\ncd komorebi-work\ngit sparse-checkout init --cone\ngit sparse-checkout set COMPONENT_PATH\ngit checkout main\ngit rev-parse HEAD\n```\n\nThis obtains the selected component and root files. Dependencies or sibling projects named by its build instructions may still need to be added. For the complete collection checks, use a full checkout as described in [Verification](VERIFICATION.md).\n\n[Browse works](BROWSE.md) · [Reading routes](READING_ROUTES.md)\n'
     claims+='[Browse works](BROWSE.md) · [Evidence labels](COMPLETION_STATUS.md)\n'
     out['docs/DOWNLOADS.md']=downloads
     out['docs/CLAIM_LINKS.md']=claims

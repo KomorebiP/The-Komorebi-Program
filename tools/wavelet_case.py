@@ -97,7 +97,7 @@ def publish(site):
     )
     site.page(READER, "Wavelets and polyphase transfer / exact Python program",
               body+source_lines(program.decode("utf-8")),
-              "https://github.com/KomorebiP/Operation-KOMOREBI/blob/"
+              "https://github.com/KomorebiP/The-Komorebi-Program/blob/"
               +site.revision+"/"+PROGRAM)
     site.search.append(dict(
         title="Wavelets and polyphase transfer / exact Python checker",

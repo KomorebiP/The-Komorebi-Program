@@ -11,7 +11,7 @@
     retry.hidden=true;status.hidden=false;status.firstElementChild.textContent='Loading chapter…';article.setAttribute('aria-busy','true');
     try{
       let url=new URL(record.url),figures=new URL(record.figure_root);
-      const pin=/^\/KomorebiP\/Operation-KOMOREBI\/[a-f0-9]{40}\/publication\/mnr-html-reading\/2026-11-04\//;
+      const pin=/^\/KomorebiP\/(?:The-Komorebi-Program|Operation-KOMOREBI)\/[a-f0-9]{40}\/publication\/mnr-html-reading\/2026-11-04\//;
       if(url.origin!=='https://raw.githubusercontent.com'||!pin.test(url.pathname)||figures.origin!==url.origin||!pin.test(figures.pathname))throw Error('Invalid chapter location');
       // The local preview serves the same retained publication bytes.
       if(['localhost','127.0.0.1'].includes(location.hostname)){url=new URL('../../'+record.path,location.href);figures=new URL('../../publication/mnr-html-reading/2026-11-04/figures/',location.href);}

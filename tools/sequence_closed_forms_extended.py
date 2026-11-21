@@ -11,7 +11,7 @@ from math import comb, factorial, gcd
 from sequence_closed_forms import rising, falling
 
 COUNT = 24
-SOURCE = ('https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/'
+SOURCE = ('https://github.com/KomorebiP/The-Komorebi-Program/blob/main/'
           'research/sequence-closed-forms/COLLECTION_II_ADDITIONS.md')
 
 

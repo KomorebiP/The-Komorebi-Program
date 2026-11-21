@@ -103,9 +103,10 @@ def source_work_ids(site, entry: dict, catalog: dict) -> list[str]:
     """Associate a search row only with works reached by its recorded sources."""
     works = set()
     components = getattr(site, 'components', {})
-    collection = site.repos.get('collection', 'KomorebiP/Operation-KOMOREBI').casefold()
+    collection = site.repos.get('collection', 'KomorebiP/The-Komorebi-Program').casefold()
     for code in entry['source_codes']:
-        url = urlsplit(catalog['sources'][code]['url'])
+        from project_urls import canonical_project_url
+        url = urlsplit(canonical_project_url(catalog['sources'][code]['url']))
         parts = url.path.strip('/').split('/')
         if url.hostname != 'github.com' or len(parts) < 5 or parts[2] != 'blob':
             continue

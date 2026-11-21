@@ -951,7 +951,7 @@ node tools/test_sequence_math_browser.cjs http://127.0.0.1:8846/ OUTPUT_DIRECTOR
 
 ## Closed Forms Collections II and III (19 November 2026)
 
-The initial [closed forms reading page](https://komorebip.github.io/Operation-KOMOREBI/sequence-closed-forms.html) publication included 35
+The initial [closed forms reading page](https://komorebip.github.io/The-Komorebi-Program/sequence-closed-forms.html) publication included 35
 KFOR-CF records under eight indexed constructions: sparse two-delay coefficients,
 Padovan generating-function powers, four-block logarithmic coefficients,
 weighted Hankel determinants, beta-binomial ordinary moments, beta-binomial Hankel determinants, weighted binomial jets and
@@ -1000,7 +1000,7 @@ and checked by `tools/test_sequence_closed_forms_extended.py`. The original
 
 ## Unified sequence research desk
 
-The canonical entry point is [Sequence Library](https://komorebip.github.io/Operation-KOMOREBI/sequence-library.html).
+The canonical entry point is [Sequence Library](https://komorebip.github.io/The-Komorebi-Program/sequence-library.html).
 The earlier split between Search and Closed Forms is resolved through one
 research workflow: **Find**, **Calculate**, **Investigate**, and **Verify**.
 
@@ -1100,7 +1100,7 @@ distinct from mathematical offsets.
 ## Weighted binomial recurrence (19 November 2026)
 
 The existing Closed Forms collection now includes
-[A uniform recurrence for weighted binomial rows](https://komorebip.github.io/Operation-KOMOREBI/sequence-central-binomial.html).
+[A uniform recurrence for weighted binomial rows](https://komorebip.github.io/The-Komorebi-Program/sequence-central-binomial.html).
 Its source is `research/sequence-closed-forms/CENTRAL_BINOMIAL_RECURRENCE.md`,
 by Komorebi P. The note proves the four-term recurrence for every complex
 parameter r and every integer n at least 3, starting from the defining
@@ -1264,7 +1264,7 @@ remain unchanged.
 ### Full mathematical reading edition
 
 The full finite-order differential Hankel proof is rendered on the reading site
-at [Finite-order differential Hankel calculus](https://komorebip.github.io/Operation-KOMOREBI/sequence-differential-hankel.html).
+at [Finite-order differential Hankel calculus](https://komorebip.github.io/The-Komorebi-Program/sequence-differential-hankel.html).
 Its headings, complete derivation, equations, references, and reproducibility
 notes are generated from the single Markdown source file
 `research/sequence-closed-forms/FINITE_DIFFERENTIAL_HANKEL.md`.
@@ -1316,7 +1316,7 @@ bound alongside the generating-function numerator. This statement concerns
 sequence: no rational Hankel-determinant generating function is
 inferred from the algebraicity of the moments.
 
-On the [unified Sequence Library](https://komorebip.github.io/Operation-KOMOREBI/sequence-library.html),
+On the [unified Sequence Library](https://komorebip.github.io/The-Komorebi-Program/sequence-library.html),
 two calculation modes share the same a0..a3 and c0..c3 parameters:
 **Higher-order differential Hankel determinants** (exact structured
 determinants of size 0..64) and **Differential moments and algebraic
@@ -1337,7 +1337,7 @@ M(z)=\frac{1+2z-8z^2-4z^3+52z^4-16z^5-24z^6}
 The corresponding moments begin
 1, 2, 6, 24, 66, 180, 620, 1120, 4830, 6300.
 The full algebraic derivation is available on the
-[finite differential Hankel reading page](https://komorebip.github.io/Operation-KOMOREBI/sequence-differential-hankel.html)
+[finite differential Hankel reading page](https://komorebip.github.io/The-Komorebi-Program/sequence-differential-hankel.html)
 and in the versioned
 `research/sequence-closed-forms/FINITE_DIFFERENTIAL_HANKEL.md` source.
 

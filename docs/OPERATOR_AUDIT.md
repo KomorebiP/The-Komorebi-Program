@@ -19,9 +19,9 @@ before comparing calculations.
 [Start here](START_HERE.md) · [Worked demonstrations](DEMONSTRATIONS.md) · [Collection glossary](GLOSSARY.md)
 
 Start with the matrix example below if this language is new. You can
-[change its inputs and switch blocks on and off](https://komorebip.github.io/Operation-KOMOREBI/interactive.html#packets)
+[change its inputs and switch blocks on and off](https://komorebip.github.io/The-Komorebi-Program/interactive.html#packets)
 in the interactive diagram, or
-[run and edit the packet program](https://komorebip.github.io/Operation-KOMOREBI/playground.html#packets).
+[run and edit the packet program](https://komorebip.github.io/The-Komorebi-Program/playground.html#packets).
 
 ## Reference chapters
 
@@ -234,7 +234,7 @@ Ex=\begin{pmatrix}6\\6\end{pmatrix}.
 
 Hence $Tx=\widetilde T x+Ex$. The packets still reconstruct the input
 exactly; deleting their interactions changes the operation. In the
-[interactive diagram](https://komorebip.github.io/Operation-KOMOREBI/interactive.html#packets),
+[interactive diagram](https://komorebip.github.io/The-Komorebi-Program/interactive.html#packets),
 switch off the two off-diagonal blocks to reproduce this control. Switch them
 back on to restore the complete calculation.
 
@@ -348,7 +348,7 @@ it gives no automatic continuity, stability, or efficient evaluation guarantee.
 The admissible input set matters: a restriction on $X$ can change its fibers
 and the resulting recovery question.
 
-[Open the Recovery Laboratory](https://komorebip.github.io/Operation-KOMOREBI/recovery-lab.html)
+[Open the Recovery Laboratory](https://komorebip.github.io/The-Komorebi-Program/recovery-lab.html)
 to try finite linear measurements, change the requested answer, inspect recovery rules
 or collision witnesses, and add missing information. The
 [recovery demonstration](demonstrations/RECOVERY.md) supplies the elementary

@@ -22,7 +22,7 @@ def add(site,body,polynomial=None):
     for name in ['CONTINUOUS_RESPONSES.md','SELF_REVIEW.json']:
         target=site.output/'assets/chemistry/stage16'/name;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes((site.root/AREA/name).read_bytes())
     note=(site.root/AREA/'CONTINUOUS_RESPONSES.md').read_text(encoding='utf-8');proof=markdown.markdown(note,extensions=['fenced_code'])
-    site.page(PROOF,'Continuous energy response certificates','<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../../chemistry-responses.html#cr-continuous">Response explorer</a> / Continuous certificates</nav>'+proof+'<p><a href="../../assets/chemistry/stage16/CONTINUOUS_RESPONSES.md">Markdown source</a> · <a href="../../assets/chemistry/stage16/SELF_REVIEW.json">Project self-review</a></p>','https://github.com/KomorebiP/Operation-KOMOREBI/blob/'+site.revision+'/'+(AREA/'CONTINUOUS_RESPONSES.md').as_posix())
+    site.page(PROOF,'Continuous energy response certificates','<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../../chemistry-responses.html#cr-continuous">Response explorer</a> / Continuous certificates</nav>'+proof+'<p><a href="../../assets/chemistry/stage16/CONTINUOUS_RESPONSES.md">Markdown source</a> · <a href="../../assets/chemistry/stage16/SELF_REVIEW.json">Project self-review</a></p>','https://github.com/KomorebiP/The-Komorebi-Program/blob/'+site.revision+'/'+(AREA/'CONTINUOUS_RESPONSES.md').as_posix())
     rows=[]
     for eta,k in [('1/2',32),('1/10',128),('1/100',512)]:
         c=next(c for c in data['groups'] if c['eta']==eta and c['order']==k)

@@ -86,9 +86,9 @@ edition, with 97 chapters, an editable TeX package, and recorded source and
 build checks. Reconciling its statements with the accepted core and reviewing
 the wider claims remain separate tasks.
 
-[Read online](https://KomorebiP.github.io/Operation-KOMOREBI/read/index.html) ·
-[Explore visual guides](https://KomorebiP.github.io/Operation-KOMOREBI/read/visual-guides.html) ·
-[Read the expanded book](https://KomorebiP.github.io/Operation-KOMOREBI/read/research-machine-native-reasoning-wider/reconstructed-edition.html) ·
+[Read online](https://KomorebiP.github.io/The-Komorebi-Program/read/index.html) ·
+[Explore visual guides](https://KomorebiP.github.io/The-Komorebi-Program/read/visual-guides.html) ·
+[Read the expanded book](https://KomorebiP.github.io/The-Komorebi-Program/read/research-machine-native-reasoning-wider/reconstructed-edition.html) ·
 [Expanded-book review requirements](FINALIZATION_QUEUE.md#f03)
 
 ## Lean and reproducible checks
@@ -103,7 +103,7 @@ Further formalization will follow explicit maps between manuscript claims and
 Lean declarations. Editions that rely on inherited compiler evidence still need
 fresh checks against their pinned sources and dependencies.
 
-[Try browser Lean](https://KomorebiP.github.io/Operation-KOMOREBI/lean/browser/index.html) ·
+[Try browser Lean](https://KomorebiP.github.io/The-Komorebi-Program/lean/browser/index.html) ·
 [Browser development plan](LEAN_BROWSER.md#route-to-broader-browser-support) ·
 [Reproduction guide](LEAN_EXECUTION.md) ·
 [Formal replay requirements](FINALIZATION_QUEUE.md#f05)
@@ -120,7 +120,7 @@ numerical results. They will also link to the relevant sources. The evidence
 for the Large Signal Model's mathematical edition is recorded separately from
 the evidence for its software and empirical development.
 
-[Open interactive tools](https://KomorebiP.github.io/Operation-KOMOREBI/interactive.html) ·
+[Open interactive tools](https://KomorebiP.github.io/The-Komorebi-Program/interactive.html) ·
 [Current laboratory features](READER_SITE.md) ·
 [Large Signal Model software and limits](works/large-signal-model.md)
 

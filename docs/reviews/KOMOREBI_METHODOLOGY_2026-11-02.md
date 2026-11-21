@@ -3,7 +3,7 @@
 Reviewed 2 November 2026 from collection revision
 `75caee1d5ebc01d64b439101d94cd5d1c1fc3bb0`.
 
-[Read the complete essay online](https://KomorebiP.github.io/Operation-KOMOREBI/read/komorebi-methodology/index.html).
+[Read the complete essay online](https://KomorebiP.github.io/The-Komorebi-Program/read/komorebi-methodology/index.html).
 
 ## Proofreading
 

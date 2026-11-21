@@ -90,7 +90,7 @@ class JSpacePublicationTests(unittest.TestCase):
         status = json.loads((root/'manifests/project-status.json').read_bytes())
         browser = Browser(root, state, status)
         component = next(c for c in browser.components if c['id'] == 'experiments-jspace-causal-lab')
-        self.assertIn('https://KomorebiP.github.io/Operation-KOMOREBI/j-lab.html', browser.work_page(component))
+        self.assertIn('https://KomorebiP.github.io/The-Komorebi-Program/j-lab.html', browser.work_page(component))
 
 
 if __name__ == '__main__':

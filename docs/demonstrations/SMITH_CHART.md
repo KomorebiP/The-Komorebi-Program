@@ -1,8 +1,8 @@
 # Smith chart: exact packets and phase refinement
 
-[Open the interactive Smith chart](https://KomorebiP.github.io/Operation-KOMOREBI/smith-chart.html) · [Extended demonstrations](../DEMONSTRATIONS.md)
+[Open the interactive Smith chart](https://KomorebiP.github.io/The-Komorebi-Program/smith-chart.html) · [Extended demonstrations](../DEMONSTRATIONS.md)
 
-The [complete Smith chart research reading](https://komorebip.github.io/Operation-KOMOREBI/read/smith-chart/research.html)
+The [complete Smith chart research reading](https://komorebip.github.io/The-Komorebi-Program/read/smith-chart/research.html)
 also includes the longer circuit-synthesis draft, its figures, examples, and
 realization boundaries, together with the original research archive.
 The [one-inductor limit](SMITH_FIRST_ORDER_RL.md) has an explicit circuit
@@ -159,7 +159,7 @@ The action preserves the positive-real half-plane and composes by adding
 indices modulo \(N\). In particular, \(T_{N,0}(z)=z\) and
 \(T_{2,1}(z)=1/z\). These are algebraic phase actions; the line-length
 control remains a separate physical model. See the
-[Paper V Smith-coordinate chapter](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-v/smith-coordinates.html)
+[Paper V Smith-coordinate chapter](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-v/smith-coordinates.html)
 for the source presentation.
 
 There is a precise feasibility test for a target reflection point.
@@ -176,7 +176,7 @@ gives \(1\). Conversely, every complex \(N\)th root of unity is one of
 Equal radius is necessary, but for a fixed finite \(N\) it is not
 sufficient: the phase must be one of the allowed multiples of \(2\pi/N\).
 If \(\Gamma_0=0\), the only reachable point is \(0\), regardless of \(N\).
-The [Lean boundary companion](https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/formal/smith-chart-v0.1.0/SmithBoundaries.lean)
+The [Lean boundary companion](https://github.com/KomorebiP/The-Komorebi-Program/blob/main/formal/smith-chart-v0.1.0/SmithBoundaries.lean)
 proves the nonzero criterion and the zero-start case for \(N>0\).
 
 **Example:** take \(\Gamma_0=1/2\) and \(\Gamma_*=i/2\). Their
@@ -372,10 +372,10 @@ not establish a finite boundary \(H^2\) norm.
 These examples say which hypothesis fails and what conclusion remains.
 The zero-division convention, wrong-order character sum, and odd-order
 counterexample are recorded in
-[SmithExamples.lean](https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/formal/smith-chart-v0.1.0/SmithExamples.lean).
+[SmithExamples.lean](https://github.com/KomorebiP/The-Komorebi-Program/blob/main/formal/smith-chart-v0.1.0/SmithExamples.lean).
 The negative-real packet witness is in
-[SmithResults.lean](https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/formal/smith-chart-v0.1.0/SmithResults.lean).
-The [boundary companion](https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/formal/smith-chart-v0.1.0/SmithBoundaries.lean)
+[SmithResults.lean](https://github.com/KomorebiP/The-Komorebi-Program/blob/main/formal/smith-chart-v0.1.0/SmithResults.lean).
+The [boundary companion](https://github.com/KomorebiP/The-Komorebi-Program/blob/main/formal/smith-chart-v0.1.0/SmithBoundaries.lean)
 also checks the quarter-turn reachability and the coefficient-level
 noncoprime example. The remaining calculations have the stated written or
 numerical scope.
@@ -592,7 +592,7 @@ every angle. The chart overlay uses the mass **midpoints**
 used in this comparison. A
 [standalone checker](../../tools/smith_chart_boundary_examples.py)
 reproduces these rounded values using Python's standard library; its
-[bounded computation record](https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/formal/smith-chart-v0.1.0/computations/boundary-examples-005/manifest.json)
+[bounded computation record](https://github.com/KomorebiP/The-Komorebi-Program/blob/main/formal/smith-chart-v0.1.0/computations/boundary-examples-005/manifest.json)
 records the inputs and scope. The comparison is not a general theorem
 about noisy measurements, arbitrary functions, or the best fitting method.
 In particular, it does not claim superiority over vector fitting, rational
@@ -635,9 +635,9 @@ under additional valid structural assumptions, and it does not apply as an
 ignorance claim to the already specified formula \(z(t)=(1+t)/(1-t)\).
 Positive real part here is a property of functions of the reflection
 coordinate; the construction does not by itself establish realizability
-as a passive circuit over frequency. The [Lean boundary companion](https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/formal/smith-chart-v0.1.0/SmithBoundaries.lean)
+as a passive circuit over frequency. The [Lean boundary companion](https://github.com/KomorebiP/The-Komorebi-Program/blob/main/formal/smith-chart-v0.1.0/SmithBoundaries.lean)
 checks the two-sample equalities, their difference at zero, and the stated
-positive-real bound. [SmithFiniteSamples.lean](https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/formal/smith-chart-v0.1.0/SmithFiniteSamples.lean)
+positive-real bound. [SmithFiniteSamples.lean](https://github.com/KomorebiP/The-Komorebi-Program/blob/main/formal/smith-chart-v0.1.0/SmithFiniteSamples.lean)
 also proves the general result for any finite set of sample points in the
 open disk, with the two functions differing at a point inside that disk.
 Repeated points in a finite list give the same finite set.
@@ -748,7 +748,7 @@ proof for all inputs or a hardware measurement. The repository also
 contains exact-rational regression checks and separate bounded numerical
 comparisons.
 
-The [Lean companion](https://github.com/KomorebiP/Operation-KOMOREBI/tree/main/formal/smith-chart-v0.1.0)
+The [Lean companion](https://github.com/KomorebiP/The-Komorebi-Program/tree/main/formal/smith-chart-v0.1.0)
 formalizes the actual impedance packet series, canonical phase averages,
 finite-orbit Parseval identity, finite passive-domain geometry, projector
 and sensitivity identities, sampling-density normalization, the unique
@@ -784,5 +784,5 @@ is not cited as a source for those project-specific claims.
 
 For a different kind of feasibility boundary, Paper II studies integral
 congruence obstructions using
-[Smith normal form](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-ii/integral-separation.html).
+[Smith normal form](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-ii/integral-separation.html).
 That algebraic use of “Smith” is distinct from the RF Smith chart here.

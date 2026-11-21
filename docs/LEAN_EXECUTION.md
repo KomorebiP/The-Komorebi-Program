@@ -1,6 +1,6 @@
 # Running the retained Lean sources
 
-The website's [Run with dependencies](https://KomorebiP.github.io/Operation-KOMOREBI/lean/run.html)
+The website's [Run with dependencies](https://KomorebiP.github.io/The-Komorebi-Program/lean/run.html)
 page selects every retained Lean file displayed in Inspect Lean. Its generated
 catalogue gives the current file and reading-edition counts, environment modes,
 and setup status. These counts describe source availability, not accepted proofs.

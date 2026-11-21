@@ -2,7 +2,7 @@
 
 **Recorded checkpoint: SF-LEAN-B20, 4 November 2026.**
 
-[Inspect the Lean sources](https://KomorebiP.github.io/Operation-KOMOREBI/lean/monographs-special-functions/index.html) or [run a selected file with dependencies](https://KomorebiP.github.io/Operation-KOMOREBI/lean/run.html).
+[Inspect the Lean sources](https://KomorebiP.github.io/The-Komorebi-Program/lean/monographs-special-functions/index.html) or [run a selected file with dependencies](https://KomorebiP.github.io/The-Komorebi-Program/lean/run.html).
 The inspector includes the coupled production modules, their axiom-audit files,
 and selected controls alongside the inherited finite core. The original Block01
 status file remains available as a historical checkpoint.

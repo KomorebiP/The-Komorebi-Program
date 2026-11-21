@@ -64,7 +64,7 @@ def index_csv(entries, graph):
     writer.writerow(['id','title','kind','offset','N','r','oeis','public_url','connections_out','connections_in'])
     for entry in entries:
         writer.writerow([entry['id'],entry['title'],entry['kind'],entry['offset'],entry.get('N',''),entry.get('power',''),entry.get('oeis') or '',
-            'https://komorebip.github.io/Operation-KOMOREBI/sequences/'+entry['id']+'.html',*connection_counts(graph,entry['id'])])
+            'https://komorebip.github.io/The-Komorebi-Program/sequences/'+entry['id']+'.html',*connection_counts(graph,entry['id'])])
     return stream.getvalue()
 
 

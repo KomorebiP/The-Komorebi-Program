@@ -565,9 +565,9 @@ python -B examples/factorial_lanes.py --output factorial-results
 
 The first command reports `PASS: 225 exact finite assertions`, including the displayed lane products, hypergeometric coefficient identities, reciprocal inversion, prime-adic valuations, finite differences, refinement, and failure witnesses. The second also writes `lane-products.csv`, `coefficients.csv`, and `results.json`.
 
-[Read the complete Python source on the website](https://KomorebiP.github.io/Operation-KOMOREBI/read/factorial-lanes.html) · [Download the standalone checker](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/factorial-lanes/factorial_lanes.py)
+[Read the complete Python source on the website](https://KomorebiP.github.io/The-Komorebi-Program/read/factorial-lanes.html) · [Download the standalone checker](https://KomorebiP.github.io/The-Komorebi-Program/downloads/factorial-lanes/factorial_lanes.py)
 
-[Download lane products (CSV)](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/factorial-lanes/lane-products.csv) · [Download exact coefficients (CSV)](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/factorial-lanes/coefficients.csv) · [Finite-check results (JSON)](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/factorial-lanes/results.json) · [Complete source and results (ZIP)](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/factorial-lanes/source-and-results.zip)
+[Download lane products (CSV)](https://KomorebiP.github.io/The-Komorebi-Program/downloads/factorial-lanes/lane-products.csv) · [Download exact coefficients (CSV)](https://KomorebiP.github.io/The-Komorebi-Program/downloads/factorial-lanes/coefficients.csv) · [Finite-check results (JSON)](https://KomorebiP.github.io/The-Komorebi-Program/downloads/factorial-lanes/results.json) · [Complete source and results (ZIP)](https://KomorebiP.github.io/The-Komorebi-Program/downloads/factorial-lanes/source-and-results.zip)
 
 ### Interpretation and next reading
 

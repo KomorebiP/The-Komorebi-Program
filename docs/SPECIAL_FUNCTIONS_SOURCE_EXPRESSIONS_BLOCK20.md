@@ -26,7 +26,7 @@ new Lean execution.
 
 ## Inspect and reproduce
 
-[Open the Lean source inspector](https://KomorebiP.github.io/Operation-KOMOREBI/lean/monographs-special-functions/index.html)
+[Open the Lean source inspector](https://KomorebiP.github.io/The-Komorebi-Program/lean/monographs-special-functions/index.html)
 or start with [the formal source index](SPECIAL_FUNCTIONS_FORMAL_SOURCES.md).
 The new [expression interpreter](../monographs/special-functions/lean/CoupledExpressionSemantics.lean),
 [source expression data](../monographs/special-functions/lean/CoupledSourceExpressions.lean)
@@ -58,4 +58,4 @@ guard. The current books and original calculator are unchanged.
 
 [Work and evidence](works/monographs-special-functions.md)
 · [Special Functions reading hub](SPECIAL_FUNCTIONS.md)
-· [Maintained continuation](https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/monographs/special-functions/current/CONTINUE_HERE.md)
+· [Maintained continuation](https://github.com/KomorebiP/The-Komorebi-Program/blob/main/monographs/special-functions/current/CONTINUE_HERE.md)

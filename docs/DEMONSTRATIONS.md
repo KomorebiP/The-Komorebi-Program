@@ -132,7 +132,7 @@ and fully dephased arithmetic states.
 
 ## Run in your browser
 
-[Open the Signal Laboratory](https://KomorebiP.github.io/Operation-KOMOREBI/signal-lab.html)
+[Open the Signal Laboratory](https://KomorebiP.github.io/The-Komorebi-Program/signal-lab.html)
 for a larger experiment. Generate or import 16–256 integer samples, add seeded
 noise, and compare Haar wavelets, orthonormal cosine modes, and sample
 coordinates at the same coefficient budget. Compare weighted-energy,
@@ -174,13 +174,13 @@ The reference signal is known in these experiments. The displayed reference
 minimum uses that knowledge; it does not estimate the clean signal behind an
 unknown real-world recording. Cosine calculations are numerical approximations.
 
-[Explore the interactive diagrams](https://KomorebiP.github.io/Operation-KOMOREBI/interactive.html).
+[Explore the interactive diagrams](https://KomorebiP.github.io/The-Komorebi-Program/interactive.html).
 Change matrix entries, keep or omit transfer blocks, refine an eight-sample
 signal, and move inputs along a shared-summary line. The controls update the
 diagrams and exact whole-number results immediately, without writing code.
 Each experiment links back to its hand calculation and sources.
 
-The [Recovery Laboratory](https://KomorebiP.github.io/Operation-KOMOREBI/recovery-lab.html)
+The [Recovery Laboratory](https://KomorebiP.github.io/The-Komorebi-Program/recovery-lab.html)
 extends the shared-summary example to 2–4 input coordinates, up to four
 measurements, and up to three linear questions. Edit integer or rational
 coefficients, disable measurements, and inspect either an exact recovery rule
@@ -196,13 +196,13 @@ those settings. If clipboard access is unavailable, select and copy the link
 shown below the button.
 
 For a deeper experiment, open the
-[16-sample Haar lab](https://KomorebiP.github.io/Operation-KOMOREBI/interactive.html#haar).
+[16-sample Haar lab](https://KomorebiP.github.io/The-Komorebi-Program/interactive.html#haar).
 Decompose a signal through four levels, choose individual coefficients or a
 magnitude cutoff, and inspect the exact reconstruction error and weighted
 energy balance. The [multilevel calculation](demonstrations/HAAR_LAB.md)
 records the default example and its expected results.
 
-[Open the Python playground](https://KomorebiP.github.io/Operation-KOMOREBI/playground.html).
+[Open the Python playground](https://KomorebiP.github.io/The-Komorebi-Program/playground.html).
 Choose a demonstration, press Run, and compare its output with the hand calculation.
 You can edit the code, stop a calculation, and reset the original example.
 Python loads on the first run; allow extra time for the initial download.
@@ -219,8 +219,8 @@ Stirling sums. Each includes exact data downloads and source links.
 Use Python 3.10 or later. The program uses only the standard library and exact
 integer arithmetic. It does not need internet access or write files.
 
-[Read the complete program on the site](https://KomorebiP.github.io/Operation-KOMOREBI/read/demonstrations.html)
-or [download komorebi_demonstrations.py](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/komorebi_demonstrations.py).
+[Read the complete program on the site](https://KomorebiP.github.io/The-Komorebi-Program/read/demonstrations.html)
+or [download komorebi_demonstrations.py](https://KomorebiP.github.io/The-Komorebi-Program/downloads/komorebi_demonstrations.py).
 Open a terminal in the folder containing the downloaded file and run:
 
 ```text
@@ -241,7 +241,7 @@ python -B examples/komorebi_demonstrations.py all
 ```
 
 Keep that revision with any saved output. The downloadable program's
-[source record](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/demonstration-source.json)
+[source record](https://KomorebiP.github.io/The-Komorebi-Program/downloads/demonstration-source.json)
 gives its collection revision and SHA-256 checksum. The repository also contains
 the [program source](../examples/komorebi_demonstrations.py).
 

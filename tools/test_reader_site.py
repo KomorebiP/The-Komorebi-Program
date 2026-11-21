@@ -88,7 +88,7 @@ class ReaderSiteTests(unittest.TestCase):
         reader.owned={p:dict(mode='100644',size=10,work='monographs-special-functions',
                              git_blob_sha1='b'*40,sha256='c'*64,repository_path=p)
                       for p in paths+retained}
-        site=SimpleNamespace(repos={'collection':'KomorebiP/Operation-KOMOREBI'},
+        site=SimpleNamespace(repos={'collection':'KomorebiP/The-Komorebi-Program'},
             revisions={'collection':'a'*40},documents={},reader=reader,
             roots={'collection':Path('.')})
         for path in paths:
@@ -96,7 +96,7 @@ class ReaderSiteTests(unittest.TestCase):
             self.assertIn(path,reader.owned)
             self.assertNotIn(path,reader.records)
             self.assertEqual(Site.resolve(site,'collection','docs/guide.md','collection/guide.html','../'+path),
-                'https://github.com/KomorebiP/Operation-KOMOREBI/blob/'+'a'*40+'/'+path)
+                'https://github.com/KomorebiP/The-Komorebi-Program/blob/'+'a'*40+'/'+path)
         for path in retained:
             self.assertEqual(reader.add(path)['sha256'],'c'*64)
 
