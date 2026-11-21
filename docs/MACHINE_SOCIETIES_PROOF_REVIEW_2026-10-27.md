@@ -2,7 +2,7 @@
 
 **27 October 2026 · Komorebi P. · AI-assisted self-review**
 
-Three previously unlisted statement/proof pairs in the final 1.0.0 manuscript were reviewed at [commit ad2b5089b273](https://github.com/KomorebiP/The-Komorebi-Program/commit/ad2b5089b2738bbe1c67345aaa634a45075995a2). Each has the primary verdict **proved as written** under its stated hypotheses. The [review record](../manifests/machine-societies-review-2026-10-27.json) pins the manuscript, exact statement/proof blocks, and prior review records.
+Three previously unlisted statement/proof pairs in the final 1.0.0 manuscript were reviewed at [commit ad2b5089b273](https://github.com/KomorebiP/Operation-KOMOREBI/commit/ad2b5089b2738bbe1c67345aaa634a45075995a2). Each has the primary verdict **proved as written** under its stated hypotheses. The [review record](../manifests/machine-societies-review-2026-10-27.json) pins the manuscript, exact statement/proof blocks, and prior review records.
 
 The earlier review lists 15 claims. These three labels are disjoint from that list and refer to the same source hash, so the two records cover **18 distinct pairs out of 62**. **44 pairs remain outside these targeted reviews.** This is a coverage count, not a whole-book confidence percentage. The manuscript and earlier review are preserved unchanged.
 

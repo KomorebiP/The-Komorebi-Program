@@ -2,7 +2,7 @@
 
 **27 October 2026 · Komorebi P. · AI-assisted sequential self-review · Batch 4**
 
-Six additional statement/proof pairs were checked against [commit 3cc5bd4d7282](https://github.com/KomorebiP/The-Komorebi-Program/commit/3cc5bd4d728265f489a1e5fdc2ad68ec6c78eb93). **Five are proved as written. The computability theorem is correct only after an explicit restriction on its program class.** Its proof assumes that an arbitrary simulation can trigger the actual forbidden event on halting. The stated simulation premise alone does not ensure that. A counterclass below demonstrates the difference.
+Six additional statement/proof pairs were checked against [commit 3cc5bd4d7282](https://github.com/KomorebiP/Operation-KOMOREBI/commit/3cc5bd4d728265f489a1e5fdc2ad68ec6c78eb93). **Five are proved as written. The computability theorem is correct only after an explicit restriction on its program class.** Its proof assumes that an arbitrary simulation can trigger the actual forbidden event on halting. The stated simulation premise alone does not ensure that. A counterclass below demonstrates the difference.
 
 Combined coverage is **38 of 62 distinct pairs: 36 recorded passes, two qualified statements, and 24 unreviewed**. The two qualifications are the earlier positive finite-index condition for `prop:memory` and the substantive program-class restriction for `thm:undecidable`. Neither is counted as a pass of the current written statement. The earlier [batch 3 report](MACHINE_SOCIETIES_PROOF_REVIEW_BATCH3_2026-10-27.md) links the previous reviews. Their recorded scope and provenance remain unchanged.
 
