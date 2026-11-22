@@ -1,0 +1,51 @@
+name: OEIS formula database checks
+on:
+  push:
+    paths:
+      - 'tools/oeis_formula_*'
+      - 'tools/test_oeis_formula_*'
+      - 'research/oeis-formulas/**'
+      - '.github/workflows/oeis-formula-database.yml'
+  pull_request:
+    paths:
+      - 'tools/oeis_formula_*'
+      - 'tools/test_oeis_formula_*'
+      - 'research/oeis-formulas/**'
+      - '.github/workflows/oeis-formula-database.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: oeis-formulas-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  exact-formulas:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+      - name: Exact source and adversarial regression tests
+        run: python -B -m unittest discover -s tools -p 'test_oeis_formula_*.py' -v
+      - name: Reproduce both curated OEIS batches and the polyphase export
+        run: |
+          python -B tools/oeis_formula_database.py --db /tmp/oeis-checked.sqlite3 ingest-seeds --path research/oeis-formulas/seeds.json
+          python -B tools/oeis_formula_database.py --db /tmp/oeis-checked.sqlite3 ingest-seeds --path research/oeis-formulas/seeds-extended.json
+          python -B tools/oeis_formula_polyphase.py --db /tmp/oeis-checked.sqlite3 export --output /tmp/polyphase.jsonl
+          python -B tools/oeis_formula_database.py --db /tmp/oeis-checked.sqlite3 export-jsonl --path /tmp/verified.jsonl
+          python -B tools/export_formula_browser.py --db /tmp/oeis-checked.sqlite3 --output /tmp/oeis-formulas.html
+          python -B - <<'PY'
+          import sqlite3
+          import pathlib
+          with sqlite3.connect('/tmp/oeis-checked.sqlite3') as db:
+              assert db.execute('PRAGMA integrity_check').fetchone()[0] == 'ok'
+              assert db.execute('SELECT COUNT(*) FROM sequences').fetchone()[0] == 56
+              assert db.execute("SELECT COUNT(*) FROM formulas WHERE verification='finite_checked'").fetchone()[0] == 61
+              assert db.execute("SELECT SUM(checked_terms) FROM formulas WHERE verification='finite_checked'").fetchone()[0] == 1098
+          assert len(pathlib.Path('/tmp/polyphase.jsonl').read_text().splitlines()) == 56
+          assert len(pathlib.Path('/tmp/verified.jsonl').read_text().splitlines()) == 61
+          PY
