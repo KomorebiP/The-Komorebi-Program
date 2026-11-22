@@ -1,19 +1,29 @@
-name: OEIS formula database checks
+name: OEIS formula database and transfer compiler
 on:
   push:
     paths:
       - 'tools/oeis_formula_*'
-      - 'tools/test_oeis_formula_*'
-      - 'tools/sequence_transfer_graph.py'
-      - 'tools/test_sequence_transfer_graph.py'
+      - 'tools/oeis_bulk_import.py'
+      - 'tools/sequence_transfer_*'
+      - 'tools/sequence_ratio_certificates.py'
+      - 'tools/sequence_kernel_transfers.py'
+      - 'tools/sequence_recurrence_transfers.py'
+      - 'tools/test_oeis_*'
+      - 'tools/test_sequence_*'
+      - 'tools/render_sequence_transfer_atlas.py'
       - 'research/oeis-formulas/**'
       - '.github/workflows/oeis-formula-database.yml'
   pull_request:
     paths:
       - 'tools/oeis_formula_*'
-      - 'tools/test_oeis_formula_*'
-      - 'tools/sequence_transfer_graph.py'
-      - 'tools/test_sequence_transfer_graph.py'
+      - 'tools/oeis_bulk_import.py'
+      - 'tools/sequence_transfer_*'
+      - 'tools/sequence_ratio_certificates.py'
+      - 'tools/sequence_kernel_transfers.py'
+      - 'tools/sequence_recurrence_transfers.py'
+      - 'tools/test_oeis_*'
+      - 'tools/test_sequence_*'
+      - 'tools/render_sequence_transfer_atlas.py'
       - 'research/oeis-formulas/**'
       - '.github/workflows/oeis-formula-database.yml'
   workflow_dispatch:
@@ -36,49 +46,65 @@ jobs:
             /tools/oeis_formula_database.py
             /tools/oeis_formula_discovery.py
             /tools/oeis_formula_polyphase.py
+            /tools/oeis_bulk_import.py
             /tools/sequence_transfer_graph.py
             /tools/sequence_transfer_miner.py
-            /tools/oeis_bulk_import.py
+            /tools/sequence_transfer_index.py
+            /tools/sequence_ratio_certificates.py
+            /tools/sequence_kernel_transfers.py
+            /tools/sequence_recurrence_transfers.py
             /tools/render_sequence_transfer_atlas.py
-            /tools/test_sequence_transfer_graph.py
             /tools/export_formula_browser.py
             /tools/test_oeis_formula_database.py
             /tools/test_oeis_formula_discovery.py
             /tools/test_oeis_formula_extended.py
+            /tools/test_oeis_bulk_import.py
+            /tools/test_sequence_transfer_graph.py
+            /tools/test_sequence_transfer_miner.py
+            /tools/test_sequence_transfer_index.py
+            /tools/test_sequence_symbolic_proofs.py
+            /tools/test_sequence_transfer_atlas.py
             /research/oeis-formulas/
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
         with:
           python-version: '3.13'
-      - name: Exact source and adversarial regression tests
-        run: python -B -m unittest discover -s tools -p 'test_oeis_formula_*.py' -v
-      - name: Validate exact transfer kernels and graph paths
-        run: python -B -m unittest discover -s tools -p 'test_sequence_transfer_graph.py' -v
-      - name: Reproduce both curated OEIS batches and the polyphase export
+      - name: Run full database and proof compiler regression suite
+        run: python -B -m unittest discover -s tools -p 'test_*.py' -v
+      - name: Rebuild transfer candidates and algebraic certificates
         run: |
-          python -B tools/oeis_formula_database.py --db /tmp/oeis-checked.sqlite3 ingest-seeds --path research/oeis-formulas/seeds.json
-          python -B tools/oeis_formula_database.py --db /tmp/oeis-checked.sqlite3 ingest-seeds --path research/oeis-formulas/seeds-extended.json
-          python -B tools/sequence_transfer_miner.py --db /tmp/oeis-checked.sqlite3 mine --export /tmp/candidate-transfers.jsonl
-          python -B tools/sequence_transfer_graph.py --db /tmp/oeis-checked.sqlite3 build --export /tmp/transfer-graph.jsonl
-          python -B tools/render_sequence_transfer_atlas.py --db /tmp/oeis-checked.sqlite3 --output /tmp/transfer-atlas.html
-          python -B tools/oeis_formula_polyphase.py --db /tmp/oeis-checked.sqlite3 export --output /tmp/polyphase.jsonl
-          python -B tools/oeis_formula_database.py --db /tmp/oeis-checked.sqlite3 export-jsonl --path /tmp/verified.jsonl
-          python -B tools/export_formula_browser.py --db /tmp/oeis-checked.sqlite3 --output /tmp/oeis-formulas.html
+          python -B tools/oeis_formula_database.py --db /tmp/oeis-v5.sqlite3 ingest-seeds --path research/oeis-formulas/seeds.json
+          python -B tools/oeis_formula_database.py --db /tmp/oeis-v5.sqlite3 ingest-seeds --path research/oeis-formulas/seeds-extended.json
+          python -B tools/sequence_transfer_miner.py --db /tmp/oeis-v5.sqlite3 mine --export /tmp/candidate-transfers.jsonl
+          python -B tools/sequence_transfer_index.py --db /tmp/oeis-v5.sqlite3 index
+          python -B tools/sequence_transfer_index.py --db /tmp/oeis-v5.sqlite3 mine --no-rebuild --reset-unary
+          python -B tools/sequence_ratio_certificates.py --db /tmp/oeis-v5.sqlite3 --export /tmp/certified-ratios.jsonl
+          python -B tools/sequence_kernel_transfers.py --db /tmp/oeis-v5.sqlite3 --export /tmp/kernel-transfers.jsonl
+          python -B tools/sequence_recurrence_transfers.py --db /tmp/oeis-v5.sqlite3
+          python -B tools/sequence_transfer_graph.py --db /tmp/oeis-v5.sqlite3 build --export /tmp/transfer-graph.jsonl
+          python -B tools/render_sequence_transfer_atlas.py --db /tmp/oeis-v5.sqlite3 --output /tmp/transfer-atlas.html
+          python -B tools/oeis_formula_polyphase.py --db /tmp/oeis-v5.sqlite3 export --output /tmp/polyphase.jsonl
+          python -B tools/oeis_formula_database.py --db /tmp/oeis-v5.sqlite3 export-jsonl --path /tmp/verified.jsonl
+          python -B tools/export_formula_browser.py --db /tmp/oeis-v5.sqlite3 --output /tmp/oeis-formulas.html
           python -B - <<'PY'
-          import sqlite3
-          import pathlib
-          with sqlite3.connect('/tmp/oeis-checked.sqlite3') as db:
+          import pathlib,sqlite3
+          with sqlite3.connect('/tmp/oeis-v5.sqlite3') as db:
               assert db.execute('PRAGMA integrity_check').fetchone()[0] == 'ok'
-              assert db.execute('SELECT COUNT(*) FROM transfer_nodes').fetchone()[0] == 170
-              assert db.execute('SELECT COUNT(*) FROM transfer_edges').fetchone()[0] == 190
-              assert db.execute('SELECT COUNT(*) FROM transfer_candidates').fetchone()[0] == 52
-              assert db.execute('SELECT COUNT(*) FROM rational_ratio_candidates').fetchone()[0] == 18
-              assert db.execute("SELECT COUNT(*) FROM transfer_edges WHERE status='algebraic_identity'").fetchone()[0] == 17
-              assert db.execute("SELECT COUNT(*) FROM transfer_edges WHERE status='finite_candidate'").fetchone()[0] == 112
-              assert db.execute('SELECT COUNT(*) FROM sequences').fetchone()[0] == 56
-              assert db.execute("SELECT COUNT(*) FROM formulas WHERE verification='finite_checked'").fetchone()[0] == 61
-              assert db.execute("SELECT SUM(checked_terms) FROM formulas WHERE verification='finite_checked'").fetchone()[0] == 1098
-          assert len(pathlib.Path('/tmp/polyphase.jsonl').read_text().splitlines()) == 56
-          assert len(pathlib.Path('/tmp/verified.jsonl').read_text().splitlines()) == 61
+              n=lambda t:db.execute('SELECT count(*) FROM '+t).fetchone()[0]
+              assert n('sequences')==56
+              assert n('formulas')==61
+              assert n('transfer_candidates')==52
+              assert n('rational_ratio_candidates')==18
+              assert n('certified_formula_ratios')==21
+              assert n('certified_formula_transfers')==14
+              assert n('certified_recurrence_ogfs')==8
+              assert n('certified_recurrence_projections')==4
+              assert n('transfer_nodes')==191
+              assert n('transfer_edges')==229
+              statuses=dict(db.execute('SELECT status,count(*) FROM transfer_edges GROUP BY status'))
+              assert statuses==dict(algebraic_identity=17,finite_candidate=112,formula_algebra=39,recorded_representation=61)
+              assert db.execute("SELECT sum(checked_terms) FROM formulas WHERE verification='finite_checked'").fetchone()[0]==1098
           assert len(pathlib.Path('/tmp/candidate-transfers.jsonl').read_text().splitlines()) == 70
-          assert 'proofRoute' in pathlib.Path('/tmp/transfer-atlas.html').read_text()
+          assert len(pathlib.Path('/tmp/certified-ratios.jsonl').read_text().splitlines()) == 21
+          assert len(pathlib.Path('/tmp/kernel-transfers.jsonl').read_text().splitlines()) == 14
+          assert 'formula_algebra' in pathlib.Path('/tmp/transfer-atlas.html').read_text()
           PY
