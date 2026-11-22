@@ -323,6 +323,24 @@ function filterItems(input, selector, status, group) {
 
 const workQuery = document.querySelector("#work-query");
 if (workQuery) filterItems(workQuery, ".work", document.querySelector("#work-count"), document.querySelector("#work-group"));
+// Maintain direct links to claims.html#<id> after moving records to paper pages.
+// The index retains real links as a no-JavaScript fallback.
+const claimLegacyDirectory = document.querySelector(".claim-legacy-index");
+if (claimLegacyDirectory) {
+  function followLegacyClaim() {
+    if (!location.hash) return;
+    let id;
+    try { id = decodeURIComponent(location.hash.slice(1)); } catch { return; }
+    const target = document.getElementById(id);
+    if (target && (target.matches(".claim-legacy-link") ||
+        target.matches(".claim-paper-grid a[data-claim-paper]"))) {
+      window.location.replace(target.href);
+    }
+  }
+  window.addEventListener("hashchange", followLegacyClaim);
+  followLegacyClaim();
+}
+
 const claimQuery = document.querySelector("#claim-query");
 if (claimQuery) {
   const paper = document.querySelector("#claim-paper");

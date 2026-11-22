@@ -15,6 +15,65 @@ from claim_navigation import statements, manuscript_sources, validate_claims, PA
 from readable_chapters import Chapter, expand_math, plain_math, readable_url, original_math, render_table, bibliography, formal_note_labels, manuscript_bibliography, presentation_tex, passage_links, reading_options, chapter_text, validate_monolithic, FOURTH_MAIN, FOURTH_CHAPTERS
 
 
+
+class ClaimDirectoryPageTests(unittest.TestCase):
+    def test_twelve_paper_pages_and_legacy_claim_links(self):
+        import posixpath
+        from claim_navigation import render_claim_index
+
+        records = [
+            dict(id='test-' + wid, work_id=wid, kind='theorem',
+                 title='Statement ' + wid, status='covered' if wid == 'paper-i'
+                 else 'written_statement', scope='Reading location only',
+                 statement_path='papers/test/main.tex', statement_line=3,
+                 proof_line=None, labels=['L-' + wid], lean=[],
+                 search_text='Find this claim')
+            for wid in PAPERS
+        ]
+        components = {wid: dict(
+            title='Paper ' + wid[6:].upper() + ': Example topic',
+            destination='papers/test') for wid in PAPERS}
+        site = SimpleNamespace(
+            claims=dict(records=records, works=[
+                dict(id=wid, mode='correspondence' if wid == 'paper-i'
+                     else 'written_statement') for wid in PAPERS]),
+            components=components,
+            registry=dict(components=[
+                dict(id=wid, resources=[dict(kind='formal_guide', path='guide.md')])
+                for wid in PAPERS]),
+            search=[],
+            rel=lambda target, page: posixpath.relpath(
+                target, posixpath.dirname(page) or '.'))
+        site.reader = SimpleNamespace(
+            resolve=lambda path, page, fragment='': site.rel(
+                'documents/test.tex.html', page) +
+                ('#' + fragment if fragment else ''),
+            primary_pdf=lambda wid: dict(url='documents/test.pdf'))
+        pages = {}
+        site.page = lambda path, title, body: pages.setdefault(path, body)
+        render_claim_index(site)
+
+        self.assertEqual(len(pages), 13)
+        self.assertIn('claims.html', pages)
+        directory = pages['claims.html']
+        self.assertNotIn('<article class="claim"', directory)
+        self.assertEqual(directory.count('class="claim-legacy-link"'), len(records))
+        self.assertIn('action="search.html"', directory)
+        for wid in PAPERS:
+            url = 'claims/' + wid + '.html'
+            body = pages[url]
+            identifier = 'test-' + wid
+            self.assertIn('id="' + identifier + '"', body)
+            self.assertIn('href="../documents/test.tex.html#L3"', body)
+            self.assertIn('href="' + url + '#' + identifier + '"', directory)
+            self.assertEqual(body.count('<article class="claim"'), 1)
+            self.assertIn('id="claim-filters"', body)
+        direct = [item for item in site.search if item['kind'] == 'Claims']
+        self.assertEqual(len(direct), len(PAPERS))
+        self.assertTrue(all(item['url'].startswith('claims/paper-')
+                            for item in direct))
+
+
 def manuscript_table_fixtures(root,work):
     from readable_chapters import BOOKS, manuscript_macros
     config=BOOKS[work]
