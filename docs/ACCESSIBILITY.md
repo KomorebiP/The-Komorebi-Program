@@ -38,12 +38,24 @@ performed, and the site does not claim WCAG conformance. See
 [known limitations](#accessibility-limitations) or
 [report an access problem](#accessibility-help).
 
+### Features that need JavaScript
+
+Ordinary reading pages, chapter links, static glossary entries, and source
+links remain available without JavaScript. Site search, interactive filters,
+reference previews, text settings, saved reading, and the side-by-side reader
+require JavaScript. Saved places, reading sessions, and preferences also
+depend on browser storage.
+
+If these features are unavailable, use the ordinary document links, your
+browser's Find command, and separate tabs for comparing documents.
+
 ## Navigate and read
 
 ### Keyboard controls
 
-Use **Tab** and **Shift+Tab** to move between controls, **Enter** to follow a
-link or activate a button, and **Space** or **Enter** to open a disclosure.
+Use **Tab** and **Shift+Tab** to move between controls. Press **Enter** to
+follow links or activate buttons. Use **Space** or **Enter** to open and close
+disclosures.
 The site provides **Skip to main content**, named navigation regions, visible
 keyboard focus, and layouts that reflow on narrow screens. Wide tables, code
 blocks, and displayed equations have keyboard-scrollable areas. Focus a wide
@@ -51,10 +63,10 @@ block, then use the arrow keys to scroll it.
 
 ### Find sections and chapters
 
-The site header keeps **Read**, **Collection**, **Glossary**, **About**, and
-**Search** visible. **Browse** groups additional links under **Read**, **Look up**, and
-**Use**. Press **Escape** within the expanded navigation to close it and return
-focus to Browse. Without JavaScript, those grouped links remain visible.
+The site header provides **Read**, **Collection**, **Glossary**, **About**,
+and **Search**. **Browse** groups additional links under **Read**, **Look up**,
+and **Use**. Press **Escape** while the Browse menu is open to close it and
+return keyboard focus to the **Browse** button. Without JavaScript, those grouped links remain visible.
 
 Long guides include an **On this page** list. In reading chapters, the
 section sidebar and **On this page** links help you move within the text.
@@ -63,10 +75,10 @@ any enclosing contents disclosure. Direct passage links and the browser's
 Back and Forward controls return you to the linked passage, unless you have
 since moved focus to another control.
 
-Chapter pages have **Previous**, **Next**, and **Chapters** controls, with the
-destination titles shown. The sidebar also provides **Work overview** and
-**Full contents**. Visual guides are organized by **Atlas plates**, except for Paper IX, which
-uses **Visual sections**.
+Chapter pages provide **Previous**, **Next**, and **Chapters** controls,
+with destination titles shown. The sidebar also links to **Work overview**
+and **Full contents**. Visual guides use **Atlas plates** for navigation,
+except for Paper IX, which uses **Visual sections**.
 
 Open **Reading tools** to access **Reading library**, **Switch work**, and
 other controls. **Find a chapter** filters the contents by title or reading-page
@@ -78,8 +90,8 @@ chapter lists remain available without JavaScript.
 In a reading chapter, open **Reading tools**, then **Text settings**, to choose
 standard, large, or extra-large text and a sans-serif or serif typeface for
 prose. These settings apply across reading chapters and are saved in the
-browser when local storage is available. **Reset text settings** restores the defaults. Browser zoom
-also works.
+browser when local storage is available. **Reset text settings** restores
+the defaults. You can also use your browser's zoom controls.
 
 Open **Resources & source** for PDFs and related resources. Its **Show source
 and reference links** option reveals each passage's permalink, source line,
@@ -93,8 +105,8 @@ to the text. Without JavaScript, passage links remain visible.
 When a chapter contains statement records, open **Statements and proofs** in
 its contents. **Find a statement** searches titles, printed numbers, statement
 types, and source labels. Number searches require an exact match. Include a statement type, such as
-**Theorem 12.6**, to distinguish records with the same number. Greek names
-such as **rho** also match their symbols. The **Proof links only** filter shows
+**Theorem 12.6**, to distinguish records with the same number. Greek letter
+names such as **rho** also match their symbols. The **Proof links only** filter shows
 entries with a recorded **Read proof** link. Following a statement or proof
 link moves keyboard focus to the passage. **Escape** clears the filters, then
 closes the list. The full list and links also work without JavaScript.
@@ -102,8 +114,7 @@ closes the list. The full list and links also work without JavaScript.
 Use **Find statements** in **Reading tools** to search across a core paper.
 Results remain grouped by chapter. The query and filters are stored in the
 page URL, so reloading, using the browser's Back control, or sharing the link
-restores them.
-Changing the filters does not add browser-history steps.
+restores them. Changing filters does not add browser-history steps.
 
 Use **Find a reference** in bibliographies to search by author, title, year,
 or citation key. Clearing it restores every entry. A direct reference link
@@ -115,24 +126,25 @@ Reference and citation links in the twelve core papers also offer a separate
 **Preview** button. It opens a labeled dialog without changing your reading
 position. **Tab** and **Shift+Tab** move within the dialog. Press **Escape**
 or select **Close** to return focus to the **Preview** button.
-**Open referenced passage** follows the original link. Long previews and formulas can be scrolled, and excerpts are
-marked. Original links remain usable without previews or JavaScript. Preview
-controls are omitted when printing.
+**Open referenced passage** follows the original link. Long previews and
+formulas can be scrolled, and excerpts are marked. Original reference links
+remain usable without previews or JavaScript. Preview controls are omitted
+when printing.
 
 ### Save a page or passage
 
 Use **Save page**, or the bookmark beside a section heading, to keep a place in
 [Saved reading](https://KomorebiP.github.io/The-Komorebi-Program/reading-list.html).
-Saved places stay in this browser. Saving entries and viewing the list require
-JavaScript and available browser storage; browser bookmarks are another option.
-Clearing the site's browser data removes the saved list.
+Saved places remain in this browser. Saving and viewing them require
+JavaScript and available browser storage. Ordinary browser bookmarks are
+an alternative. Clearing this site's browser data removes the saved list.
 
 ## Read side by side
 
 Choose **Read side by side** in **Reading tools** or **Browse** to open the
 [two-pane reader](https://KomorebiP.github.io/The-Komorebi-Program/side-by-side.html).
-The page you were reading opens on the left, including its HTML passage anchor.
-Each pane has a document picker with work, type, and text filters. You can keep
+The page you were reading opens in the left pane, including any HTML passage
+anchor. Each pane has a document picker with work, type, and text filters. You can keep
 papers, claims, proof passages, Lean sources, code, notation, and examples open
 together.
 
@@ -162,16 +174,17 @@ do not imply that a module proves the entire written statement.
 Each pane scrolls independently. **Read left pane** and **Read right pane**
 move keyboard focus into the selected document. **Return to pane controls**
 brings focus back to the controls, and **Swap sides** exchanges the documents.
-Under **Layout and help**, the width slider responds to arrow keys. On narrow screens, choose
-either pane at full width or **Both panes** to stack them. **Focus on reading**
+Under **Layout and help**, use the arrow keys to adjust the width slider.
+On narrow screens, choose either pane at full width or **Both panes** to
+stack them. **Focus on reading**
 hides the site header and introduction; **Show site navigation** restores them.
 
 **Open on its own**, external links, and the full PDF viewer open in a new tab.
-PDF toolbar links keep the viewer's normal behavior. **Copy link to this pair** copies a link containing the document addresses
-and HTML anchors. If clipboard access is unavailable, a selected text field
-lets you copy the link yourself. Pair links
-omit saved scroll positions and PDF toolbar settings. Browser Back restores
-earlier pairs. Without JavaScript, open the ordinary document links in separate
+PDF toolbar links retain the viewer's normal behavior. **Copy link to this
+pair** copies a link containing the document addresses and HTML anchors.
+If clipboard access is unavailable, a selected text field lets you copy the
+link manually. Pair links do not include saved scroll positions or PDF
+toolbar settings. The browser's Back control restores earlier pairs. Without JavaScript, open the ordinary document links in separate
 browser tabs.
 
 ### Save and resume a reading session
@@ -193,9 +206,10 @@ HTML sessions remember a nearby passage and restore an approximate reading
 position after a window-size change. Once loaded, PDF sessions retain the
 viewer's page, zoom, position, and rotation. Each pane's position is restored
 when that pane becomes visible. Turning off automatic remembering clears
-the automatic session but keeps named bookmarks. Clearing browser site data removes all sessions. If storage is
-blocked or full, the reader reports that saving failed; ordinary reading and
-pair links remain available.
+the automatic session but keeps named bookmarks. Clearing this site's
+browser data removes all sessions. If storage is blocked or full, the
+reader reports that saving failed. Ordinary reading and pair links remain
+available.
 
 ## Find a statement or term
 
@@ -213,7 +227,7 @@ results to the current work. Spaces and common punctuation are treated alike,
 so **seed-rank** and **seed rank** find the same indexed text. Common Greek
 symbols can be searched by name or character, such as **rho** or **ρ**.
 The page URL preserves the query and filters. **Show more results** moves
-focus to the first new result, and result counts are announced.
+keyboard focus to the first new result. Result counts are also announced.
 
 ### Search source files and reference guides
 
@@ -252,13 +266,13 @@ listed in the [correction record](https://KomorebiP.github.io/The-Komorebi-Progr
 
 The [visual-guide directory](https://KomorebiP.github.io/The-Komorebi-Program/read/visual-guides.html)
 links all twelve core guides, the Quantum and Circuits visual collection, and
-their original PDFs. Current HTML coverage is:
+the original PDFs. HTML coverage includes:
 
 <table>
 <caption>Visual-guide coverage</caption>
 <thead><tr><th scope="col">Works</th><th scope="col">Visual-guide reading options</th></tr></thead>
 <tbody>
-<tr><th scope="row">I–XII</th><td>Complete HTML visual guides, alongside the original PDFs. The guides retain source prose, equations, and drawing labels, with text descriptions and structured tables where applicable.</td></tr>
+<tr><th scope="row">Papers I–XII</th><td>Complete HTML visual guides and original PDFs. The guides retain source prose, equations, and drawing labels, with text descriptions and structured tables where applicable.</td></tr>
 <tr><th scope="row">Quantum and Circuits</th><td><a href="https://KomorebiP.github.io/The-Komorebi-Program/read/monographs-quantum-and-circuits/visual-guides.html">Two complete visual sequences</a>: 25 quantum-arithmetic pages and 25 circuit-obstruction pages, with original drawings, selectable equations, and links to the volume.</td></tr>
 </tbody>
 </table>
@@ -278,7 +292,7 @@ full text description.
 
 The HTML reader uses a locally served, pinned MathJax runtime with assistive
 MathML, semantic enrichment, and expression exploration enabled. Open an
-expression's context menu for its math-reading options. Support varies with
+equation's context menu to find the available math-reading options. Support varies with
 the browser and assistive technology. Wide formulas retain their text size
 and can be scrolled horizontally with the keyboard.
 
@@ -295,15 +309,16 @@ has a collapsible four-step guide, prediction explanations, a notation guide,
 and numerical examples for the current matrices. “Read the rows as equations”
 connects the editable coefficients to weighted sums.
 
-Use native buttons and fields with Tab, Enter, and Space. Sliders respond to
-arrow keys, Home, and End; the invisible-direction parameter also has decrease
-and increase buttons. Selecting a question retains focus on its button.
+Use **Tab** to reach native buttons and fields, then **Enter** or **Space**
+to activate buttons. Sliders respond to arrow keys, **Home**, and **End**.
+The invisible-direction parameter also has decrease and increase buttons. Selecting a question retains focus on its button.
 “Next guided step” moves focus to the new explanation. Results are announced
 when edits are committed or controls are moved. Graphs and full certificates
 remain available as ordinary reading content.
 
-The two-coordinate fiber picture and answer graph have visible descriptions
-and exact tables. Series use line styles and mark shapes alongside color.
+The two-coordinate fiber picture and answer graph have text descriptions
+and exact tables. Graph series use line styles and marker shapes alongside
+color.
 There is no automatic animation. Formulas wrap, wide tables scroll locally,
 and overflowing table regions can receive keyboard focus. Invalid matrix
 entries are marked and described while the last valid calculation remains
@@ -318,9 +333,9 @@ companions. The embedded PDF reader offers search, page selection, zoom, and
 printing. **Expand reader** opens a larger reading view. **Open PDF directly**
 and **Download PDF** remain available if the embedded reader cannot load.
 
-Some original PDFs may lack semantic tags, a correct reading order, or usable
-equation descriptions. The collection has not been fully converted or
-certified for PDF accessibility. Try an available HTML edition, Markdown
+Some original PDFs may lack semantic tags, a reliable reading order, or
+usable equation descriptions. The collection has not been fully converted
+or certified for PDF accessibility. Try an available HTML edition, Markdown
 guide, or TeX source, and report the work and section if a usable format is
 missing. Source files can be read as selectable text with line links.
 TeX is shown as source code rather than rendered mathematics.
@@ -342,9 +357,9 @@ is disabled.
 
 ## Checks and remaining limits
 
-The website build checks local links and fragments, page titles, language,
-main headings, skip links, form labels, and image text alternatives. It also
-checks reading ZIPs against source receipts. These checks do not establish
+The website build checks local links and fragments, page titles, language
+attributes, main headings, skip links, form labels, and image text
+alternatives. It also checks reading ZIPs against source receipts. These checks do not establish
 WCAG conformance or replace testing with assistive technology.
 
 Keyboard and responsive browser checks cover representative pages. A full
@@ -359,8 +374,7 @@ Lean replay. Evidence for each work remains recorded separately.
 
 Use the [accessibility and reading problem template](https://github.com/KomorebiP/The-Komorebi-Program/issues/new?template=04-accessibility.md)
 or the [contribution guidance](../CONTRIBUTING.md). Include the page URL, the
-section or control, what you expected, and what happened. Browser and assistive
-technology details are useful when you can provide them. You do not need to
-identify a standard, propose a fix, or share a diagnosis.
+section or control, what you expected, and what happened. Browser and assistive technology details are useful when available. You do
+not need to identify a standard, propose a fix, or disclose a diagnosis.
 
 [Reading routes](READING_ROUTES.md) · [Glossary](GLOSSARY.md) · [Project statement](PROJECT_STATEMENT.md)
