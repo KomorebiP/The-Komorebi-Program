@@ -36,8 +36,8 @@ jobs:
         run: |
           set -euo pipefail
           if [[ '${{ github.event_name }}' == 'push' ]]; then
-            echo 'MAX_RECORDS=25000' >> "$GITHUB_ENV"
-            echo 'SNAPSHOT_SCOPE=first-25-oeis-shards' >> "$GITHUB_ENV"
+            echo 'MAX_RECORDS=100000' >> "$GITHUB_ENV"
+            echo 'SNAPSHOT_SCOPE=first-100-oeis-shards' >> "$GITHUB_ENV"
           else
             VALUE='${{ inputs.max_records }}'
             if ! [[ "$VALUE" =~ ^[0-9]+$ ]]; then
@@ -52,9 +52,9 @@ jobs:
         run: |
           set -euo pipefail
           git clone --depth 1 --filter=blob:none --sparse --branch main https://github.com/oeis/oeisdata.git /tmp/oeisdata
-          if [[ "$SNAPSHOT_SCOPE" == 'first-25-oeis-shards' ]]; then
+          if [[ "$SNAPSHOT_SCOPE" == 'first-100-oeis-shards' ]]; then
             shards=()
-            for ((i=0; i<25; i++)); do
+            for ((i=0; i<100; i++)); do
               printf -v shard 'seq/A%03d' "$i"
               shards+=("$shard")
             done
@@ -76,6 +76,12 @@ jobs:
           python -B tools/oeis_formula_discovery.py --db /tmp/oeis-full.sqlite3 --min-terms 12 --max-terms 24 > /tmp/oeis-normalized.json
           python -B tools/sequence_formula_retrieval.py --db /tmp/oeis-full.sqlite3 index > /tmp/oeis-formula-index.json
           python -B tools/sequence_transfer_index.py --db /tmp/oeis-full.sqlite3 index > /tmp/oeis-prefix-index.json
+      - name: Canonical all-index formula network and shared sequence basis
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -B tools/sequence_oeis_symbolic_network.py --db /tmp/oeis-full.sqlite3 --export /tmp/oeis-symbolic-network.jsonl --summary /tmp/oeis-symbolic-summary.json
+          python -B tools/sequence_oeis_basis.py --db /tmp/oeis-full.sqlite3 --output /tmp/oeis-basis-projections.jsonl --basis-output /tmp/oeis-basis-summary.json
       - name: Optional finite-candidate mining
         if: ${{ inputs.include_prefix_mining == true }}
         run: python -B tools/sequence_transfer_index.py --db /tmp/oeis-full.sqlite3 mine --no-rebuild > /tmp/oeis-prefix-mining.json
@@ -93,12 +99,15 @@ jobs:
               count['normalized_finite_checked']=db.execute("SELECT count(*) FROM formulas WHERE origin='oeis_normalized' AND verification='finite_checked'").fetchone()[0]
               count['raw_formula_lines']=db.execute("SELECT count(*) FROM formulas WHERE origin='oeis_formula'").fetchone()[0]
               count['unexecuted_program_blocks']=db.execute("SELECT count(*) FROM formulas WHERE origin='oeis_program'").fetchone()[0]
+          symbolic=json.loads(pathlib.Path('/tmp/oeis-symbolic-summary.json').read_text())
+          basis=json.loads(pathlib.Path('/tmp/oeis-basis-summary.json').read_text())
           provenance={'oeis_git_revision':pathlib.Path('/tmp/oeis_revision.txt').read_text().strip(),
             'oeis_source':'https://github.com/oeis/oeisdata','source_license':'CC-BY-SA-4.0',
             'import':json.loads(pathlib.Path('/tmp/oeis-import.json').read_text()),
             'normalization':json.loads(pathlib.Path('/tmp/oeis-normalized.json').read_text()),
             'formula_index':json.loads(pathlib.Path('/tmp/oeis-formula-index.json').read_text()),
             'prefix_index':json.loads(pathlib.Path('/tmp/oeis-prefix-index.json').read_text()),
+            'symbolic_formula_network':symbolic, 'formula_basis':{k:v for k,v in basis.items() if k!='basis_sequences'},
             'counts':count,'integrity_check':integrity,
             'scope':'raw formula harvesting and finite verification. Neither lexical references nor finite matches prove all-index OEIS identities'}
           pathlib.Path('/tmp/oeis-corpus-provenance.json').write_text(json.dumps(provenance,indent=2)+'\n')
@@ -115,5 +124,9 @@ jobs:
             /tmp/oeis-normalized.json
             /tmp/oeis-formula-index.json
             /tmp/oeis-prefix-index.json
+            /tmp/oeis-symbolic-network.jsonl
+            /tmp/oeis-symbolic-summary.json
+            /tmp/oeis-basis-projections.jsonl
+            /tmp/oeis-basis-summary.json
           if-no-files-found: error
           retention-days: 30

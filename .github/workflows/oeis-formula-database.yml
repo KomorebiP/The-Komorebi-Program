@@ -70,6 +70,10 @@ jobs:
           sparse-checkout-cone-mode: false
           sparse-checkout: |
             /tools/oeis_formula_database.py
+            /tools/test_oeis_transfer_v8.py
+            /tools/sequence_oeis_basis.py
+            /tools/sequence_oeis_symbolic_network.py
+            /tools/sequence_oeis_proof_promotion.py
             /tools/oeis_formula_discovery.py
             /tools/oeis_formula_polyphase.py
             /tools/oeis_bulk_import.py
