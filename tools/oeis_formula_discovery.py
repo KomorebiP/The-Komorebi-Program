@@ -123,7 +123,7 @@ def normalize_oeis(db, limit=None, min_terms=12, max_terms=24, batch_size=500):
     """
     if not 1 <= min_terms <= max_terms <= 100:
         raise ValueError('require 1 <= min_terms <= max_terms <= 100')
-    rows = db.execute('SELECT oeis_id,name,offset FROM sequences ORDER BY oeis_id').fetchall()
+    rows = db.execute('SELECT oeis_id,name,offset FROM sequences ORDER BY oeis_id')
     counts = {'sequences_scanned': 0, 'formula_lines_scanned': 0,
               'parsed_candidates': 0, 'finite_checked': 0,
               'insufficient_terms': 0, 'rejected': 0, 'negative_offset_skipped': 0}

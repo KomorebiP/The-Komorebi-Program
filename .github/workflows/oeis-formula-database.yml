@@ -10,6 +10,9 @@ on:
       - 'tools/sequence_recurrence_transfers.py'
       - 'tools/sequence_recurrence_packets.py'
       - 'tools/sequence_exponential_polynomial.py'
+      - 'tools/sequence_sparse_lifts.py'
+      - 'tools/benchmark_sequence_transfer_closure.py'
+      - 'tools/render_sequence_closure_atlas.py'
       - 'tools/sequence_packet_atlas.py'
       - 'tools/sequence_padic_lifts.py'
       - 'tools/sequence_formula_retrieval.py'
@@ -31,6 +34,9 @@ on:
       - 'tools/sequence_recurrence_transfers.py'
       - 'tools/sequence_recurrence_packets.py'
       - 'tools/sequence_exponential_polynomial.py'
+      - 'tools/sequence_sparse_lifts.py'
+      - 'tools/benchmark_sequence_transfer_closure.py'
+      - 'tools/render_sequence_closure_atlas.py'
       - 'tools/sequence_packet_atlas.py'
       - 'tools/sequence_padic_lifts.py'
       - 'tools/sequence_formula_retrieval.py'
@@ -71,6 +77,13 @@ jobs:
             /tools/sequence_recurrence_transfers.py
             /tools/sequence_recurrence_packets.py
             /tools/sequence_exponential_polynomial.py
+            /tools/sequence_sparse_lifts.py
+            /tools/sequence_transfer_closure.py
+            /tools/benchmark_sequence_transfer_closure.py
+            /tools/test_sequence_transfer_closure.py
+            /tools/test_sequence_sparse_lifts.py
+            /tools/render_sequence_closure_atlas.py
+            /tools/test_sequence_closure_atlas.py
             /tools/sequence_packet_atlas.py
             /tools/sequence_padic_lifts.py
             /tools/sequence_formula_retrieval.py
@@ -162,4 +175,28 @@ jobs:
           assert len(pathlib.Path('/tmp/exact-linear-identities.jsonl').read_text().splitlines())==58
           assert json.loads(pathlib.Path('/tmp/exact-basis.json').read_text())['basis_size']==9
           assert 'Exact Sequence Transfer Atlas' in pathlib.Path('/tmp/packet-atlas.html').read_text()
+          PY
+      - name: Certify all-index binomial, product and sparse-quotient lifts
+        run: |
+          python -B tools/sequence_transfer_closure.py --db /tmp/oeis-v5.sqlite3 --export /tmp/closure-operators.jsonl --max-pairs 170
+          python -B tools/sequence_sparse_lifts.py --db /tmp/oeis-v5.sqlite3 --export /tmp/sparse-lifts.jsonl --max-modulus 12 --max-support 3 --max-coefficient 20
+          python -B tools/render_sequence_closure_atlas.py --db /tmp/oeis-v5.sqlite3 --closure /tmp/closure-operators.jsonl --sparse /tmp/sparse-lifts.jsonl --output /tmp/closure-atlas.html
+          python -B - <<'PY'
+          import pathlib,json,sqlite3
+          operators=[json.loads(row) for row in pathlib.Path('/tmp/closure-operators.jsonl').read_text().splitlines()]
+          sparse=[json.loads(row) for row in pathlib.Path('/tmp/sparse-lifts.jsonl').read_text().splitlines()]
+          assert len(operators)==406
+          assert len(sparse)==138
+          assert 'Exact sequence transfer compiler' in pathlib.Path('/tmp/closure-atlas.html').read_text()
+          assert sum(row['lift']['support']<=2 for row in sparse)==107
+          def match(src,op,target,m,r):
+              return any(row['inputs']==[src] and row['operator']==op and
+                  {'oeis_id':target,'modulus':m,'residue':r} in row['matches'] for row in operators)
+          assert match('A000045','binomial','A000045',2,0)
+          assert match('A000931','binomial','A000931',3,0)
+          assert match('A000012','binomial','A000079',1,0)
+          assert match('A000079','binomial','A000244',1,0)
+          assert any(x['source_oeis_id']=='A000129' and x['lift']['polynomial']==[1,2] and x['lift']['modulus']==2 for x in sparse)
+          with sqlite3.connect('/tmp/oeis-v5.sqlite3') as db:
+              assert db.execute('PRAGMA integrity_check').fetchone()[0]=='ok'
           PY

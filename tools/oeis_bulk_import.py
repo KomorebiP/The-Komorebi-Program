@@ -13,6 +13,7 @@ import argparse
 from contextlib import contextmanager
 import hashlib
 import json
+import os
 from pathlib import Path, PurePosixPath
 import re
 import sqlite3
@@ -122,17 +123,76 @@ def import_archive(db, path, *, limit=None, with_xrefs=True, batch_size=1000):
     return stats
 
 
+
+def _tree_seq_files(root):
+    """Deterministic, one-shard-at-a-time traversal (no all-file list)."""
+    root=Path(root)
+    if root.is_file():
+        if re.fullmatch(r'A\d{6}\.seq',root.name):yield root
+        return
+    for folder,children,filenames in os.walk(root):
+        children.sort()
+        for name in sorted(filenames):
+            if re.fullmatch(r'A\d{6}\.seq',name):
+                yield Path(folder)/name
+
+
+def import_tree(db,root,*,limit=None,with_xrefs=True,batch_size=1000):
+    """Import full Git sparse-checkout trees with per-record savepoint isolation.
+
+    Unlike an archive, this does not require an intermediate multi-gigabyte tar.
+    The only source data kept in memory are one entry and its parsed fields.
+    A limited import processes lexically first IDs deterministically.
+    """
+    root=Path(root)
+    if not root.exists():raise FileNotFoundError(root)
+    if batch_size<1 or limit is not None and limit<0:
+        raise ValueError('invalid limit/batch_size')
+    if with_xrefs:ensure_schema(db)
+    stats={'scanned':0,'inserted':0,'updated':0,'unchanged':0,
+           'failed':0,'references_staged':0,'error_samples':[],
+           'source_root':str(root),'scope':'raw OEIS source; xrefs are leads, not proofs'}
+    for path in _tree_seq_files(root):
+        if limit is not None and stats['scanned']>=limit:break
+        stats['scanned']+=1
+        db.execute('SAVEPOINT tree_entry')
+        try:
+            if path.stat().st_size>ARCHIVE_ENTRY_MAX_BYTES:
+                raise ValueError('entry exceeds maximum permitted size')
+            raw=path.read_text(encoding='utf-8')
+            record=parse_seq(raw)
+            if record['oeis_id']+'.seq'!=path.name:
+                raise ValueError('file name and OEIS ID do not match')
+            action=store_seq(db,record,raw)
+            if with_xrefs:
+                stats['references_staged']+=_stage_y_refs(db,record,raw,path.name)
+            stats[action]+=1
+        except (ValueError,UnicodeError,sqlite3.Error,OSError) as exc:
+            db.execute('ROLLBACK TO SAVEPOINT tree_entry')
+            stats['failed']+=1
+            if len(stats['error_samples'])<12:
+                stats['error_samples'].append({'file':str(path),'reason':str(exc)[:250]})
+        finally:db.execute('RELEASE SAVEPOINT tree_entry')
+        if stats['scanned']%batch_size==0:db.commit()
+    db.commit()
+    return stats
+
+
 def main(argv=None):
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--db',type=Path,required=True)
-    p.add_argument('--archive',type=Path,required=True)
+    source=p.add_mutually_exclusive_group(required=True)
+    source.add_argument('--archive',type=Path)
+    source.add_argument('--tree-root',type=Path)
     p.add_argument('--limit',type=int)
     p.add_argument('--no-xrefs',action='store_true')
     p.add_argument('--batch-size',type=int,default=1000)
     args=p.parse_args(argv)
     with connect(args.db) as db:
-        r=import_archive(db,args.archive,limit=args.limit,
+        r=(import_archive(db,args.archive,limit=args.limit,
                          with_xrefs=not args.no_xrefs,batch_size=args.batch_size)
+           if args.archive is not None else import_tree(db,args.tree_root,limit=args.limit,
+                         with_xrefs=not args.no_xrefs,batch_size=args.batch_size))
     print(json.dumps(r,indent=2))
 
 

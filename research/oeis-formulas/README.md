@@ -87,3 +87,9 @@ python -m unittest discover -s tools -p 'test_oeis_formula_*.py' -v
 ```
 
 Ingesting the retained OEIS `stripped.gz` / `names.gz` alone does not provide the complete `%F` formula fields. Those require the full official `.seq` export. The Komorebi 2,333-record research library remains a separate source and must be imported explicitly through `ingest-komorebi`; no claim is made that its records are included in the new 56-sequence seed database.
+
+## 2026-11-22 v0.7 — universal recurrence transfer closure
+
+`tools/sequence_transfer_closure.py` proves binomial and inverse-binomial recurrence shifts, Cauchy convolution recurrences, and minimal observable Hadamard-product recurrences for the 33 curated recurrence definitions. Their all-index scope applies to the *definitions*, not independently to OEIS identification. `tools/sequence_sparse_lifts.py` certifies low-support quotient-ring power congruences and derives universal multinomial transfers; 138 currently selected instances (107 of support at most two) pass exact algebraic and finite controls. A benchmark for the Fibonacci binomial sum is included with explicit method, result digest, and timing scope. See `TRANSFER_CLOSURE.md`.
+
+The full OEIS source workflow has both a bounded 25-shard branch-push smoke run and a manually dispatchable full import once the workflow reaches the default branch. It uses a deterministic streaming `.seq` tree parser, stages `%Y` cross-references strictly as leads, normalizes only a restricted expression grammar, and indexes all raw formula text without executing it. Do not report full-OEIS coverage until a completed GitHub Actions run provides the attached provenance and consistency report.

@@ -8,7 +8,7 @@ import unittest
 import zipfile
 
 from oeis_formula_database import connect,statistics
-from oeis_bulk_import import import_archive
+from oeis_bulk_import import import_archive,import_tree
 from sequence_transfer_graph import import_xrefs,create_graph
 
 SEQ1='''%I A000045 M1234 N1234
@@ -75,6 +75,32 @@ class ArchiveTest(unittest.TestCase):
 
     def test_zip(self):self.check_file(self.build_zip())
     def test_tar(self):self.check_file(self.build_tar())
+
+    def test_tree_is_deterministic_and_stages_links(self):
+        root=self.directory/'seq'
+        a=root/'A000';a.mkdir(parents=True)
+        for key,content in [("A000999",SEQ_BAD),("A000045",SEQ1),("A000032",SEQ2)]:
+            (a/(key+'.seq')).write_text(content,encoding='utf-8')
+        result=import_tree(self.db,root,limit=2,batch_size=1)
+        self.assertEqual(result['inserted'],2)
+        self.assertEqual(result['failed'],0)
+        self.assertEqual(result['references_staged'],3)
+        self.assertEqual(statistics(self.db)['oeis_sequences_stored'],2)
+        self.assertEqual(import_tree(self.db,root,limit=2)['unchanged'],2)
+        full=import_tree(self.db,root)
+        self.assertEqual(full['failed'],1)
+        self.assertEqual(full['unchanged'],2)
+        self.assertEqual(self.db.execute('SELECT count(*) FROM oeis_xrefs').fetchone()[0],3)
+
+    def test_tree_reimport_rolls_back_bad_changes(self):
+        root=self.directory/'seq'; root.mkdir()
+        p=root/'A000045.seq';p.write_text(SEQ1,encoding='utf-8')
+        self.assertEqual(import_tree(self.db,root)['inserted'],1)
+        old=self.db.execute('SELECT terms_json FROM sequences WHERE oeis_id=?',('A000045',)).fetchone()[0]
+        p.write_text(SEQ_BAD.replace('A000999','A000045'),encoding='utf-8')
+        result=import_tree(self.db,root)
+        self.assertEqual(result['failed'],1)
+        self.assertEqual(old,self.db.execute('SELECT terms_json FROM sequences WHERE oeis_id=?',('A000045',)).fetchone()[0])
 
     def test_limit_and_no_xrefs(self):
         r=import_archive(self.db,self.build_zip(),limit=1,with_xrefs=False)

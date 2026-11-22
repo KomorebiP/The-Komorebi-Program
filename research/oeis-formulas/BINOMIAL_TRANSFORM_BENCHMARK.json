@@ -1,0 +1,14 @@
+{
+  "n": 5000,
+  "repeats": 5,
+  "benchmarked_case": "binomial transform of Fibonacci at index n",
+  "exact_equality": true,
+  "slow_method": "single-pass exact Fibonacci and binomial coefficient accumulation",
+  "fast_method": "compiled order-2 shift recurrence evaluated using modular polynomial powers",
+  "slow_median_seconds": 0.038210602000617655,
+  "fast_median_seconds": 0.00012183999933768064,
+  "measured_speed_ratio": 313.6129531215495,
+  "result_decimal_digits": 2090,
+  "result_sha256": "e9c83559a05641cfd86d6c192c53fdfda87b8e53470b63dc19d1d0d7526e987a",
+  "scope": "specific Python implementation and workload, not universal performance claim"
+}

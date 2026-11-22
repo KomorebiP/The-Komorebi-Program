@@ -1,0 +1,25 @@
+{
+  "version": "0.7",
+  "author": "Komorebi P.",
+  "date": "2026-11-22",
+  "source_recursions": 33,
+  "operator_certificates": 406,
+  "operator_counts": {
+    "binomial": 33,
+    "inverse_binomial": 33,
+    "cauchy_product": 170,
+    "hadamard_product": 170
+  },
+  "sparse_lift_instances": 138,
+  "binomial_or_monomial_lifts": 107,
+  "proof_scope": "all-index for supplied recurrence definitions; OEIS finite matches separate",
+  "full_oeis_corpus_imported": false,
+  "workflow_unmerged": true,
+  "verified_seed_oeis_records": 56,
+  "baseline_reference_term_checks": 1098,
+  "files": {
+    "research/oeis-formulas/closure-operators.jsonl": "28dce70678f0843e91df929efb8d786bdc15b22e4869bd987671c88aab8989df",
+    "research/oeis-formulas/sparse-lifts.jsonl": "e1ed95fd38d542bd79bd39c3171c6eb19d1cf55dae65843e4c31d6d15fde3cb4",
+    "research/oeis-formulas/BINOMIAL_TRANSFORM_BENCHMARK.json": "524a8f7a3e7258e4534a2477813bceb27ab2c8b9cf62169f155e1b0d05429523"
+  }
+}

@@ -1,13 +1,20 @@
-name: OEIS full-source formula corpus (manual)
+name: OEIS source corpus and transfer index (staged)
 on:
+  # One bounded test on the feature branch, without merging or publishing data.
+  push:
+    branches:
+      - feature/oeis-formula-database-20261122
+    paths:
+      - '.github/workflows/oeis-full-corpus.yml'
+  # Full manual run after the workflow has reached the default branch.
   workflow_dispatch:
     inputs:
       max_records:
-        description: 'Maximum OEIS source entries (0 = full corpus)'
+        description: 'Number of OEIS entries (0 = full available corpus)'
         required: true
         default: '0'
       include_prefix_mining:
-        description: 'Run bounded-memory finite-match mining after source indexing'
+        description: 'Run exact finite-prefix candidate mining after indexing'
         required: true
         type: boolean
         default: false
@@ -24,60 +31,88 @@ jobs:
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
         with:
           python-version: '3.13'
-      - name: Snapshot OEIS official GitHub source tree
+      - name: Choose bounded push trial or explicit full manual run
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ '${{ github.event_name }}' == 'push' ]]; then
+            echo 'MAX_RECORDS=25000' >> "$GITHUB_ENV"
+            echo 'SNAPSHOT_SCOPE=first-25-oeis-shards' >> "$GITHUB_ENV"
+          else
+            VALUE='${{ inputs.max_records }}'
+            if ! [[ "$VALUE" =~ ^[0-9]+$ ]]; then
+              echo 'max_records must be a nonnegative integer' >&2
+              exit 2
+            fi
+            echo "MAX_RECORDS=$VALUE" >> "$GITHUB_ENV"
+            echo 'SNAPSHOT_SCOPE=full-available-source' >> "$GITHUB_ENV"
+          fi
+      - name: Snapshot official OEIS Git source with provenance
         shell: bash
         run: |
           set -euo pipefail
           git clone --depth 1 --filter=blob:none --sparse --branch main https://github.com/oeis/oeisdata.git /tmp/oeisdata
-          git -C /tmp/oeisdata sparse-checkout set seq
+          if [[ "$SNAPSHOT_SCOPE" == 'first-25-oeis-shards' ]]; then
+            shards=()
+            for ((i=0; i<25; i++)); do
+              printf -v shard 'seq/A%03d' "$i"
+              shards+=("$shard")
+            done
+            git -C /tmp/oeisdata sparse-checkout set "${shards[@]}"
+          else
+            git -C /tmp/oeisdata sparse-checkout set seq
+          fi
           git -C /tmp/oeisdata rev-parse HEAD > /tmp/oeis_revision.txt
           cat /tmp/oeis_revision.txt
-      - name: Ingest raw attributed formulas and build incremental search index
+      - name: Import attributed formulas, programs, mathematical offsets and xrefs
         shell: bash
         run: |
           set -euo pipefail
-          LIMIT='${{ inputs.max_records }}'
-          if [[ "$LIMIT" =~ ^[0-9]+$ ]] && (( LIMIT > 0 )); then
-            python -B tools/oeis_formula_database.py --db /tmp/oeis-full.sqlite3 ingest-oeis --path /tmp/oeisdata/seq --limit "$LIMIT" > /tmp/oeis-import.json
-          elif [[ "$LIMIT" == 0 ]]; then
-            python -B tools/oeis_formula_database.py --db /tmp/oeis-full.sqlite3 ingest-oeis --path /tmp/oeisdata/seq > /tmp/oeis-import.json
+          if [[ "$MAX_RECORDS" == '0' ]]; then
+            python -B tools/oeis_bulk_import.py --db /tmp/oeis-full.sqlite3 --tree-root /tmp/oeisdata/seq > /tmp/oeis-import.json
           else
-            echo 'Invalid max_records input' >&2; exit 2
+            python -B tools/oeis_bulk_import.py --db /tmp/oeis-full.sqlite3 --tree-root /tmp/oeisdata/seq --limit "$MAX_RECORDS" > /tmp/oeis-import.json
           fi
+          python -B tools/oeis_formula_discovery.py --db /tmp/oeis-full.sqlite3 --min-terms 12 --max-terms 24 > /tmp/oeis-normalized.json
           python -B tools/sequence_formula_retrieval.py --db /tmp/oeis-full.sqlite3 index > /tmp/oeis-formula-index.json
           python -B tools/sequence_transfer_index.py --db /tmp/oeis-full.sqlite3 index > /tmp/oeis-prefix-index.json
       - name: Optional finite-candidate mining
         if: ${{ inputs.include_prefix_mining == true }}
         run: python -B tools/sequence_transfer_index.py --db /tmp/oeis-full.sqlite3 mine --no-rebuild > /tmp/oeis-prefix-mining.json
-      - name: Reproducible provenance and database consistency
+      - name: Source receipts and consistency
         shell: bash
         run: |
           python -B - <<'PY'
-          import hashlib,json,pathlib,sqlite3
+          import json,pathlib,sqlite3
           p=pathlib.Path('/tmp/oeis-full.sqlite3')
           with sqlite3.connect(p) as db:
               integrity=db.execute('PRAGMA integrity_check').fetchone()[0]
-              if integrity!='ok':raise SystemExit('Database integrity failed: '+integrity)
-              counts={name:db.execute('SELECT count(*) FROM '+name).fetchone()[0]
-                  for name in ['sequences','formulas','formula_text_receipts','transfer_prefix_index']}
-          provenance={'oeisdata_git_revision':pathlib.Path('/tmp/oeis_revision.txt').read_text().strip(),
-              'source':'https://github.com/oeis/oeisdata','license':'CC-BY-SA-4.0',
-              'import':json.loads(pathlib.Path('/tmp/oeis-import.json').read_text()),
-              'formula_index':json.loads(pathlib.Path('/tmp/oeis-formula-index.json').read_text()),
-              'prefix_index':json.loads(pathlib.Path('/tmp/oeis-prefix-index.json').read_text()),
-              'counts':counts,'integrity_check':integrity,
-              'scope':'raw source indexing; finite candidates and lexical links are not proofs'}
+              if integrity!='ok':raise SystemExit('SQLite integrity failure: '+integrity)
+              count={name:db.execute('SELECT count(*) FROM '+name).fetchone()[0]
+                  for name in ['sequences','formulas','formula_text_receipts','transfer_prefix_index','oeis_xrefs']}
+              count['normalized_finite_checked']=db.execute("SELECT count(*) FROM formulas WHERE origin='oeis_normalized' AND verification='finite_checked'").fetchone()[0]
+              count['raw_formula_lines']=db.execute("SELECT count(*) FROM formulas WHERE origin='oeis_formula'").fetchone()[0]
+              count['unexecuted_program_blocks']=db.execute("SELECT count(*) FROM formulas WHERE origin='oeis_program'").fetchone()[0]
+          provenance={'oeis_git_revision':pathlib.Path('/tmp/oeis_revision.txt').read_text().strip(),
+            'oeis_source':'https://github.com/oeis/oeisdata','source_license':'CC-BY-SA-4.0',
+            'import':json.loads(pathlib.Path('/tmp/oeis-import.json').read_text()),
+            'normalization':json.loads(pathlib.Path('/tmp/oeis-normalized.json').read_text()),
+            'formula_index':json.loads(pathlib.Path('/tmp/oeis-formula-index.json').read_text()),
+            'prefix_index':json.loads(pathlib.Path('/tmp/oeis-prefix-index.json').read_text()),
+            'counts':count,'integrity_check':integrity,
+            'scope':'raw formula harvesting and finite verification. Neither lexical references nor finite matches prove all-index OEIS identities'}
           pathlib.Path('/tmp/oeis-corpus-provenance.json').write_text(json.dumps(provenance,indent=2)+'\n')
-          print(json.dumps(counts))
+          print(json.dumps(count,indent=2))
           PY
-      - name: Upload indexed SQLite database and provenance
+      - name: Upload source index and provenance as private build artifact
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: oeis-formula-corpus
+          name: oeis-source-corpus-${{ github.run_id }}
           path: |
             /tmp/oeis-full.sqlite3
             /tmp/oeis-corpus-provenance.json
             /tmp/oeis-import.json
+            /tmp/oeis-normalized.json
             /tmp/oeis-formula-index.json
             /tmp/oeis-prefix-index.json
           if-no-files-found: error
