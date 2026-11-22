@@ -26,7 +26,9 @@ class ClaimDirectoryPageTests(unittest.TestCase):
                  title='Statement ' + wid, status='covered' if wid == 'paper-i'
                  else 'written_statement', scope='Reading location only',
                  statement_path='papers/test/main.tex', statement_line=3,
-                 proof_line=None, labels=['L-' + wid], lean=[],
+                 proof_line=7 if wid == 'paper-i' else None,
+                 labels=['L-' + wid], lean=([dict(name='proof_test',path='papers/test/proof.lean')]
+                                               if wid == 'paper-i' else []),
                  search_text='Find this claim')
             for wid in PAPERS
         ]
@@ -68,6 +70,7 @@ class ClaimDirectoryPageTests(unittest.TestCase):
             self.assertIn('href="' + url + '#' + identifier + '"', directory)
             self.assertEqual(body.count('<article class="claim"'), 1)
             self.assertIn('id="claim-filters"', body)
+        self.assertIn('side-by-side.html?', pages['claims/paper-i.html'])
         direct = [item for item in site.search if item['kind'] == 'Claims']
         self.assertEqual(len(direct), len(PAPERS))
         self.assertTrue(all(item['url'].startswith('claims/paper-')
