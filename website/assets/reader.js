@@ -328,12 +328,34 @@ if (workQuery) filterItems(workQuery, ".work", document.querySelector("#work-cou
 const claimLegacyDirectory = document.querySelector(".claim-legacy-index");
 if (claimLegacyDirectory) {
   function followLegacyClaim() {
-    if (!location.hash) return;
-    let id;
-    try { id = decodeURIComponent(location.hash.slice(1)); } catch { return; }
-    const target = document.getElementById(id);
-    if (target && (target.matches(".claim-legacy-link") ||
-        target.matches(".claim-paper-grid a[data-claim-paper]"))) {
+    if (location.hash) {
+      let id;
+      try { id = decodeURIComponent(location.hash.slice(1)); } catch { return; }
+      const target = document.getElementById(id);
+      if (target && (target.matches(".claim-legacy-link") ||
+          target.matches(".claim-paper-grid a[data-claim-paper]"))) {
+        window.location.replace(target.href);
+      }
+      return;
+    }
+    // The former single-page index also supported shareable filter URLs.
+    const old = new URLSearchParams(location.search);
+    const paperId = old.get("paper");
+    const query = old.get("q");
+    const type = old.get("kind");
+    if (paperId) {
+      const paperLink = document.getElementById(paperId);
+      if (paperLink && paperLink.matches(".claim-paper-grid a[data-claim-paper]")) {
+        const target = new URL(paperLink.href);
+        for (const key of ["q", "kind", "size", "page"]) {
+          if (old.has(key)) target.searchParams.set(key, old.get(key));
+        }
+        window.location.replace(target.href);
+      }
+    } else if (query || type) {
+      const target = new URL("search.html", location.href);
+      target.searchParams.set("type", "Claims");
+      if (query) target.searchParams.set("q", query);
       window.location.replace(target.href);
     }
   }
