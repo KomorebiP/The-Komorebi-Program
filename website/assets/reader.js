@@ -327,53 +327,108 @@ const claimQuery = document.querySelector("#claim-query");
 if (claimQuery) {
   const paper = document.querySelector("#claim-paper");
   const kind = document.querySelector("#claim-kind");
+  const size = document.querySelector("#claim-size");
   const count = document.querySelector("#claim-count");
   const empty = document.querySelector("#claim-empty");
   const items = Array.from(document.querySelectorAll(".claim"));
   const sections = Array.from(document.querySelectorAll(".claim-section"));
+  const pagers = Array.from(document.querySelectorAll(".claim-pager"));
+  const paperLinks = Array.from(document.querySelectorAll("[data-claim-paper]"));
   const texts = new Map(items.map(item => [item, normalized(item.dataset.search)]));
   const params = new URLSearchParams(location.search);
   claimQuery.value = params.get("q") || "";
   paper.value = params.get("paper") || "";
   kind.value = params.get("kind") || "";
-  function apply(clearHash = false) {
+  size.value = ["20", "40", "80"].includes(params.get("size")) ? params.get("size") : "20";
+  let currentPage = Math.max(1, Number.parseInt(params.get("page"), 10) || 1);
+
+  function apply({resetPage = false, clearHash = false} = {}) {
+    if (resetPage) currentPage = 1;
     const words = wordsFor(claimQuery.value);
-    let shown = 0;
-    const visiblePapers = new Set();
-    for (const item of items) {
-      const match = (!paper.value || item.dataset.paper === paper.value) &&
-        (!kind.value || item.dataset.kind === kind.value) && words.every(word => texts.get(item).includes(word));
-      item.hidden = !match;
-      if (match) { shown++; visiblePapers.add(item.dataset.paper); }
+    const matches = items.filter(item =>
+      (!paper.value || item.dataset.paper === paper.value) &&
+      (!kind.value || item.dataset.kind === kind.value) &&
+      words.every(word => texts.get(item).includes(word)));
+    const pageSize = Number(size.value);
+    const pages = Math.max(1, Math.ceil(matches.length / pageSize));
+    currentPage = Math.max(1, Math.min(pages, currentPage));
+    const from = (currentPage - 1) * pageSize;
+    const visible = matches.slice(from, from + pageSize);
+    const showing = new Set(visible);
+    const shownPapers = new Set(visible.map(item => item.dataset.paper));
+    for (const item of items) item.hidden = !showing.has(item);
+    for (const section of sections) section.hidden = !shownPapers.has(section.dataset.paper);
+    for (const link of paperLinks) link.classList.toggle("is-active", paper.value === link.dataset.claimPaper);
+    if (matches.length) {
+      count.textContent = `Showing ${from + 1}–${Math.min(from + pageSize, matches.length)} of ${matches.length} matching records (${items.length} total)`;
+    } else {
+      count.textContent = `No matches among ${items.length} records`;
     }
-    for (const section of sections) section.hidden = !visiblePapers.has(section.dataset.paper);
-    count.textContent = `${shown} of ${items.length} records across ${visiblePapers.size} ${visiblePapers.size === 1 ? "paper" : "papers"}`;
-    empty.hidden = shown > 0;
-    saveParams({q: claimQuery.value, paper: paper.value, kind: kind.value}, clearHash);
+    empty.hidden = matches.length > 0;
+    for (const pager of pagers) {
+      pager.hidden = matches.length <= pageSize;
+      pager.querySelector("[data-claim-page-status]").textContent = `Page ${currentPage} of ${pages}`;
+      pager.querySelector('[data-claim-step="-1"]').disabled = currentPage === 1;
+      pager.querySelector('[data-claim-step="1"]').disabled = currentPage === pages;
+    }
+    saveParams({q: claimQuery.value, paper: paper.value, kind: kind.value,
+      size: size.value === "20" ? "" : size.value, page: currentPage === 1 ? "" : String(currentPage)}, clearHash);
   }
+
   function revealHash() {
     let id;
     try { id = decodeURIComponent(location.hash.slice(1)); } catch { return; }
     const target = document.getElementById(id);
-    if (!target || !(target.matches(".claim") || sections.some(s => s.querySelector("h2") === target))) return;
-    paper.value = target.dataset.paper || id;
-    claimQuery.value = "";
-    kind.value = "";
-    apply();
-    requestAnimationFrame(() => { target.scrollIntoView(); });
+    if (!target) return;
+    if (target.matches(".claim")) {
+      paper.value = target.dataset.paper;
+      claimQuery.value = "";
+      kind.value = "";
+      const position = items.filter(item => item.dataset.paper === paper.value).indexOf(target);
+      currentPage = Math.floor(Math.max(0, position) / Number(size.value)) + 1;
+      apply();
+      const record = target.querySelector(".claim-record");
+      if (record) record.open = true;
+      requestAnimationFrame(() => target.scrollIntoView({block: "start"}));
+    } else if (target.matches(".claim-section > h2")) {
+      paper.value = target.closest(".claim-section").dataset.paper;
+      claimQuery.value = "";
+      kind.value = "";
+      apply({resetPage: true});
+      requestAnimationFrame(() => target.scrollIntoView({block: "start"}));
+    }
   }
-  claimQuery.addEventListener("input", () => apply(true));
-  paper.addEventListener("change", () => apply(true));
-  kind.addEventListener("change", () => apply(true));
-  claimQuery.form.addEventListener("submit", event => { event.preventDefault(); apply(true); });
-  claimQuery.form.addEventListener("reset", () => setTimeout(() => { apply(true); claimQuery.focus(); }, 0));
-  for (const link of document.querySelectorAll("[data-claim-paper]")) {
+
+  claimQuery.addEventListener("input", () => apply({resetPage: true, clearHash: true}));
+  paper.addEventListener("change", () => apply({resetPage: true, clearHash: true}));
+  kind.addEventListener("change", () => apply({resetPage: true, clearHash: true}));
+  size.addEventListener("change", () => apply({resetPage: true, clearHash: true}));
+  claimQuery.form.addEventListener("submit", event => { event.preventDefault(); apply({resetPage: true, clearHash: true}); });
+  claimQuery.form.addEventListener("reset", event => {
+    event.preventDefault();
+    claimQuery.value = "";
+    paper.value = "";
+    kind.value = "";
+    size.value = "20";
+    apply({resetPage: true, clearHash: true});
+    claimQuery.focus();
+  });
+  for (const link of paperLinks) {
     link.addEventListener("click", () => {
       paper.value = link.dataset.claimPaper;
       claimQuery.value = "";
       kind.value = "";
-      apply();
+      apply({resetPage: true});
     });
+  }
+  for (const pager of pagers) {
+    for (const button of pager.querySelectorAll("[data-claim-step]")) {
+      button.addEventListener("click", () => {
+        currentPage += Number(button.dataset.claimStep);
+        apply({clearHash: true});
+        document.getElementById("claim-browser").scrollIntoView({block: "start"});
+      });
+    }
   }
   window.addEventListener("hashchange", revealHash);
   apply();

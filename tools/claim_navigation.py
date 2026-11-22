@@ -203,18 +203,53 @@ def render_claim_index(site):
               'classical':'Classical input', 'numericalcertificate':'Numerical certificate'}
     name = lambda kind: labels.get(kind, kind.replace('_', ' ').capitalize())
     filter_kind = lambda kind: 'classical' if kind == 'classicalinput' else kind
-    body = '<h1>Follow a written claim</h1><p>All 12 core papers are here. Find a statement, open its source passage, and follow the available proof, Lean guide, and evidence.</p>'
-    body += '<p>Paper I retains its 108 correspondence records, including 69 labeled covered by that source. Papers II through XII index explicit statement blocks in their current manuscripts. These are reading locations, not new proof reviews or Lean coverage assessments.</p>'
-    body += '<h2 id="core-papers">Choose a core paper</h2><nav class="paper-jumps" aria-label="Choose a core paper">'
+    pager = ('<nav class="claim-pager" aria-label="Claim result pages" hidden>'
+             '<button type="button" data-claim-step="-1">Previous</button>'
+             '<span data-claim-page-status>Page 1</span>'
+             '<button type="button" data-claim-step="1">Next</button></nav>')
+    body = (
+        '<header class="claim-intro"><p class="eyebrow">Core paper index</p>'
+        '<h1>Claims and written statements</h1>'
+        '<p class="lede">Find a written statement, inspect its source, and follow the available proof, Lean guide, and evidence.</p>'
+        '<details class="claim-index-scope"><summary>What this index records</summary>'
+        '<p>Paper I retains its 108 correspondence records, including 69 labeled covered by that source. '
+        'Papers II through XII index explicit statement blocks in their current manuscripts. '
+        'These are reading locations, not new proof reviews or Lean coverage assessments.</p>'
+        '</details></header>'
+    )
+    body += '<h2 id="core-papers">Browse by paper</h2><nav class="paper-jumps claim-paper-grid" aria-label="Choose a core paper">'
     for work in site.claims['works']:
         wid = work['id']
         count = sum(r['work_id'] == wid for r in records)
-        body += '<a data-claim-paper="'+wid+'" href="#'+wid+'">Paper '+wid[6:].upper()+' <span>('+str(count)+')</span></a>'
-    body += '</nav><form id="claim-filters" class="filters"><label for="claim-query">Search titles, statement text, labels or Lean names</label><input id="claim-query" name="q" type="search" aria-describedby="claim-help"><p id="claim-help" class="status">Try “seed rank”, “automorphy” or a source label. Filters are saved in this page’s address so you can share the result.</p><label for="claim-paper">Paper</label><select id="claim-paper" name="paper"><option value="">All 12 papers</option>'
-    body += ''.join('<option value="'+p+'">Paper '+p[6:].upper()+'</option>' for p in PAPERS)
-    body += '</select><label for="claim-kind">Statement type</label><select id="claim-kind" name="kind"><option value="">All statement types</option>'
-    body += ''.join('<option value="'+k+'">'+name(k)+'</option>' for k in sorted({filter_kind(r['kind']) for r in records}))
-    body += '</select><button type="reset">Clear filters</button></form><p id="claim-count" role="status" aria-live="polite">'+str(len(records))+' records across 12 papers</p><p id="claim-empty" hidden>No matching statements. Try fewer words or clear the filters. You can also <a href="search.html">search the whole site</a>.</p><noscript><p>All records are shown below. Use the paper links above or your browser’s Find command.</p></noscript>'
+        short = site.components[wid]['title'].split(':', 1)[-1].strip()
+        body += ('<a data-claim-paper="' + wid + '" href="#' + wid + '">' +
+                 '<span class="claim-paper-top"><strong>Paper ' + wid[6:].upper() + '</strong>' +
+                 '<span>' + str(count) + ' records</span></span>' +
+                 '<span class="claim-paper-title">' + e(short) + '</span></a>')
+    body += (
+        '</nav><section class="claim-browser" id="claim-browser" aria-labelledby="claim-browser-title">'
+        '<h2 id="claim-browser-title">Search the index</h2>'
+        '<form id="claim-filters" class="filters claim-filter-grid">'
+        '<div class="claim-filter-query"><label for="claim-query">Keywords</label>'
+        '<input id="claim-query" name="q" type="search" placeholder="Title, label, or Lean declaration" aria-describedby="claim-help">'
+        '<p id="claim-help" class="status">Search titles, text, labels, and recorded Lean names. The URL keeps your filters.</p></div>'
+        '<div><label for="claim-paper">Paper</label><select id="claim-paper" name="paper"><option value="">All 12 papers</option>'
+    )
+    body += ''.join('<option value="' + p + '">Paper ' + p[6:].upper() + '</option>' for p in PAPERS)
+    body += ('</select></div><div><label for="claim-kind">Statement type</label>'
+             '<select id="claim-kind" name="kind"><option value="">All types</option>')
+    body += ''.join('<option value="' + k + '">' + name(k) + '</option>'
+                    for k in sorted({filter_kind(r['kind']) for r in records}))
+    body += ('</select></div><div><label for="claim-size">Results per page</label>'
+             '<select id="claim-size" name="size"><option value="20">20</option>'
+             '<option value="40">40</option><option value="80">80</option></select></div>'
+             '<button class="claim-clear" type="reset">Clear filters</button></form>'
+             '<p id="claim-count" role="status" aria-live="polite">' + str(len(records)) + ' records across 12 papers</p>'
+             '<p id="claim-empty" hidden>No matching statements. Try fewer words or clear the filters. '
+             'You can also <a href="search.html">search the whole site</a>.</p>'
+             '<noscript><p>All statement summaries are shown below. Open one to see its source links. '
+             'Use the paper links or your browser’s Find command.</p></noscript></section>')
+    body += pager
     for work in site.claims['works']:
         wid = work['id']
         title = site.components[wid]['title']
@@ -224,7 +259,7 @@ def render_claim_index(site):
         guide = next((r for r in site.registry['components'] if r['id'] == wid))
         guide = next((site.reader.resolve(site.components[wid]['destination']+'/'+r['path'], 'claims.html')
                       for r in guide['resources'] if r['kind'] == 'formal_guide'), None)
-        body += '<section class="claim-section" data-paper="'+wid+'" aria-labelledby="'+wid+'"><h2 id="'+wid+'" tabindex="-1">'+e(title)+'</h2><p>'+str(len(rows))+' '+('correspondence records' if work['mode']=='correspondence' else 'written statement records')+'.</p><nav class="document-routes" aria-label="Paper '+wid[6:].upper()+' reading routes">'
+        body += '<section class="claim-section" data-paper="'+wid+'" aria-labelledby="'+wid+'"><h2 id="'+wid+'" tabindex="-1">'+e(title)+'</h2><p>'+str(len(rows))+' '+('correspondence records' if work['mode']=='correspondence' else 'written statement records')+'.</p><details class="claim-paper-tools"><summary>Paper sources, guides, and evidence</summary><nav class="document-routes" aria-label="Paper '+wid[6:].upper()+' reading routes">'
         routes = [('Read PDF',pdf['url']),('Paper overview',hub),('Lean guide',guide or hub+'#lean'),
                   ('Inspect Lean', 'lean/'+wid+'/index.html'),
                   ('Lean coverage',hub+'#lean'),('Code',hub+'#code'),('Evidence',hub+'#evidence'),
@@ -232,6 +267,7 @@ def render_claim_index(site):
         if wid in BOOKS: routes.insert(0, ('Read chapters', BOOKS[wid]['index']))
         body += ''.join('<a href="'+url+'">'+label+'</a>' for label,url in routes)
         body += '<a href="'+hub+'#written-proofs">Written proofs</a><a href="search.html?work='+wid+'">Search this paper</a></nav><p class="status">'+('The original record keeps its status and scope. A mapped module does not imply that every statement in this paper has been formalized.' if work['mode']=='correspondence' else 'Statement types are taken from the manuscript. Conjectures, definitions, classical inputs, and certificates remain distinct. Lean mappings for individual claims are not assigned by this index.')+'</p>'
+        body += '</details>'
         for row in rows:
             identifier = row['id'].lower()
             statement = site.reader.resolve(row['statement_path'], 'claims.html', 'L'+str(row['statement_line']))
@@ -251,7 +287,23 @@ def render_claim_index(site):
                                               preview='Written proof location for '+row['title']+'. '+(row.get('search_text') or row['scope']))
                 else:
                     proof_search[proof]['text'] += ' '+search
-            body += '<article class="claim" id="'+identifier+'" data-paper="'+wid+'" data-kind="'+filter_kind(row['kind'])+'" data-search="'+e(search,quote=True)+'"><h3>'+e(row['title'])+'</h3><p class="status">'+e(name(row['kind']))+' · '+('Source status: '+e(row['status']) if wid=='paper-i' else 'Written statement')+'</p><p><a href="#'+identifier+'" aria-label="Permanent link to '+e(row['title'],quote=True)+'">Link to this record</a> · <code>'+e(row['id'])+'</code></p>'
+            proof_note = 'Proof link indexed' if row['proof_line'] else 'No proof link indexed'
+            descriptors = [name(row['kind']), proof_note]
+            if row['lean']:
+                descriptors.append(str(len(row['lean'])) + ' mapped Lean declarations')
+            if wid == 'paper-i':
+                descriptors.append('Source: ' + row['status'])
+            meta = ' · '.join(e(label) for label in descriptors)
+            body += (
+                '<article class="claim" id="' + identifier + '" data-paper="' + wid +
+                '" data-kind="' + filter_kind(row['kind']) + '" data-search="' + e(search, quote=True) + '">' +
+                '<details class="claim-record"><summary><strong class="claim-title">' +
+                e(row['title']) + '</strong><span class="claim-meta">' + meta +
+                '</span></summary><div class="claim-body">' +
+                '<p class="claim-record-id"><a href="#' + identifier +
+                '" aria-label="Permanent link to ' + e(row['title'], quote=True) +
+                '">Link to this record</a> · <code>' + e(row['id']) + '</code></p>'
+            )
             if wid == 'paper-i': body += '<p>'+e(row['scope'])+'</p>'
             if row.get('labels'): body += '<p class="status">Source labels: '+e(', '.join(row['labels']))+'</p>'
             body += '<p><a href="'+statement+'">Written statement</a>'+(' · <a href="'+proof+'">'+('Written proof' if wid=='paper-i' else 'Following proof block')+'</a>' if proof else ' · No separate proof block indexed')+'</p>'
@@ -270,8 +322,9 @@ def render_claim_index(site):
                 body += '</ul></details>'
             else:
                 body += '<p class="status">'+('No declaration mapping recorded for this entry.' if wid=='paper-i' else 'Lean mapping for this statement has not been transcribed here.')+'</p>'
-            body += '<p><a href="'+pdf['url']+'">Read paper</a> · <a href="'+hub+'#lean">Lean coverage</a> · <a href="'+hub+'#code">Code</a> · <a href="'+hub+'#evidence">Evidence</a> · <a href="'+hub+'#worked-examples-for-this-work">Worked examples</a> · <a href="search.html?work='+wid+'">Search this paper</a> · <a href="#claim-filters">Back to filters</a></p></article>'
+            body += '<p class="claim-return"><a href="#claim-browser">Back to filters</a></p></div></details></article>'
         body += '</section>'
+    body += pager
     body += '<p><a href="collection/CLAIM_LINKS.html">Index scope and other works</a> · <a href="collection/GLOSSARY.html">Glossary</a> · <a href="search.html">Search the site</a></p>'
     site.search.extend(proof_search.values())
     site.page('claims.html', 'Follow a written claim', body)
