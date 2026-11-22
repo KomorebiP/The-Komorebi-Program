@@ -13,6 +13,8 @@ on:
       - 'tools/sequence_sparse_lifts.py'
       - 'tools/benchmark_sequence_transfer_closure.py'
       - 'tools/render_sequence_closure_atlas.py'
+      - 'tools/render_oeis_real_transfer_atlas.py'
+      - 'tools/test_real_oeis_transfer_atlas.py'
       - 'tools/sequence_packet_atlas.py'
       - 'tools/sequence_padic_lifts.py'
       - 'tools/sequence_formula_retrieval.py'
@@ -37,6 +39,8 @@ on:
       - 'tools/sequence_sparse_lifts.py'
       - 'tools/benchmark_sequence_transfer_closure.py'
       - 'tools/render_sequence_closure_atlas.py'
+      - 'tools/render_oeis_real_transfer_atlas.py'
+      - 'tools/test_real_oeis_transfer_atlas.py'
       - 'tools/sequence_packet_atlas.py'
       - 'tools/sequence_padic_lifts.py'
       - 'tools/sequence_formula_retrieval.py'
@@ -83,6 +87,8 @@ jobs:
             /tools/test_sequence_transfer_closure.py
             /tools/test_sequence_sparse_lifts.py
             /tools/render_sequence_closure_atlas.py
+            /tools/render_oeis_real_transfer_atlas.py
+            /tools/test_real_oeis_transfer_atlas.py
             /tools/test_sequence_closure_atlas.py
             /tools/sequence_packet_atlas.py
             /tools/sequence_padic_lifts.py
