@@ -64,7 +64,7 @@ jobs:
           with sqlite3.connect('/tmp/oeis-checked.sqlite3') as db:
               assert db.execute('PRAGMA integrity_check').fetchone()[0] == 'ok'
               assert db.execute('SELECT COUNT(*) FROM transfer_nodes').fetchone()[0] == 127
-              assert db.execute('SELECT COUNT(*) FROM transfer_edges').fetchone()[0] == 70
+              assert db.execute('SELECT COUNT(*) FROM transfer_edges').fetchone()[0] == 78
               assert db.execute('SELECT COUNT(*) FROM sequences').fetchone()[0] == 56
               assert db.execute("SELECT COUNT(*) FROM formulas WHERE verification='finite_checked'").fetchone()[0] == 61
               assert db.execute("SELECT SUM(checked_terms) FROM formulas WHERE verification='finite_checked'").fetchone()[0] == 1098
