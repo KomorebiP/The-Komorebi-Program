@@ -88,8 +88,8 @@ def parse_seq(raw):
         raise ValueError(f"Missing mathematical offset for {seq_id}")
     offsets = fields["O"][0].split(",")
     first, second = int(offsets[0]), int(offsets[1]) if len(offsets) > 1 else None
-    if first < 0:
-        raise ValueError("Unsupported negative start index")
+    # Some OEIS records legitimately use negative mathematical offsets.
+    # Retain them losslessly; evaluators that require n>=0 will decline them.
     raw_terms = "".join("".join(fields.get(x, ())) for x in "STU").strip(", ")
     terms = [canonical(t) for t in raw_terms.split(",") if t.strip()]
     return dict(oeis_id=seq_id, name=fields.get("N", [seq_id])[0], offset=first,
@@ -127,7 +127,10 @@ def store_seq(db, entry, raw, *, preserve_verified=True):
        source_url=excluded.source_url,license=excluded.license""",
        (sid, entry["name"], entry["offset"], entry["offset_second"],
         json.dumps(entry["terms"]), entry["keywords"], source_sha, url, LICENSE))
-    db.execute("DELETE FROM formulas WHERE oeis_id=? AND origin IN ('oeis_formula', 'oeis_program')", (sid,))
+    # A changed OEIS source invalidates every stored finite verification receipt.
+    # Re-normalized candidates must be recomputed against the new source data.
+    db.execute("DELETE FROM formulas WHERE oeis_id=? AND origin IN ('oeis_formula', 'oeis_program', 'oeis_normalized')", (sid,))
+    db.execute("UPDATE formulas SET verification='unreviewed',checked_terms=0,first_failure=NULL WHERE oeis_id=? AND evaluator_json IS NOT NULL", (sid,))
     for i, expr in enumerate(entry["formulas"]):
         kind = classify_formula(expr)
         fid = fingerprint(sid, "OEIS", "F", i, expr)
@@ -146,6 +149,10 @@ def store_seq(db, entry, raw, *, preserve_verified=True):
              proof_status,verification) VALUES (?,?,?,?,?,?,?,?,?,?,?)""",
              (fid, sid, "oeis_program", field, 0, "program_reference", expr, url,
               LICENSE, "unassessed", "not_executed"))
+    # Re-evaluate existing curated arithmetic against the new offset and
+    # reference terms; never preserve a checked state across a changed source.
+    for (fid,) in db.execute("SELECT formula_id FROM formulas WHERE oeis_id=? AND evaluator_json IS NOT NULL", (sid,)).fetchall():
+        verify_formula(db, fid)
     return "updated" if previous else "inserted"
 
 
@@ -188,6 +195,7 @@ def evaluate(spec, n, *, budget=100000):
         if not isinstance(x, dict):
             raise ValueError("evaluator nodes must be integers or objects")
         op = x.get("op")
+        current = scope["n"]  # The active source index changes under 'at' lifts.
         if op == "n":
             return scope["n"]
         if op == "var":
@@ -225,46 +233,115 @@ def evaluate(spec, n, *, budget=100000):
                 raise ValueError("sum range exceeds budget")
             var = x.get("var", "k")
             return sum(ev(x["body"], {**scope, var: k}) for k in range(lo, hi + 1))
+        if op == "prod":
+            lo, hi = ev(x["from"], scope), ev(x["to"], scope)
+            if hi - lo > budget:
+                raise ValueError("product range exceeds budget")
+            var = x.get("var", "k")
+            return math.prod(ev(x["body"], {**scope, var: k}) for k in range(lo, hi + 1))
+        if op == "mod":
+            a, b = (ev(y, scope) for y in x["args"])
+            if b <= 0:
+                raise ValueError("modulus must be positive")
+            return a % b
+        if op == "floor_div":
+            a, b = (ev(y, scope) for y in x["args"])
+            if b == 0:
+                raise ValueError("division by zero")
+            return a // b
+        if op == "popcount":
+            a = ev(x["arg"], scope)
+            if a < 0:
+                raise ValueError("popcount requires nonnegative integer")
+            return a.bit_count()
+        if op == "if_le":
+            return ev(x["yes"], scope) if ev(x["left"], scope) <= ev(x["right"], scope) else ev(x["no"], scope)
+        if op == "at":
+            target = ev(x["index"], scope)
+            if target < 0 or target > budget:
+                raise ValueError("substituted index outside safe evaluation window")
+            return ev(x["body"], {**scope, "n": target})
+        if op in ("nth_prime", "prime_pi", "prime_gap"):
+            v = ev(x.get("arg", {"op": "n"}), scope)
+            if v < 0 or v > budget:
+                raise ValueError("prime-function argument outside safe window")
+            def isprime(k):
+                return k >= 2 and all(k % d for d in range(2, math.isqrt(k) + 1))
+            if op == "prime_pi":
+                return sum(isprime(i) for i in range(2, v + 1))
+            if v < 1:
+                raise ValueError("nth-prime and prime-gap indices start at 1")
+            def nth(k):
+                count, candidate = 0, 1
+                while count < k:
+                    candidate += 1
+                    if isprime(candidate):
+                        count += 1
+                return candidate
+            return nth(v) if op == "nth_prime" else nth(v + 1) - nth(v)
+        if op == "distinct_partitions":
+            ways = [1] + [0] * current
+            for part in range(1, current + 1):
+                for target in range(current, part - 1, -1):
+                    ways[target] += ways[target - part]
+            return ways[current]
+        if op == "euler_zigzag":
+            # A'(z)=(1+A(z)^2)/2 for A(z)=sec(z)+tan(z), A(0)=1.
+            vals = [1]
+            for j in range(current):
+                value = (sum(math.comb(j, k) * vals[k] * vals[j-k]
+                             for k in range(j + 1)) + (1 if j == 0 else 0))
+                if value % 2:
+                    raise ValueError("zigzag recurrence lost integrality")
+                vals.append(value // 2)
+            return vals[current]
+        if op == "secant":
+            # sec(z)*cos(z)=1; sequence index current is the coefficient of z^(2n).
+            vals = [1]
+            for j in range(1, current + 1):
+                vals.append(sum(((-1) ** (j-k+1)) * math.comb(2*j, 2*k) * vals[k]
+                                for k in range(j)))
+            return vals[current]
         if op == "linear_recurrence":
             initial, coeff = x["initial"], x["coefficients"]
             order = len(initial)
             if not order or len(coeff) != order or any(not isinstance(c, int) for c in initial + coeff):
                 raise ValueError("malformed recurrence")
             vals = list(initial)
-            for j in range(order, n + 1):
+            for j in range(order, current + 1):
                 vals.append(sum(coeff[k] * vals[j-k-1] for k in range(order)))
-            return vals[n]
+            return vals[current]
         if op == "bell":
             vals = [1]
-            for j in range(1, n + 1):
+            for j in range(1, current + 1):
                 vals.append(sum(math.comb(j-1,k) * vals[k] for k in range(j)))
-            return vals[n]
+            return vals[current]
         if op == "fubini":
             vals = [1]
-            for j in range(1, n + 1):
+            for j in range(1, current + 1):
                 vals.append(sum(math.comb(j,k) * vals[j-k] for k in range(1,j+1)))
-            return vals[n]
+            return vals[current]
         if op == "involutions":
             vals = [1,1]
-            for j in range(2,n+1):
+            for j in range(2,current+1):
                 vals.append(vals[-1] + (j-1)*vals[-2])
-            return vals[n]
+            return vals[current]
         if op == "derangements":
             vals = [1,0]
-            for j in range(2,n+1):
+            for j in range(2,current+1):
                 vals.append((j-1) * (vals[-1] + vals[-2]))
-            return vals[n]
+            return vals[current]
         if op == "motzkin":
             vals = [1,1]
-            for j in range(2,n+1):
+            for j in range(2,current+1):
                 numerator = (2*j+1)*vals[-1]+3*(j-1)*vals[-2]
                 if numerator%(j+2):
                     raise ValueError("Motzkin recurrence lost integrality")
                 vals.append(numerator//(j+2))
-            return vals[n]
+            return vals[current]
         if op == "partitions":
             vals = [1]
-            for j in range(1,n+1):
+            for j in range(1,current+1):
                 total = 0
                 for k in range(1,j+1):
                     sign = 1 if k%2 else -1
@@ -276,18 +353,18 @@ def evaluate(spec, n, *, budget=100000):
                     if right <= j:
                         total += sign*vals[j-right]
                 vals.append(total)
-            return vals[n]
+            return vals[current]
         if op == "divisor_sum":
-            if n == 0:
+            if current == 0:
                 raise ValueError("divisor functions require positive indices")
             power = x["power"]
             if power not in (0,1):
                 raise ValueError("unsupported divisor power")
-            return sum((d ** power)*(1 if d*d == n else 0) if d*d==n else (d ** power + (n//d)**power) for d in range(1, math.isqrt(n)+1) if n%d==0)
+            return sum((d ** power)*(1 if d*d == current else 0) if d*d==current else (d ** power + (current//d)**power) for d in range(1, math.isqrt(current)+1) if current%d==0)
         if op == "totient":
-            if n == 0:
+            if current == 0:
                 raise ValueError("totient requires positive index")
-            return sum(math.gcd(k,n)==1 for k in range(1,n+1))
+            return sum(math.gcd(k,current)==1 for k in range(1,current+1))
         raise ValueError(f"unsupported evaluator operation: {op!r}")
     return ev(spec, {"n":n})
 
