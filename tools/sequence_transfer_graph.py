@@ -170,8 +170,11 @@ def create_graph(db):
     db.execute('DELETE FROM transfer_nodes')
     for sid,name,offset in db.execute('SELECT oeis_id,name,offset FROM sequences'):
         _node(db,sid,'oeis_sequence',name,{'offset':offset})
-    for identifier,expr,origin,oeis_id,verification,proof_status,kind in db.execute('''
-        SELECT formula_id,expression,origin,oeis_id,verification,proof_status,kind
+    for sid,name,offset in db.execute('SELECT local_id,name,offset FROM komorebi_records'):
+        _node(db,sid,'komorebi_sequence',name,{'offset':offset,
+                'identity_scope':'Komorebi local identifier, not OEIS ID'})
+    for identifier,expr,origin,oeis_id,local_id,verification,proof_status,kind in db.execute('''
+        SELECT formula_id,expression,origin,oeis_id,local_id,verification,proof_status,kind
         FROM formulas'''):
         formula_node='FORMULA:'+identifier
         _node(db,formula_node,'formula',expr[:110],{
@@ -182,6 +185,13 @@ def create_graph(db):
                   'recorded_representation',expr[:150],
                   verification+': '+proof_status,0,
                   'unknown','https://oeis.org/'+oeis_id,{})
+        if local_id:
+            local=db.execute('SELECT source_url FROM komorebi_records WHERE local_id=?',(local_id,)).fetchone()
+            if local:
+                _edge(db,formula_node,local_id,'formula_representation',
+                      'recorded_representation',expr[:150],
+                      verification+': '+proof_status,0,
+                      'unknown',local[0],{})
         # References inside OEIS formula text are candidate relations only.
         if origin.startswith('oeis_') and oeis_id:
             for ref in set(OEIS_ID.findall(expr)) - {oeis_id}:
@@ -190,11 +200,28 @@ def create_graph(db):
                           'reference_only','Source formula mentions '+ref,
                           'Lexical mention, no relationship proven',0,'unknown',
                           'https://oeis.org/'+oeis_id,{})
+    # Finite matches and source claims are never proof-level graph edges.
+    for local_id,oeis_id,relation,evidence in db.execute(
+        'SELECT local_id,oeis_id,relation,evidence FROM crosswalks'):
+        if db.execute('SELECT 1 FROM sequences WHERE oeis_id=?',(oeis_id,)).fetchone():
+            origin=db.execute('SELECT source_url FROM komorebi_records WHERE local_id=?',(local_id,)).fetchone()
+            _edge(db,local_id,oeis_id,'oeis_crosswalk',
+                  'crosswalk_reference',relation+' (not an infinite identity)',
+                  str(evidence)[:500],0,'unknown',origin[0] if origin else '',
+                  {'relation':relation})
     for key,statement,note in OPERATOR_SCHEMAS:
         _node(db,'OP:'+key,'operator_schema',key,
               {'statement':statement,'notes':note})
     _known_examples(db)
     _materialize_staged_xrefs(db)
+    # Optional miner extension: only hash-current candidates enter graph.
+    # Every such relation is status=finite_candidate, never a proof path.
+    try:
+        from sequence_transfer_miner import materialize_candidates
+    except ImportError:
+        pass
+    else:
+        materialize_candidates(db)
     db.commit()
     return graph_stats(db)
 
@@ -244,6 +271,37 @@ def _known_examples(db):
       ('A000045','A000111','fibonacci_resolvent',
        'EGF_Euler(x)=(1+sin(x))*sum_(k>=0) F_(k+1)*((sqrt(5-4*cos(x))-1)/2)^k',
        None, 'unknown; exact but may be slower than direct inversion'),
+      ('A000012','A000079','binomial_transform',
+       'sum_(k=0)^n binom(n,k)*1 = 2^n (binomial theorem)',
+       lambda a,n:sum(math.comb(n,k)*a[k] for k in range(n+1)),
+       'O(n) summands naive; fast exponentiation requires O(log n) big-integer multiplications'),
+      ('A000079','A000244','binomial_transform',
+       'sum_(k=0)^n binom(n,k)*2^k = 3^n (binomial theorem)',
+       lambda a,n:sum(math.comb(n,k)*a[k] for k in range(n+1)),
+       'O(n) summands naive; fast exponentiation requires O(log n) big-integer multiplications'),
+      ('A000244','A000302','binomial_transform',
+       'sum_(k=0)^n binom(n,k)*3^k = 4^n (binomial theorem)',
+       lambda a,n:sum(math.comb(n,k)*a[k] for k in range(n+1)),
+       'O(n) summands naive; fast exponentiation requires O(log n) big-integer multiplications'),
+      ('A000166','A000142','binomial_transform',
+       'n! = sum_(k=0)^n binom(n,k)*!k (count permutations by fixed-point subset)',
+       lambda a,n:sum(math.comb(n,k)*a[k] for k in range(n+1)),
+       'O(n) summands naive; factorial still requires growing-integer products'),
+      ('A000290','A005408','adjacent_difference',
+       '(n+1)^2-n^2=2n+1', lambda a,n:a[n+1]-a[n],
+       'O(1) arithmetic given adjacent source entries'),
+      ('A000217','A000027','adjacent_difference',
+       'T_(n+1)-T_n=n+1 (A000027 starts at mathematical index 1)',
+       lambda a,n:a[n+1]-a[n],
+       'O(1) arithmetic given adjacent source entries'),
+      ('A000225','A000079','adjacent_difference',
+       '(2^(n+1)-1)-(2^n-1)=2^n',
+       lambda a,n:a[n+1]-a[n],
+       'O(1) arithmetic given adjacent source entries'),
+      ('A000984','A000302','ogf_self_convolution',
+       'sum_(k=0)^n binom(2k,k)*binom(2n-2k,n-k)=4^n; (1-4x)^(-1/2)^2=(1-4x)^(-1)',
+       lambda a,n:sum(a[k]*a[n-k] for k in range(n+1)),
+       'O(n) convolution summands naive; fast powering O(log n) big-integer multiplications'),
     ]
     for sid,did,kind,formula,evaluator,cost in cases:
         s=_terms(db,sid);d=_terms(db,did)
