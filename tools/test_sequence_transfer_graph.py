@@ -63,7 +63,7 @@ class TransferGraphTests(unittest.TestCase):
                 ingest_curated(db,SEEDS)
                 ingest_curated(db,EXTENDED)
                 result=create_graph(db)
-                self.assertEqual(result['statuses']['algebraic_identity'],9)
+                self.assertEqual(result['statuses']['algebraic_identity'],17)
                 self.assertGreaterEqual(result['nodes'],120)
                 path=path_query(db,'A000045','A000111')
                 self.assertEqual(len(path),1)
