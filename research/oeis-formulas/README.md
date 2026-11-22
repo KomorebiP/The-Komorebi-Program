@@ -62,3 +62,28 @@ The safe evaluator takes declarative JSON expression trees, including exact arit
 ## Development roadmap
 
 Next steps are to normalize more `%F` conventions into candidate structured ASTs **without assuming their correctness**, add independent proof receipts for the highest-value formulas, index cross-sequence transforms, and publish a read-only website browser backed by exported subsets or sharded JSON. Efficient formula ranking should benchmark real exact evaluators and preserve the distinction between term formulas, generating functions, recurrences, and approximation schemes.
+
+
+## Expanded stage: 22 November 2026
+
+The extension adds `seeds-extended.json` with **24 additional source-linked OEIS sequences** and **29 exact expression variants**. Across both seed files there are now **56 distinct OEIS IDs**, **61 finitely checked evaluator variants**, and **1,098 exact reference-term comparisons** (18 values per evaluator). There are no automatic claims of proof or historical novelty.
+
+The `oeis_formula_discovery.py` module conservatively recognizes a subset of `a(n)=...` arithmetic expressions in `%N` and `%F` fields. Only integer arithmetic, the index variable `n`, integer powers, exact division, binomial coefficients, and factorials are translated into safe declarative expressions. Unsupported/ambiguous source text is left untouched. A candidate needs at least 12 matching reference values to receive `finite_checked`; its proof status remains **unassessed**. Negative mathematical offsets are preserved in the database, but automatic normalization skips them until index support is extended.
+
+The `oeis_formula_polyphase.py` module constructs exactly indexed multisections `P_(m,r)[a](n)=a(o + m*n + r)` for integer `m>=1`, `0<=r<m`, and OEIS offset `o`. Subsequence lifts are conditional substitutions of the base evaluator, not new or distinct OEIS sequence registrations. Each sample is compared with the stored reference terms, and the source proof status is retained.
+
+On changed OEIS `.seq` source content, the importer now invalidates stale finite-verification statuses, deletes obsolete normalized candidates, and rechecks existing curated evaluators against the updated source terms and mathematical offset.
+
+### Incremental usage
+
+```bash
+python tools/oeis_formula_database.py --db oeis-formulas.sqlite3 ingest-seeds --path research/oeis-formulas/seeds.json
+python tools/oeis_formula_database.py --db oeis-formulas.sqlite3 ingest-seeds --path research/oeis-formulas/seeds-extended.json
+python tools/oeis_formula_discovery.py --db oeis-formulas.sqlite3
+python tools/oeis_formula_polyphase.py --db oeis-formulas.sqlite3 calculate --id A000040 --m 2 --r 0 --n 3
+python tools/oeis_formula_polyphase.py --db oeis-formulas.sqlite3 export --output polyphase.jsonl
+python tools/export_formula_browser.py --db oeis-formulas.sqlite3 --output formula-browser.html
+python -m unittest discover -s tools -p 'test_oeis_formula_*.py' -v
+```
+
+Ingesting the retained OEIS `stripped.gz` / `names.gz` alone does not provide the complete `%F` formula fields. Those require the full official `.seq` export. The Komorebi 2,333-record research library remains a separate source and must be imported explicitly through `ingest-komorebi`; no claim is made that its records are included in the new 56-sequence seed database.
