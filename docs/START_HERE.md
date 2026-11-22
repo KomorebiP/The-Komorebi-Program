@@ -30,11 +30,17 @@ The [sources and contributions](SOURCES_AND_CONTRIBUTIONS.md) page distinguishes
 
 An extended case study makes the abstract terminology concrete. Start with one subject and track the representations, valid operations, information retained, and information lost. The following three studies illustrate different settings; they are alternatives, not prerequisites for one another.
 
-| Route | Begin here | What to follow |
-|---|---|---|
-| Arithmetic and coordinates | [Euler numbers](demonstrations/EULER_PACKETS.md), then [factorial lanes](demonstrations/FACTORIAL_LANES.md) | Reciprocal series, changes of basis, prime-adic bounds, refinement, and residual repair. |
-| Signals and operations | [Wavelets and polyphase transfer](demonstrations/WAVELET_POLYPHASE.md) | Four Haar levels, filter transport, finite stability, and the exact error from omitted interactions. |
-| Quantum information | [Quantum phase and measurement](demonstrations/QUANTUM_PHASE_MEASUREMENT.md) | Recoverable measurements, discarded coherence, reversible records, and finite recovery. |
+### Arithmetic and coordinates
+
+Start with [Euler numbers](demonstrations/EULER_PACKETS.md), then continue to [factorial lanes](demonstrations/FACTORIAL_LANES.md). Follow reciprocal series, changes of basis, prime-adic bounds, refinement, and residual repair.
+
+### Signals and operations
+
+Read [wavelets and polyphase transfer](demonstrations/WAVELET_POLYPHASE.md). Follow four Haar levels, filter transport, finite stability, and the exact error caused by omitted interactions.
+
+### Quantum information
+
+Read [quantum phase and measurement](demonstrations/QUANTUM_PHASE_MEASUREMENT.md). Examine which measurements are recoverable, what coherence is discarded, and when a reversible record permits finite recovery.
 
 The [extended case-study index](DEMONSTRATIONS.md#extended-case-studies) links to additional counting and polynomial examples. Consult each study for its stated calculations, controls, and verification scope. The [Special Functions guide](SPECIAL_FUNCTIONS.md) offers a separate entry into function constructions and analytic questions.
 
@@ -42,20 +48,24 @@ The [extended case-study index](DEMONSTRATIONS.md#extended-case-studies) links t
 
 Choose according to what you want to understand or verify. You can move from a worked example to the general theory, or begin with a manuscript and inspect its supporting material.
 
-For papers and books with a complete online manuscript and visual guide,
-[choose a guided reading path](https://KomorebiP.github.io/The-Komorebi-Program/read/start.html):
-begin with the visual introduction, study the work, or inspect its supporting evidence.
+For works with a complete online manuscript and visual guide, use the [guided reading paths](https://KomorebiP.github.io/The-Komorebi-Program/read/start.html). You can begin with the visual introduction, read the manuscript, or inspect supporting evidence.
 
-| Goal | Begin with |
-|---|---|
-| Understand the common language | [Realization Calculus](works/realization-calculus-book.md) and [Komorebi Space](works/komorebi-space.md) |
-| Study the individual developments | [Papers I–XII](../papers/README.md) |
-| Understand limits of representation | [Realization Boundaries](works/realization-boundaries.md) |
-| Follow a complete calculation | [Extended case studies](DEMONSTRATIONS.md#extended-case-studies), beginning with [Euler numbers](demonstrations/EULER_PACKETS.md) |
-| Follow an application | [Monographs and companion volumes](../monographs/README.md) |
-| Explore an open mathematical program | [Research programs and their scope](../research/README.md) |
-| Work with executable mathematics | [Software guide](LIBRARIES.md) and [experimental laboratories](../experiments/README.md) |
-| Study method and review | [Proof Path Theory](works/proof-path-theory.md) and [Komorebi Methodology](works/komorebi-methodology.md) |
+### Foundations and mathematical developments
+
+- **Common framework:** [Realization Calculus](works/realization-calculus-book.md) and [Komorebi Space](works/komorebi-space.md).
+- **Individual papers:** [Papers I–XII](../papers/README.md).
+- **Limits of representation:** [Realization Boundaries](works/realization-boundaries.md).
+
+### Examples and applications
+
+- **Complete calculations:** [Extended case studies](DEMONSTRATIONS.md#extended-case-studies), starting with [Euler numbers](demonstrations/EULER_PACKETS.md).
+- **Companion subjects:** [Monographs and companion volumes](../monographs/README.md).
+- **Open questions:** [Research programs and their scope](../research/README.md).
+
+### Verification and research method
+
+- **Executable mathematics:** [Software guide](LIBRARIES.md) and [experimental laboratories](../experiments/README.md).
+- **Discovery and review:** [Proof Path Theory](works/proof-path-theory.md) and [Komorebi Methodology](works/komorebi-methodology.md).
 
 ## Where the work stands
 
@@ -70,13 +80,7 @@ The [finalization queue](FINALIZATION_QUEUE.md) records outstanding work, while 
 3. **How does the operation transfer?** Determine the blocks or compatibility laws relating representations.
 4. **What is reconstructed?** State the recovered object and any residual or obstruction.
 
-The [operator guide](OPERATOR_AUDIT.md) turns these questions into a reusable
-investigation. Follow a matrix operation through its packet blocks and a
-coordinate change, account for omitted interactions, then test what a summary
-can recover. Seven worked chapters include polynomial and difference operators.
-The [operator catalogue](operators/catalog/README.md) supplies formulas,
-assumptions, and source links for its indexed entries. The guide also includes
-interactive experiments and a worksheet for your own calculation.
+The [operator guide](OPERATOR_AUDIT.md) applies these questions to matrix operations, packet blocks, and coordinate changes. It examines omitted interactions and what a summary can recover, with worked chapters on polynomial and difference operators. The [operator catalogue](operators/catalog/README.md) lists formulas, assumptions, and source links. Interactive experiments and a worksheet support further investigation.
 
 <a id="start-with-a-complete-demonstration"></a>
 
@@ -84,11 +88,9 @@ interactive experiments and a worksheet for your own calculation.
 
 For a shorter introduction than the extended case studies, the [worked demonstrations](DEMONSTRATIONS.md) pair elementary calculations with small programs. Choose a question below and follow it from input to result.
 
-| Start from this question | Follow this route | Background |
-|---|---|---|
-| Can smaller operations reconstruct the whole operation? | [Reconstruct an operator from packet blocks](demonstrations/PACKETS.md) | Small matrix products |
-| What does a finer description preserve, and what does deletion lose? | [Refine a signal and account for a missing packet](demonstrations/REFINEMENT.md) | List indexing and sums |
-| Can a summary answer the question being asked? | [Test recovery from a summary](demonstrations/RECOVERY.md) | Addition and functions |
+- **Can smaller operations reconstruct the whole?** [Reconstruct an operator from packet blocks](demonstrations/PACKETS.md). Background: small matrix products.
+- **What survives refinement, and what is lost by deletion?** [Refine a signal and account for a missing packet](demonstrations/REFINEMENT.md). Background: list indexing and sums.
+- **Can a summary answer the original question?** [Test recovery from a summary](demonstrations/RECOVERY.md). Background: addition and functions.
 
 These examples can be read without installing software. The accompanying [Python programs](DEMONSTRATIONS.md#run-without-installing-a-library) use the standard library, and their output is a check of the stated examples rather than a substitute for a general proof.
 
@@ -112,14 +114,14 @@ The example records its sources and tested ranges. The [workflow guide](WORKFLOW
 
 ## Interpret the evidence
 
-| Evidence | What to inspect |
-|---|---|
-| Written theorem | Exact conclusion, assumptions, and argument. |
-| Lean declaration | Formal statement, imports, axioms, environment, and compilation record. |
-| Exact finite calculation | Inputs, arithmetic model, computed property, and the argument connecting it to a broader result. |
-| Numerical experiment | Precision, tested range, reference calculation, error criteria, and retained outcomes. |
-| Software test | Exercised behavior, platform, dependencies, and source revision. |
-| File-integrity record | The exact bytes and source snapshot it identifies. |
+Evidence should be interpreted according to what it establishes:
+
+- **Written theorem:** Check the precise conclusion, assumptions, and argument.
+- **Lean declaration:** Check the statement, imports, axioms, environment, and compilation record.
+- **Exact finite calculation:** Check the inputs, arithmetic model, tested property, and any separate argument extending it beyond those inputs.
+- **Numerical experiment:** Check precision, range, reference result, error criteria, and retained outcomes.
+- **Software test:** Check the exercised behavior, platform, dependencies, and source revision.
+- **File-integrity record:** Check which exact bytes and source snapshot it identifies.
 
 **Important distinction:** a proof of “if A, then B” does not establish B until A is verified. Likewise, successful finite computations do not alone prove a universal statement. Open obligations, including those identified for Paper XI, Physics, and machine models, must be assessed against the current [status catalogue](STATUS_CATALOG.md), rather than inferred from the existence of a manuscript or test.
 
