@@ -4,12 +4,16 @@ on:
     paths:
       - 'tools/oeis_formula_*'
       - 'tools/test_oeis_formula_*'
+      - 'tools/sequence_transfer_graph.py'
+      - 'tools/test_sequence_transfer_graph.py'
       - 'research/oeis-formulas/**'
       - '.github/workflows/oeis-formula-database.yml'
   pull_request:
     paths:
       - 'tools/oeis_formula_*'
       - 'tools/test_oeis_formula_*'
+      - 'tools/sequence_transfer_graph.py'
+      - 'tools/test_sequence_transfer_graph.py'
       - 'research/oeis-formulas/**'
       - '.github/workflows/oeis-formula-database.yml'
   workflow_dispatch:
@@ -32,6 +36,8 @@ jobs:
             /tools/oeis_formula_database.py
             /tools/oeis_formula_discovery.py
             /tools/oeis_formula_polyphase.py
+            /tools/sequence_transfer_graph.py
+            /tools/test_sequence_transfer_graph.py
             /tools/export_formula_browser.py
             /tools/test_oeis_formula_database.py
             /tools/test_oeis_formula_discovery.py
@@ -42,10 +48,13 @@ jobs:
           python-version: '3.13'
       - name: Exact source and adversarial regression tests
         run: python -B -m unittest discover -s tools -p 'test_oeis_formula_*.py' -v
+      - name: Validate exact transfer kernels and graph paths
+        run: python -B -m unittest discover -s tools -p 'test_sequence_transfer_graph.py' -v
       - name: Reproduce both curated OEIS batches and the polyphase export
         run: |
           python -B tools/oeis_formula_database.py --db /tmp/oeis-checked.sqlite3 ingest-seeds --path research/oeis-formulas/seeds.json
           python -B tools/oeis_formula_database.py --db /tmp/oeis-checked.sqlite3 ingest-seeds --path research/oeis-formulas/seeds-extended.json
+          python -B tools/sequence_transfer_graph.py --db /tmp/oeis-checked.sqlite3 build --export /tmp/transfer-graph.jsonl
           python -B tools/oeis_formula_polyphase.py --db /tmp/oeis-checked.sqlite3 export --output /tmp/polyphase.jsonl
           python -B tools/oeis_formula_database.py --db /tmp/oeis-checked.sqlite3 export-jsonl --path /tmp/verified.jsonl
           python -B tools/export_formula_browser.py --db /tmp/oeis-checked.sqlite3 --output /tmp/oeis-formulas.html
@@ -54,6 +63,8 @@ jobs:
           import pathlib
           with sqlite3.connect('/tmp/oeis-checked.sqlite3') as db:
               assert db.execute('PRAGMA integrity_check').fetchone()[0] == 'ok'
+              assert db.execute('SELECT COUNT(*) FROM transfer_nodes').fetchone()[0] == 127
+              assert db.execute('SELECT COUNT(*) FROM transfer_edges').fetchone()[0] == 70
               assert db.execute('SELECT COUNT(*) FROM sequences').fetchone()[0] == 56
               assert db.execute("SELECT COUNT(*) FROM formulas WHERE verification='finite_checked'").fetchone()[0] == 61
               assert db.execute("SELECT SUM(checked_terms) FROM formulas WHERE verification='finite_checked'").fetchone()[0] == 1098
