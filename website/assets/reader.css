@@ -331,3 +331,8 @@ article div.arithmatex mjx-container svg{max-width:none}
 @media(max-width:1000px){.claim-paper-filters{grid-template-columns:repeat(2,minmax(0,1fr))}.claim-paper-filters .claim-filter-query{grid-column:1/-1}}
 @media(max-width:560px){.claim-paper-filters{grid-template-columns:1fr}.claim-paper-filters .claim-filter-query{grid-column:1}.claim-search-row button{width:100%}.claim-legacy-grid{grid-template-columns:1fr}.claim-directory-search{padding:.9rem}.claim-legacy-index{padding:.85rem}}
 @media print{.claim-directory-search,.claim-legacy-index,.claim-paper-neighbors{display:none!important}.claim-paper-heading{break-after:avoid}}
+
+/* Keyboard-visible affordance for wide block equations, including Markdown math. */
+div.arithmatex.math-overflow{border-bottom:1px dashed var(--green)}
+div.arithmatex.math-overflow:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+@media print{div.arithmatex.math-overflow{border-bottom:0;outline:0}}
