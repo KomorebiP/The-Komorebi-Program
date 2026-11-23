@@ -66,6 +66,12 @@ In one variable, take \(p=2\), \(k=2\), \(h=0\), \(D=4\), and observe \(\Gamma(A
 
 Thus there are \(2^{0+1+0+2}=8\) compatible source reductions modulo \(4\), with two blind indices (degrees \(2\) and \(4\)). For the zero ghost, they are exactly \(A=1+c_2x^2+c_4x^4\), where \(c_2\in\{0,2\}\) and \(c_4\in\{0,1,2,3\}\) modulo \(4\). If the **ghost** is independently supplied modulo \(8\), then \(h=1\), and each attainable set of measurements admits just \(2\) source reductions modulo \(4\). Extra observation precision is useful, but it does not replace an unavailable measurement.
 
+### Unequal measurement precision
+
+Extra precision may differ by direction. For \(d=2\), \(D=2\), \(p=2\), and \(k=2\), observe the \(x\)-coordinate ghost modulo \(4\) and the \(y\)-coordinate ghost modulo \(8\), so \(h_x=0\) and \(h_y=1\). The only blind monomial is \(x^2\), with \(e_{(2,0)}=1\). All other positive monomials have \(e_\alpha=0\). Consequently **each attainable measured fiber contains exactly two distinct source reductions modulo \(4\)**.
+
+This count allows the source reductions to have different lifts modulo \(8\). It cannot be obtained by evaluating the higher-precision \(y\) observation directly on a source represented only modulo \(4\). An exhaustive finite check is included in the repository's directional-ghost regression tests.
+
 ## 2. Exact multichannel directional-ghost fiber theorem
 
 ### Theorem 2.1. Exact directional-ghost fiber size
