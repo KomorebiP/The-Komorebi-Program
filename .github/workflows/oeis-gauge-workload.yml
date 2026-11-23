@@ -1,0 +1,47 @@
+name: OEIS Gauge Atlas and Workload Planner
+on:
+  push:
+    paths:
+      - 'tools/sequence_workload_planner.py'
+      - 'tools/sequence_gauge_atlas.py'
+      - 'tools/render_sequence_gauge_atlas.py'
+      - 'tools/benchmark_oeis_workload_v11.py'
+      - 'tools/test_sequence_workload_planner.py'
+      - 'tools/test_sequence_gauge_atlas.py'
+      - 'research/oeis-formulas/WORKLOAD_PLANNER_V11.md'
+      - '.github/workflows/oeis-gauge-workload.yml'
+  pull_request:
+    paths:
+      - 'tools/sequence_workload_planner.py'
+      - 'tools/sequence_gauge_atlas.py'
+      - 'tools/render_sequence_gauge_atlas.py'
+      - 'tools/benchmark_oeis_workload_v11.py'
+      - 'tools/test_sequence_workload_planner.py'
+      - 'tools/test_sequence_gauge_atlas.py'
+      - 'research/oeis-formulas/WORKLOAD_PLANNER_V11.md'
+      - '.github/workflows/oeis-gauge-workload.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  proof-gated-workloads:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /tools/
+            /research/oeis-formulas/WORKLOAD_PLANNER_V11.md
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+      - name: Exact optimizer vs exhaustive enumeration and forged certificates
+        run: python -B -m unittest discover -s tools -p 'test_sequence_workload_planner.py' -v
+      - name: Exact rational-cycle holonomy and source staleness tests
+        run: python -B -m unittest discover -s tools -p 'test_sequence_gauge_atlas.py' -v
+      - name: Prior certificate composition controls
+        run: python -B -m unittest discover -s tools -p 'test_sequence_v10_path_compiler.py' -v
