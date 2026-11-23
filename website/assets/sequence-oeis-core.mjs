@@ -16,5 +16,5 @@ export function referenceNameMatches(id,name,query){return query.type==='id'?id=
 /** Canonical Network-page handoff for an official OEIS identifier. */
 export function referenceNetworkUrl(value){
   const id=String(value??'').trim().toUpperCase();
-  return /^A\\d{6}$/.test(id)?'sequence-network.html?q='+id+'#sequence-network':null;
+  return /^A\d{6}$/.test(id)?'sequence-network.html?q='+id+'#sequence-network':null;
 }
