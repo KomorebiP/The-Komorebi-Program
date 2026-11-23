@@ -123,9 +123,14 @@ def build_site_assets(site, entries):
     site.write('assets/sequence-network-handoffs.json',json.dumps(dict(schema=1,
       scope='Local-to-OEIS finite-prefix candidates only, not certified infinite identities',
       matches=handoffs),ensure_ascii=False,separators=(',',':'))+'\n')
-    for name in ['sequence-network.css','sequence-network-ui.mjs']:
+    for name in ['sequence-network.css','sequence-network-ui.mjs','sequence-network-math.mjs']:
         source=site.root/'website/assets'/name
-        site.write('assets/'+name,source.read_text(encoding='utf-8'))
+        content=source.read_text(encoding='utf-8')
+        if name=='sequence-network-ui.mjs':
+            parser=site.root/'website/assets/sequence-network-math.mjs'
+            revision=hashlib.sha256(parser.read_bytes()).hexdigest()[:12]
+            content=content.replace("'./sequence-network-math.mjs'", "'./sequence-network-math.mjs?v="+revision+"'")
+        site.write('assets/'+name,content)
     hashes={name:hashlib.sha256((site.output/'assets'/name).read_bytes()).hexdigest()[:12]
             for name in ['sequence-network.css','sequence-network-ui.mjs']}
     return {'edge_count':len(data['edges']), 'record_count':len(data['records']),
@@ -152,8 +157,10 @@ and OEIS term finder remain available.</p>
 <section id="sn-source-formulas" class="sn-source" hidden aria-label="OEIS source formulas">
 <h3>OEIS source formulas</h3>
 <p>These are archived OEIS formula fields, not independently verified sequence identities.
-The text is displayed without execution, and source programs are not loaded.</p>
+Recognized arithmetic may be typeset for readability. Unrecognized source prose remains unchanged, and original text is always available. Source programs are not loaded.</p>
 <button type="button" id="sn-source-load">Load this sequence’s source formula text</button>
+<div id="sn-source-options" class="sn-source-options" hidden><label for="sn-source-type">Formula class</label>
+<select id="sn-source-type"><option value="all">All formula classes</option></select></div>
 <p id="sn-source-status" role="status" aria-live="polite"></p>
 <ol id="sn-source-results" class="sn-source-results"></ol>
 <button type="button" id="sn-source-more" hidden>Show more formulas</button>

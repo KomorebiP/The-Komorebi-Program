@@ -25,8 +25,15 @@ async function main(){
     assert.equal(await page.locator('#sn-source-formulas').isVisible(),true);
     await page.click('#sn-source-load');
     await page.waitForFunction(()=>document.querySelectorAll('#sn-source-results li').length>0,null,{timeout:45000});
-    assert.match(await page.locator('#sn-source-status').innerText(),/unreviewed OEIS records/);
-    assert.match(await page.locator('#sn-source-results').innerText(),/binomial/);
+    assert.match(await page.locator('#sn-source-status').innerText(),/not verified identities/);
+    assert.ok(await page.locator('#sn-source-results .sn-equation').count());
+    assert.ok(await page.locator('#sn-source-results .sn-original-text').count());
+    assert.match(await page.locator('#sn-source-results .sn-original-text').first().textContent(),/binomial/);
+    await page.selectOption('#sn-source-type','generating_function');
+    assert.match(await page.locator('#sn-source-status').innerText(),/filtered source lines/);
+    assert.ok(await page.locator('#sn-source-results .sn-source-kind').first().innerText().then(x=>x.includes('Generating function')));
+    await page.selectOption('#sn-source-type','all');
+    assert.ok(await page.locator('#sn-results .sn-equation').count());
     await page.selectOption('#sn-filter','gauge');
     assert.match(await page.locator('#sn-status').innerText(),/connections found/);
     await page.setViewportSize({width:390,height:844});

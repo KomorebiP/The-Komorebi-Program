@@ -58,7 +58,7 @@ class NetworkTests(unittest.TestCase):
             (r/'website/assets').mkdir(parents=True)
             shutil.copy(ROOT/'manifests/sequence-transfer-network.json',r/'manifests/sequence-transfer-network.json')
             shutil.copy(ROOT/'manifests/sequence-network-formula-text.json',r/'manifests/sequence-network-formula-text.json')
-            for name in ('sequence-network.css','sequence-network-ui.mjs'):
+            for name in ('sequence-network.css','sequence-network-ui.mjs','sequence-network-math.mjs'):
                 shutil.copy(ROOT/'website/assets'/name,r/'website/assets'/name)
             entries=[{'id':'KSEQ-TEST','oeis_checked':True,'matches':[{'id':'A000108','matched_terms':24},
                 {'id':'A000217','matched_terms':7}]},{'id':'KSEQ-NOCHECK','oeis_checked':False,
@@ -103,3 +103,20 @@ class NetworkTests(unittest.TestCase):
     def test_untrusted_local_id_escaped_or_rejected(self):
         with self.assertRaises(ValueError):local_network_link({'id':'KSEQ"<script>'})
 if __name__=='__main__':unittest.main()
+
+class NetworkTypesettingTests(unittest.TestCase):
+    def test_source_formula_controls_and_companion_module_are_built(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary)/'source';output=Path(temporary)/'output'
+            (root/'manifests').mkdir(parents=True);(root/'website/assets').mkdir(parents=True)
+            for filename in ['sequence-transfer-network.json','sequence-network-formula-text.json']:
+                shutil.copy(ROOT/'manifests'/filename,root/'manifests'/filename)
+            for filename in ['sequence-network.css','sequence-network-ui.mjs','sequence-network-math.mjs']:
+                shutil.copy(ROOT/'website/assets'/filename,root/'website/assets'/filename)
+            meta=build_site_assets(DummySite(root,output),[])
+            ui=(output/'assets/sequence-network-ui.mjs').read_text(encoding='utf-8')
+            self.assertIn("'./sequence-network-math.mjs?v=",ui)
+            self.assertTrue((output/'assets/sequence-network-math.mjs').is_file())
+            self.assertIn('sn-source-options',network_section(meta))
+            self.assertIn('sn-source-type',network_section(meta))
+            self.assertIn('original text is always available',network_section(meta))

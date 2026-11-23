@@ -44,3 +44,43 @@ test('no raw source execution or unsafe HTML injection is introduced',()=>{
   assert.doesNotMatch(src,/\b(?:innerHTML|outerHTML|eval|Function)\b/);
   assert.match(src,/textContent/);
 });
+
+import {exactFormulaLatex,sourceFormulaLatex,transferFormulaLatex} from '../website/assets/sequence-network-math.mjs';
+test('typeset simple exact OEIS formulas with proper structure and original identifiers',()=>{
+  const catalan=exactFormulaLatex('a(n) = binomial(2*n, n)/(n+1) = A000984(n)/(n+1).');
+  assert.match(catalan,/\\binom\{2\\cdot n\}\{n\}/);
+  assert.match(catalan,/\\frac/);
+  assert.match(catalan,/\\mathrm\{A000984\}/);
+  assert.match(sourceFormulaLatex('G.f.: x / (1 - x - x^2).'),/\\text\{OGF: \}/);
+  assert.match(sourceFormulaLatex('F(n) = ((1+sqrt(5))^n - (1-sqrt(5))^n)/(2^n*sqrt(5)).'),/\\sqrt\{5\}/);
+});
+test('original archived prose and suspicious formulas cannot be silently typeset',()=>{
+  const samples=['a(n) = arbitraryFunction(n)', 'a(n) = 4^n. - _A mathematician_, 2022',
+    'a(n)=eval(alert(1))','a(n) = \\write18{touch hacked}', 'a(n)=<script>alert(1)</script>',
+    'a(n) = Sum_{k=0..n} a(k)'];
+  for(const formula of samples)assert.equal(sourceFormulaLatex(formula),null,formula);
+});
+test('math presentation derives from actual stored transfer edges, not substitute theorems',()=>{
+  const selections=['hyperedge','gauge','riordan','quadratic'];
+  for(const kind of selections){
+    const edge=data.edges.find(e=>e.kind===kind);
+    const latex=transferFormulaLatex(edge);
+    assert.ok(latex,kind);
+    assert.equal(latex.includes('\\href'),false);
+  }
+  const malformed={kind:'hyperedge',target:'<script>',inputs:['A000108'],expression:'1'};
+  assert.equal(transferFormulaLatex(malformed),null);
+  assert.equal(exactFormulaLatex('a(n)=A000984(n)\\require{html}'),null);
+});
+test('typesetting is optional and original source remains on the Network page',()=>{
+  const ui=readFileSync(path.join(root,'website/assets/sequence-network-ui.mjs'),'utf8');
+  const css=readFileSync(path.join(root,'website/assets/sequence-network.css'),'utf8');
+  assert.match(ui,/dataset\.mathLatex=tex/);
+  assert.match(ui,/Original expression and index conditions/);
+  assert.match(ui,/Read exact original OEIS field/);
+  assert.match(ui,/sourceType\.addEventListener/);
+  assert.match(ui,/sourceResults\.replaceChildren/);
+  assert.doesNotMatch(ui,/\b(?:innerHTML|outerHTML|eval|Function)\b/);
+  assert.match(css,/overflow-x:auto/);
+  assert.match(css,/sn-source-options/);
+});

@@ -8,3 +8,49 @@
 .sn-source-kind{font-weight:600;font-size:.9em;opacity:.85;margin:.25rem 0;}
 .sn-source-expression{white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal;font:inherit;font-size:.92em;margin:0;}
 .sn-source button{margin-top:.55rem;}
+
+/* v1.7: Readable equations with exact text fallback and horizontal math scrolling.
+   Neutral surfaces inherit the site's dark/light theme; never rely on color for status. */
+.sn-network{font-variant-numeric:lining-nums;line-height:1.55}
+.sn-result{min-width:0;display:grid;gap:.45rem;padding:clamp(.85rem,1.7vw,1.3rem)}
+.sn-result h3{display:flex;align-items:baseline;flex-wrap:wrap;gap:.2rem .45rem;margin:0;line-height:1.55}
+.sn-result h3 .sn-rel-kind{margin:0 .2rem 0 0;flex-shrink:0}
+.sn-result .sn-details{font-size:.88rem;line-height:1.5;margin:.15rem 0;overflow-wrap:anywhere}
+.sn-result .sn-evidence{font-size:.88rem;font-weight:600;line-height:1.5;margin:.2rem 0}
+.sn-equation{display:block;max-width:100%;min-width:0;overflow-x:auto;overscroll-behavior-x:contain;
+  padding:.75rem .9rem;margin:.45rem 0;border:1px solid var(--border,#aaa);border-radius:.55rem;
+  background:var(--surface-secondary,transparent);scrollbar-width:thin}
+.sn-equation-plain{margin:0!important;max-width:100%;font-size:1rem;line-height:1.6;
+  font-family:ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere}
+.sn-equation .math-pair,.sn-source .math-pair{max-width:100%;margin:0}
+.sn-equation [data-math-tex],.sn-source [data-math-tex]{max-width:100%;min-width:0;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;padding-bottom:.15rem}
+.sn-equation mjx-container,.sn-source mjx-container{max-width:none!important;min-width:max-content;font-size:110%!important}
+.sn-equation mjx-container[display="true"],.sn-source mjx-container[display="true"]{text-align:left!important;margin:.15rem 0!important}
+.sn-original{margin:.25rem 0;border-top:1px solid var(--border,#bbb);padding-top:.35rem}
+.sn-original summary{font-size:.88rem;cursor:pointer;font-weight:600;padding:.3rem 0}
+.sn-original[open] summary{margin-bottom:.35rem}
+.sn-original-text{margin:.3rem 0 .6rem;padding:.75rem .8rem;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+  font-size:.85rem;line-height:1.6;white-space:pre-wrap;word-break:normal;overflow-wrap:anywhere;
+  border-radius:.45rem;background:var(--surface-secondary,transparent);border:1px solid var(--border,#aaa);max-width:100%}
+.sn-network .sn-copy{border:1px solid var(--border,#999);border-radius:.35rem;
+  background:transparent;color:inherit;cursor:pointer;padding:.3rem .65rem;font:inherit;font-size:.83rem;min-height:2.1rem}
+.sn-network .sn-copy:hover{background:var(--surface-secondary,transparent)}
+.sn-network .sn-copy:focus-visible{outline:3px solid var(--link,#2277d1);outline-offset:3px}
+.sn-source{max-width:100%;min-width:0}
+.sn-source-results{margin:.6rem 0;padding:0;list-style:none;display:grid;gap:.55rem}
+.sn-source-line{padding:.8rem;border:1px solid var(--border,#aaa);border-radius:.6rem;margin:0;min-width:0}
+.sn-source-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.4rem .85rem}
+.sn-source-kind{font-size:.83rem;font-weight:600;opacity:.85;letter-spacing:.01em}
+.sn-source-line .sn-equation{margin:.45rem 0 .25rem;border-color:var(--border,#aaa)}
+.sn-source-options{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin:.7rem 0}
+.sn-source-options label{font-weight:600;font-size:.93rem}
+.sn-source-options select{max-width:100%;min-width:12rem}
+.sn-source-options[hidden]{display:none}
+@media(max-width:580px){
+  .sn-equation{padding:.65rem .65rem}
+  .sn-source-line{padding:.65rem}
+  .sn-result .sn-actions{align-items:flex-start}
+  .sn-source-header{align-items:baseline}
+  .sn-equation mjx-container,.sn-source mjx-container{font-size:100%!important}
+}
+@media(prefers-reduced-motion:reduce){.sn-network *{scroll-behavior:auto!important}}

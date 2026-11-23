@@ -1,4 +1,5 @@
 /** Read-only OEIS transfer graph. Never executes source expressions. */
+import {transferFormulaLatex,sourceFormulaLatex} from './sequence-network-math.mjs';
 const OEIS = /^A\d{6}$/;
 const MAX_RESULTS = 60;
 const EVIDENCE = Object.freeze({
@@ -59,6 +60,28 @@ function node(tag, value, className) {
   if (className) el.className=className;
   return el;
 }
+/** A failed clipboard operation never receives success feedback. */
+function copySourceButton(source, caption='Copy original') {
+  const button=node('button',caption,'sn-copy');button.type='button';
+  button.addEventListener('click',async()=>{
+    try {await navigator.clipboard.writeText(source);button.textContent='Copied original';}
+    catch {button.textContent='Copy unavailable. Select the original text.';}
+  });
+  return button;
+}
+function enhanceEquations(region){
+  // Existing site-wide MathJax controller owns the typeset/plain preference.
+  window.KomorebiMath?.enhance?.(region);
+}
+function equation(source, tex, label='Formula'){
+  const wrapper=node('div',undefined,'sn-equation');
+  const plain=node('p',source,'sn-equation-plain');
+  if(tex){plain.dataset.mathLatex=tex;plain.setAttribute('aria-label',label);}
+  wrapper.append(plain);return wrapper;
+}
+const SOURCE_KINDS=Object.freeze({term_candidate:'Term formula',recurrence:'Recurrence',
+  generating_function:'Generating function',finite_or_infinite_sum:'Sum or product',
+  unclassified:'Other source statement'});
 function officialLink(id, label) {
   const a=node('a',label || id);
   a.href=OEIS.test(id)?'https://oeis.org/'+id:'sequence-library.html';
@@ -71,22 +94,25 @@ function siteSearchLink(id) {
 }
 function explainEdge(edge, names) {
   const li=node('li',undefined,'sn-result');
-  const kind=node('span',KIND[edge.kind] || 'Formula connection','sn-rel-kind');
-  const heading=node('h3');heading.append(kind,officialLink(edge.target),document.createTextNode(' ← '));
+  const heading=node('h3');
+  heading.append(node('span',KIND[edge.kind] || 'Formula connection','sn-rel-kind'),officialLink(edge.target),document.createTextNode(' ← '));
   edge.inputs.forEach((input,i)=>{if(i)heading.append(document.createTextNode(' + '));heading.append(officialLink(input));});
   li.append(heading);
   const detail=[edge.target,...edge.inputs].map(id=>`${id}: ${names.get(id) || 'OEIS sequence'}`).join(' · ');
   li.append(node('p',detail,'sn-details'));
-  li.append(node('p',edge.expression,'sn-statement'));
-  li.append(node('p',EVIDENCE[edge.evidence] || 'Unclassified evidence','sn-evidence'));
-  li.append(node('p','Domain: '+edge.domain,'sn-details'));
+  li.append(equation(edge.expression,transferFormulaLatex(edge),'Recorded transfer formula'));
+  const provenance=node('details',undefined,'sn-original');
+  provenance.append(node('summary','Original expression and index conditions'));
+  provenance.append(node('pre',edge.expression,'sn-original-text'));
+  provenance.append(node('p','Evidence: '+(EVIDENCE[edge.evidence] || 'Unclassified'),'sn-evidence'));
+  provenance.append(node('p','Index domain: '+edge.domain,'sn-details'));
   if(edge.kind==='hyperedge' && Object.keys(edge.index_maps || {}).length){
-    li.append(node('p','Index maps: '+Object.entries(edge.index_maps).map(([id,ranges])=>
+    provenance.append(node('p','Index maps: '+Object.entries(edge.index_maps).map(([id,ranges])=>
       id+': '+ranges.map(pair=>'n ↦ '+pair[0]+'n'+(pair[1]>=0?'+':'')+pair[1]).join(', ')).join(' · '),'sn-details'));
   }
   const controls=node('div',undefined,'sn-actions');
-  controls.append(officialLink(edge.target,'View target on OEIS'),siteSearchLink(edge.target));
-  li.append(controls);
+  controls.append(officialLink(edge.target,'View source on OEIS'),siteSearchLink(edge.target),copySourceButton(edge.expression));
+  li.append(node('p',EVIDENCE[edge.evidence] || 'Unclassified evidence','sn-evidence'),provenance,controls);
   return li;
 }
 async function mount() {
@@ -96,9 +122,10 @@ async function mount() {
         status=root.querySelector('#sn-status'), results=root.querySelector('#sn-results'),
         handoffs=root.querySelector('#sn-handoffs'), sourcePanel=root.querySelector('#sn-source-formulas'),
         sourceButton=root.querySelector('#sn-source-load'), sourceStatus=root.querySelector('#sn-source-status'),
-        sourceResults=root.querySelector('#sn-source-results'), sourceMore=root.querySelector('#sn-source-more');
+        sourceResults=root.querySelector('#sn-source-results'), sourceMore=root.querySelector('#sn-source-more'),
+        sourceOptions=root.querySelector('#sn-source-options'),sourceType=root.querySelector('#sn-source-type');
   if(!input || !filter || !status || !results || !handoffs || !sourcePanel ||
-      !sourceButton || !sourceStatus || !sourceResults || !sourceMore) return;
+      !sourceButton || !sourceStatus || !sourceResults || !sourceMore || !sourceOptions || !sourceType) return;
   try {
     const sources=await Promise.all([
       fetch(new URL('./sequence-network-data.json',import.meta.url)),
@@ -116,15 +143,25 @@ async function mount() {
       return sourcePromise;
     };
     const renderSource=()=>{
-      sourceResults.replaceChildren();
-      for(const item of sourceRows.slice(0,sourceShown)){
+      const selected=sourceType.value==='all'?sourceRows:sourceRows.filter(x=>x.kind===sourceType.value);
+      window.KomorebiMath?.clear?.(sourceResults);sourceResults.replaceChildren();
+      for(const [offset,item] of selected.slice(0,sourceShown).entries()){
         const li=node('li',undefined,'sn-source-line');
-        li.append(node('p',item.kind,'sn-source-kind'),node('pre',item.text,'sn-source-expression'));
+        const header=node('div',undefined,'sn-source-header');
+        header.append(node('span',(offset+1)+'. '+(SOURCE_KINDS[item.kind]||item.kind),'sn-source-kind'),copySourceButton(item.text));
+        li.append(header,equation(item.text,sourceFormulaLatex(item.text),'Archived OEIS source formula'));
+        const raw=node('details',undefined,'sn-original');
+        raw.append(node('summary','Read exact original OEIS field'),node('pre',item.text,'sn-original-text'));
+        li.append(raw);
         sourceResults.append(li);
       }
-      sourceMore.hidden=sourceShown>=sourceRows.length;
-      if(!sourceMore.hidden)sourceMore.textContent=`Show more formulas (${sourceRows.length-sourceShown} remaining)`;
+      sourceMore.hidden=sourceShown>=selected.length;
+      if(!sourceMore.hidden)sourceMore.textContent=`Show more (${selected.length-sourceShown} remaining)`;
+      sourceStatus.textContent=`Showing ${Math.min(sourceShown,selected.length)} of ${selected.length} filtered source lines (${sourceRows.length} total). These are OEIS source records, not verified identities.`;
+      if(activeId)sourceStatus.append(document.createTextNode(' '),officialLink(activeId,'Full OEIS entry'));
+      enhanceEquations(sourceResults);
     };
+    sourceType.addEventListener('change',()=>{sourceShown=Math.min(25,sourceRows.length);renderSource();});
     sourceMore.addEventListener('click',()=>{sourceShown=Math.min(sourceRows.length,sourceShown+25);renderSource();});
     sourceButton.addEventListener('click',async()=>{
       const requested=activeId, version=sourceVersion;
@@ -134,13 +171,17 @@ async function mount() {
         const archive=await sourceData();
         if(version!==sourceVersion)return;
         sourceRows=sourceFormulaRows(archive,requested,data.oeis.snapshot_sha256);
+        sourceType.replaceChildren(node('option','All formula classes'));
+        sourceType.firstChild.value='all';
+        for(const kind of [...new Set(sourceRows.map(item=>item.kind))].sort()){
+          const count=sourceRows.filter(row=>row.kind===kind).length;
+          const option=node('option',(SOURCE_KINDS[kind]||kind)+` (${count})`);option.value=kind;sourceType.append(option);
+        }
+        sourceType.value='all';sourceOptions.hidden=!sourceRows.length;
         sourceShown=Math.min(25,sourceRows.length);
         sourceButton.hidden=true;renderSource();
-        sourceStatus.textContent=sourceRows.length
-          ? `${sourceRows.length} source formula lines. These are unreviewed OEIS records, not proven sequence identities.`
-          : 'No source formula fields were retained for this ID in the pinned 99,999-entry snapshot.';
-        const external=officialLink(requested,'Read the full source entry on OEIS');
-        sourceStatus.append(document.createTextNode(' '),external);
+        if(!sourceRows.length)sourceStatus.textContent='No formula fields retained for this ID in the pinned 99,999-entry snapshot.';
+
       }catch(error){
         if(version===sourceVersion)sourceStatus.textContent='Source formula text could not load. The original OEIS entry remains available.';
       }finally{if(version===sourceVersion)sourceButton.disabled=false;}
@@ -150,13 +191,13 @@ async function mount() {
       const requested=OEIS.test(query.toUpperCase())?query.toUpperCase():'';
       if(requested!==activeId){
         activeId=requested;sourceVersion++;sourceRows=[];sourceShown=0;
-        sourceResults.replaceChildren();sourceMore.hidden=true;
+        sourceResults.replaceChildren();sourceMore.hidden=true;sourceOptions.hidden=true;
         sourceButton.hidden=false;sourceButton.disabled=false;
         sourceStatus.textContent=requested?'Formula text loads only when requested.':'';
       }
       sourcePanel.hidden=!requested;
       const selected=networkSearch(data,query,filter.value,MAX_RESULTS,handoffsData.matches);
-      results.replaceChildren();handoffs.replaceChildren();
+      window.KomorebiMath?.clear?.(results);results.replaceChildren();handoffs.replaceChildren();
       if(!query){
         status.textContent=`${data.edges.length.toLocaleString()} archived formula-transfer records covering ${data.records.length.toLocaleString()} OEIS IDs. Enter an ID or name to explore.`;
         const suggestions=node('p','Examples: A000108 (Catalan), A000129 (Pell), A000217 (triangular).');
@@ -171,6 +212,7 @@ async function mount() {
       }
       status.textContent=`${selected.total.toLocaleString()} archived connections found${selected.total>MAX_RESULTS?` · displaying first ${MAX_RESULTS}`:''}.`;
       for(const edge of selected.results)results.append(explainEdge(edge,names));
+      enhanceEquations(results);
       if(!selected.total){
         results.append(node('li','No archived transfer in this curated index. Search the main OEIS reference database for additional sequences or formulas.','sn-no-results'));
       }

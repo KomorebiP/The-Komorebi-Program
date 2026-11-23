@@ -69,3 +69,22 @@ with a further-results control. The generator
 `tools/export_sequence_network_formulas.py` checks the pinned SQLite database
 hash before producing the retained file. This source-text enhancement does not
 add any all-index OEIS identity claims.
+
+## Formula presentation update (23 November 2026)
+
+This update improves the **display** layer without changing indexed identities, formula bytes, offsets, numerical results, or their review status.
+
+- Transfer cards now have a dedicated equation surface. Supported arithmetic expressions are compiled by `website/assets/sequence-network-math.mjs` into a strict subset of MathJax TeX, using only whitelisted identifiers, operators, and structural templates. The main site-wide Math display control still selects typeset math or the original text.
+- Original stored expressions and index conditions remain accessible in native disclosures and can be copied verbatim. The labels *all-index formula identity*, *identity on tail*, *conditional OGF*, and *quadratic algebra* remain distinct.
+- OEIS `%F` source text is fetched only after the visitor requests it. The results are grouped by source class, shown 25 at a time, and include expandable unmodified OEIS text. The source list is not converted into claims of verified OEIS identities.
+- Unsupported prose, nested sums, program listings, ambiguous notation, and unrecognized functions **are not interpreted**. They remain readable in the original notation, with no execution or markup insertion.
+- Equation blocks scroll independently on narrow screens. Styling inherits site colors and provides keyboard-accessible summaries, buttons, and controls.
+
+Reproduction and focused tests:
+
+```sh
+PYTHONPATH=tools python -m unittest discover -s tools -p 'test_sequence_network_site.py' -v
+node --test tools/test_sequence_network_site.mjs
+```
+
+This change is confined to the Network presentation and its asset exporter. It does not replace the full OEIS database with a browser-resident dataset and does not claim typesetting for every free-form OEIS source line.
