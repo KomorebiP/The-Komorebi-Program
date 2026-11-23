@@ -1,14 +1,21 @@
 "use strict";
 
 // Only formulas that need horizontal scrolling gain an extra keyboard stop.
+// Handle both inline and display equations, preserving existing labels and roles.
 // Recheck after typesetting, text settings, responsive layout, and live results.
 {
   const managed = new Map();
   let scheduled = false;
-  const attributes = {tabindex: "0", role: "group",
+  const inlineAttributes = {tabindex: "0", role: "group",
     "aria-label": "Inline equation. Scroll horizontally if needed.",
     title: "Scroll horizontally to read the full equation."};
+  const displayAttributes = {tabindex: "0", role: "region",
+    "aria-label": "Display equation. Scroll horizontally if needed.",
+    title: "Scroll horizontally to read the full equation."};
+  const attributesFor = formula =>
+    formula.matches("div.arithmatex") ? displayAttributes : inlineAttributes;
   function restore(formula, added) {
+    const attributes = attributesFor(formula);
     for (const name of added) {
       if (formula.getAttribute(name) === attributes[name]) formula.removeAttribute(name);
     }
@@ -25,7 +32,7 @@
         managed.delete(formula);
       }
     }
-    for (const formula of document.querySelectorAll("span.arithmatex")) {
+    for (const formula of document.querySelectorAll("span.arithmatex, div.arithmatex")) {
       if (!managed.has(formula)) {
         managed.set(formula, new Set());
         if (observer) observer.observe(formula);
@@ -37,7 +44,7 @@
       if (formula.clientWidth > 0 && contentWidth > formula.clientWidth + 1) {
         formula.classList.remove("math-fits");
         formula.classList.add("math-overflow");
-        for (const [name, value] of Object.entries(attributes)) {
+        for (const [name, value] of Object.entries(attributesFor(formula))) {
           if (!formula.hasAttribute(name)) { formula.setAttribute(name, value); added.add(name); }
         }
       } else { restore(formula, added); added.clear(); formula.classList.add("math-fits"); }
@@ -50,9 +57,9 @@
   window.addEventListener("resize", schedule);
   window.addEventListener("load", schedule, {once: true});
   if (typeof MutationObserver !== "undefined") new MutationObserver(records => {
-    if (records.some(record => record.target.closest?.("span.arithmatex") ||
+    if (records.some(record => record.target.closest?.("span.arithmatex, div.arithmatex") ||
         [...record.addedNodes].some(node => node.nodeType === 1 &&
-          (node.matches("span.arithmatex") || node.querySelector("span.arithmatex"))))) schedule();
+          (node.matches("span.arithmatex, div.arithmatex") || node.querySelector("span.arithmatex, div.arithmatex"))))) schedule();
   }).observe(document.body, {childList: true, subtree: true});
 }
 
