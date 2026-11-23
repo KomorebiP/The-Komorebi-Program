@@ -19,13 +19,11 @@ async function main(){
     assert.equal(response.status(),200,'Generated Network page missing');
     await page.waitForFunction(()=>/connections found/.test(document.querySelector('#sn-status')?.textContent||''),null,{timeout:45000});
     const first=await page.locator('.sn-result').count();
-    assert.equal(first,12,'Initial results are paginated to reduce mobile reading load');
-    assert.equal(await page.locator('#sn-show-more').isVisible(),true);
-    await page.locator('#sn-show-more').focus();
-    await page.keyboard.press('Enter');
-    assert.ok(await page.locator('.sn-result').count()>12,'Keyboard users can reveal more results');
-    assert.equal(await page.locator('.sn-result').nth(12).evaluate(el=>document.activeElement===el),true,
-      'Newly revealed transfer receives keyboard focus when the more button disappears');
+    assert.equal(first,9,'An exact Catalan ID selects only direct transfer records');
+    assert.equal(await page.locator('#sn-show-more').isVisible(),false);
+    assert.match(await page.locator('.sn-profile').innerText(),/9 distinct direct records.*0 as target.*9 as input/s);
+    assert.ok(await page.locator('.sn-profile a[href*="text%3AA000108"]').count());
+    assert.ok(await page.locator('.sn-result h3 a[href*="sequence-network.html?q="]').count());
     assert.ok(await page.locator('.sn-result [data-math-latex]').count()>0,
       'At least one transfer must have a readable, accessible mathematical rendering');
     await page.waitForFunction(
@@ -51,8 +49,11 @@ async function main(){
     assert.ok((await page.locator('#sn-results').innerText()).includes('Formula identity')||
               (await page.locator('#sn-results').innerText()).includes('Gauge transfer'));
     assert.equal(await page.locator('#sn-source-formulas').isVisible(),true);
-    await page.click('#sn-source-load');
+    await page.locator('#sn-source-load').focus();
+    await page.keyboard.press('Enter');
     await page.waitForFunction(()=>document.querySelectorAll('#sn-source-results li').length>0,null,{timeout:45000});
+    assert.equal(await page.locator('#sn-source-results li').first().evaluate(el=>document.activeElement===el),true,
+      'keyboard focus follows the initial source-formula load');
     assert.match(await page.locator('#sn-source-status').innerText(),/unreviewed OEIS records/);
     assert.match(await page.locator('#sn-source-results').innerText(),/binomial/);
     assert.equal(await page.locator('#sn-source-results li').count(),25);
@@ -76,13 +77,25 @@ async function main(){
     assert.match(await page.locator('#sn-status').innerText(),/connections found/);
     await page.setViewportSize({width:390,height:844});
     await page.screenshot({path:path.join(output,'network-mobile.png')});
+    const participant=gauge.locator('h3 a').first();
+    const participantId=await participant.innerText();
+    await participant.click();
+    await page.waitForFunction(id=>document.querySelector('.sn-profile h3')?.textContent.includes(id),participantId,{timeout:45000});
+    assert.match(new URL(page.url()).searchParams.get('q'),/^A\d{6}$/);
+    assert.ok(await page.locator('.sn-profile').isVisible());
+    await page.goto(base+'sequence-network.html?q=text%3AA000108',{waitUntil:'domcontentloaded'});
+    await page.waitForFunction(()=>/17 archived connections found/.test(document.querySelector('#sn-status')?.textContent||''),null,{timeout:45000});
+    assert.equal(await page.locator('.sn-profile').count(),0);
     await page.goto(base+'sequence-network.html?q=binomial',{waitUntil:'domcontentloaded'});
     await page.waitForFunction(()=>/331 archived connections found/.test(document.querySelector('#sn-status')?.textContent||''),null,{timeout:45000});
     assert.match(await page.locator('#sn-status').innerText(),/showing 12 of 331/);
     assert.equal(await page.locator('.sn-result').count(),12);
-    await page.click('#sn-show-more');
+    await page.locator('#sn-show-more').focus();
+    await page.keyboard.press('Enter');
     assert.match(await page.locator('#sn-status').innerText(),/showing 24 of 331/);
     assert.equal(await page.locator('.sn-result').count(),24);
+    assert.equal(await page.locator('.sn-result').nth(12).evaluate(el=>document.activeElement===el),true,
+      'newly revealed connection receives keyboard focus');
     await page.goto(base+'sequence-network.html?q=KFOR-CF-PAD-1',{waitUntil:'domcontentloaded'});
     await page.waitForFunction(()=>/connections found/.test(document.querySelector('#sn-status')?.textContent||''),null,{timeout:45000});
     assert.match(await page.locator('#sn-handoffs').innerText(),/finite OEIS matches/);

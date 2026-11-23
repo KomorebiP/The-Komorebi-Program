@@ -146,7 +146,9 @@ def network_section(metadata):
 <h2>Formula connections and transfer operators</h2>
 <p>Find relationships between recorded sequences. Each card places the target to the left
 of the arrow and the source sequences to the right. Mathematical notation is typeset when
-available, with the exact archival expression preserved in a disclosure.</p>
+available, with the exact archival expression preserved in a disclosure. Select a sequence
+identifier in a result to explore its direct connections in this Network; official OEIS links
+remain in the record and its provenance disclosure.</p>
 <details class="sn-reader-guide"><summary>How to read these transfer records</summary>
 <p>A gauge relates the ratio of two sequence formulas using a scale, an exponential factor,
 and a defining function L. Index offsets and the valid tail are essential. A Riordan record
@@ -164,7 +166,9 @@ OEIS edges to the curated index.</p>
 <label for="sn-query">OEIS ID, local sequence ID, formula or name</label>
 <div class="sn-fields"><input id="sn-query" type="search" maxlength="200" placeholder="A000108, Catalan, KFOR..." autocomplete="off" aria-describedby="sn-search-help">
 <button type="submit">Find connections</button></div>
-<p id="sn-search-help" class="sn-help">Search the curated index. Results are archived formula relations, not live OEIS verification.</p>
+<p id="sn-search-help" class="sn-help">An exact OEIS ID finds only direct connections as a
+target or input. Use <code>text:A000108</code> to include references in sequence names and
+formula text. Results are archived formula relations, not live OEIS verification.</p>
 <label for="sn-filter">Relation class</label>
 <select id="sn-filter"><option value="all">All formula transfers</option><option value="hyperedge">Multi-input and algebraic identities</option>
 <option value="gauge">Hypergeometric gauges</option><option value="riordan">Riordan transforms</option>
