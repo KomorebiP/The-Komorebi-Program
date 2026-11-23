@@ -1,0 +1,70 @@
+{
+  "schema": 1,
+  "origin": {
+    "url": "https://github.com/oeis/oeisdata",
+    "commit": "a9e6e3a6a7b6ad00375d1a87a9bd5cc50885095e",
+    "license": "CC-BY-SA-4.0",
+    "attribution": "The Online Encyclopedia of Integer Sequences, OEIS Foundation Inc.",
+    "corpus_kind": "selected verbatim S,F,O excerpts, not full records"
+  },
+  "records": [
+    {
+      "id": "A000108",
+      "kind": "algebraic",
+      "statement": "G.f.: A(x) = (1 - sqrt(1 - 4*x)) / (2*x), and satisfies A(x) = 1 + x*A(x)^2.",
+      "original_blob_sha1": "de23ba4b88d265e350f0ee0ec653d52e9d17109a",
+      "original_formula_line": 590
+    },
+    {
+      "id": "A001006",
+      "kind": "algebraic",
+      "statement": "G.f. A(x) satisfies A(x) = 1 + x*A(x) + x^2*A(x)^2.",
+      "original_blob_sha1": "99e7f54428189e085c2f80a1ca08bce664d11ec9",
+      "original_formula_line": 293
+    },
+    {
+      "id": "A006318",
+      "kind": "algebraic",
+      "statement": "The g.f. satisfies (1 - x)*A(x) - x*A(x)^2 = 1. - _Ralf Stephan_, Jun 30 2003",
+      "original_blob_sha1": "bd65e1fced44442bbf0eb1fea28209305661c476",
+      "original_formula_line": 234
+    },
+    {
+      "id": "A000079",
+      "kind": "rational",
+      "statement": "G.f.: 1/(1 - 2*x).",
+      "original_blob_sha1": "c23f267b0e075a870b4e05746c66aea2e2d37c39",
+      "original_formula_line": 183
+    },
+    {
+      "id": "A033999",
+      "kind": "rational",
+      "statement": "G.f.: 1/(1+x).",
+      "original_blob_sha1": "f2b32a6c7b80b00ad349afd68c1aec5a266603b2",
+      "original_formula_line": 32
+    },
+    {
+      "id": "A001045",
+      "kind": "rational_chain",
+      "statement": "G.f.: x/(1 - x - 2*x^2) = x/((x+1)*(1-2*x)). _Simon Plouffe_ in his 1992 dissertation",
+      "original_blob_sha1": "ae9319ee0ce5e350dde768203b9094e5badb7a15",
+      "original_formula_line": 271
+    }
+  ],
+  "joint_jobs": [],
+  "composition_pairs": [
+    [
+      "A000108",
+      "A001006"
+    ],
+    [
+      "A000108",
+      "A006318"
+    ],
+    [
+      "A001006",
+      "A000108"
+    ]
+  ],
+  "auto_spectral_covers": true
+}
