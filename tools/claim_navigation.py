@@ -372,14 +372,22 @@ def render_claim_index(site):
                 kind='Claims',work_ids=[wid],url=page_path+'#'+identifier,
                 text=search,preview=row.get('search_text') or row['scope']))
             if proof:
-                if proof not in proof_search:
-                    proof_search[proof] = dict(
+                # The claims-page link is relative to claims/paper-N.html.
+                # Global search URLs must instead be relative to search.html,
+                # at the publication root. Do not put "../read/..." in the
+                # search catalogue: it escapes the GitHub Pages project path.
+                search_proof=site.reader.resolve(row['statement_path'],'search.html',
+                                                 'L'+str(row['proof_line']))
+                if not search_proof:
+                    raise ValueError('Missing canonical proof search target: '+row['id'])
+                if search_proof not in proof_search:
+                    proof_search[search_proof] = dict(
                         title=title.split(':')[0]+' / Proof: '+row['title'],
                         group='Collection',kind='Written proofs',work_ids=[wid],
-                        url=proof,text=search,
+                        url=search_proof,text=search,
                         preview='Written proof location for '+row['title']+'. '+
                                 (row.get('search_text') or row['scope']))
-                else: proof_search[proof]['text'] += ' '+search
+                else: proof_search[search_proof]['text'] += ' '+search
             meta = [name(row['kind']),
                     'Proof link indexed' if proof else 'No proof link indexed']
             if row['lean']: meta.append(str(len(row['lean']))+' mapped Lean declarations')
