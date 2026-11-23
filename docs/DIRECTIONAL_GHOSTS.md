@@ -20,8 +20,10 @@ The central question is how much information about a truncated generating functi
 | --- | --- |
 | Source \(A\) | A truncated formal series with constant coefficient \(1\). |
 | Directional ghost \(\Gamma_i(A)\) | The logarithmic derivative \(\delta_i A/A\) along a specified weighted direction. |
-| Precision \(p^k\) | Coefficients are determined modulo the stated prime power. |
-| Fiber | All coefficient arrays compatible with the observed signatures. |
+| Precision \(p^k\) | The modulus of the source coefficients being reconstructed; observations may use higher precision. |
+| Fiber | Source reductions modulo \(p^k\) for which at least one full-precision lift matches the supplied signatures. |
+| \(e_\alpha\) | The number of undetermined base-\(p\) digits at coefficient index \(\alpha\). |
+| \(E\) and \(b\) | Total ambiguity exponent and number of blind coefficient indices, respectively. |
 | Rescue channel | An independently available supplementary measurement. It cannot be synthesized from the same information already lost. |
 | \(\Phi_q\) | A lossless change of series coordinates defined by \(A(\mathbf{x})/A(\mathbf{x}^q)\). |
 
@@ -35,7 +37,7 @@ Fix a prime \(p\), integers \(k,D,d\geq1\), and the truncated formal-series ring
 R_D=\mathbb Z_p[x_1,\ldots,x_d]/(x_1,\ldots,x_d)^{D+1},\qquad I=(x_1,\ldots,x_d).
 \]
 
-Write \(A=1+\sum_{0<|\alpha|\le D}a_\alpha\mathbf{x}^\alpha\), so \(A\) belongs to the multiplicative group \(1+I\).
+Write \(A=1+\sum_{0<|\alpha|\le D}a_\alpha\mathbf{x}^\alpha\), where \(\alpha\in\mathbb Z_{\ge0}^d\), \(|\alpha|=\sum_j\alpha_j\), and \(\mathbf{x}^\alpha=\prod_j x_j^{\alpha_j}\). Here \(\mathbb Z_p\) denotes the \(p\)-adic integers. The series \(A\) belongs to the multiplicative group \(1+I\).
 
 For integer weight vectors \(w_i=(w_{i1},\ldots,w_{id})\), define the commuting Euler derivations
 
@@ -44,16 +46,16 @@ For integer weight vectors \(w_i=(w_{i1},\ldots,w_{id})\), define the commuting 
 \Gamma_i(A)=\frac{\delta_i A}{A}.
 \]
 
-Suppose the \(i\)th signature is observed modulo \(p^{k+h_i}\), where \(h_i\ge0\). The goal is to reconstruct the input modulo \(p^k\). Define \(v_p(0)=+\infty\) and \(\lambda_{i,\alpha}=w_i\cdot\alpha\).
+Suppose the \(i\)th signature is independently observed modulo \(p^{k+h_i}\), where \(h_i\ge0\). The goal is to recover source coefficients modulo \(p^k\). A source reduction is called **compatible** if it admits a lift to \(R_D\) whose signatures match all supplied measurements at their stated precisions. This matters because a signature modulo \(p^{k+h_i}\) need not be determined by source coefficients modulo \(p^k\) alone. Put \(v_p(0)=+\infty\) and \(\lambda_{i,\alpha}=w_i\cdot\alpha\).
 
 The signature readings are **independently supplied observations** of the source, potentially at different precisions. They need not be statistically independent. Deterministic postprocessing of an existing signature does not count as a new measurement.
 
-A scalar map \(f\) is **1-Lipschitz in the congruence sense** when \(u\equiv v\pmod{p^j}\) implies \(f(u)\equiv f(v)\pmod{p^j}\) for each \(0\le j\le k\). The lower bounds below apply to supplementary channels satisfying this condition.
+A scalar measurement \(f\) on source coefficient arrays is **1-Lipschitz in the congruence sense** when coordinatewise congruence \(u\equiv v\pmod{p^j}\) implies \(f(u)\equiv f(v)\pmod{p^j}\) for every \(0\le j\le k\). This includes coefficient projections and integral-polynomial measurements. The channel lower bounds below are **not** claims about arbitrary discontinuous or non-congruence-preserving encodings.
 
 
 ### A small reconstruction example
 
-In one variable, take \(p=2\), \(k=2\), \(h=0\), \(D=4\), and observe \(\Gamma(A)=xA'(x)/A(x)\) modulo \(4\). The derivative multiplies the coefficient at \(x^n\) by \(n\), so Theorem 2.1 gives:
+In one variable, take \(p=2\), \(k=2\), \(h=0\), \(D=4\), and observe \(\Gamma(A)=xA'(x)/A(x)\) modulo \(4\). The **Euler derivative** \(x\partial_x\) multiplies the coefficient of \(x^n\) by \(n\). Taking a quotient of two source series reduces equality of their nonlinear ghosts to these linear coefficient conditions. Theorem 2.1 gives:
 
 | Degree \(n\) | \(v_2(n)\) | Remaining exponent \(e_n\) |
 | ---: | ---: | ---: |
@@ -62,7 +64,7 @@ In one variable, take \(p=2\), \(k=2\), \(h=0\), \(D=4\), and observe \(\Gamma(A
 | 3 | 0 | 0 |
 | 4 | 2 | 2 |
 
-Thus there are \(2^{0+1+0+2}=8\) compatible source reductions modulo \(4\), with two blind indices (degrees \(2\) and \(4\)). If the *same* ghost is independently supplied modulo \(8\), then \(h=1\) and the fiber shrinks to \(2\) source reductions. Extra observation precision is useful, but it does not replace an unavailable measurement.
+Thus there are \(2^{0+1+0+2}=8\) compatible source reductions modulo \(4\), with two blind indices (degrees \(2\) and \(4\)). For the zero ghost, they are exactly \(A=1+c_2x^2+c_4x^4\), where \(c_2\in\{0,2\}\) and \(c_4\in\{0,1,2,3\}\) modulo \(4\). If the **ghost** is independently supplied modulo \(8\), then \(h=1\), and each attainable set of measurements admits just \(2\) source reductions modulo \(4\). Extra observation precision is useful, but it does not replace an unavailable measurement.
 
 ## 2. Exact multichannel directional-ghost fiber theorem
 
