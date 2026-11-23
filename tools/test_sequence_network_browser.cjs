@@ -24,6 +24,8 @@ async function main(){
     await page.locator('#sn-show-more').focus();
     await page.keyboard.press('Enter');
     assert.ok(await page.locator('.sn-result').count()>12,'Keyboard users can reveal more results');
+    assert.equal(await page.locator('.sn-result').nth(12).evaluate(el=>document.activeElement===el),true,
+      'Newly revealed transfer receives keyboard focus when the more button disappears');
     assert.ok(await page.locator('.sn-result [data-math-latex]').count()>0,
       'At least one transfer must have a readable, accessible mathematical rendering');
     await page.waitForFunction(
@@ -64,6 +66,13 @@ async function main(){
     assert.match(await page.locator('#sn-status').innerText(),/connections found/);
     await page.setViewportSize({width:390,height:844});
     await page.screenshot({path:path.join(output,'network-mobile.png')});
+    await page.goto(base+'sequence-network.html?q=binomial',{waitUntil:'domcontentloaded'});
+    await page.waitForFunction(()=>/331 archived connections found/.test(document.querySelector('#sn-status')?.textContent||''),null,{timeout:45000});
+    assert.match(await page.locator('#sn-status').innerText(),/showing 12 of 331/);
+    assert.equal(await page.locator('.sn-result').count(),12);
+    await page.click('#sn-show-more');
+    assert.match(await page.locator('#sn-status').innerText(),/showing 24 of 331/);
+    assert.equal(await page.locator('.sn-result').count(),24);
     await page.goto(base+'sequence-network.html?q=KFOR-CF-PAD-1',{waitUntil:'domcontentloaded'});
     await page.waitForFunction(()=>/connections found/.test(document.querySelector('#sn-status')?.textContent||''),null,{timeout:45000});
     assert.match(await page.locator('#sn-handoffs').innerText(),/finite OEIS matches/);
