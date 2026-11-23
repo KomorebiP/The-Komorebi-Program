@@ -12,6 +12,8 @@
 
 ## Reader's guide
 
+**In plain language.** A directional ghost records how a generating function changes along a weighted direction. Different generating functions can produce identical observations at finite precision. The results below count those indistinguishable inputs, identify the remaining arithmetic obstructions, and distinguish recovering an entire series from recovering only the answer to a specific query. A change of coordinates can make those obstructions easier to study, but cannot manufacture missing measurements.
+
 The central question is how much information about a truncated generating function survives a family of observations. These results distinguish **full reconstruction** of its coefficients from **query reconstruction**, where only a chosen answer must be determined.
 
 | Term | Meaning in this note |
@@ -35,7 +37,7 @@ R_D=\mathbb Z_p[x_1,\ldots,x_d]/(x_1,\ldots,x_d)^{D+1},\qquad I=(x_1,\ldots,x_d)
 
 Write \(A=1+\sum_{0<|\alpha|\le D}a_\alpha\mathbf{x}^\alpha\), so \(A\) belongs to the multiplicative group \(1+I\).
 
-For integer weight vectors `w_i=(w_{i1},...,w_{id})`, define the commuting Euler derivations
+For integer weight vectors \(w_i=(w_{i1},\ldots,w_{id})\), define the commuting Euler derivations
 
 \[
 \delta_i=\sum_{j=1}^d w_{ij} x_j\partial_{x_j},\qquad
@@ -48,7 +50,7 @@ The signature readings are **independent observations** of the source; no determ
 
 ## 2. Exact multichannel directional-ghost fiber theorem
 
-**Theorem 2.1.** Fix one admissible collection of signatures from an input `A_0`. The set of input coefficient reductions modulo `p^k` compatible with those signatures has exactly
+**Theorem 2.1.** Fix one admissible collection of signatures from an input \(A_0\). The set of input coefficient reductions modulo \(p^k\) compatible with those signatures has exactly
 
 \[
 \boxed{p^E},\quad E=\sum_{0<|\alpha|\le D} e_\alpha,
@@ -60,9 +62,9 @@ where
 \boxed{e_\alpha=\min_i\,\min\bigl(k,\max(0,v_p(\lambda_{i,\alpha})-h_i)\bigr).}
 \]
 
-The convention is that `min(k,+infinity)=k`. Every attainable signature collection has the same number of compatible coefficient reductions.
+The convention is that \(\min(k,+\infty)=k\). Every attainable signature collection has the same number of compatible coefficient reductions.
 
-**Proof.** For any two units `A_0` and `B`, write `B=A_0 C`. The Leibniz rule and commutativity give the group homomorphism law `Gamma_i(A_0 C)=Gamma_i(A_0)+Gamma_i(C)`. The signatures agree modulo `p^{k+h_i}` iff `delta_i(C)=0` modulo that modulus, since `C` is invertible. Writing `C=1+sum c_alpha x^alpha`, each coefficient constraint is `lambda_{i,alpha} c_alpha = 0 (mod p^{k+h_i})`. Its allowable reductions modulo `p^k` form exactly the ideal `p^{k-e_alpha}(Z/p^k)` with `p^{e_alpha}` elements. All monomial coefficients vary independently. Multiplication by `A_0` is a bijection of the unit group, so the total number of source reductions is the product of the independent counts. QED.
+**Proof.** For any two units `A_0` and `B`, write `B=A_0 C`. The Leibniz rule and commutativity give the group homomorphism law `Gamma_i(A_0 C)=Gamma_i(A_0)+Gamma_i(C)`. The signatures agree modulo `p^{k+h_i}` iff `delta_i(C)=0` modulo that modulus, since `C` is invertible. Writing `C=1+sum c_alpha x^alpha`, each coefficient constraint is `lambda_{i,alpha} c_alpha = 0 (mod p^{k+h_i})`. Its allowable reductions modulo \(p^k\) form exactly the ideal `p^{k-e_alpha}(Z/p^k)` with `p^{e_alpha}` elements. All monomial coefficients vary independently. Multiplication by `A_0` is a bijection of the unit group, so the total number of source reductions is the product of the independent counts. QED.
 
 **Corollary 2.2 (minimum full-source rescue count).** Put
 
@@ -70,11 +72,11 @@ The convention is that `min(k,+infinity)=k`. Every attainable signature collecti
 \boxed{b=\#\{\alpha:0<|\alpha|\le D,\ e_\alpha>0\}.}
 \]
 
-Knowledge modulo `p^k` of the named source coefficients `a_alpha` at these `b` monomials, together with all the signatures, determines every source coefficient modulo `p^k`. Moreover, no fewer than `b` arbitrary *scalar 1-Lipschitz* supplementary channels to `Z/p^k` can guarantee full reconstruction uniformly.
+Knowledge modulo \(p^k\) of the named source coefficients `a_alpha` at these `b` monomials, together with all the signatures, determines every source coefficient modulo \(p^k\). Moreover, no fewer than `b` arbitrary *scalar 1-Lipschitz* supplementary channels to `Z/p^k` can guarantee full reconstruction uniformly.
 
-**Proof of sufficiency.** Proceed in increasing total degree. At every index with `e_alpha=0`, `c_alpha=0` follows already from the ghost signatures. At each remaining index, equality of the source coefficient `a_alpha` and the inductively known lower `c_beta` in `A_0 C` implies `c_alpha=0`. Therefore `C=1` modulo `p^k`.
+**Proof of sufficiency.** Proceed in increasing total degree. At every index with \(e_\alpha=0\), `c_alpha=0` follows already from the ghost signatures. At each remaining index, equality of the source coefficient `a_alpha` and the inductively known lower `c_beta` in `A_0 C` implies `c_alpha=0`. Therefore \(C=1\) modulo \(p^k\).
 
-**Proof of lower bound.** For each of the `b` indices choose `c_alpha=p^{k-1}t_alpha`, `t_alpha in {0,...,p-1}`, all other `c_alpha=0`. Since `e_alpha>0`, every `lambda_{i,alpha}` is divisible by `p^{h_i+1}`, so all `p^b` resulting inputs share the same signatures. These inputs are mutually congruent modulo `p^{k-1}`. Any scalar 1-Lipschitz output modulo `p^k` takes at most `p` distinct values on this set. Thus `m` such outputs can distinguish at most `p^m` points, requiring `m>=b`. QED.
+**Proof of lower bound.** For each of the `b` indices choose `c_alpha=p^{k-1}t_alpha`, `t_alpha in {0,...,p-1}`, all other `c_alpha=0`. Since \(e_\alpha>0\), every `lambda_{i,alpha}` is divisible by `p^{h_i+1}`, so all `p^b` resulting inputs share the same signatures. These inputs are mutually congruent modulo `p^{k-1}`. Any scalar 1-Lipschitz output modulo \(p^k\) takes at most `p` distinct values on this set. Thus `m` such outputs can distinguish at most `p^m` points, requiring `m>=b`. QED.
 
 **Important:** the lower bound concerns full-source rescue, not every possible query. Candidate channels must still be computable or independently available for practical use.
 
@@ -115,13 +117,13 @@ If `W` has full column rank modulo `p` (equivalently, some `d x d` minor is a p-
 
 The residual ambiguity consists precisely of the nested exponent classes divisible componentwise by `p`, `p^2`, etc. This is a *Frobenius filtration* of the exponent lattice. Within the weighted-first-derivative operator class these layers are unavoidable: multiplying exponents by `p^s` always increases every derivative eigenvalue's p-adic valuation by at least `s`.
 
-**Numerical example:** `d=2`, `D=10`, `p=2`, `k=3`, `h=0`.
+**Numerical example:** \(d=2\), \(D=10\), \(p=2\), \(k=3\), \(h=0\).
 
 * Single total-degree derivative `w=(1,1)`: `E=58`, `b=35`.
-* Two coordinate derivatives `W=I_2`: `E=27`, `b=20`.
+* Two coordinate derivatives \(W=I_2\): `E=27`, `b=20`.
 * Total-degree and difference derivatives `W=[[1,1],[1,-1]]`: `E=46`, `b=35`. Their determinant is `-2`, so they are not invertible modulo `2`; the deficiency is arithmetic, not linear independence over the rationals.
 
-For `W=I_2`, `E=(binom(7,2)-1)+(binom(4,2)-1)+(binom(3,2)-1)=20+5+2=27`.
+For \(W=I_2\), `E=(binom(7,2)-1)+(binom(4,2)-1)+(binom(3,2)-1)=20+5+2=27`.
 
 **Theorem 3.4 (Smith-lattice density).** Fix \(p,k,h,W,d\). Let \(\rho\) be the rank of \(W\), and let \(s_1,\ldots,s_\rho\) denote the valuations of its nonzero Smith invariant factors, **including factors with valuation zero**. Then, as \(D\to\infty\),
 
@@ -138,7 +140,7 @@ This provides an exact leading-order prediction of the ambiguity *from Smith inv
 
 Version 1.2 has a Smith-fiber formula for linear main observations. The new ghost theorem shows a different case: a nonlinear main observation can have a **linear/affine coefficient fiber**, and thus admits a Smith calculation for a linear query.
 
-Fix one input `A_0` in a measured ghost fiber and work modulo `p^k`. Let the positive monomial indices be `S`, with `e_alpha` given by Theorem 2.1, and `r_alpha=k-e_alpha`. The compatible sources are precisely
+Fix one input `A_0` in a measured ghost fiber and work modulo \(p^k\). Let the positive monomial indices be `S`, with `e_alpha` given by Theorem 2.1, and `r_alpha=k-e_alpha`. The compatible sources are precisely
 
 \[
 \mathcal F=A_0(1+\mathcal L),\quad
@@ -157,7 +159,7 @@ H_Q=Q\,M_{A_0}\,\operatorname{diag}(p^{r_\alpha}).
 \boxed{|Q(\mathcal F)|=p^{\sum_{j=1}^u\max(0,k-s_j)}.}
 \]
 
-**Proof.** The map from a coefficient vector `c` of `C-1` to the source difference `A_0 C-A_0` is the linear map `M_{A_0}c`, even though the signature map is nonlinear. Its permitted parameters form the diagonal module `L`. Thus the set of query differences is exactly the image modulo `p^k` of `H_Q`. Integer Smith diagonalization gives the claimed cardinality, including non-injective or rectangular matrices. QED.
+**Proof.** The map from a coefficient vector `c` of `C-1` to the source difference `A_0 C-A_0` is the linear map `M_{A_0}c`, even though the signature map is nonlinear. Its permitted parameters form the diagonal module `L`. Thus the set of query differences is exactly the image modulo \(p^k\) of `H_Q`. Integer Smith diagonalization gives the claimed cardinality, including non-injective or rectangular matrices. QED.
 
 For a single coordinate query `a_beta`, the formula specializes to
 
@@ -221,7 +223,7 @@ Every operation uses integral formal-series multiplication/inversion, so the tra
 
 The intertwining relation means the derivative signature of the transformed series carries no information beyond the old derivative signature, though the transformed **series coefficients** can provide independent supplementary information when externally available.
 
-**Theorem 5.3 (alternative minimal rescue coordinates).** Let `S` be the blind index set of Theorem 2.1: `S={alpha:e_alpha>0}`. In place of observing the original source coefficients `a_alpha` for `alpha in S`, one may observe the `|S|` coefficients of `Phi_q(A)` at precisely those indices, modulo `p^k`, for **any integer `q>=2`**. Together with the original directional signatures, these observations also determine the full source modulo `p^k`, and the number of channels is again minimal among scalar 1-Lipschitz schemes that must work uniformly.
+**Theorem 5.3 (alternative minimal rescue coordinates).** Let `S` be the blind index set of Theorem 2.1: `S={alpha:e_alpha>0}`. In place of observing the original source coefficients `a_alpha` for `alpha in S`, one may observe the `|S|` coefficients of `Phi_q(A)` at precisely those indices, modulo \(p^k\), for **any integer `q>=2`**. Together with the original directional signatures, these observations also determine the full source modulo \(p^k\), and the number of channels is again minimal among scalar 1-Lipschitz schemes that must work uniformly.
 
 **Proof.** The coefficient of `x^alpha` in `Phi_q(A)=A/S_q(A)` is `a_alpha` plus an integral polynomial in coefficients of `A` of strictly smaller positive total degree; this follows because `S_q(A)-1` starts in degree at least `q>=2`. The same is true for every triangular coordinate change with unit diagonal. Take any two source series in one ghost fiber with the same stated `Phi_q` coefficients. Induct on degree. At an index not in `S`, the ghost conditions already force the two source coefficients to agree once all earlier differences have vanished. At an index in `S`, equality of the observed `Phi_q` coefficients and previously established lower source coefficients forces equality of the original source coefficient. This completes the induction. The 1-Lipschitz lower bound `|S|` was proved in Corollary 2.2 and still applies to these observations. QED.
 
