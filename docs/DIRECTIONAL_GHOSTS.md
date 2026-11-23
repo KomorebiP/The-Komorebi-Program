@@ -80,7 +80,7 @@ Knowledge modulo `p^k` of the named source coefficients `a_alpha` at these `b` m
 
 ## 3. An exact prime-power lattice formula
 
-Assume all `h_i=h` and assemble weight rows into `W` of size `r x d`.
+Assume all \(h_i=h\), and assemble the weight rows into an \(m\times d\) matrix \(W\).
 
 Define the discrete congruence count
 
@@ -123,14 +123,14 @@ The residual ambiguity consists precisely of the nested exponent classes divisib
 
 For `W=I_2`, `E=(binom(7,2)-1)+(binom(4,2)-1)+(binom(3,2)-1)=20+5+2=27`.
 
-**Theorem 3.4 (Smith-lattice density).** Fix \(p,k,h,W,d\). Let \(s_1,\ldots,s_r\) denote the valuations of the nonzero Smith invariant factors of \(W\), **including factors with valuation zero**. Then, as \(D\to\infty\),
+**Theorem 3.4 (Smith-lattice density).** Fix \(p,k,h,W,d\). Let \(\rho\) be the rank of \(W\), and let \(s_1,\ldots,s_\rho\) denote the valuations of its nonzero Smith invariant factors, **including factors with valuation zero**. Then, as \(D\to\infty\),
 
 \[
 \boxed{E(W;p,k,h,D)=\frac{D^d}{d!}\sum_{t=h+1}^{h+k}
- p^{-\sum_{j=1}^{r}\max(0,t-s_j)}+O_{p,k,h,W,d}(D^{d-1}).}
+ p^{-\sum_{j=1}^{\rho}\max(0,t-s_j)}+O_{p,k,h,W,d}(D^{d-1}).}
 \]
 
-**Proof.** The homomorphism `W:(Z/p^t)^d -> (Z/p^t)^r` has image size `p^{sum_j max(0,t-s_j)}` by Smith normal form. Exactly the reciprocal fraction of residue classes modulo `p^t` lies in its kernel. The lattice points in a growing nonnegative simplex are asymptotically equidistributed among fixed residue classes, each class contributing `D^d/(d! p^{td}) + O(D^{d-1})`. Therefore `N_t(W,D)=(D^d/d!) / |im W_t|+O(D^{d-1})`. Sum over the finitely many `t`. QED.
+**Proof.** The homomorphism \(W:(\mathbb Z/p^t)^d\to(\mathbb Z/p^t)^m\) has image size \(p^{\sum_{j=1}^{\rho}\max(0,t-s_j)}\) by Smith normal form. Exactly the reciprocal fraction of residue classes modulo `p^t` lies in its kernel. The lattice points in a growing nonnegative simplex are asymptotically equidistributed among fixed residue classes, each class contributing `D^d/(d! p^{td}) + O(D^{d-1})`. Therefore `N_t(W,D)=(D^d/d!) / |im W_t|+O(D^{d-1})`. Sum over the finitely many `t`. QED.
 
 This provides an exact leading-order prediction of the ambiguity *from Smith invariants of the derivative-direction matrix* before enumerating any monomials. It also exposes a precision-versus-observation tradeoff: adding directions that improve the rank modulo \(p\) can reduce ambiguity, but independent observations require additional computation or access to the source.
 
