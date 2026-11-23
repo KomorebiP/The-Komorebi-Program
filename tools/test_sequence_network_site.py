@@ -58,7 +58,7 @@ class NetworkTests(unittest.TestCase):
             (r/'website/assets').mkdir(parents=True)
             shutil.copy(ROOT/'manifests/sequence-transfer-network.json',r/'manifests/sequence-transfer-network.json')
             shutil.copy(ROOT/'manifests/sequence-network-formula-text.json',r/'manifests/sequence-network-formula-text.json')
-            for name in ('sequence-network.css','sequence-network-ui.mjs'):
+            for name in ('sequence-network.css','sequence-network-ui.mjs','sequence-network-format.mjs'):
                 shutil.copy(ROOT/'website/assets'/name,r/'website/assets'/name)
             entries=[{'id':'KSEQ-TEST','oeis_checked':True,'matches':[{'id':'A000108','matched_terms':24},
                 {'id':'A000217','matched_terms':7}]},{'id':'KSEQ-NOCHECK','oeis_checked':False,
