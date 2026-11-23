@@ -112,6 +112,7 @@ jobs:
           trap 'kill "$sequence_server_pid"' EXIT
           node tools/test_sequence_binomial_reading_browser.cjs http://127.0.0.1:8846/ .sequence-checks/reports/binomial-reading 2>&1 | tee .sequence-checks/reports/binomial-reading.log
           node tools/test_sequence_search_accessibility_browser.cjs http://127.0.0.1:8846/ .sequence-checks/reports/search-accessibility-browser 2>&1 | tee .sequence-checks/reports/search-accessibility-browser.log
+          node tools/test_sequence_network_browser.cjs http://127.0.0.1:8846/ .sequence-checks/reports/network-browser 2>&1 | tee .sequence-checks/reports/network-browser.log
           node tools/test_sequence_accessibility_browser.cjs http://127.0.0.1:8846/ .sequence-checks/reports/accessibility-browser 2>&1 | tee .sequence-checks/reports/accessibility-browser.log
           node tools/test_sequence_family_completion.cjs http://127.0.0.1:8846/ .sequence-checks/reports/browser 2>&1 | tee .sequence-checks/reports/browser.log
           node -e "const assert=require('node:assert/strict'),r=require('./.sequence-checks/reports/browser/report.json');assert.equal(r.status,'passed');assert.deepEqual(r.widths.map(x=>x.width),[1440,390,320]);assert.equal(r.noJavaScript,true);"
