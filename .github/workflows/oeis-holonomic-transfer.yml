@@ -1,0 +1,57 @@
+name: OEIS Holonomic and Transfer Compiler
+on:
+  push:
+    paths:
+      - 'tools/sequence_holonomic_*'
+      - 'tools/sequence_hypergeom_polyphase.py'
+      - 'tools/sequence_hypergeometric_gauges.py'
+      - 'tools/sequence_p_recursive_polyphase.py'
+      - 'tools/sequence_v10_*'
+      - 'tools/test_sequence_*v10*.py'
+      - 'tools/test_sequence_p_recursive_polyphase.py'
+      - 'tools/render_oeis_holonomic_atlas.py'
+      - 'tools/benchmark_sequence_v10_shared.py'
+      - 'research/oeis-formulas/HOLONOMIC_TRANSFER_V10.md'
+      - '.github/workflows/oeis-holonomic-transfer.yml'
+  pull_request:
+    paths:
+      - 'tools/sequence_holonomic_*'
+      - 'tools/sequence_hypergeom_polyphase.py'
+      - 'tools/sequence_hypergeometric_gauges.py'
+      - 'tools/sequence_p_recursive_polyphase.py'
+      - 'tools/sequence_v10_*'
+      - 'tools/test_sequence_*v10*.py'
+      - 'tools/test_sequence_p_recursive_polyphase.py'
+      - 'tools/render_oeis_holonomic_atlas.py'
+      - 'tools/benchmark_sequence_v10_shared.py'
+      - 'research/oeis-formulas/HOLONOMIC_TRANSFER_V10.md'
+      - '.github/workflows/oeis-holonomic-transfer.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact-operator-tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /tools/
+            /research/oeis-formulas/HOLONOMIC_TRANSFER_V10.md
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+      - name: Exact polynomial and holonomic certificate tests
+        run: python -B -m unittest discover -s tools -p 'test_sequence_holonomic_v10.py' -v
+      - name: Higher-order P-recursive polyphase proofs
+        run: python -B -m unittest discover -s tools -p 'test_sequence_p_recursive_polyphase.py' -v
+      - name: Adversarial path composition controls
+        run: python -B -m unittest discover -s tools -p 'test_sequence_v10_path_compiler.py' -v
+      - name: Offline atlas provenance and injection controls
+        run: python -B -m unittest discover -s tools -p 'test_sequence_v10_atlas.py' -v
+      - name: Exact shared-preface benchmark smoke test
+        run: python -B tools/benchmark_sequence_v10_shared.py --nmax 100 --runs 1 --output /tmp/shared-sequence-benchmark.json

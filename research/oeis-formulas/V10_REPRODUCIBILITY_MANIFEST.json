@@ -1,0 +1,143 @@
+{
+  "version": "1.0",
+  "author": "Komorebi P.",
+  "date": "2026-11-22",
+  "source_db": {
+    "name": "oeis-real-99999.sqlite3",
+    "records": 99999,
+    "bytes": 519929856,
+    "sha256": "a121d7a6a5b6aa78a5a333fe748b604f170511bf8250ca16533f58cbcfa9e9f5",
+    "sqlite_integrity_check": "ok",
+    "source": "Official OEIS formula corpus, first 99,999 records, separate v0.9 artifact",
+    "license": "CC-BY-SA-4.0"
+  },
+  "proof_layers": {
+    "primary_holonomic": 3924,
+    "supplemental_holonomic": 229,
+    "first_order_hypergeom_phases": 15620,
+    "higher_order_p_recursive_phases": 1000,
+    "direct_gauges": 975,
+    "composed_gauge_paths": 351,
+    "additional_finite_checked_oeis_formulas": 252,
+    "standalone_v10_tests": 54,
+    "prior_v09_tests": 112
+  },
+  "claim_scope": "All-index exact identities of admitted formula expressions; full OEIS sequence identification not inferred from finite source matches",
+  "files": [
+    {
+      "path": "outputs/holonomic-all-final.jsonl",
+      "bytes": 4360319,
+      "sha256": "9ce0f411f4d9d1655940a6bc2051c0e27d6d5b99dc618f194827d9261d602c80"
+    },
+    {
+      "path": "outputs/holonomic-ogfs.jsonl",
+      "bytes": 3472050,
+      "sha256": "676a1354ea70a77dc97407c06dccac6d0a5cab755db0b60329cfd09f4455bd8a"
+    },
+    {
+      "path": "outputs/holonomic-extra.jsonl",
+      "bytes": 237288,
+      "sha256": "0a62096b033f31af06d3f9d4101448cf20c133da7c7782e406b47923b54dc84c"
+    },
+    {
+      "path": "outputs/holonomic-ogfs-extra.jsonl",
+      "bytes": 187791,
+      "sha256": "26075c995d97aad2e7185f81665690dda30d292eefe6e275a0b8cbb70df95a15"
+    },
+    {
+      "path": "outputs/hypergeom-phases.jsonl",
+      "bytes": 17580489,
+      "sha256": "18e78013926bd12a0563b99adbf262a1ae3bba7820e56ff9b7411055abd5a87a"
+    },
+    {
+      "path": "outputs/p-recursive-phases-200.jsonl",
+      "bytes": 830543,
+      "sha256": "efa939014d00e5674d82a0846e9de6bf3cf7e388908a35432fe9816c519af609"
+    },
+    {
+      "path": "outputs/structured-gauges.jsonl",
+      "bytes": 965223,
+      "sha256": "8e919df77bbce3795e8104085ed74dddbec28394e8f66f3139fb97d60a95c1e3"
+    },
+    {
+      "path": "outputs/composed-gauges.jsonl",
+      "bytes": 751502,
+      "sha256": "6dd5eecd800016caf307a5e118167384ce6911558df0fc18068f452838ff0ecb"
+    },
+    {
+      "path": "outputs/chain-anchors.jsonl",
+      "bytes": 163486,
+      "sha256": "6b7ae6a7e4ed608f61e7a5a79cc9300a26ec96af2186e7487894a2c2fc97d88d"
+    },
+    {
+      "path": "outputs/benchmark-v10.json",
+      "bytes": 882,
+      "sha256": "3db84c6669855ca51e3a9b151485c0dbd6b2b015666577554677436b50607b95"
+    },
+    {
+      "path": "outputs/benchmark-shared-v10.json",
+      "bytes": 1024,
+      "sha256": "6dff0ca609f6198ed164733c65688668672452ee8f96f370ae878877ed277d6d"
+    },
+    {
+      "path": "outputs/holonomic-summary.json",
+      "bytes": 406,
+      "sha256": "baec9acd203232d9af43c36339487102a2bcdad90bf6e41281f7215eec1ea773"
+    },
+    {
+      "path": "outputs/holonomic-final-run.log",
+      "bytes": 589,
+      "sha256": "93c0ab750c64139e7e53c3a9832dc9442515731c3d03533c1bc516fd6cf32666"
+    },
+    {
+      "path": "outputs/holonomic-extra-summary.json",
+      "bytes": 241,
+      "sha256": "c7bbda95cd197114e122f3b921acb044247bbe3c5994124c894a389f73b2b404"
+    },
+    {
+      "path": "outputs/hypergeom-phases-summary.json",
+      "bytes": 364,
+      "sha256": "9fc724fb944826e6941052db567be691b899be67510f801145afced176b8b8ef"
+    },
+    {
+      "path": "outputs/chain-summary.json",
+      "bytes": 388,
+      "sha256": "57bc75e5a0430a530fa5aa8bd572a6a68528c65218ae852438148345e5eaf4f5"
+    },
+    {
+      "path": "outputs/structured-gauges-summary.json",
+      "bytes": 367,
+      "sha256": "eb775aa2165ea0ffff87432ea0e914e92a4ceda636fc4e8d2535028c3f95e5c5"
+    },
+    {
+      "path": "outputs/p-recursive-phases-200-summary.json",
+      "bytes": 239,
+      "sha256": "7ab6880a21715b6b33bb1a8df7ec40f38ea34e3f2366ebc4f077f846cf66ea8c"
+    },
+    {
+      "path": "outputs/p-recursive-200-replay-final.log",
+      "bytes": 146,
+      "sha256": "b10ed248aa473da9ac54292a5fc80f32057007f45eb609a9fa63c30623314aa9"
+    },
+    {
+      "path": "outputs/catalan-two-hop.json",
+      "bytes": 2276,
+      "sha256": "008d728ec025a38a8c3aacbdd881042273aa11ff573eee0dae5d1af5db433816"
+    },
+    {
+      "path": "outputs/euler-fibonacci-bridge.json",
+      "bytes": 695,
+      "sha256": "91e3d3b301254aa8353310289ba1bb093c783a9d4a1a4d0ef127636beae01248"
+    },
+    {
+      "path": "outputs/v10-unittests.log",
+      "bytes": 98,
+      "sha256": "20918d95a766a7cdc10d3d66943eaa535ab9758e20113c5ee5d8a1be3689410e"
+    },
+    {
+      "path": "outputs/v09-regression-check.log",
+      "bytes": 1107,
+      "sha256": "781adbc677ad554c5868faba6a72ab57a78700410eb234af4fde6f9908658980"
+    }
+  ]
+}
