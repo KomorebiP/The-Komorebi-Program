@@ -55,7 +55,9 @@ async function main(){
     assert.equal(await page.locator('#sn-source-results li').first().evaluate(el=>document.activeElement===el),true,
       'keyboard focus follows the initial source-formula load');
     assert.match(await page.locator('#sn-source-status').innerText(),/unreviewed OEIS records/);
-    assert.match(await page.locator('#sn-source-results').innerText(),/binomial/);
+    assert.match(await page.locator('#sn-source-results').textContent(),/binomial/);
+    assert.ok(await page.locator('#sn-source-results [data-math-latex]').count()>0);
+    assert.ok(await page.locator('#sn-source-results .sn-copy').count()>0);
     assert.equal(await page.locator('#sn-source-results li').count(),25);
     await page.locator('#sn-source-results li').first().evaluate(el=>{el.dataset.keepOnPagination='yes';});
     await page.locator('#sn-source-more').focus();
@@ -66,6 +68,12 @@ async function main(){
       'existing archival lines are not removed and recreated');
     assert.equal(await page.locator('#sn-source-results li').nth(25).evaluate(el=>document.activeElement===el),true,
       'keyboard focus follows the first newly disclosed archive line');
+    const classes=await page.locator('#sn-source-type option').evaluateAll(options=>options.map(o=>o.value));
+    assert.ok(classes.length>1);
+    await page.selectOption('#sn-source-type',classes[1]);
+    assert.ok((await page.locator('#sn-source-results .sn-source-kind').allTextContents()).every(kind=>kind===classes[1]));
+    await page.selectOption('#sn-source-type','all');
+    assert.equal(await page.locator('#sn-source-results li').count(),25);
     await page.selectOption('#sn-filter','gauge');
     await page.waitForFunction(()=>Boolean(document.querySelector('.sn-result .sn-definition')));
     const gauge=page.locator('.sn-result').first();

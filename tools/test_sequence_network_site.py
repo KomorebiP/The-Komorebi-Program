@@ -58,13 +58,16 @@ class NetworkTests(unittest.TestCase):
             (r/'website/assets').mkdir(parents=True)
             shutil.copy(ROOT/'manifests/sequence-transfer-network.json',r/'manifests/sequence-transfer-network.json')
             shutil.copy(ROOT/'manifests/sequence-network-formula-text.json',r/'manifests/sequence-network-formula-text.json')
-            for name in ('sequence-network.css','sequence-network-ui.mjs','sequence-network-format.mjs'):
+            for name in ('sequence-network.css','sequence-network-ui.mjs','sequence-network-format.mjs','sequence-network-math.mjs'):
                 shutil.copy(ROOT/'website/assets'/name,r/'website/assets'/name)
             entries=[{'id':'KSEQ-TEST','oeis_checked':True,'matches':[{'id':'A000108','matched_terms':24},
                 {'id':'A000217','matched_terms':7}]},{'id':'KSEQ-NOCHECK','oeis_checked':False,
                  'matches':[{'id':'A000129','matched_terms':30}]}]
             meta=build_site_assets(DummySite(r,o),entries)
             self.assertEqual(meta['edge_count'],1559)
+            self.assertTrue((o/'assets/sequence-network-math.mjs').is_file())
+            self.assertIn("'./sequence-network-math.mjs?v=",(o/'assets/sequence-network-ui.mjs').read_text())
+            self.assertIn('sn-source-type',network_section(meta))
             formula_out=json.loads((o/'assets/sequence-network-formulas.json').read_text())
             self.assertEqual(formula_out['counts']['formula_lines'],8853)
             self.assertEqual(meta['handoffs'],1)

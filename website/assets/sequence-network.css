@@ -79,3 +79,12 @@
 .sn-source-kind{font-weight:600;font-size:.95rem;margin:.25rem 0}
 .sn-source-expression{white-space:pre-wrap;overflow-wrap:anywhere;word-break:normal;font:inherit;font-size:.98rem;margin:0}
 .sn-source button{margin-top:.55rem;max-width:100%;white-space:normal}
+
+/* Source-field rendering inherits the site Math display preference. */
+.sn-source-equation{min-width:0;max-width:100%;overflow-x:auto;white-space:pre-wrap;overflow-wrap:anywhere;margin:.4rem 0;padding:.45rem;border:1px solid var(--line,#999);border-radius:.3rem}
+.sn-source-equation .math-pair{max-width:100%;min-width:0;overflow-x:auto}
+#sn-source-options{margin:.7rem 0;display:flex;flex-wrap:wrap;align-items:center;gap:.4rem}
+#sn-source-options[hidden]{display:none}
+#sn-source-type{max-width:100%;min-width:0}
+.sn-copy-controls{display:flex;align-items:baseline;flex-wrap:wrap;gap:.4rem;margin:.25rem 0}
+.sn-copy-status{font-size:.9rem;overflow-wrap:anywhere}

@@ -1,5 +1,6 @@
 /** Read-only OEIS transfer graph. Never executes source expressions. */
 import {formatNetworkMath} from './sequence-network-format.mjs';
+import {sourceFormulaLatex} from './sequence-network-math.mjs';
 const OEIS = /^A\d{6}$/;
 const MAX_RESULTS = 60;
 const PAGE_SIZE = 12;
@@ -86,6 +87,18 @@ function node(tag, value, className) {
   if (className) el.className=className;
   return el;
 }
+function copyOriginal(source) {
+  const button=node('button','Copy original','sn-copy');
+  button.type='button';
+  const status=node('span','','sn-copy-status');
+  status.setAttribute('role','status');
+  button.addEventListener('click',async()=>{
+    try {await navigator.clipboard.writeText(source);status.textContent='Copied original.';}
+    catch {status.textContent='Copy unavailable. Select the original text instead.';}
+  });
+  const controls=node('div',undefined,'sn-copy-controls');
+  controls.append(button,status);return controls;
+}
 function officialLink(id, label) {
   const a=node('a',label || id);
   a.href=OEIS.test(id)?'https://oeis.org/'+id:'sequence-library.html';
@@ -163,7 +176,7 @@ function explainEdge(edge, names) {
   }
   details.append(detailList);
   details.append(node('p','Exact source expression (unchanged):','sn-original-label'),
-                 node('pre',edge.expression,'sn-original'));
+                 node('pre',edge.expression,'sn-original'),copyOriginal(edge.expression));
   if(edge.kind==='hyperedge' && Object.keys(edge.index_maps || {}).length){
     details.append(node('p','Index maps: '+Object.entries(edge.index_maps).map(([id,ranges])=>
       id+': '+ranges.map(pair=>'n ↦ '+pair[0]+'n'+(pair[1]>=0?'+':'')+pair[1]).join(', ')).join(' · '),'sn-details'));
@@ -186,9 +199,10 @@ async function mount() {
         handoffs=root.querySelector('#sn-handoffs'), sourcePanel=root.querySelector('#sn-source-formulas'),
         sourceButton=root.querySelector('#sn-source-load'), sourceStatus=root.querySelector('#sn-source-status'),
         sourceResults=root.querySelector('#sn-source-results'), sourceMore=root.querySelector('#sn-source-more'),
+        sourceType=root.querySelector('#sn-source-type'), sourceOptions=root.querySelector('#sn-source-options'),
         more=root.querySelector('#sn-show-more');
   if(!input || !filter || !status || !results || !handoffs || !sourcePanel ||
-      !sourceButton || !sourceStatus || !sourceResults || !sourceMore || !more) return;
+      !sourceButton || !sourceStatus || !sourceResults || !sourceMore || !sourceType || !sourceOptions || !more) return;
   try {
     const sources=await Promise.all([
       fetch(new URL('./sequence-network-data.json',import.meta.url)),
@@ -198,7 +212,7 @@ async function mount() {
     const [data,handoffsData]=await Promise.all(sources.map(r=>r.json()));
     if(data.schema!==1 || handoffsData.schema!==1) throw Error('Unsupported network data revision.');
     const names=new Map(data.records.map(r=>[r.id,r.name]));
-    let sourcePromise=null, activeId='', sourceVersion=0, sourceRows=[], sourceShown=0;
+    let sourcePromise=null, activeId='', sourceVersion=0, allSourceRows=[], sourceRows=[], sourceShown=0;
     const sourceData=()=>{
       if(!sourcePromise) sourcePromise=fetch(new URL('./sequence-network-formulas.json',import.meta.url))
         .then(response=>{if(!response.ok)throw Error('Source formula archive unavailable.');return response.json();})
@@ -211,7 +225,17 @@ async function mount() {
       const start=sourceResults.children.length;
       for(const item of sourceRows.slice(start,sourceShown)){
         const li=node('li',undefined,'sn-source-line');
-        li.append(node('p',item.kind,'sn-source-kind'),node('pre',item.text,'sn-source-expression'));
+        li.append(node('p',item.kind,'sn-source-kind'));
+        const tex=sourceFormulaLatex(item.text);
+        if(tex){
+          li.append(equation(item.text,tex,'Unreviewed OEIS source formula','sn-source-equation'));
+          const original=node('details',undefined,'sn-record-details');
+          original.append(node('summary','Read exact original OEIS field'),
+            node('pre',item.text,'sn-original'),copyOriginal(item.text));
+          li.append(original);
+        }else{
+          li.append(node('pre',item.text,'sn-source-expression'),copyOriginal(item.text));
+        }
         sourceResults.append(li);
       }
       sourceMore.hidden=sourceShown>=sourceRows.length;
@@ -222,6 +246,18 @@ async function mount() {
         firstAdded.focus();
       }
     };
+    function resetSourceResults(){
+      window.KomorebiMath?.clear?.(sourceResults);
+      sourceResults.replaceChildren();
+    }
+    function filterSource(){
+      sourceRows=sourceType.value==='all'?allSourceRows:allSourceRows.filter(row=>row.kind===sourceType.value);
+      sourceShown=Math.min(25,sourceRows.length);
+      resetSourceResults();renderSource();
+      sourceStatus.textContent=`${sourceRows.length} of ${allSourceRows.length} source formula lines. These are unreviewed OEIS records, not proven sequence identities.`;
+      sourceStatus.append(document.createTextNode(' '),officialLink(activeId,'Read the full source entry on OEIS'));
+    }
+    sourceType.addEventListener('change',filterSource);
     sourceMore.addEventListener('click',()=>{sourceShown=Math.min(sourceRows.length,sourceShown+25);renderSource(true);});
     sourceButton.addEventListener('click',async()=>{
       const requested=activeId, version=sourceVersion;
@@ -231,7 +267,15 @@ async function mount() {
       try{
         const archive=await sourceData();
         if(version!==sourceVersion)return;
-        sourceRows=sourceFormulaRows(archive,requested,data.oeis.snapshot_sha256);
+        allSourceRows=sourceFormulaRows(archive,requested,data.oeis.snapshot_sha256);
+        sourceRows=allSourceRows;
+        sourceType.replaceChildren(node('option','All formula classes'));
+        sourceType.firstElementChild.value='all';
+        for(const kind of [...new Set(allSourceRows.map(row=>row.kind))].sort()){
+          if(kind==='all')continue;
+          const option=node('option',kind.replace(/_/g,' '));option.value=kind;sourceType.append(option);
+        }
+        sourceType.value='all';sourceOptions.hidden=!allSourceRows.length;
         sourceShown=Math.min(25,sourceRows.length);
         sourceButton.hidden=true;renderSource();
         sourceStatus.textContent=sourceRows.length
@@ -279,8 +323,8 @@ async function mount() {
       const query=input.value.trim().slice(0,200);
       const requested=OEIS.test(query.toUpperCase())?query.toUpperCase():'';
       if(requested!==activeId){
-        activeId=requested;sourceVersion++;sourceRows=[];sourceShown=0;
-        sourceResults.replaceChildren();sourceMore.hidden=true;
+        activeId=requested;sourceVersion++;allSourceRows=[];sourceRows=[];sourceShown=0;
+        resetSourceResults();sourceMore.hidden=true;sourceOptions.hidden=true;sourceType.value='all';
         sourceButton.hidden=false;sourceButton.disabled=false;
         sourceStatus.textContent=requested?'Formula text loads only when requested.':'';
       }

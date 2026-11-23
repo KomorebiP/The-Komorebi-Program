@@ -85,3 +85,14 @@ with a further-results control. The generator
 `tools/export_sequence_network_formulas.py` checks the pinned SQLite database
 hash before producing the retained file. This source-text enhancement does not
 add any all-index OEIS identity claims.
+
+## Archived formula presentation
+
+The current Network retains exact participant navigation and transfer-specific
+formatting. Archived source fields additionally support a bounded display-only
+arithmetic grammar and filtering by recorded formula class. Unsupported or
+ambiguous syntax is left unchanged, and every original source field remains
+available with a copy action. The source parser does not execute OEIS text,
+derive a new identity, change the pinned snapshot, or promote any evidence
+status. Pagination continues to append existing rows without recreating them;
+switching the formula class intentionally resets the displayed subset.

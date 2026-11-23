@@ -153,3 +153,11 @@ test('every curated identifier has exact role counts and complete unique inciden
     }
   }
 });
+
+import {sourceFormulaLatex} from '../website/assets/sequence-network-math.mjs';
+test('bounded source notation preserves binomial structure and rejects ambiguous or executable syntax',()=>{
+  const tex=sourceFormulaLatex('a(n) = binomial(2*n,n)/(n+1) = A000984(n)/(n+1).');
+  assert.ok(tex && tex.includes('\\binom{2\\cdot n}{n}') && tex.includes('\\frac') && tex.includes('\\mathrm{A000984}'));
+  assert.ok(sourceFormulaLatex('G.f.: x / (1 - x - x^2).').includes('\\text{OGF: }'));
+  for(const raw of ['a(n)=arbitraryFunction(n)','a(n)=<script>alert(1)</script>','a(n)=eval(alert(1))','a(n)=binom(n)','a(n)=n!!','a(n)=4^n. - _Contributor_, 2022','a(n)=Sum_{k=0..n} a(k)'])assert.equal(sourceFormulaLatex(raw),null,raw);
+});

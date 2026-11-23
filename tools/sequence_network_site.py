@@ -123,7 +123,7 @@ def build_site_assets(site, entries):
     site.write('assets/sequence-network-handoffs.json',json.dumps(dict(schema=1,
       scope='Local-to-OEIS finite-prefix candidates only, not certified infinite identities',
       matches=handoffs),ensure_ascii=False,separators=(',',':'))+'\n')
-    for name in ['sequence-network.css','sequence-network-format.mjs']:
+    for name in ['sequence-network.css','sequence-network-format.mjs','sequence-network-math.mjs']:
         source=site.root/'website/assets'/name
         site.write('assets/'+name,source.read_text(encoding='utf-8'))
     format_hash=hashlib.sha256((site.output/'assets/sequence-network-format.mjs').read_bytes()).hexdigest()[:12]
@@ -132,6 +132,11 @@ def build_site_assets(site, entries):
     if script.count(original)!=1:
         raise ValueError('Sequence Network math formatter import must appear exactly once')
     script=script.replace(original, "from './sequence-network-format.mjs?v="+format_hash+"'")
+    source_hash=hashlib.sha256((site.output/'assets/sequence-network-math.mjs').read_bytes()).hexdigest()[:12]
+    source_import="from './sequence-network-math.mjs'"
+    if script.count(source_import)!=1:
+        raise ValueError('Sequence Network source formatter import must appear exactly once')
+    script=script.replace(source_import, "from './sequence-network-math.mjs?v="+source_hash+"'")
     site.write('assets/sequence-network-ui.mjs',script)
     hashes={name:hashlib.sha256((site.output/'assets'/name).read_bytes()).hexdigest()[:12]
             for name in ['sequence-network.css','sequence-network-ui.mjs']}
@@ -179,8 +184,9 @@ formula text. Results are archived formula relations, not live OEIS verification
 <section id="sn-source-formulas" class="sn-source" hidden aria-label="OEIS source formulas">
 <h3>OEIS source formulas</h3>
 <p>These are archived OEIS formula fields, not independently verified sequence identities.
-The text is displayed without execution, and source programs are not loaded.</p>
+Recognized arithmetic may be typeset without execution. Exact original text remains available, and source programs are not loaded.</p>
 <button type="button" id="sn-source-load">Load this sequence’s source formula text</button>
+<div id="sn-source-options" hidden><label for="sn-source-type">Formula class</label> <select id="sn-source-type"><option value="all">All formula classes</option></select></div>
 <p id="sn-source-status" role="status" aria-live="polite"></p>
 <ol id="sn-source-results" class="sn-source-results"></ol>
 <button type="button" id="sn-source-more" hidden>Show more formulas</button>
