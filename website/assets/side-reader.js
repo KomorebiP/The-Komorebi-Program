@@ -8,12 +8,12 @@
   const $ = id => document.getElementById(id);
   let data;
   try {
-    const response = await fetch(root.dataset.index);
+    const response = await (globalThis.KomorebiReaderData?.fetch || fetch)(root.dataset.index);
     if (!response.ok) throw new Error("Catalogue unavailable");
     data = await response.json();
     if (data.schema !== 1 || !data.works.length || !data.entries.length || !data.pages) throw new Error("Invalid catalogue");
   } catch {
-    status.textContent = "The document list could not load. Reload to try again, or use the paper and accessibility links below.";
+    status.textContent = "The document list could not be loaded. Reload to try again, or use the paper and accessibility links below.";
     return;
   }
   const sides = ["left", "right"];
@@ -226,7 +226,7 @@
       const details = doc.createElement("details");
       details.className = "side-document-routes";
       const summary = doc.createElement("summary");
-      summary.textContent = "Paper, proofs, Lean, code and examples";
+      summary.textContent = "Paper, proofs, Lean, code, and examples";
       details.append(summary);
       nav.before(details);
       details.append(nav);

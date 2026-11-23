@@ -12,9 +12,9 @@ Finite examples and selected realization obligations.
 
 ## Before you start
 
-**Suggested background:** Read the problem statement, recorded scope and open questions first. The program's definitions determine its subject prerequisites.
+**Suggested background:** Read the problem statement, recorded scope, and open questions first. The program's definitions determine its subject prerequisites.
 
-**Recorded results and limits:** Finished reader with reviewed elementary realizations and regular-projector statements. Universal realization over Q remains open and no Lean certificate is claimed.
+**Recorded results and limits:** Finished reader with reviewed elementary realizations and regular-projector statements. Universal realization over the rationals remains open, and no Lean certificate is claimed.
 
 **Remaining work:** Supply the arithmetic existence input for the specified conditional route. Keep finite examples distinct from all finite groups.
 
@@ -50,7 +50,7 @@ No Lean source or guide is linked here. See the Lean status above and the [evide
 
 ## Code
 
-These links include code, examples, checks, or build tools. Read the [edition guide](../../research/inverse-galois-reader/README.md) for setup instructions and what each command does. All software is beta and work in progress.
+These links include code, examples, checks, or build tools. Read the [edition guide](../../research/inverse-galois-reader/README.md) for setup instructions and an explanation of what each command does. All software is in beta and remains a work in progress.
 
 - [Code / scripts: computations](../../research/inverse-galois-reader/computations/)
 

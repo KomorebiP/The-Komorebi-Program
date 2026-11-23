@@ -12,9 +12,9 @@ Operator and semantic interfaces, experiments, and their retained scientific his
 
 ## Before you start
 
-**Suggested background:** Read the problem statement, recorded scope and open questions first. The program's definitions determine its subject prerequisites.
+**Suggested background:** Read the problem statement, recorded scope, and open questions first. The program's definitions determine its subject prerequisites.
 
-**Recorded results and limits:** Frozen manuscripts and experiment evidence plus an exact finite interface. Learned results, failures and unspent experiments retain separate statuses.
+**Recorded results and limits:** Frozen manuscripts and experiment evidence plus an exact finite interface. Learned results, recorded failures, and experiments not yet run retain separate statuses.
 
 **Remaining work:** Reconcile each learned claim with its own frozen run and keep the supplied finite demonstrator separate from learned-decoder claims.
 
@@ -51,7 +51,7 @@ No Lean source or guide is linked here. See the Lean status above and the [evide
 
 ## Code
 
-These links include code, examples, checks, or build tools. Read the [edition guide](../../research/osl-neuralese/README.md) for setup instructions and what each command does. All software is beta and work in progress.
+These links include code, examples, checks, or build tools. Read the [edition guide](../../research/osl-neuralese/README.md) for setup instructions and an explanation of what each command does. All software is in beta and remains a work in progress.
 
 - [Code / scripts: OSL/core05/reference](../../research/osl-neuralese/OSL/core05/reference/)
 - [Code / scripts: OSL/core05/tests](../../research/osl-neuralese/OSL/core05/tests/)

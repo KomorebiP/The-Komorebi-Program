@@ -1,0 +1,241 @@
+{
+  "schema": "komorebi-smith-unified-state-v1",
+  "author": "Komorebi P.",
+  "base_revision": "3e4090141cc88dac723d87c7c504a9b1076a2caf",
+  "canonical_reading": "read/smith-chart/research.html",
+  "routes": [
+    {
+      "id": "universal-margin-audit",
+      "outcome": "All listed base-margin and finite-transfer obligations passed written project self-review; exact external source implications verified",
+      "review": "self-review",
+      "artifact": "COMPACT_MODEL_AUDIT.md",
+      "independent_or_formal_verification": "still open"
+    },
+    {
+      "id": "deterministic-family-synthesis",
+      "outcome": "Exact family recognizer and physical certificate emitter implemented; 38 fixed exact members at degrees 3,4,6,8,12,16 replayed, with fifteen additional controls",
+      "scope": "One specified certified family; executable resource caps; no arbitrary-target coverage",
+      "artifact": "DETERMINISTIC_FAMILY.md",
+      "disposition": "contained construction gap closed"
+    },
+    {
+      "id": "boundary-falsification",
+      "outcome": "1458 exact regularization/boundary comparisons passed on all 243 assignments of one fixed five-edge graph",
+      "scope": "finite implementation and interpretation controls; global scope comes from the written reduction",
+      "artifact": "solver/check_boundary_limits.py"
+    },
+    {
+      "id": "formal-graph-core",
+      "outcome": "Forty-one selected theorem axiom audits across four receipts; the new sixteen cover one resistor-node elimination and finite mixed-loss contraction from actual KCL, power and branch laws. Two new false controls and two positive fixture statements accompany this extension.",
+      "artifact": "FORMAL_PROGRESS.md",
+      "disposition": "Selected formal obligations closed; universal chain remains open"
+    },
+    {
+      "id": "complete-low-order-synthesis",
+      "outcome": "Complete first-order construction; rational RC/RL Cauer construction through degree fifteen within caps; exact physical certificates and independent phasor replay passed",
+      "artifact": "LOW_ORDER_SYNTHESIS.md",
+      "disposition": "Specified subclass construction gaps closed; arbitrary mixed RLC remains open"
+    },
+    {
+      "id": "resistor-endpoint-minima",
+      "outcome": "Global resistor minima proved for first-order targets and the Hughes base; exact endpoint theorem applications and witness counts replayed",
+      "artifact": "LOW_ORDER_SYNTHESIS.md",
+      "disposition": "Original degree-six and higher-family resistor minima still open"
+    },
+    {
+      "id": "same-sign-component-tolerance",
+      "outcome": "Written all-frequency RC/RL bound delta/(1-delta); one-percent tests passed; an exact mixed-RLC counterexample refutes unrestricted extension",
+      "artifact": "TOLERANCE.md",
+      "disposition": "Ideal RC/RL analytic subproblem closed; mixed damping/parasitic/measurement work remains open"
+    },
+    {
+      "id": "typed-and-mixed-margin-certificates",
+      "outcome": "Inherited all-two-reactive margin 1e-6 plus the current whole one-L/one-C margins cover 1334 of 2130 mixed irreducible representatives.",
+      "artifact": "TWO_REACTIVE_MARGIN.md",
+      "disposition": "Only 796 balanced two-L/two-C budget-four placements remain; written graph proofs with exact arithmetic, not a complete Lean or independent audit."
+    },
+    {
+      "id": "classical-overlap-check",
+      "outcome": "Morelli 2019 Theorems 2.2-2.3 and Table 5.4 authenticated; first-order/Cauer methods recorded as classical overlap",
+      "artifact": "SOURCE_AUDIT.json",
+      "disposition": "Bounded attribution resolved; broad historical priority remains open"
+    },
+    {
+      "id": "finite-mixed-loss-tolerance",
+      "outcome": "Finite branch-to-port contraction, rational uncertainty disk and explicit independent R/L/C box budget for dedicated positive series losses. Nine graph families, 1110 physical corners and 4686 local mismatch checks passed exact controls.",
+      "artifact": "MIXED_LOSS_TOLERANCE.md",
+      "disposition": "Specified ideal mixed-loss analytic gap closed; parasitic generalization, part data and hardware measurements remain open. Classical contraction overlap is explicitly attributed."
+    },
+    {
+      "id": "series-support-margins",
+      "outcome": "Series L plus arbitrary RC has margin 1/2000; series C plus arbitrary RL has margin 1/500000 on the seven positive-real samples. Written Stieltjes/transfer proof and exact replay.",
+      "artifact": "COEFFICIENT_ROUTES.md",
+      "disposition": "Two support-restricted analytic subclasses closed; no new complete-resistor-core skeleton counted"
+    },
+    {
+      "id": "single-kind-minimum-sign",
+      "outcome": "With exactly one L, finite positive endpoint impedances and a finite nonzero loss-free branch phasor solution, Z(i omega)=-i omega L. Frequency inversion gives the one-C counterpart. Written component-pairing proof and 24 physical controls.",
+      "artifact": "COEFFICIENT_ROUTES.md",
+      "disposition": "The exact sign theorem is retained. Current quantitative one-kind margins are in GLOBAL_TYPED_MARGINS.md; independent/formal audit remains open."
+    },
+    {
+      "id": "coefficient-fiber-and-template-reduction",
+      "outcome": "Exact inverse bounds reduce nonnegative normalized degree-three/four coefficients to the target segment/polygon. Five disjoint-edge templates retain every mixed placement via resistor open/wire faces. All 2130 listed lifts checked.",
+      "artifact": "COEFFICIENT_ROUTES.md",
+      "disposition": "Reduction retained; current whole one-kind margins leave only the balanced two-L/two-C distribution, 796 placements."
+    },
+    {
+      "id": "sample-domain-shortcut-falsification",
+      "outcome": "Passive six/seven-reactive degree-three/four circuits converge to all seven real samples while retaining endpoint or resonant disagreement. Exact physical nodal replay; no at-most-four-branch counterexample.",
+      "artifact": "solver/transfer_barriers.py",
+      "disposition": "Unqualified endpoint/resonance transfer refuted; physical count constraints must enter the remaining separator"
+    },
+    {
+      "id": "natural-graph-stability-cut",
+      "outcome": "Natural grounded/Dirichlet graph polynomials satisfy the closed quartic inequality. It cuts the limiting degree-four quadrilateral to the nonnegative multiplier triangle; an explicit distance repair is proved.",
+      "artifact": "STABLE_ENERGY.md",
+      "disposition": "Written physical proof and exact identities/controls; triangle still needs separation"
+    },
+    {
+      "id": "one-L-energy-and-DC-tradeoff",
+      "outcome": "The universal one-L energy inequality and regional DC trade-off supply the intrinsic endpoint bound. The physical real-root lemma removes the q4 resonant guard and reactive rounding closes the DC tail.",
+      "artifact": "STABLE_ENERGY.md",
+      "disposition": "Combined in the whole one-L margins 1e-11 at budget three and 1e-30 at four; preliminary regional 007 evidence retained unchanged."
+    },
+    {
+      "id": "positive-real-component-rounding",
+      "outcome": "Fixed-source branch change bounds justify open/short rounding. Any three-reactive fit at error <=1e-7 has all L/C values in [1e-7,1e7]; any four-reactive fit has at least three there.",
+      "artifact": "STABLE_ENERGY.md",
+      "disposition": "Written sensitivity/boundary proof with inherited all-two-reactive margin; no resistor-value cap or global separator"
+    },
+    {
+      "id": "whole-one-kind-reactive-margins",
+      "outcome": "Uniform positive-real seven-sample reflection margins: one L 1e-11/1e-30 at budgets three/four; one C 1e-13/1e-37. Arbitrary resistor count/placement/positive finite values, no endpoint or resonant guard. 1196 newly covered representatives.",
+      "artifact": "GLOBAL_TYPED_MARGINS.md",
+      "disposition": "Written spectral/Green/Dirichlet/Thomson and rounding proof, project self-review, exact rational constants and finite physical controls. Tiny structural constants, not useful engineering tolerances; balanced 2L2C remains open."
+    },
+    {
+      "id": "balanced-internal-mode-face",
+      "artifact": "BALANCED_RESONANCE.md",
+      "outcome": "With <=2L/2C, a port-zero internal mode forces a <=3-reactive response or inversion symmetry. Natural P(i)=Q(i)=0 therefore gives seven-sample error >1e-13. Eight abstract active types and88 physical mode fixtures support the written proof.",
+      "disposition": "Exact physical singular stratum proved as written by self-review; no new whole-placement exclusion. Small determinants still need a uniform transfer to physical mode neighborhoods."
+    },
+    {
+      "id": "positive-real-near-mode-certificate",
+      "artifact": "BALANCED_RESONANCE.md",
+      "outcome": "All-component relative error epsilon changes positive-real reflection by <=epsilon/(2(1-epsilon)), independently of branch count. An inversion-symmetric mode face with <=1% reactive detuning and opened-resistor conductance sum<=1/100 gives sample error >3/40; a portable producer/consumer checks the exact budget.",
+      "disposition": "Written energy/Rayleigh/opening proof and exact controls. Positive-real Laplace domain; guarded region, not whole balanced coverage or an imaginary-frequency/hardware tolerance guarantee."
+    },
+    {
+      "id": "balanced-scalar-and-first-jet-falsification",
+      "artifact": "solver/balanced_obstructions.py",
+      "outcome": "Three exact positive balanced circuits refute scalar endpoint, joint real-root and first-resonance-jet shortcuts; the last matches target endpoints, Zi=i and Zprime(i)=5 but has cross polynomial(69/263)*s*(s^2+1)^2.",
+      "disposition": "Reusable obstructions reproduced in current009. None is a target realization or close-fit counterexample; their driven zero-loss states are not internal port-zero modes."
+    },
+    {
+      "id": "regular-balanced-two-response-classification",
+      "artifact": "REGULAR_BALANCED.md",
+      "outcome": "With <=2L/2C, arbitrary positive finite R, natural Q(i)!=0 and exact target endpoints/Zi/first jet, all four LC are active and R subnetworks reduce to two links. Full support classification leaves only Z_F or Z_C, with exact errors5175/65083 and25/2769. Disconnected active cycles and inactive LC are included in the proof.",
+      "disposition": "Exact regular-data stratum closed by written project self-review and exact controls; no new whole-margin representative exclusion, independent review or Lean claim."
+    },
+    {
+      "id": "regular-support-cover-and-guards",
+      "artifact": "solver/check_regular_balanced.py",
+      "outcome": "The multiset/union-find and ordered-edge/BFS adjacency-word iterators agree on18 port-fixed support types/34 labeled multisets. Forest and cyclic linear systems,48 resistor-cloud graphs and disconnected/inactive/singular guards support the written classification.",
+      "disposition": "Finite exact implementation checks with a separate universal covering proof. These are not arbitrary-parameter searches or whole placement counts."
+    },
+    {
+      "id": "regular-core-positive-real-region",
+      "artifact": "solver/regular_balanced.py",
+      "outcome": "All-component relative comparison plus R opening/contraction gives error floor E_nominal-epsilon/(2(1-epsilon))-2(sum opened1/R+sum shortedR). At1% and combined surgery budget<=1/10000, the exact-data cores give strict margin1/300. Portable producer/consumer recomputes nominal response and requested slack.",
+      "disposition": "A supplied physical region is certified on positive-real Laplace samples. Small sample error does not automatically supply its conditions; all796 balanced whole placements remain open for a useful uniform margin."
+    },
+    {
+      "id": "global-resistor-backbone-transfer",
+      "artifact": "GLOBAL_BALANCED_TRANSFER.md",
+      "outcome": "At most nine resistor-backbone scale gaps, a positive natural coefficient floor, and original-node LC flow correction turn a sufficiently close fit into a physical internal mode or zero-loss near-target core. Uniform bound E>10^(-10^45).",
+      "disposition": "Structural transfer proved as written by project self-review, with exact controls. Bound remains too small for engineering use; stronger practical margin and independent/formal assurance remain open."
+    },
+    {
+      "id": "global-zero-loss-near-target-chart",
+      "artifact": "GLOBAL_BALANCED_TRANSFER.md",
+      "outcome": "No supplied physical core box is needed: exact zero-loss regular data within1/1000 of the target endpoints/resonance/jet recover one of two global response charts and give E>1/300.",
+      "disposition": "Written graph-cover and recovery proof; not an assertion that arbitrary near-fitting samples already meet the feature conditions at a practical threshold."
+    },
+    {
+      "id": "whole-lossless-and-one-R-margins",
+      "artifact": "LOW_RESISTOR_MARGINS.md",
+      "outcome": "All lossless graphs with at most four LC have E>=1/100000; with at most one R the uniform bound is E>1e-150. Common natural powers of s are explicitly retained.",
+      "disposition": "Written parity/rounding/positive-coefficient/endpoint proof and exact dual identities; no unrestricted R minimum conclusion."
+    },
+    {
+      "id": "physical-state-transfer-consumer",
+      "artifact": "solver/backbone_transfer.py",
+      "outcome": "Exact original-node KCL/state validation plus relative LC and R surgery budgets. Worked actual graph certifies E>1/400; altered bounds/states and unsupported inputs are rejected or inconclusive.",
+      "disposition": "Supplied exact state proof and resource-bounded executable consumer; positive-real domain and no hardware measurement claim."
+    },
+    {
+      "id": "generic-joint-family-minima",
+      "artifact": "GENERIC_JOINT_OPTIMALITY.md",
+      "outcome": "Almost every real degree-n target in the open F_n families needs at least2n+1 total physical branches, even with extra LC; the n-LC/n+1-R construction attains it. Among minimum-reactive realizations the generic R minimum is n+1.",
+      "disposition": "Written parameter-dimension proof. No particular rational target or unrestricted resistor minimum is certified by the almost-everywhere statement."
+    }
+  ],
+  "remaining_work": [
+    "Complete formal verification and independent human review of the compactification, endpoint/packet chain and new resistor-backbone/flow transfer; selected Lean coverage remains41.",
+    "A practical-sized global separator for the796 balanced2L2C placements. The structural uniform physical-transfer implication now has explicit bound10^(-10^45), still extremely small; the stronger retained typed-certificate counts remain1334/2130.",
+    "Practical minimum synthesis for arbitrary mixed RLC targets beyond the complete subclasses. Generic total-component optimality of F_n does not supply a pointwise arbitrary-target minimality certificate.",
+    "Unrestricted resistor minima for the original rational degree-six target and higher-degree families; generic minimum-storage resistor optimality does not exclude trading more LC for fewer R.",
+    "Broader mixed-RLC parasitic models, justified physical part/loss data and actual measurements beyond the dedicated-series-loss and positive-real state certificates.",
+    "Broad literature-priority review beyond the authenticated classical overlap; the known qualitative exclusion and standard dimension principle are not claimed as new."
+  ],
+  "new_lean_claim": false,
+  "new_hardware_claim": false,
+  "new_novelty_claim": false,
+  "program": "PROGRAM.md",
+  "current_base_revision": "f88939b267fe6e03af555727a1e770985395bba5",
+  "current_phase": "global-transfer-and-joint-minima-001",
+  "new_analytic_robustness_claim": true,
+  "formal_scope": {
+    "theorems": 41,
+    "receipt": "verification/phase2-formal-001/receipt.json",
+    "coverage": "Finite incidence and contraction, one real-potential resistor-node elimination, complex KCL-to-loss contraction and disk, Stieltjes/shape and sample implications; full universal compactification/transfer and the two-reactive classical physical bridge remain outside this count",
+    "extension_receipt": "verification/phase2-shunt-formal-001/receipt.json",
+    "capacitor_extension_receipt": "verification/phase2-cap-shunt-formal-001/receipt.json",
+    "loss_reduction_receipt": "verification/phase3-loss-reduction-formal-001/receipt.json"
+  },
+  "current_evidence": {
+    "portable_exact_suite": "verification/current-exact-011/manifest.json",
+    "selected_formal": "verification/phase2-formal-001/receipt.json",
+    "proof_self_review": "PHASE8_REVIEW.json",
+    "optional_mixed_triage": "verification/mixed-probe-003/manifest.json",
+    "selected_formal_extension": "verification/phase2-shunt-formal-001/receipt.json",
+    "selected_formal_capacitor_extension": "verification/phase2-cap-shunt-formal-001/receipt.json",
+    "selected_formal_loss_reduction": "verification/phase3-loss-reduction-formal-001/receipt.json",
+    "regional_precursor": "verification/current-exact-007/manifest.json",
+    "whole_one_kind_predecessor": "verification/current-exact-008/manifest.json",
+    "balanced_mode_predecessor": "verification/current-exact-009/manifest.json",
+    "regular_precursor": "verification/current-exact-010/manifest.json"
+  },
+  "continuation": "CONTINUATION.md",
+  "mixed_representatives": {
+    "population": 2130,
+    "excluded_union": 1334,
+    "remaining": 796,
+    "remaining_by_reactive_budget": {
+      "2": 0,
+      "3": 0,
+      "4": 796
+    }
+  },
+  "global_structural_margin": {
+    "value": "10^(-10^45)",
+    "scope": "All ordinary positive uncoupled transformer-free graphs with at most four reactive branches, arbitrary finite R count and values; positive-real seven-sample domain",
+    "proof": "GLOBAL_BALANCED_TRANSFER.md",
+    "review": "Written project self-review",
+    "practical_status": "Extremely small; a practical-sized global balanced margin remains open",
+    "typed_count_context": "1334/2130 and796 refer to the retained stronger typed-certificate program; the old global bound already covered every graph qualitatively."
+  },
+  "new_independent_review": false,
+  "new_formal_claim": false
+}

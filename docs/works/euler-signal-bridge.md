@@ -8,15 +8,15 @@
 
 **Completion:** Active development · **Lean:** No Lean claim · **Confidence:** Written / finite evidence
 
-An extended Euler derivation connects reciprocal packets, infinite transforms, local supercongruences, Fibonacci transfers, polynomial calculus, exact quartic periods and binary inverses, finite Hurwitz modes and logarithmic/Stirling coordinates. The dyadic edge continuation includes exact tail factors, finite carries, row-specific cancellation and the remaining simplicity boundary.
+An extended Euler derivation connects reciprocal packets, infinite transforms, local supercongruences, Fibonacci transfers, polynomial calculus, exact quartic periods and binary inverses, finite Hurwitz modes, and logarithmic/Stirling coordinates. The dyadic edge continuation includes exact tail factors, finite carries, row-specific cancellation, and the remaining simplicity boundary.
 
 ## Before you start
 
-**Suggested background:** Read the problem statement, recorded scope and open questions first. The program's definitions determine its subject prerequisites.
+**Suggested background:** Read the problem statement, recorded scope, and open questions first. The program's definitions determine its subject prerequisites.
 
 **Recorded results and limits:** Written identities and bounded exact controls with checked source inputs. The maintained example includes formal-series and local arithmetic derivations, Fibonacci and polynomial operator transport, quartic displacement/period/isometry laws, and finite-mode/logarithmic Euler encodings. Same-assistant reviews and pinned API comparisons are separate evidence. No new formalization, independent review or global classification is asserted.
 
-**Remaining work:** Independent mathematical review and any broader arithmetic classification require their own hypotheses and evidence. Keep finite tests, written self-review, externally cited theorem inputs and any future formalization distinct.
+**Remaining work:** Independent mathematical review and any broader arithmetic classification require their own hypotheses and evidence. Keep finite tests, written self-review, externally cited theorem inputs, and any future formalization distinct.
 
 The background advice is an editorial starting point. The work itself states its prerequisites and hypotheses.
 
@@ -47,7 +47,7 @@ No Lean source or guide is linked here. See the Lean status above and the [evide
 
 ## Code
 
-These links include code, examples, checks, or build tools. Read the [maintained edition guide](../demonstrations/EULER_PACKETS.md) for setup instructions and what each command does. All software is beta and work in progress.
+These links include code, examples, checks, or build tools. Read the [maintained edition guide](../demonstrations/EULER_PACKETS.md) for setup instructions and an explanation of what each command does. All software is in beta and remains a work in progress.
 
 - [Script: verify_bridge.py](../../research/euler-signal-bridge/verify_bridge.py)
 

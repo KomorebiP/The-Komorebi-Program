@@ -14,7 +14,7 @@ Python experiments for interacting agent models.
 
 **Suggested background:** Basic programming and familiarity with the stated data and evaluation method. Read the input limits and acceptance criteria before interpreting output.
 
-**Recorded results and limits:** Executed illustrative two-agent model with supplied schedule, sensor semantics and reset rule. No learned policy or general self-improvement result.
+**Recorded results and limits:** Executed illustrative two-agent model with supplied schedule, sensor semantics, and reset rule. No learned policy or general self-improvement result.
 
 **Remaining work:** Validate any learned or adaptive replacement against a preregistered baseline. Retain the supplied-rule demonstration as its own experiment.
 
@@ -49,7 +49,7 @@ No Lean source or guide is linked here. See the Lean status above and the [evide
 
 ## Code
 
-These links include code, examples, checks, or build tools. Read the [edition guide](../../experiments/agent-dynamics/README.md) for setup instructions and what each command does. All software is beta and work in progress.
+These links include code, examples, checks, or build tools. Read the [edition guide](../../experiments/agent-dynamics/README.md) for setup instructions and an explanation of what each command does. All software is in beta and remains a work in progress.
 
 - [Code / scripts: code](../../experiments/agent-dynamics/code/)
 

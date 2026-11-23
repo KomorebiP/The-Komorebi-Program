@@ -107,7 +107,7 @@ def publish(site):
     )
     site.page(READER,"Stirling, Bell, and Fubini / exact Python source",
               body+source_lines(program.decode("utf-8")),
-              "https://github.com/KomorebiP/Operation-KOMOREBI/blob/"
+              "https://github.com/KomorebiP/The-Komorebi-Program/blob/"
               +site.revision+"/"+PROGRAM)
     site.search.append(dict(
         title="Stirling, Bell, and Fubini / exact Python checker",

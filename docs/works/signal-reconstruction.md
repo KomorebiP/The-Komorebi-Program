@@ -12,7 +12,7 @@ Packet reconstruction, edge recovery, and calibration.
 
 ## Before you start
 
-**Suggested background:** Read the problem statement, recorded scope and open questions first. The program's definitions determine its subject prerequisites.
+**Suggested background:** Read the problem statement, recorded scope, and open questions first. The program's definitions determine its subject prerequisites.
 
 **Recorded results and limits:** Finished reading set. Related Paper V formal sources support packet/known-edge infrastructure, not the present unknown-edge and self-calibration theory. Recorded identification failures remain.
 
@@ -55,7 +55,7 @@ Start with the [edition guide](../../research/signal-reconstruction/README.md) a
 
 ## Code
 
-These links include code, examples, checks, or build tools. Read the [edition guide](../../research/signal-reconstruction/README.md) for setup instructions and what each command does. All software is beta and work in progress.
+These links include code, examples, checks, or build tools. Read the [edition guide](../../research/signal-reconstruction/README.md) for setup instructions and an explanation of what each command does. All software is in beta and remains a work in progress.
 
 - [Script: audit_release.py](../../research/signal-reconstruction/audit_release.py)
 

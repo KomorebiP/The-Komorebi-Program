@@ -8,7 +8,13 @@
   const KEY = 'komorebi.saved-reading.v1';
   const LIMIT = 200;
   const clean = (value, limit) => typeof value === 'string' ? value.trim().slice(0, limit) : '';
-  const storageKey = base => KEY + ':' + new URL(base).pathname;
+  // Retain the original per-origin bookmark key after the repository rename.
+  const storageKey = base => {
+    const url = new URL(base);
+    const path = url.hostname === 'komorebip.github.io' && url.pathname === '/The-Komorebi-Program/'
+      ? '/Operation-KOMOREBI/' : url.pathname;
+    return KEY + ':' + path;
+  };
 
   function target(value, base) {
     if (typeof value !== 'string' || !value || value.length > 4096) return null;

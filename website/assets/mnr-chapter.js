@@ -11,7 +11,7 @@
     retry.hidden=true;status.hidden=false;status.firstElementChild.textContent='Loading chapter…';article.setAttribute('aria-busy','true');
     try{
       let url=new URL(record.url),figures=new URL(record.figure_root);
-      const pin=/^\/KomorebiP\/Operation-KOMOREBI\/[a-f0-9]{40}\/publication\/mnr-html-reading\/2026-11-04\//;
+      const pin=/^\/KomorebiP\/(?:The-Komorebi-Program|Operation-KOMOREBI)\/[a-f0-9]{40}\/publication\/mnr-html-reading\/2026-11-04\//;
       if(url.origin!=='https://raw.githubusercontent.com'||!pin.test(url.pathname)||figures.origin!==url.origin||!pin.test(figures.pathname))throw Error('Invalid chapter location');
       // The local preview serves the same retained publication bytes.
       if(['localhost','127.0.0.1'].includes(location.hostname)){url=new URL('../../'+record.path,location.href);figures=new URL('../../publication/mnr-html-reading/2026-11-04/figures/',location.href);}
@@ -31,7 +31,7 @@
       for(const original of document.querySelectorAll('script[type="application/x-mnr-deferred"]'))await new Promise((resolve,reject)=>{const script=document.createElement('script');script.src=original.dataset.src;script.onload=resolve;script.onerror=reject;original.replaceWith(script);});
       status.hidden=true;document.dispatchEvent(new CustomEvent('mnr-chapter-ready'));
       if(location.hash){const target=document.getElementById(decodeURIComponent(location.hash.slice(1)));target?.scrollIntoView();}
-    }catch(error){article.removeAttribute('aria-busy');status.firstElementChild.textContent='The chapter could not load. Retry, or use the PDF and source links below.';retry.hidden=false;console.error(error);}
+    }catch(error){article.removeAttribute('aria-busy');status.firstElementChild.textContent='The chapter could not be loaded. Retry, or use the PDF and source links below.';retry.hidden=false;console.error(error);}
   };
   retry.addEventListener('click',start);if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 })();

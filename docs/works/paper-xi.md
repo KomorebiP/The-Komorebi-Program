@@ -12,7 +12,7 @@ Arithmetic realization and comparison interfaces.
 
 ## Before you start
 
-**Suggested background:** Vectors, matrices, linear maps, kernels and images, and reading a statement with hypotheses. Consult the selected paper for any additional algebra or analysis it uses.
+**Suggested background:** Familiarity with vectors, matrices, linear maps, kernels, and images, plus experience reading statements with hypotheses. Consult the selected paper for any additional algebra or analysis it uses.
 
 **Recorded results and limits:** Finite packet and selected terminal developments have accepted formal evidence. Conjecture 66 and its arithmetic realization obligations remain open.
 
@@ -32,8 +32,8 @@ Use the links below to read this work and its supporting files. Ctrl+click (Comm
 
 ## Read
 
-- [Read online: complete monograph and fifteen construction appendices](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-xi/index.html)
-- [Visual guide: all 47 HTML lessons and the opening reader routes](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-xi/atlas/index.html)
+- [Read online: complete monograph and fifteen construction appendices](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-xi/index.html)
+- [Visual guide: all 47 HTML lessons and the opening reader routes](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-xi/atlas/index.html)
 - [Edition README](../../papers/paper-xi/current/README.md)
 - [Read PDF](../../papers/paper-xi/current/publication/pdfs/Paper_XI_Traditional_v1.1.0.pdf)
 - [Visual guide (PDF)](../../papers/paper-xi/current/publication/pdfs/Paper_XI_Visual_Guide_v1.1.0.pdf)
@@ -63,7 +63,7 @@ Start with the [edition guide](../../papers/paper-xi/current/README.md) and the 
 
 ## Code
 
-These links include code, examples, checks, or build tools. Read the [edition guide](../../papers/paper-xi/current/README.md) for setup instructions and what each command does. All software is beta and work in progress.
+These links include code, examples, checks, or build tools. Read the [edition guide](../../papers/paper-xi/current/README.md) for setup instructions and an explanation of what each command does. All software is in beta and remains a work in progress.
 
 - [Code / scripts: tools](../../papers/paper-xi/current/tools/)
 

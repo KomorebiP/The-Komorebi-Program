@@ -12,7 +12,7 @@ Set-theoretic structures, multiverse interfaces, and residual reflection.
 
 ## Before you start
 
-**Suggested background:** Read the problem statement, recorded scope and open questions first. The program's definitions determine its subject prerequisites.
+**Suggested background:** Read the problem statement, recorded scope, and open questions first. The program's definitions determine its subject prerequisites.
 
 **Recorded results and limits:** The depth-zero and multiverse blocks are checked. The arbitrary complete obstruction tower can be vacuous. No model existence follows from the conditional extraction theorem.
 
@@ -51,7 +51,7 @@ Start with the [edition guide](../../research/kzfc-multiverse/README.md) and the
 
 ## Code
 
-These links include code, examples, checks, or build tools. Read the [edition guide](../../research/kzfc-multiverse/README.md) for setup instructions and what each command does. All software is beta and work in progress.
+These links include code, examples, checks, or build tools. Read the [edition guide](../../research/kzfc-multiverse/README.md) for setup instructions and an explanation of what each command does. All software is in beta and remains a work in progress.
 
 - [Code / scripts: scripts](../../research/kzfc-multiverse/scripts/)
 

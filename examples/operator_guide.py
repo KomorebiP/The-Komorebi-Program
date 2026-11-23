@@ -1,0 +1,496 @@
+#!/usr/bin/env python3
+"""Exact finite examples for the Operator guide reference chapters.
+
+Uses only Python's standard library. These checks cover specified rational
+matrices and finite witnesses. They do not certify general theorems,
+infinite-dimensional convergence, or theorem-to-Lean correspondence.
+"""
+from fractions import Fraction as F
+import json
+
+
+def M(rows):
+    return tuple(tuple(F(x) for x in row) for row in rows)
+
+
+def v(*values):
+    return M([[x] for x in values])
+
+
+def eye(n):
+    return M([[int(i == j) for j in range(n)] for i in range(n)])
+
+
+def zero(rows, cols):
+    return M([[0] * cols for _ in range(rows)])
+
+
+def mm(a, b):
+    assert len(a[0]) == len(b)
+    return tuple(tuple(sum(x * y for x, y in zip(row, col)) for col in zip(*b))
+                 for row in a)
+
+
+def add(a, b):
+    assert len(a) == len(b) and len(a[0]) == len(b[0])
+    return tuple(tuple(x + y for x, y in zip(r, s)) for r, s in zip(a, b))
+
+
+def scale(c, a):
+    return tuple(tuple(c * x for x in row) for row in a)
+
+
+def sub(a, b):
+    return add(a, scale(-1, b))
+
+
+def transpose(a):
+    return tuple(zip(*a))
+
+
+def inverse2(a):
+    det = a[0][0] * a[1][1] - a[0][1] * a[1][0]
+    assert det
+    return scale(1 / det, M([[a[1][1], -a[0][1]], [-a[1][0], a[0][0]]]))
+
+
+def rank(a):
+    rows = [list(row) for row in a]
+    pivot = 0
+    for col in range(len(rows[0])):
+        found = next((i for i in range(pivot, len(rows)) if rows[i][col]), None)
+        if found is None:
+            continue
+        rows[pivot], rows[found] = rows[found], rows[pivot]
+        leading = rows[pivot][col]
+        rows[pivot] = [x / leading for x in rows[pivot]]
+        for i in range(len(rows)):
+            if i != pivot:
+                multiple = rows[i][col]
+                rows[i] = [x - multiple * y for x, y in zip(rows[i], rows[pivot])]
+        pivot += 1
+        if pivot == len(rows):
+            break
+    return pivot
+
+
+def norm_inf(a):
+    return max(sum(abs(x) for x in row) for row in a)
+
+
+def length_squared(x):
+    return sum(row[0] ** 2 for row in x)
+
+
+def kron(a, b):
+    return tuple(tuple(x * y for x in row_a for y in row_b)
+                 for row_a in a for row_b in b)
+
+
+I = eye(2)
+T = M([[1, 2], [3, 4]])
+P = M([[1, 0], [0, 0]])
+Q = sub(I, P)
+N = M([[0, 1], [0, 0]])
+X = v(2, 3)
+A = M([[1, 0], [0, 1], [1, 1]])
+S = scale(F(1, 3), M([[2, -1, 1], [-1, 2, 1]]))
+
+
+def basics():
+    R, B = M([[1, 1]]), v(1, 0)
+    assert mm(R, B) == eye(1) and mm(B, R) != I
+    linear = lambda x: 2 * x[0] - x[1]
+    assert linear((5, 7)) == 2 * linear((1, 2)) + 3 * linear((1, 1))
+    assert (1 * 0 + 0 * 1) != (1 + 0) * (0 + 1)
+    assert mm(T, I) == mm(I, T) == T and mm(zero(2, 2), X) == v(0, 0)
+    assert mm(R, v(1, -1)) == v(0) and rank(R) == 1
+    assert rank(B) == 1 and len(B) > rank(B)
+    BR = mm(B, R)
+    assert mm(BR, BR) == BR and mm(BR, v(0, 1)) == v(1, 0)
+    D = M([[2, 0], [0, 3]])
+    assert mm(D, v(1, 0)) == v(2, 0) and mm(T, v(1, 0)) == v(1, 3)
+    W, swap = M([[1, 0], [0, 3]]), M([[0, 1], [1, 0]])
+    adjoint = mm(mm(inverse2(W), transpose(swap)), W)
+    assert adjoint == M([[0, 3], [F(1, 3), 0]])
+    assert mm(transpose(swap), W) == mm(W, adjoint)
+    a, b = M([[2, -1]]), v(F(1, 2), 0)
+    assert mm(a, b) == eye(1) and mm(b, a) == M([[1, F(-1, 2)], [0, 0]])
+    assert mm(a, v(1, 2)) == v(0)
+    return ('typed paths', 'linearity controls', 'identity and zero', 'kernel and rank',
+            'rectangular map', 'one-sided inverse', 'invariant directions', 'weighted adjoint')
+
+
+def algebra():
+    U = M([[2, 0], [0, 1]])
+    assert mm(U, mm(T, X)) == v(16, 18) and mm(T, mm(U, X)) == v(10, 24)
+    assert mm(N, N) == zero(2, 2)
+    assert mm(add(I, scale(2, N)), sub(I, scale(2, N))) == I
+    assert sub(mm(P, T), mm(T, P)) == M([[0, 2], [-3, 0]])
+    R, swap = M([[1, 1]]), M([[0, 1], [1, 0]])
+    assert mm(R, swap) == R
+    C, D = M([[1, 1], [0, 1]]), M([[2, 0], [0, 3]])
+    assert mm(mm(C, D), inverse2(C)) == M([[2, 1], [0, 3]])
+    assert mm(N, v(0, 1)) == v(1, 0) and mm(N, v(1, 0)) == v(0, 0)
+    assert rank(M([[0, 1], [1, 0]])) == 2
+    product = kron(D, swap)
+    assert product == M([[0, 2, 0, 0], [2, 0, 0, 0], [0, 0, 0, 3], [0, 0, 3, 0]])
+    assert mm(product, v(1, 2, 0, 0)) == v(4, 2, 0, 0)
+    assert mm(kron(D, swap), kron(C, N)) == kron(mm(D, C), mm(swap, N))
+    schur, rhs = F(3) - F(1, 2), F(5) - F(5, 2)
+    y = rhs / schur
+    x = (5 - y) / 2
+    assert (x, y) == (2, 1) and (2 * x + y, x + 3 * y) == (5, 5)
+    assert mm(P, N) == N and mm(N, P) == zero(2, 2)
+    return ('composition', 'polynomials', 'commutator', 'intertwiner',
+            'similarity', 'seeds', 'tensor product', 'Schur complement')
+
+
+def packets():
+    oblique = M([[1, 1], [0, 0]])
+    assert mm(oblique, oblique) == oblique and mm(oblique, v(1, -1)) == v(0, 0)
+    assert add(P, Q) == I and mm(P, Q) == mm(Q, P) == zero(2, 2)
+    assert mm(scale(2, I), scale(2, I)) != scale(2, I)
+    first, second = mm(oblique, X), mm(sub(I, oblique), X)
+    assert first == v(5, 0) and second == v(-3, 3)
+    assert length_squared(first) + length_squared(second) == 43
+    assert length_squared(X) == 13
+    assert mm(S, A) == I and mm(S, mm(A, X)) == X
+    AS = mm(A, S)
+    assert mm(AS, AS) == AS and AS != eye(3)
+    E = [M([[int(i == j == k) for j in range(3)] for i in range(3)]) for k in range(3)]
+    components = [mm(mm(S, e), A) for e in E]
+    assert add(add(components[0], components[1]), components[2]) == I
+    assert mm(components[0], components[0]) == scale(F(2, 3), components[0])
+    assert [mm(c, X) for c in components] == [v(F(4, 3), F(-2, 3)), v(-1, 2), v(F(5, 3), F(5, 3))]
+    signal, kept = v(3, 1, 4, 2), v(3, 1, 0, 2)
+    assert sub(signal, kept) == v(0, 0, 4, 0)
+    triangular = M([[1, 2], [0, 3]])
+    assert mm(Q, mm(triangular, P)) == zero(2, 2)
+    assert mm(P, mm(triangular, Q)) != zero(2, 2)
+    spectral = M([[2, 1], [0, 3]])
+    p2, p3 = sub(scale(3, I), spectral), sub(spectral, scale(2, I))
+    assert mm(p2, p2) == p2 and mm(p3, p3) == p3
+    assert mm(p2, p3) == mm(p3, p2) == zero(2, 2)
+    assert add(p2, p3) == I and add(scale(2, p2), scale(3, p3)) == spectral
+    assert M([[2, 1], [0, 2]]) != scale(2, I)
+    exercise = M([[1, 2], [0, 0]])
+    assert mm(exercise, X) == v(8, 0) and mm(sub(I, exercise), X) == v(-6, 3)
+    return ('idempotence', 'complete family', 'oblique energy', 'analysis and synthesis',
+            'redundant components', 'refinement residual', 'invariance and leakage', 'spectral projectors')
+
+
+def transfer():
+    projectors = (P, Q)
+    assert mm(mm(P, T), Q) == M([[0, 2], [0, 0]])
+    blocks = [mm(mm(q, T), p) for q in projectors for p in projectors]
+    total = zero(2, 2)
+    for block in blocks:
+        total = add(total, block)
+    assert total == T
+    U = M([[2, 0], [0, 1]])
+    for pk in projectors:
+        for pi in projectors:
+            routed = zero(2, 2)
+            for qj in projectors:
+                routed = add(routed, mm(mm(mm(pk, U), qj), mm(mm(qj, T), pi)))
+            assert routed == mm(mm(pk, mm(U, T)), pi)
+    C, R = M([[1, 1], [0, 1]]), M([[1, 1]])
+    transformed = mm(scale(2, R), inverse2(C))
+    assert transformed == M([[2, 0]]) and mm(transformed, mm(C, X)) == v(10)
+    D, swap = M([[2, 0], [0, 3]]), M([[0, 1], [1, 0]])
+    assert mm(R, swap) == R and mm(R, mm(D, v(1, -1))) == v(-1)
+    assert mm(mm(R, D), v(1, 0)) == v(2) and mm(R, mm(D, v(0, 1))) == v(3)
+    residual = sub(T, mm(mm(P, T), P))
+    expanded = add(add(mm(mm(Q, T), P), mm(mm(P, T), Q)), mm(mm(Q, T), Q))
+    assert residual == expanded
+    assert mm(mm(Q, T), v(2, 0)) == v(0, 6)
+    assert F(2 * 3) - F((2 + 3) ** 2, 4) == F(-1, 4)
+    assert 2 + 0 == 1 + 1 and 2 * 0 != 1 * 1
+    upper = M([[1, 2], [0, 1]])
+    assert mm(M([[0, 1]]), upper) == M([[0, 1]])
+    assert mm(M([[1, 0]]), mm(upper, v(0, 1))) == v(2)
+    return ('source-target block', 'reconstruction', 'intermediate packets', 'rectangular transport',
+            'exact and failed closure', 'leakage residual', 'nonlinear defect')
+
+
+def recovery():
+    R = M([[1, 1]])
+    assert mm(R, v(2, 3)) == mm(R, v(7, -2)) == v(5)
+    domain = [(a, b) for a in range(-2, 3) for b in range(-2, 3)]
+    for a, b in domain:
+        assert 2 * (a + b) == 2 * a + 2 * b
+    assert sum((1, 0)) == sum((0, 1)) and (1, 0)[0] != (0, 1)[0]
+    measured = M([[1, 1, 0], [0, 1, 1]])
+    target, B = M([[1, 2, 1]]), M([[1, 1]])
+    assert mm(B, measured) == target
+    w, first = v(1, -1, 1), M([[1, 0, 0]])
+    assert mm(measured, w) == v(0, 0) and mm(first, w) == v(1)
+    assert rank(M([[1, 1], [1, 0]])) - rank(R) == 1
+    assert rank(M([[1, 1], [2, 2]])) - rank(R) == 0
+    for a, b in domain:
+        assert F((a + b) + (a - b), 2) == a
+    for c in (F(0), F(1), F(3, 2), F(2), F(7, 3)):
+        risk = F(1, 4) * c ** 2 + F(3, 4) * (2 - c) ** 2
+        assert risk == F(3, 4) + (c - F(3, 2)) ** 2
+    for u0, hidden in domain:
+        sequence = [F(u0 + n * hidden) for n in range(6)]
+        assert all(sequence[n + 2] == 2 * sequence[n + 1] - sequence[n] for n in range(4))
+    differences = M([[1, -1, 0], [0, 1, -1]])
+    assert mm(M([[1, 1]]), differences) == M([[1, 0, -1]])
+    assert mm(differences, v(1, 1, 1)) == v(0, 0)
+    return ('fibers', 'finite recovery controls', 'row-space rule', 'kernel witness',
+            'repair dimension', 'weighted estimation', 'retained memory')
+
+
+def stability():
+    E = M([[0, 2], [3, 0]])
+    assert mm(transpose(E), E) == M([[9, 0], [0, 4]])
+    assert norm_inf(E) == norm_inf(transpose(E)) == 3
+    assert mm(P, Q) == zero(2, 2) and norm_inf(P) * norm_inf(Q) == 1
+    assert length_squared(mm(E, X)) == 72 <= 9 * length_squared(X) == 117
+    approx, eta = M([[1, 0], [0, 4]]), v(0, F(1, 10))
+    assert sub(mm(T, X), mm(approx, add(X, eta))) == sub(mm(E, X), mm(approx, eta))
+    C, D = M([[1, 10], [0, 1]]), M([[1, 0], [0, 2]])
+    assert norm_inf(C) * norm_inf(inverse2(C)) == 121
+    changed = mm(mm(C, D), inverse2(C))
+    assert changed == M([[1, 10], [0, 2]]) and norm_inf(changed) == 11
+    oblique = M([[1, 10], [0, 0]])
+    assert mm(oblique, oblique) == oblique
+    assert mm(oblique, transpose(oblique)) == M([[101, 0], [0, 0]])
+    high = scale(100, N)
+    assert mm(high, high) == zero(2, 2)
+    assert mm(high, transpose(high)) != mm(transpose(high), high)
+    power = I
+    for n in range(9):
+        assert power == add(I, scale(n, high))
+        power = mm(add(I, high), power)
+    # Finite unit-vector witnesses only; the text supplies the l2 convergence argument.
+    for m in range(1, 6):
+        projection = M([[int(i == j and i < m) for j in range(6)] for i in range(6)])
+        omitted = v(*(int(i == m) for i in range(6)))
+        assert mm(projection, omitted) == zero(6, 1) and length_squared(omitted) == 1
+    system = M([[1, 0], [0, F(1, 1000)]])
+    b, exact, candidate = v(1, F(1, 1000)), v(1, 1), v(1, 0)
+    r = sub(b, mm(system, candidate))
+    assert r == v(0, F(1, 1000))
+    assert sub(exact, candidate) == mm(inverse2(system), r) == v(0, 1)
+    assert mm(E, v(1, 0)) == v(0, 3) and mm(E, v(0, 1)) == v(2, 0)
+    return ('induced norms', 'composition bound control', 'error decomposition', 'conditioning',
+            'oblique projector norm', 'nonnormal powers', 'finite truncation witnesses', 'residual and forward error')
+
+
+def polynomial():
+    """Check the chapter's displayed values using the existing exact polynomial model."""
+    import importlib.util
+    from math import factorial
+    from pathlib import Path
+
+    path = Path(__file__).with_name('roots_unity_falling_factorial.py')
+    spec = importlib.util.spec_from_file_location('operator_guide_polynomials', path)
+    p = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(p)
+    f, x = p.power(3), p.power(1)
+
+    assert p.from_newton(p.power(3)) == (0, 2, -3, 1)
+    assert p.to_newton(f) == (0, 1, 3, 1)
+    assert p.from_newton((0, 1, 3, 1)) == f
+    assert p.delta(f) == (1, 3, 3)
+    assert p.from_newton((1, 6, 3)) == p.delta(f)
+
+    raising = lambda a: p.multiply(x, p.translate(a, -1))
+    for k in range(7):
+        b = p.falling(k)
+        assert raising(b) == p.falling(k + 1)
+        assert p.newton_degree_operator(b) == p.scale(b, k)
+        assert p.add(p.delta(raising(b)), p.scale(raising(p.delta(b)), -1)) == b
+
+    g = p.to_newton(f)
+    # Substitution z -> -z is independent of the coefficient selector.
+    reflected = tuple((-1) ** k * c for k, c in enumerate(g))
+    even_source = p.scale(p.add(g, reflected), F(1, 2))
+    odd_source = p.scale(p.add(g, p.scale(reflected, -1)), F(1, 2))
+    assert even_source == (0, 0, 3) and odd_source == (0, 1, 0, 1)
+    packets = [p.project_newton(f, 2, r) for r in range(2)]
+    assert packets == [(0, -3, 3), (0, 3, -3, 1)]
+    assert [p.evaluate(a, 4) for a in packets] == [36, 28]
+    assert p.add(*packets) == f
+    assert p.naive_power_project(f, 2, 0) == (0,)
+    assert p.add(p.project_newton(f, 4, 0), p.project_newton(f, 4, 2)) == packets[0]
+
+    assert p.star(x, x) == p.falling(2)
+    assert p.delta(p.star(x, x)) == (0, 2)
+    assert p.delta(p.multiply(x, x)) == (1, 2)
+    # Test the full product and packet law on nontrivial rational polynomials.
+    a, b = (F(1, 2), F(-2), F(3)), (F(2), F(1, 3))
+    product = p.star(a, b)
+    assert p.delta(product) == p.add(p.star(p.delta(a), b), p.star(a, p.delta(b)))
+    for r in range(3):
+        routed = (F(0),)
+        for i in range(3):
+            for j in range(3):
+                if (i + j) % 3 == r:
+                    routed = p.add(routed, p.star(p.project_newton(a, 3, i),
+                                                 p.project_newton(b, 3, j)))
+        assert routed == p.project_newton(product, 3, r)
+
+    assert [p.evaluate(p.delta(a), 4) for a in packets] == [24, 37]
+    shifted_first = [p.project_newton(p.shift(f), 2, r) for r in range(2)]
+    projected_first = [p.shift(a) for a in packets]
+    assert [p.evaluate(a, 4) for a in shifted_first] == [73, 52]
+    assert [p.evaluate(a, 4) for a in projected_first] == [60, 65]
+    for r in range(2):
+        assert shifted_first[r] == p.add(packets[r], p.delta(packets[(r + 1) % 2]))
+    for h in (F(-2), F(1, 2), F(0), F(1), F(2)):
+        assert p.translate(f, h) == p.translate_via_newton(f, h)
+    exercise = p.power(2)
+    assert p.evaluate(p.project_newton(p.shift(exercise), 2, 0), 3) == 7
+    assert p.evaluate(p.shift(p.project_newton(exercise, 2, 0)), 3) == 12
+
+    row = [p.evaluate(f, j) for j in range(4)]
+    difference_rows, coordinates = [], []
+    for k in range(4):
+        difference_rows.append(row)
+        coordinates.append(row[0] / factorial(k))
+        row = [row[j + 1] - row[j] for j in range(len(row) - 1)]
+    assert difference_rows == [[0, 1, 8, 27], [1, 7, 19], [6, 12], [6]]
+    assert coordinates == [0, 1, 3, 1]
+    assert p.mod_polynomial(p.falling(3), 3) == (0, 2, 0, 1)
+    assert all(p.evaluate(p.falling(3), j) == 0 for j in range(3))
+    for degree in range(9):
+        assert p.mod_polynomial(p.delta(p.delta(p.delta(p.power(degree)))), 3) == (0,)
+    for degree in (0, 3):
+        assert p.mod_polynomial(p.newton_degree_operator(p.falling(degree)), 3) == (0,)
+    assert p.project_newton(p.falling(0), 2, 0) == (1,)
+    assert p.project_newton(p.falling(3), 2, 0) == (0,)
+    return ('falling coordinates', 'transported derivative', 'raising and degree',
+            'parity averaging', 'transported packets', 'transported product',
+            'translation order', 'Newton and characteristic-three controls')
+
+
+CHECKS = {'BASICS': basics, 'ALGEBRA': algebra, 'PACKETS': packets,
+          'TRANSFER': transfer, 'RECOVERY': recovery, 'STABILITY': stability,
+          'POLYNOMIAL': polynomial}
+
+SOURCE_BINDINGS = {
+    'BASICS': r'T^*=\begin{pmatrix}0&3\\1/3&0\end{pmatrix}',
+    'ALGEBRA': r'\begin{pmatrix}0&2&0&0\\2&0&0&0\\0&0&0&3\\0&0&3&0\end{pmatrix}',
+    'PACKETS': r'C_1^2=\frac23C_1\ne C_1',
+    'TRANSFER': r"T'=[2\ \ 0]",
+    'RECOVERY': r'F=\begin{pmatrix}1&2&1\end{pmatrix}',
+    'STABILITY': r'A=\operatorname{diag}(1,1/1000)',
+    'POLYNOMIAL': r'\Phi^{-1}(x^3)=z+3z^2+z^3',
+}
+
+
+def supplementary_audits():
+    """Eight finite teaching cases; all constants use exact rational arithmetic.
+
+    These are the specific displayed examples in the guide's reading notes.
+    The text supplies the general identities and their hypotheses.
+    """
+    results = {}
+
+    C = M([[2, 0], [0, 1]])
+    W = mm(transpose(inverse2(C)), inverse2(C))
+    x = v(1, 1)
+    y = mm(C, x)
+    results['coordinate-metric'] = {
+        'metric': W, 'coordinate': y,
+        'weighted_squared_length': mm(mm(transpose(y), W), y)[0][0],
+        'unweighted_squared_length': length_squared(y),
+    }
+    assert mm(mm(transpose(C), W), C) == I
+    assert results['coordinate-metric']['weighted_squared_length'] == length_squared(x) == 2
+
+    derivative = M([[0, 1, 0], [0, 0, 2], [0, 0, 0]])
+    raising = M([[0, 0, 0], [1, 0, 0], [0, 1, 0]])
+    commutator = sub(mm(derivative, raising), mm(raising, derivative))
+    results['cutoff-commutator'] = {'commutator': commutator,
+        'trace': sum(commutator[j][j] for j in range(3))}
+    assert commutator == M([[1, 0, 0], [0, 1, 0], [0, 0, -2]])
+    assert results['cutoff-commutator']['trace'] == 0
+
+    z = v(0, 0, 1)
+    projection = mm(A, S)
+    corrected = mm(projection, z)
+    residual = sub(z, corrected)
+    results['redundant-coordinates'] = {
+        'synthesized': mm(S, z), 'corrected': corrected, 'residual': residual}
+    assert transpose(projection) == projection == mm(projection, projection)
+    assert mm(S, residual) == v(0, 0)
+    assert corrected[2][0] == corrected[0][0] + corrected[1][0]
+
+    full = mm(mm(P, mm(T, T)), P)
+    compressed = mm(mm(P, T), P)
+    repeated = mm(compressed, compressed)
+    excursion = mm(mm(mm(mm(P, T), Q), T), P)
+    results['two-step-return'] = {
+        'full': full, 'repeated': repeated, 'excursion': excursion,
+        'first_state': mm(T, v(1, 0)), 'second_state': mm(mm(T, T), v(1, 0))}
+    assert full == add(repeated, excursion) and full != repeated
+
+    epsilon = delta = F(1, 1000)
+    measurements = M([[1, 0], [1, epsilon]])
+    recovery = M([[-1 / epsilon, 1 / epsilon]])
+    clean = mm(measurements, v(2, 3))
+    noise = v(-delta, delta)
+    noisy = add(clean, noise)
+    results['noisy-repair'] = {'clean': clean, 'noisy': noisy,
+        'recovered': mm(recovery, noisy)[0][0],
+        'noise_gain': norm_inf(recovery), 'error': mm(recovery, noise)[0][0]}
+    assert rank(measurements) == 2 and mm(recovery, measurements) == M([[0, 1]])
+    assert results['noisy-repair']['error'] == norm_inf(recovery) * delta
+
+    shear, R = M([[1, 1], [0, 1]]), M([[1, 0]])
+    observation = R + mm(R, shear)
+    recovering = inverse2(observation)
+    results['observation-history'] = {'observations': observation, 'inverse': recovering}
+    assert rank(R) == 1 and rank(observation) == 2
+    assert mm(recovering, observation) == I
+    assert mm(R, v(0, 0)) == mm(R, v(0, 1))
+    assert mm(observation, v(0, 0)) != mm(observation, v(0, 1))
+
+    def power(a, n):
+        answer = eye(len(a))
+        for _ in range(n):
+            answer = mm(answer, a)
+        return answer
+
+    exact = M([[1, 0], [0, F(1, 2)]])
+    approximate = M([[1, 0], [0, F(2, 5)]])
+    difference = sub(power(exact, 3), power(approximate, 3))
+    results['repeated-error'] = {'difference': difference,
+        'norm': norm_inf(difference), 'bound': F(3, 10)}
+    assert norm_inf(difference) <= F(3, 10)
+    # A noncommuting pair detects the invalid scalar-factorization shortcut.
+    other = M([[2, 0], [1, 1]])
+    assert mm(shear, other) != mm(other, shear)
+    for n in range(1, 7):
+        telescoped = zero(2, 2)
+        for k in range(n):
+            term = mm(mm(power(shear, n - 1 - k), sub(shear, other)), power(other, k))
+            telescoped = add(telescoped, term)
+        assert telescoped == sub(power(shear, n), power(other, n))
+
+    coefficients = v(0, 1, 3, 1)
+    falling_values, ordinary_values = M([[1, 4, 12, 24]]), M([[1, 4, 16, 64]])
+    results['polynomial-observation'] = {
+        'transported': mm(falling_values, coefficients)[0][0],
+        'unchanged': mm(ordinary_values, coefficients)[0][0]}
+    assert results['polynomial-observation']['transported'] == 4 ** 3
+    assert results['polynomial-observation']['unchanged'] != 4 ** 3
+    return results
+
+
+def run_checks():
+    groups = {name: list(check()) for name, check in CHECKS.items()}
+    supplementary = supplementary_audits()
+    return {'result': 'PASS', 'finite_example_groups': sum(map(len, groups.values())) + len(supplementary),
+            'chapters': groups, 'arithmetic': 'exact rational',
+            'supplementary_audits': sorted(supplementary),
+            'scope': 'Specified finite examples and failure controls; no general theorem or Lean certification.'}
+
+
+if __name__ == '__main__':
+    print(json.dumps(run_checks(), indent=2))

@@ -2,6 +2,11 @@
 
 [Project overview](START_HERE.md) · [Project map](PROJECT_MAP.md) · [All hand-worked examples](HAND_WORKED_EXAMPLES.md)
 
+For a method you can carry between examples, begin with the
+[operator guide](OPERATOR_AUDIT.md). It follows a complete matrix calculation,
+checks a coordinate change, identifies omitted transfers, and tests recovery
+from a summary. Use its checklist alongside any of the studies below.
+
 ## Extended case studies
 
 Follow one object through several representations, transport its operations,
@@ -19,9 +24,10 @@ seed-generation example.
 |---|---|---|
 | [Euler numbers](demonstrations/EULER_PACKETS.md) | Reconstruct a reciprocal sequence through other coordinates. | Packet matrices, quartic reconstruction, polynomial identities, refinement, and exact residual repair. |
 | [Wavelets and polyphase transfer](demonstrations/WAVELET_POLYPHASE.md) | Filter a sixteen-sample signal across four Haar levels. | Exact operator transport, sharp finite stability, cross-scale interactions, and the errors caused by omitted transfers or a changed operation order. |
+| [Smith chart and projector laboratory](demonstrations/SMITH_CHART.md) | Inspect passive RF loads and analytic impedance functions on the reflection disk. | Live Smith chart, exact cyclic impedance packets, parity duality, phase refinement, nonlinearity controls, and finite numerical verification. |
 | [Factorial lanes](demonstrations/FACTORIAL_LANES.md) | Follow one residue section of the exponential. | Reconstruction of 34!, hypergeometric coordinates, reciprocal inversion, a sharpened 5-adic displacement bound, and refinement. |
 | [Quantum phase and measurement](demonstrations/QUANTUM_PHASE_MEASUREMENT.md) | Determine which information a measurement retains. | Exact tomography, a coherence-loss obstruction, reversible records, amplitude damping, and finite syndrome recovery. |
-| [Stirling, Bell and Fubini numbers](demonstrations/STIRLING_BELL_FUBINI.md) | Transfer between counting families and coordinate profiles. | Inverse triangular kernels, generating functions, moment representations, residue transfer, and exact interpolation. |
+| [Stirling, Bell, and Fubini numbers](demonstrations/STIRLING_BELL_FUBINI.md) | Transfer between counting families and coordinate profiles. | Inverse triangular kernels, generating functions, moment representations, residue transfer, and exact interpolation. |
 | [Roots of unity and falling factorials](demonstrations/ROOTS_UNITY_FALLING_FACTORIAL.md) | Move residue projectors into Newton coordinates. | Exact spectral projectors, refinement, translation transfer, and failures caused by filtering in the wrong basis. |
 
 Each study includes hand derivations, failure controls, source links, and exact
@@ -43,7 +49,7 @@ The calculations are not claims of mathematical novelty.
 | Does a summary contain enough information for a question? | [Test recovery from a summary](demonstrations/RECOVERY.md) | Two inputs give the same summary but different requested answers. A compatible question has an exact recovery rule. |
 
 Each page gives the inputs, intermediate steps, expected output, a control that
-exposes a limitation, and links to papers, proofs, Lean coverage and code.
+exposes a limitation, and links to papers, proofs, Lean coverage, and code.
 The [project map](PROJECT_MAP.md) places these introductory examples in the
 wider collection.
 
@@ -64,7 +70,7 @@ normalizes the denominator, and inverts the packet in two equivalent
 coordinate systems. It also proves a sharpened 5-adic displacement bound,
 refines the residue packet into two and five children, and distinguishes the
 congruential transfer row from the classical Euler numbers. A standalone
-checker supplies exact rational results, downloadable code and two explicit
+checker supplies exact rational results, downloadable code, and two explicit
 failure witnesses.
 
 ## An extended derivation with wavelets and polyphase transfer
@@ -79,7 +85,7 @@ The full 16×16 matrix displays inter-scale coupling, while two noncommuting
 operation orders and explicit boundary repairs provide independent failure
 witnesses. Reproducible tables and Python-generated figures complete the example.
 
-## An extended derivation with Stirling, Bell and Fubini numbers
+## An extended derivation with Stirling, Bell, and Fubini numbers
 
 [From set partitions to exact transfer](demonstrations/STIRLING_BELL_FUBINI.md)
 starts with one Stirling-number row, constructs Bell and ordered Bell numbers,
@@ -89,7 +95,7 @@ a Touchard evaluation and Fubini as a gamma or geometric moment, then builds
 full residue transfer systems. Exact interpolation recovers a complete
 parameterized polynomial, while two scalar summaries do not determine an
 arbitrary coordinate profile. Every example has exact Python
-checks, source-bound tables and a Python-generated diagram.
+checks, source-bound tables, and a Python-generated diagram.
 
 ## An extended derivation with roots of unity and falling factorials
 
@@ -126,7 +132,7 @@ and fully dephased arithmetic states.
 
 ## Run in your browser
 
-[Open the Signal Laboratory](https://KomorebiP.github.io/Operation-KOMOREBI/signal-lab.html)
+[Open the Signal Laboratory](https://KomorebiP.github.io/The-Komorebi-Program/signal-lab.html)
 for a larger experiment. Generate or import 16–256 integer samples, add seeded
 noise, and compare Haar wavelets, orthonormal cosine modes, and sample
 coordinates at the same coefficient budget. Compare weighted-energy,
@@ -168,13 +174,13 @@ The reference signal is known in these experiments. The displayed reference
 minimum uses that knowledge; it does not estimate the clean signal behind an
 unknown real-world recording. Cosine calculations are numerical approximations.
 
-[Explore the interactive diagrams](https://KomorebiP.github.io/Operation-KOMOREBI/interactive.html).
+[Explore the interactive diagrams](https://KomorebiP.github.io/The-Komorebi-Program/interactive.html).
 Change matrix entries, keep or omit transfer blocks, refine an eight-sample
 signal, and move inputs along a shared-summary line. The controls update the
 diagrams and exact whole-number results immediately, without writing code.
 Each experiment links back to its hand calculation and sources.
 
-The [Recovery Laboratory](https://KomorebiP.github.io/Operation-KOMOREBI/recovery-lab.html)
+The [Recovery Laboratory](https://KomorebiP.github.io/The-Komorebi-Program/recovery-lab.html)
 extends the shared-summary example to 2–4 input coordinates, up to four
 measurements, and up to three linear questions. Edit integer or rational
 coefficients, disable measurements, and inspect either an exact recovery rule
@@ -190,15 +196,15 @@ those settings. If clipboard access is unavailable, select and copy the link
 shown below the button.
 
 For a deeper experiment, open the
-[16-sample Haar lab](https://KomorebiP.github.io/Operation-KOMOREBI/interactive.html#haar).
+[16-sample Haar lab](https://KomorebiP.github.io/The-Komorebi-Program/interactive.html#haar).
 Decompose a signal through four levels, choose individual coefficients or a
 magnitude cutoff, and inspect the exact reconstruction error and weighted
 energy balance. The [multilevel calculation](demonstrations/HAAR_LAB.md)
 records the default example and its expected results.
 
-[Open the Python playground](https://KomorebiP.github.io/Operation-KOMOREBI/playground.html).
-Choose a demonstration, press Run and compare its output with the hand calculation.
-You can edit the code, stop a calculation and reset the original example.
+[Open the Python playground](https://KomorebiP.github.io/The-Komorebi-Program/playground.html).
+Choose a demonstration, press Run, and compare its output with the hand calculation.
+You can edit the code, stop a calculation, and reset the original example.
 Python loads on the first run; allow extra time for the initial download.
 The playground also includes a tested introductory Komorebi Math example.
 
@@ -213,8 +219,8 @@ Stirling sums. Each includes exact data downloads and source links.
 Use Python 3.10 or later. The program uses only the standard library and exact
 integer arithmetic. It does not need internet access or write files.
 
-[Read the complete program on the site](https://KomorebiP.github.io/Operation-KOMOREBI/read/demonstrations.html)
-or [download komorebi_demonstrations.py](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/komorebi_demonstrations.py).
+[Read the complete program on the site](https://KomorebiP.github.io/The-Komorebi-Program/read/demonstrations.html)
+or [download komorebi_demonstrations.py](https://KomorebiP.github.io/The-Komorebi-Program/downloads/komorebi_demonstrations.py).
 Open a terminal in the folder containing the downloaded file and run:
 
 ```text
@@ -235,13 +241,13 @@ python -B examples/komorebi_demonstrations.py all
 ```
 
 Keep that revision with any saved output. The downloadable program's
-[source record](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/demonstration-source.json)
+[source record](https://KomorebiP.github.io/The-Komorebi-Program/downloads/demonstration-source.json)
 gives its collection revision and SHA-256 checksum. The repository also contains
 the [program source](../examples/komorebi_demonstrations.py).
 
 ## What a passing run establishes
 
-The program checks the displayed fixed matrices, lists and witnesses. Each
+The program checks the displayed fixed matrices, lists, and witnesses. Each
 demonstration explains the mathematical identity or contradiction behind its
 output. Matrix identities can justify statements about every vector in the
 specified finite space. Checking a list of sample vectors alone would not do so.
@@ -253,7 +259,7 @@ prove wider research claims. All software remains beta and work in progress.
 
 ## Continue with the libraries
 
-Use [First runs](FIRST_RUN.md) for installation, supported environments and the
+Use [First runs](FIRST_RUN.md) for installation, supported environments, and the
 introductory Python and C library programs. The demonstrations here are small
 standalone teaching programs. The libraries have their own APIs and tests.
 

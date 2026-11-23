@@ -12,7 +12,7 @@ The broader continuation accompanying the reviewed core volume.
 
 ## Before you start
 
-**Suggested background:** Read the problem statement, recorded scope and open questions first. The program's definitions determine its subject prerequisites.
+**Suggested background:** Read the problem statement, recorded scope, and open questions first. The program's definitions determine its subject prerequisites.
 
 **Recorded results and limits:** The older 74-page continuation retains its historical 23/27 core map. A separate reconstructed editorial edition now supplies all 97 chapters in thirteen parts, 977 pages, and verified editable TeX. The accepted selected-core contract does not certify the expanded book.
 
@@ -26,7 +26,7 @@ Use the links below to read this work and its supporting files. Ctrl+click (Comm
 
 ## Read
 
-- [Reconstructed edition: complete 97-chapter book and editable source](https://KomorebiP.github.io/Operation-KOMOREBI/read/research-machine-native-reasoning-wider/reconstructed-edition.html)
+- [Reconstructed edition: complete 97-chapter book and editable source](https://KomorebiP.github.io/The-Komorebi-Program/read/research-machine-native-reasoning-wider/reconstructed-edition.html)
 - [Edition README](../../research/machine-native-reasoning-wider/README.md)
 - [Read PDF](../../research/machine-native-reasoning-wider/Machine_Native_Reasoning_Reviewed_Continuation.pdf)
 
@@ -54,7 +54,7 @@ Start with the [edition guide](../../research/machine-native-reasoning-wider/REA
 
 ## Code
 
-These links include code, examples, checks, or build tools. Read the [edition guide](../../research/machine-native-reasoning-wider/README.md) for setup instructions and what each command does. All software is beta and work in progress.
+These links include code, examples, checks, or build tools. Read the [edition guide](../../research/machine-native-reasoning-wider/README.md) for setup instructions and an explanation of what each command does. All software is in beta and remains a work in progress.
 
 - [Code / scripts: scripts](../../research/machine-native-reasoning-wider/scripts/)
 

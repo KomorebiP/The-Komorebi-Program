@@ -3,8 +3,8 @@
   "source": "assets/brand/sharing-card.svg",
   "width": 1200,
   "height": 630,
-  "sha256": "0cda54142abcf9cea7e6675587ec195129773b73161684bd1493100369d899a7",
-  "source_sha256": "276cfb583676ce469200f9f7f6ee9e02da67851f903f02c74617d95e80a957c5",
-  "alt": "Komorebi. Read the mathematics. Follow the evidence. Papers, visual guides and worked examples.",
-  "method": "Browser rasterization of the accompanying SVG at 1200 by 630 pixels; existing outlined wordmark, new typographic layout and decorative branching lines."
+  "sha256": "33f87f81729119b6b3310a75202a4b8c6b4b0e3ec8379de3e11821a94e349d6d",
+  "source_sha256": "901b5dd257514ee9a3de5ae48322e5b92fe4c832d97af9fc88350d3bc7711bda",
+  "alt": "The Komorebi Program. Read the mathematics. Follow the evidence. Papers, visual guides, and worked examples.",
+  "method": "SVG rasterization with sharp at 1200 by 630 pixels; existing outlined wordmark, program name, typographic layout and decorative branching lines."
 }

@@ -14,9 +14,9 @@ Cyclic families, sequence constructions, reciprocal structure, and exact methods
 
 **Suggested background:** Begin with the introduction and glossary. Then use the volume's own definitions to identify the background needed for its subject.
 
-**Recorded results and limits:** Proofread reading volumes plus 465 named theorem declarations: 39 inherited finite-core names and 29, 21, 19, 16, 13, 19, 23, 22, 16, 34, 22, 26, 43, 27, 36, 30, 30 in Blocks01 through 17. Registered F.1-F.3, G.1, guarded G.2, named ancillary F, main H.1 and J mathematical evaluation/normalization/finite arrays are complete. J now also has an exact guarded-majorant algorithm specification with explicit resource failures and abstract validation order; successful returns certify actual bounds and endpoints. Full Python runtime/dictionary refinement remains open. Ordinary type convergence is conditional. Other J/F/H, I and A-E remain; no whole-book percentage is established.
+**Recorded results and limits:** The proofread reading volumes are accompanied by 536 registered theorem names: 39 inherited finite-core names and 497 coupled-companion names. Blocks 18 to 20 prove typed evaluation results, a source-bound imperative model equivalent to the specification, and selected arithmetic lowering against a typed expression interpreter. Correctness of the Python implementation remains conditional on AST parsing and extraction, the fixed statement and control-flow template, and the semantics of the standard primitives. No verified general Python compiler or whole-book percentage is claimed. The remaining obligations in groups J, F, H, I, and A through E remain open. Ordinary type convergence remains conditional.
 
-**Remaining work:** Compose typed certified-evaluation metadata, tail and endpoint fields from the proved arrays and guarded majorant, then establish actual Python source/runtime/dictionary refinement with explicit assumptions; retain other J/F/H, I and A-E.
+**Remaining work:** Formalize the remaining statement and control-flow fragment or verify the AST extraction boundary. Retain explicit assumptions about the parser, Python, Fraction, and the libraries, along with the remaining obligations in groups J, F, H, I, and A through E.
 
 The background advice is an editorial starting point. The work itself states its prerequisites and hypotheses.
 
@@ -34,11 +34,13 @@ These introductory calculations lead into this work’s subject. The source and 
 
 [Books, five families, and the coupled-function lab](../SPECIAL_FUNCTIONS.md)
 
+[Guided reading](https://KomorebiP.github.io/The-Komorebi-Program/read/monographs-special-functions/start.html) · [Expanded visual lessons](https://KomorebiP.github.io/The-Komorebi-Program/read/monographs-special-functions/atlas/index.html) · [Interactive coupled-function laboratory](https://KomorebiP.github.io/The-Komorebi-Program/special-functions-lab.html)
+
 Use the links below to read this work and its supporting files. Ctrl+click (Command+click on macOS) opens a link in another tab. Your browser’s Back button returns here.
 
 ## Read
 
-- [Read online: chapters, proof appendices, figures and glossary](https://KomorebiP.github.io/Operation-KOMOREBI/read/monographs-special-functions/index.html)
+- [Read online: chapters, proof appendices, figures, and glossary](https://KomorebiP.github.io/The-Komorebi-Program/read/monographs-special-functions/index.html)
 - [Edition README](../../monographs/special-functions/README.md)
 - [Read PDF](../../monographs/special-functions/books/Special_Functions.pdf)
 - [Expanded Visual Guide (current PDF)](../../monographs/special-functions/books/Expanded_Visual_Guide.pdf)
@@ -60,6 +62,9 @@ Find the statement number or section in the [reading files](#read), then read it
 - [Block17 claim map](../../monographs/special-functions/formalization/Block17/CLAIM_MAP.json)
 - [Block17 recorded execution receipt](../../monographs/special-functions/formalization/Block17/evidence/receipt.json)
 - [Block17 source publication inventory](../../monographs/special-functions/formalization/Block17/SOURCE_MANIFEST.json)
+- [Block20 claim map](../../monographs/special-functions/formalization/Block20/CLAIM_MAP.json)
+- [Block20 recorded replay](../../monographs/special-functions/formalization/Block20/evidence/receipt.json)
+- [Blocks18-20 reader publication inventory](../../monographs/special-functions/formalization/Block20/PUBLICATION_MANIFEST.json)
 
 [Find this work among other written proofs](../browse/PROOFS.md#monographs-special-functions)
 
@@ -70,15 +75,24 @@ Find the statement number or section in the [reading files](#read), then read it
 Start with the [edition guide](../../monographs/special-functions/README.md) and the build instructions below. Check the correspondence records to see which written claims the Lean declarations cover. Source links lead to `.lean` files. PDF guides explain the formalization.
 
 - [Current formalization checkpoint and continuation](../../monographs/special-functions/current/README.md)
-- [Block17 formal coverage and recorded replay](../../monographs/special-functions/formalization/Block17/REPORT.md)
+- [Block20 source-expression scope and recorded replay](../../monographs/special-functions/formalization/Block20/REPORT.md)
 - [Historical Block01 formal status](../../monographs/special-functions/LEAN_STATUS.md)
 - [Block01 recurrence companion report](../../monographs/special-functions/formalization/Block01/REPORT.md)
 - [Finite core and coupled Lean sources (directory)](../../monographs/special-functions/lean/)
-- [Coupled recurrence, local convergence and recovery (Lean)](../../monographs/special-functions/lean/CoupledFormal.lean)
+- [Coupled recurrence, local convergence, and recovery (Lean)](../../monographs/special-functions/lean/CoupledFormal.lean)
 - [Coupled formal claim map](../../monographs/special-functions/formalization/Block01/CLAIM_MAP.json)
 - [Block17 claim map](../../monographs/special-functions/formalization/Block17/CLAIM_MAP.json)
 - [Block17 recorded execution receipt](../../monographs/special-functions/formalization/Block17/evidence/receipt.json)
 - [Block17 source publication inventory](../../monographs/special-functions/formalization/Block17/SOURCE_MANIFEST.json)
+- [Typed evaluation result (Lean)](../../monographs/special-functions/lean/CoupledEvaluationResult.lean)
+- [Source-bound imperative model (Lean)](../../monographs/special-functions/lean/CoupledPythonSource.lean)
+- [Imperative refinement (Lean)](../../monographs/special-functions/lean/CoupledPythonRefinement.lean)
+- [Typed expression interpreter (Lean)](../../monographs/special-functions/lean/CoupledExpressionSemantics.lean)
+- [Source-derived expression data (Lean)](../../monographs/special-functions/lean/CoupledSourceExpressions.lean)
+- [Expression lowering and enclosure composition (Lean)](../../monographs/special-functions/lean/CoupledExpressionRefinement.lean)
+- [Block20 claim map](../../monographs/special-functions/formalization/Block20/CLAIM_MAP.json)
+- [Block20 recorded replay](../../monographs/special-functions/formalization/Block20/evidence/receipt.json)
+- [Blocks18-20 reader publication inventory](../../monographs/special-functions/formalization/Block20/PUBLICATION_MANIFEST.json)
 
 [Find this work among other Lean projects](../browse/LEAN.md#monographs-special-functions)
 
@@ -86,7 +100,7 @@ Start with the [edition guide](../../monographs/special-functions/README.md) and
 
 ## Code
 
-These links include code, examples, checks, or build tools. Read the [edition guide](../../monographs/special-functions/README.md) for setup instructions and what each command does. All software is beta and work in progress.
+These links include code, examples, checks, or build tools. Read the [edition guide](../../monographs/special-functions/README.md) for setup instructions and an explanation of what each command does. All software is in beta and remains a work in progress.
 
 - [Code / scripts: tools](../../monographs/special-functions/tools/)
 - [Exact coupled-function regression (Python)](../../monographs/special-functions/tools/check_coupled_exact.py)
@@ -98,7 +112,7 @@ These links include code, examples, checks, or build tools. Read the [edition gu
 ## Evidence
 
 - [Completion, Lean coverage, confidence, and cited evidence](../STATUS_CATALOG.md#monographs-special-functions)
-- [Latest recorded written review](../SPECIAL_FUNCTIONS_GUARDED_MAJORANT_BLOCK17.md)
+- [Latest recorded written review](../SPECIAL_FUNCTIONS_SOURCE_EXPRESSIONS_BLOCK20.md)
 - [Source-file receipt (identity and availability)](../../manifests/source-imports/monographs-special-functions.json)
 - [All files in this source edition](../../monographs/special-functions/)
 

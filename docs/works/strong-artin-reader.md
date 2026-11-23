@@ -12,9 +12,9 @@ General Strong Artin remains open. Historical checkpoints are separate formal pr
 
 ## Before you start
 
-**Suggested background:** Read the problem statement, recorded scope and open questions first. The program's definitions determine its subject prerequisites.
+**Suggested background:** Read the problem statement, recorded scope, and open questions first. The program's definitions determine its subject prerequisites.
 
-**Recorded results and limits:** Finished evidence reader with retained scoped formal results. The publication records zero fresh Lean invocations and global automorphic attachment remains open.
+**Recorded results and limits:** Finished evidence reader with retained scoped formal results. The publication records no new Lean runs, and global automorphic attachment remains open.
 
 **Remaining work:** Restore the exact runtime and replay the current source, then keep the global carrier-existence input as a separate research obligation.
 
@@ -56,7 +56,7 @@ Start with the [edition guide](../../research/strong-artin-reader/README.md) and
 
 ## Code
 
-These links include code, examples, checks, or build tools. Read the [edition guide](../../research/strong-artin-reader/README.md) for setup instructions and what each command does. All software is beta and work in progress.
+These links include code, examples, checks, or build tools. Read the [edition guide](../../research/strong-artin-reader/README.md) for setup instructions and an explanation of what each command does. All software is in beta and remains a work in progress.
 
 - [Script: build.py](../../research/strong-artin-reader/build.py)
 

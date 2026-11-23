@@ -1,0 +1,89 @@
+import SmithCanonicalRoot
+import SmithGeometry
+import SmithAlgebra
+import SmithSampling
+import SmithSamplingIntegral
+import SmithSamplingInverse
+import SmithExplicitInverse
+import SmithEnergy
+import SmithEnergyIntegral
+import SmithResults
+import SmithExamples
+import SmithBoundaries
+import SmithFiniteSamples
+
+#print axioms SmithChart.residue_hasSum
+#print axioms SmithChart.packet_reconstruction
+#print axioms SmithChart.packet_dyadic_refinement
+#print axioms SmithChart.admittance_inverse
+#print axioms SmithChart.even_admittance_duality
+#print axioms SmithChart.odd_admittance_zero
+#print axioms SmithChart.odd_admittance_nonzero
+#print axioms SmithFourier.phase_average_finite
+#print axioms SmithAnalyticFourier.average_eq_packet
+#print axioms SmithParseval.finite_parseval
+#print axioms SmithParseval.impedance_orbit_parseval
+#print axioms SmithCanonicalRoot.omega_unit_order
+#print axioms SmithCanonicalRoot.canonical_average_eq_packet
+#print axioms SmithCanonicalRoot.canonical_orbit_parseval
+#print axioms SmithGeometry.nonnegative_real_iff_closed_disk
+#print axioms SmithGeometry.right_half_plane_iff_open_disk
+#print axioms SmithGeometry.reflection_impedance
+#print axioms SmithAlgebra.project_idempotent
+#print axioms SmithAlgebra.project_orthogonal
+#print axioms SmithAlgebra.crt_projector
+#print axioms SmithAlgebra.convolution_off_target
+#print axioms SmithSampling.symmetric_weight_algebra
+#print axioms SmithSampling.angular_weight
+#print axioms SmithSampling.equal_mass_minimax
+#print axioms SmithSamplingExistence.equal_mass_partition
+#print axioms SmithPoisson.poisson_trig_integral
+#print axioms SmithPoisson.chart_density_integral
+#print axioms SmithPoisson.chart_cdf_hasDerivAt
+#print axioms SmithPoisson.chart_cdf_strictMono
+#print axioms SmithPoisson.chart_equal_mass_partition
+#print axioms SmithPoisson.chart_density_zero_radius
+#print axioms SmithPoisson.chart_cdf_zero_radius
+#print axioms SmithSamplingInverse.chart_cdf_exists_unique
+#print axioms SmithSamplingInverse.chart_quantile_spec
+#print axioms SmithSamplingInverse.chart_quantile_strictMono
+#print axioms SmithSamplingInverse.chart_cdf_mem_unit
+#print axioms SmithSamplingInverse.chart_quantile_left_inverse
+#print axioms SmithExplicitInverse.principalCdf_hasDerivAt
+#print axioms SmithExplicitInverse.principalCdf_eq_chartCdf
+#print axioms SmithExplicitInverse.chart_cdf_add_pi
+#print axioms SmithExplicitInverse.chart_cdf_half_pi
+#print axioms SmithExplicitInverse.explicit_quantile_spec
+#print axioms SmithExplicitInverse.explicit_quantile_eq_abstract
+#print axioms SmithExplicitInverse.explicit_quantile_zero_radius
+#print axioms SmithEnergy.lane_hasSum
+#print axioms SmithEnergy.coefficient_energy_zero
+#print axioms SmithEnergy.coefficient_energy_nonzero
+#print axioms SmithEnergyIntegral.reciprocal_kernel_mean
+#print axioms SmithEnergyIntegral.impedance_nonzero_angular_energy
+#print axioms SmithEnergyIntegral.impedance_zero_angular_energy
+#print axioms SmithEnergyIntegral.nonzero_angular_eq_coefficient_energy
+#print axioms SmithEnergyIntegral.zero_angular_eq_coefficient_energy
+#print axioms SmithChart.zero_packet_positive_real
+#print axioms SmithChart.nonzero_packet_not_always_passive
+#print axioms SmithExamples.pole_is_totalized_in_lean
+#print axioms SmithExamples.omitted_denominator_can_fake_passivity
+#print axioms SmithExamples.odd_order_is_not_even_duality
+#print axioms SmithExamples.order_one_root_does_not_filter_mod_two
+#print axioms SmithExamples.off_diagonal_terms_are_necessary
+
+#print axioms SmithBoundaries.cyclic_reachable_necessary
+#print axioms SmithBoundaries.cyclic_reachable_iff
+#print axioms SmithBoundaries.zero_start_reachable_iff
+#print axioms SmithBoundaries.quarter_turn_phase_test
+#print axioms SmithBoundaries.quarter_turn_infeasible_order_two
+#print axioms SmithBoundaries.quarter_turn_feasible_order_four
+#print axioms SmithBoundaries.noncoprime_projector_counterexample
+#print axioms SmithBoundaries.two_sample_equal_but_not_identical
+#print axioms SmithBoundaries.second_sample_positive_real
+
+#print axioms SmithFiniteSamples.witness_agrees
+#print axioms SmithFiniteSamples.witness_positive
+#print axioms SmithFiniteSamples.witness_distinct_inside
+#print axioms SmithFiniteSamples.witness_analytic
+#print axioms SmithFiniteSamples.finite_sample_nonuniqueness

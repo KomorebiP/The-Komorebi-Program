@@ -12,9 +12,9 @@ Explicit algebraic Fourier and quotient constructions. Analytic orbit and specia
 
 ## Before you start
 
-**Suggested background:** Read the problem statement, recorded scope and open questions first. The program's definitions determine its subject prerequisites.
+**Suggested background:** Read the problem statement, recorded scope, and open questions first. The program's definitions determine its subject prerequisites.
 
-**Recorded results and limits:** Written algebraic/Fourier reductions and exact checks with floating diagnostics. The gamma-to-class-field equality remains unproved.
+**Recorded results and limits:** Written algebraic/Fourier reductions and exact checks with floating-point diagnostics. The gamma-to-class-field equality remains unproved.
 
 **Remaining work:** Prove the exact special-value comparison. Use directed enclosures for numerical bounds and keep them separate from equality.
 
@@ -46,7 +46,7 @@ No Lean source or guide is linked here. See the Lean status above and the [evide
 
 ## Code
 
-These links include code, examples, checks, or build tools. Read the [reading files](#read) for setup instructions and what each command does. All software is beta and work in progress.
+These links include code, examples, checks, or build tools. Read the [reading files](#read) for setup instructions and an explanation of what each command does. All software is in beta and remains a work in progress.
 
 - [Script: H12_Analytic_Resolvent_Verifier.py](../../research/hilbert12-analytic-fourier/H12_Analytic_Resolvent_Verifier.py)
 

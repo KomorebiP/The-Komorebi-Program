@@ -12,7 +12,7 @@ A finite synthetic semantic-witness construction. The recorded pilot with a real
 
 ## Before you start
 
-**Suggested background:** Read the problem statement, recorded scope and open questions first. The program's definitions determine its subject prerequisites.
+**Suggested background:** Read the problem statement, recorded scope, and open questions first. The program's definitions determine its subject prerequisites.
 
 **Recorded results and limits:** Finite synthetic semantic-witness construction and fake-runtime pilot checks. No external-checkpoint result.
 
@@ -49,7 +49,7 @@ No Lean source or guide is linked here. See the Lean status above and the [evide
 
 ## Code
 
-These links include code, examples, checks, or build tools. Read the [edition guide](../../research/sric-block23-witness/README.md) for setup instructions and what each command does. All software is beta and work in progress.
+These links include code, examples, checks, or build tools. Read the [edition guide](../../research/sric-block23-witness/README.md) for setup instructions and an explanation of what each command does. All software is in beta and remains a work in progress.
 
 - [Code / scripts: block23](../../research/sric-block23-witness/block23/)
 - [Code / scripts: tests](../../research/sric-block23-witness/tests/)

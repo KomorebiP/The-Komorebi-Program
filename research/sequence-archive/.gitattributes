@@ -1,0 +1,2 @@
+# Retain recovered source bytes on every platform.
+* -text !eol

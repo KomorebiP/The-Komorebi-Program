@@ -12,7 +12,7 @@ The B05 valuation-hull continuation and finite formal controls.
 
 ## Before you start
 
-**Suggested background:** Read the problem statement, recorded scope and open questions first. The program's definitions determine its subject prerequisites.
+**Suggested background:** Read the problem statement, recorded scope, and open questions first. The program's definitions determine its subject prerequisites.
 
 **Recorded results and limits:** Checked valuation-hull and structural witness interfaces. SourceWitnessTheorem remains open. No proof or disproof of IUT III Corollary 3.12 or ABC.
 
@@ -51,7 +51,7 @@ Start with the [edition guide](../../research/iut-valuation-hulls/README.md) and
 
 ## Code
 
-These links include code, examples, checks, or build tools. Read the [edition guide](../../research/iut-valuation-hulls/README.md) for setup instructions and what each command does. All software is beta and work in progress.
+These links include code, examples, checks, or build tools. Read the [edition guide](../../research/iut-valuation-hulls/README.md) for setup instructions and an explanation of what each command does. All software is in beta and remains a work in progress.
 
 - [Code / scripts: experiments](../../research/iut-valuation-hulls/experiments/)
 

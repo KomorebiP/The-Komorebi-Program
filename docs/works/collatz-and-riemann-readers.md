@@ -12,11 +12,11 @@ Reader editions, finite results, and research evidence for both programs.
 
 ## Before you start
 
-**Suggested background:** Read the problem statement, recorded scope and open questions first. The program's definitions determine its subject prerequisites.
+**Suggested background:** Read the problem statement, recorded scope, and open questions first. The program's definitions determine its subject prerequisites.
 
-**Recorded results and limits:** Finished reader/visual sets with scoped arguments, exact reductions and finite checks. Both conjectures remain open.
+**Recorded results and limits:** Finished reader/visual sets with scoped arguments, exact reductions, and finite checks. Both conjectures remain open.
 
-**Remaining work:** Track each universal endpoint separately from finite orbit checks, models and conditional reductions.
+**Remaining work:** Track each universal endpoint separately from finite orbit checks, models, and conditional reductions.
 
 The background advice is an editorial starting point. The work itself states its prerequisites and hypotheses.
 
@@ -52,7 +52,7 @@ No Lean source or guide is linked here. See the Lean status above and the [evide
 
 ## Code
 
-These links include code, examples, checks, or build tools. Read the [edition guide](../../research/collatz-and-riemann-readers/README.md) for setup instructions and what each command does. All software is beta and work in progress.
+These links include code, examples, checks, or build tools. Read the [edition guide](../../research/collatz-and-riemann-readers/README.md) for setup instructions and an explanation of what each command does. All software is in beta and remains a work in progress.
 
 - [Script: build.py](../../research/collatz-and-riemann-readers/build.py)
 

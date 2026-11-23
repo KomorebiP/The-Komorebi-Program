@@ -2,12 +2,12 @@
 
 [All demonstrations](../DEMONSTRATIONS.md) · [Project map](../PROJECT_MAP.md#limits-and-repair) · [Glossary: obstruction](../GLOSSARY.md#obstruction)
 
-[Run and edit this example in your browser](https://KomorebiP.github.io/Operation-KOMOREBI/playground.html#recovery)
+[Run and edit this example in your browser](https://KomorebiP.github.io/The-Komorebi-Program/playground.html#recovery)
 
-[Explore the interactive diagram](https://KomorebiP.github.io/Operation-KOMOREBI/interactive.html#recovery)
+[Explore the interactive diagram](https://KomorebiP.github.io/The-Komorebi-Program/interactive.html#recovery)
 to move inputs with the same summary and change the question you want to recover.
 
-[Open the Recovery Laboratory](https://KomorebiP.github.io/Operation-KOMOREBI/recovery-lab.html)
+[Open the Recovery Laboratory](https://KomorebiP.github.io/The-Komorebi-Program/recovery-lab.html)
 to change the measurement matrix itself, ask several questions, inspect exact
 recovery rules or collision witnesses, and repair an insufficient summary.
 Its four-step guided investigation starts with addition, then introduces
@@ -95,10 +95,10 @@ PASS: recovery
 |---|---|
 | Written argument | [The collision argument](../examples/07_OBSTRUCTIONS.md#find-a-collision) and the library's [factorization criterion](https://github.com/KomorebiP/komorebi-math/blob/main/docs/CARRIER_CHANGE_OBSTRUCTIONS.md#factorization-criterion). |
 | Papers and books | [Realization Boundaries](../works/realization-boundaries.md#read) and [Paper III](../works/paper-iii.md#read) develop related questions about compatibility and obstructions. |
-| A further claim | [Paper III's nonlinear refinement defect](https://KomorebiP.github.io/Operation-KOMOREBI/claims.html#paper-iii-def-nonlinear_defect) and [defect under composition](https://KomorebiP.github.io/Operation-KOMOREBI/claims.html#paper-iii-thm-defect_composition_identity) introduce a different, explicitly defined setting. |
-| Written proof of that further claim | [Readable composition theorem and proof](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-iii/nonlinear-coordinates.html#L748). Keep its hypotheses when moving beyond this example. |
+| A further claim | [Paper III's nonlinear refinement defect](https://KomorebiP.github.io/The-Komorebi-Program/claims.html#paper-iii-def-nonlinear_defect) and [defect under composition](https://KomorebiP.github.io/The-Komorebi-Program/claims.html#paper-iii-thm-defect_composition_identity) introduce a different, explicitly defined setting. |
+| Written proof of that further claim | [Readable composition theorem and proof](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-iii/nonlinear-coordinates.html#L748). Keep its hypotheses when moving beyond this example. |
 | Lean | [Paper III coverage](../works/paper-iii.md#lean) and [Realization Boundaries coverage](../works/realization-boundaries.md#lean). No theorem-to-Lean correspondence is asserted for this standalone demonstration. |
-| Program | [Read or download the complete program](https://KomorebiP.github.io/Operation-KOMOREBI/read/demonstrations.html), then explore the [library code and instructions](../works/realization-boundaries.md#code). |
-| More hand calculations | [Kernels and fibers](../examples/10_KERNELS.md), [hidden memory](../examples/22_HIDDEN_MEMORY.md) and [repair directions](../examples/25_REPAIR_MENUS.md). |
+| Program | [Read or download the complete program](https://KomorebiP.github.io/The-Komorebi-Program/read/demonstrations.html), then explore the [library code and instructions](../works/realization-boundaries.md#code). |
+| More hand calculations | [Kernels and fibers](../examples/10_KERNELS.md), [hidden memory](../examples/22_HIDDEN_MEMORY.md), and [repair directions](../examples/25_REPAIR_MENUS.md). |
 
 [Previous: Refine a signal](REFINEMENT.md) · [All demonstrations](../DEMONSTRATIONS.md) · [Project overview](../START_HERE.md)

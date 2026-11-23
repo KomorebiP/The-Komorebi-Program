@@ -12,9 +12,9 @@ Typed systems, finite realization, seed rank, and packet coordinates.
 
 ## Before you start
 
-**Suggested background:** Vectors, matrices, linear maps, kernels and images, and reading a statement with hypotheses. Consult the selected paper for any additional algebra or analysis it uses.
+**Suggested background:** Familiarity with vectors, matrices, linear maps, kernels, and images, plus experience reading statements with hypotheses. Consult the selected paper for any additional algebra or analysis it uses.
 
-**Recorded results and limits:** 69 accepted proof-level correspondences in the stated manuscript scope. 108 correspondence records are not 108 theorems.
+**Recorded results and limits:** The stated manuscript scope has 69 accepted proof-level correspondences. Its 108 correspondence records are not a count of 108 theorems.
 
 **Remaining work:** Maintain the exact statement map and reproduce the pinned formal contract before a changed release.
 
@@ -40,7 +40,7 @@ Use the links below to read this work and its supporting files. Ctrl+click (Comm
 
 ## Read
 
-- [Worked visual atlas: all 22 HTML plates](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-i/atlas/index.html)
+- [Worked visual atlas: all 22 HTML plates](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-i/atlas/index.html)
 - [Edition README](../../papers/paper-i/current/README.md)
 - [Read PDF](../../papers/paper-i/current/papers/Paper_I_Traditional_Final.pdf)
 
@@ -72,7 +72,7 @@ Start with the [edition guide](../../papers/paper-i/current/README.md) and the b
 
 ## Code
 
-These links include code, examples, checks, or build tools. Read the [edition guide](../../papers/paper-i/current/README.md) for setup instructions and what each command does. All software is beta and work in progress.
+These links include code, examples, checks, or build tools. Read the [edition guide](../../papers/paper-i/current/README.md) for setup instructions and an explanation of what each command does. All software is in beta and remains a work in progress.
 
 - [Code / scripts: code/python](../../papers/paper-i/current/code/python/)
 

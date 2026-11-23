@@ -1,6 +1,6 @@
 const assert = require('node:assert/strict');
 const api = require('../website/assets/side-reader-core.js');
-const base = 'https://example.test/Operation-KOMOREBI/';
+const base = 'https://example.test/The-Komorebi-Program/';
 const data = {
   pages: {'read/one.html':'One', 'read/two.html':'Two', 'claims.html':'Claims', 'collection/examples/a.html':'Example'},
   works: [{id:'one',left:'read/one.html',right:'claims.html#one'}, {id:'two',left:'read/two.html',right:'claims.html#two'}],
@@ -13,8 +13,8 @@ const data = {
 assert.equal(api.canonical('read/one.html#L12',base,data.pages),'read/one.html#L12');
 assert.equal(api.canonical(base+'read/one.html?reading-pane=left&q=x#L12',base,data.pages),'read/one.html?q=x#L12');
 for (const value of ['https://evil.test/read/one.html','//evil.test/read/one.html','javascript:alert(1)','data:text/html,x',
-  '../read/one.html','/Operation-KOMOREBI-other/read/one.html','read\\one.html','side-by-side.html','missing.html',
-  'https://name:secret@example.test/Operation-KOMOREBI/read/one.html','read/%ZZ.html','toString','__proto__',null]) {
+  '../read/one.html','/The-Komorebi-Program-other/read/one.html','read\\one.html','side-by-side.html','missing.html',
+  'https://name:secret@example.test/The-Komorebi-Program/read/one.html','read/%ZZ.html','toString','__proto__',null]) {
   assert.equal(api.canonical(value,base,data.pages),null,String(value));
 }
 assert.equal(api.filter(data.entries,'cafe seed rank','one','').length,1);
@@ -60,7 +60,7 @@ assert.deepEqual(api.linkedPair(base+paired,base,data.pages),{left:'read/one.htm
 for (const value of [paired.replace('right=','unknown='),paired+'&left=read/one.html',
   paired.replace('read%2Ftwo.html%23L30','https%3A%2F%2Fevil.test%2F'),
   paired.replace('read%2Ftwo.html%23L30','side-by-side.html'),
-  'https://evil.test/Operation-KOMOREBI/'+paired,'https://name:secret@example.test/Operation-KOMOREBI/'+paired,
+  'https://evil.test/The-Komorebi-Program/'+paired,'https://name:secret@example.test/The-Komorebi-Program/'+paired,
   'read/one.html?left=read/one.html&right=read/two.html']) {
   assert.equal(api.linkedPair(value,base,data.pages),null,value);
 }

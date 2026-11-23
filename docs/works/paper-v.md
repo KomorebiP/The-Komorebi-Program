@@ -12,7 +12,7 @@ Polyphase decomposition, refinement, and signal operations.
 
 ## Before you start
 
-**Suggested background:** Vectors, matrices, linear maps, kernels and images, and reading a statement with hypotheses. Consult the selected paper for any additional algebra or analysis it uses.
+**Suggested background:** Familiarity with vectors, matrices, linear maps, kernels, and images, plus experience reading statements with hypotheses. Consult the selected paper for any additional algebra or analysis it uses.
 
 **Recorded results and limits:** Publication 1.2.0 closes its stated scope. 20 finite formal core results and 225 theorem targets are inherited evidence, separate from the larger manuscript.
 
@@ -35,8 +35,8 @@ Use the links below to read this work and its supporting files. Ctrl+click (Comm
 
 ## Read
 
-- [Read online: chapters, figures and proof links](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-v/index.html)
-- [Worked visual atlas: all 40 HTML plates](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-v/atlas/index.html)
+- [Read online: chapters, figures, and proof links](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-v/index.html)
+- [Worked visual atlas: all 40 HTML plates](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-v/atlas/index.html)
 - [Edition README](../../papers/paper-v/current/README.md)
 - [Read PDF](../../papers/paper-v/current/papers/Paper_V_Traditional_Final.pdf)
 - [Visual guide (PDF)](../../papers/paper-v/current/papers/Paper_V_Visual_Guide_Final.pdf)
@@ -66,7 +66,7 @@ Start with the [edition guide](../../papers/paper-v/current/README.md) and the b
 
 ## Code
 
-These links include code, examples, checks, or build tools. Read the [edition guide](../../papers/paper-v/current/README.md) for setup instructions and what each command does. All software is beta and work in progress.
+These links include code, examples, checks, or build tools. Read the [edition guide](../../papers/paper-v/current/README.md) for setup instructions and an explanation of what each command does. All software is in beta and remains a work in progress.
 
 - [Code / scripts: source/complete/original_snapshot/companion](../../papers/paper-v/current/source/complete/original_snapshot/companion/)
 

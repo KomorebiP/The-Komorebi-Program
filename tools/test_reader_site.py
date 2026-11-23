@@ -15,6 +15,76 @@ from claim_navigation import statements, manuscript_sources, validate_claims, PA
 from readable_chapters import Chapter, expand_math, plain_math, readable_url, original_math, render_table, bibliography, formal_note_labels, manuscript_bibliography, presentation_tex, passage_links, reading_options, chapter_text, validate_monolithic, FOURTH_MAIN, FOURTH_CHAPTERS
 
 
+
+class ClaimDirectoryPageTests(unittest.TestCase):
+    def test_twelve_paper_pages_and_legacy_claim_links(self):
+        import posixpath
+        from claim_navigation import render_claim_index
+
+        records = [
+            dict(id='test-' + wid, work_id=wid, kind='theorem',
+                 title='Statement ' + wid, status='covered' if wid == 'paper-i'
+                 else 'written_statement', scope='Reading location only',
+                 statement_path='papers/test/main.tex', statement_line=3,
+                 proof_line=7 if wid == 'paper-i' else None,
+                 labels=['L-' + wid], lean=([dict(name='proof_test',path='papers/test/proof.lean')]
+                                               if wid == 'paper-i' else []),
+                 search_text='Find this claim')
+            for wid in PAPERS
+        ]
+        components = {wid: dict(
+            title='Paper ' + wid[6:].upper() + ': Example topic',
+            destination='papers/test') for wid in PAPERS}
+        site = SimpleNamespace(
+            claims=dict(records=records, works=[
+                dict(id=wid, mode='correspondence' if wid == 'paper-i'
+                     else 'written_statement') for wid in PAPERS]),
+            components=components,
+            registry=dict(components=[
+                dict(id=wid, resources=[dict(kind='formal_guide', path='guide.md')])
+                for wid in PAPERS]),
+            search=[],
+            rel=lambda target, page: posixpath.relpath(
+                target, posixpath.dirname(page) or '.'))
+        site.reader = SimpleNamespace(
+            resolve=lambda path, page, fragment='': site.rel(
+                'documents/test.tex.html', page) +
+                ('#' + fragment if fragment else ''),
+            primary_pdf=lambda wid: dict(url='documents/test.pdf'))
+        pages = {}
+        site.page = lambda path, title, body: pages.setdefault(path, body)
+        render_claim_index(site)
+
+        self.assertEqual(len(pages), 13)
+        self.assertIn('claims.html', pages)
+        directory = pages['claims.html']
+        self.assertNotIn('<article class="claim"', directory)
+        self.assertEqual(directory.count('class="claim-legacy-link"'), len(records))
+        self.assertIn('action="search.html"', directory)
+        for wid in PAPERS:
+            url = 'claims/' + wid + '.html'
+            body = pages[url]
+            identifier = 'test-' + wid
+            self.assertIn('id="' + identifier + '"', body)
+            self.assertIn('href="../documents/test.tex.html#L3"', body)
+            self.assertIn('href="' + url + '#' + identifier + '"', directory)
+            self.assertEqual(body.count('<article class="claim"'), 1)
+            self.assertIn('id="claim-filters"', body)
+        self.assertIn('side-by-side.html?', pages['claims/paper-i.html'])
+        # Local claims-page links retain their relative ../ prefix.
+        self.assertIn('href="../documents/test.tex.html#L7"', pages['claims/paper-i.html'])
+        direct = [item for item in site.search if item['kind'] == 'Claims']
+        self.assertEqual(len(direct), len(PAPERS))
+        self.assertTrue(all(item['url'].startswith('claims/paper-')
+                            for item in direct))
+        # Site-wide search is rooted at search.html, not the claims directory.
+        proofs = [item for item in site.search if item['kind'] == 'Written proofs']
+        self.assertEqual([item['url'] for item in proofs],
+                         ['documents/test.tex.html#L7'])
+        self.assertTrue(all(not item['url'].startswith('../') for item in site.search))
+        check_search_targets(proofs, {'documents/test.tex.html': SimpleNamespace(ids=['L7'])})
+
+
 def manuscript_table_fixtures(root,work):
     from readable_chapters import BOOKS, manuscript_macros
     config=BOOKS[work]
@@ -40,6 +110,41 @@ def manuscript_table_fixtures(root,work):
             if node['kind'] in {'table','longtable','tabularx'}:yield spec,node,chapter
 
 
+class FinalEditionDownloadTests(unittest.TestCase):
+    def populate(self, root):
+        source = Path(__file__).resolve().parents[1]/'research/sequence-closed-forms/final-edition/v1.0'
+        folder = root/'assets'; folder.mkdir(exist_ok=True)
+        for suffix, name in [('pdf','PAPER.pdf'),('html','PAPER.html'),('md','PAPER.md'),('json','ARTIFACTS.json')]:
+            (folder/('weighted-central-binomial-hankel-v1.0.'+suffix)).write_bytes((source/name).read_bytes())
+
+    def test_frozen_download_is_authenticated_separately_from_site_chrome(self):
+        from check_reader_site import check_final_edition_downloads, FINAL_EDITION_HTML
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory); self.populate(root)
+            report=check_final_edition_downloads(root)
+            self.assertTrue(report['source_hashes_match'])
+            self.assertEqual(report['authenticated_downloads'],3)
+            self.assertEqual(report['static_math_expressions'],638)
+            self.assertEqual(report['url'],FINAL_EDITION_HTML)
+            page=Page((root/FINAL_EDITION_HTML).read_text(encoding='utf-8'))
+            self.assertTrue(page.skip)
+            self.assertEqual(page.navigation,0)
+
+    def test_changed_download_or_receipt_is_rejected(self):
+        from check_reader_site import check_final_edition_downloads
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory)
+            for suffix in ['pdf','html','md','json']:
+                with self.subTest(suffix=suffix):
+                    self.populate(root)
+                    path=root/('assets/weighted-central-binomial-hankel-v1.0.'+suffix)
+                    if suffix=='json':
+                        receipt=json.loads(path.read_bytes()); receipt['edition']='modified'
+                        path.write_text(json.dumps(receipt),encoding='utf-8')
+                    else:path.write_bytes(path.read_bytes()+b'changed')
+                    with self.assertRaises(AssertionError):check_final_edition_downloads(root)
+
+
 class ReaderSiteTests(unittest.TestCase):
     def test_live_special_functions_guidance_uses_current_repository_links(self):
         paths=['monographs/special-functions/current/README.md',
@@ -53,7 +158,7 @@ class ReaderSiteTests(unittest.TestCase):
         reader.owned={p:dict(mode='100644',size=10,work='monographs-special-functions',
                              git_blob_sha1='b'*40,sha256='c'*64,repository_path=p)
                       for p in paths+retained}
-        site=SimpleNamespace(repos={'collection':'KomorebiP/Operation-KOMOREBI'},
+        site=SimpleNamespace(repos={'collection':'KomorebiP/The-Komorebi-Program'},
             revisions={'collection':'a'*40},documents={},reader=reader,
             roots={'collection':Path('.')})
         for path in paths:
@@ -61,7 +166,7 @@ class ReaderSiteTests(unittest.TestCase):
             self.assertIn(path,reader.owned)
             self.assertNotIn(path,reader.records)
             self.assertEqual(Site.resolve(site,'collection','docs/guide.md','collection/guide.html','../'+path),
-                'https://github.com/KomorebiP/Operation-KOMOREBI/blob/'+'a'*40+'/'+path)
+                'https://github.com/KomorebiP/The-Komorebi-Program/blob/'+'a'*40+'/'+path)
         for path in retained:
             self.assertEqual(reader.add(path)['sha256'],'c'*64)
 
@@ -814,19 +919,25 @@ class ReaderSiteTests(unittest.TestCase):
         self.assertIn('PHYSICS_COLLECTION.html', [a['href'] for a in links])
         self.assertIn('../interactive.html', [a['href'] for a in links])
         self.assertIn('../signal-lab.html', [a['href'] for a in links])
+        self.assertIn('../smith-chart.html', [a['href'] for a in links])
         self.assertIn('../recovery-lab.html', [a['href'] for a in links])
         self.assertIn('../j-lab.html', [a['href'] for a in links])
+        self.assertIn('../special-functions-lab.html', [a['href'] for a in links])
         self.assertIn('../reading-list.html', [a['href'] for a in links])
         self.assertIn('../lean/index.html', [a['href'] for a in links])
         self.assertIn('../read/index.html', [a['href'] for a in links])
         self.assertIn('../read/visual-guides.html', [a['href'] for a in links])
         self.assertIn('DEMONSTRATIONS.html#extended-case-studies', [a['href'] for a in links])
+        self.assertIn('OPERATOR_AUDIT.html', [a['href'] for a in links])
         self.assertIn('FUTURE_DEVELOPMENTS.html', [a['href'] for a in links])
-        self.assertEqual(len(links),26)
-        self.assertEqual(len({a['href'] for a in links}),26)
+        self.assertIn('../sequence-library.html', [a['href'] for a in links])
+        self.assertEqual(len(links),30)
+        self.assertEqual(len({a['href'] for a in links}),30)
         self.assertIn('SPECIAL_FUNCTIONS.html', [a['href'] for a in links])
         special=Links(site_navigation('collection/SPECIAL_FUNCTIONS.html')).links
         self.assertEqual([a['href'] for a in special if a.get('aria-current')=='page'], ['SPECIAL_FUNCTIONS.html'])
+        laboratory=Links(site_navigation('special-functions-lab.html')).links
+        self.assertEqual([a['href'] for a in laboratory if a.get('aria-current')=='page'], ['special-functions-lab.html'])
         physics=Links(site_navigation('collection/PHYSICS_COLLECTION.html')).links
         self.assertEqual([a['href'] for a in physics if a.get('aria-current')=='page'], ['PHYSICS_COLLECTION.html'])
         search=Links(site_navigation('search.html')).links
@@ -1217,11 +1328,15 @@ class ReaderSiteTests(unittest.TestCase):
                 if tag=='span':self.row=None
             def handle_data(self,value):
                 if self.row is not None and not self.link:self.row['text']+=value
-        text='  α < β\n\tA&B "x"\n\nlast'
-        parsed=Source();parsed.feed(source_lines(text))
+        text='  α < β\n\tA&B "x" \'y\'\n\nlast'
+        markup=source_lines(text)
+        parsed=Source();parsed.feed(markup)
         self.assertEqual([r['text'] for r in parsed.rows],[' '+line+'\n' for line in text.splitlines()])
         self.assertEqual([r['id'] for r in parsed.rows],['L1','L2','L3','L4'])
         self.assertEqual([(a['href'],a['aria-label']) for a in parsed.links],[('#L'+str(n),'Line '+str(n)) for n in range(1,5)])
+        self.assertIn('A&amp;B "x" \'y\'',markup)
+        self.assertNotIn('&quot;',markup)
+        self.assertNotIn('&#x27;',markup)
 
     def test_source_navigation_bounds_match_real_lines_and_links_have_targets(self):
         for text in ('', 'one\n', 'one\n\nthree'):

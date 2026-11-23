@@ -1,0 +1,445 @@
+// Exact numeric and serialization regressions for Closed Forms calculator.
+// Author: Komorebi P.
+import assert from 'node:assert/strict';
+import {test} from 'node:test';
+import {MODE_LIMITS,MODE_DEFAULTS,binomial,falling,sparseCoefficients,padovanCoefficients,
+  centralBinomialSum,centralBinomialCoefficients,centralBinomialFormulas,
+  fourBlockCoefficients,betaMomentCoefficients,betaHankelCoefficients,
+  polynomialDifferentialMoment,differentialHankel,structuredDifferentialHankel,differentialMomentGeneratingFunction,
+  differentialMomentsFromAlgebraicRecurrence,
+  differentialMomentParityPolynomials,differentialMomentFromParity,differentialMomentParityFormula,
+  centralWeightedMoment,weightedJet,
+  bareissDeterminant,weightedHankel,fourFthreeHankel,meixnerCoefficients,
+  computeExactWindow,exactWindowCSV,exactViewURL,readExactView
+} from '../website/assets/sequence-closed-forms-core.mjs';
+
+function factorial(n){let x=1n;for(let i=2;i<=n;i++)x*=BigInt(i);return x;}
+function rising(r,n){let p=1n;for(let k=0;k<n;k++)p*=BigInt(r+k);return p;}
+function directSparse(n,p,q,r,u,v){
+  let sum=0n;
+  for(let i=0;i<=Math.floor(n/p);i++)for(let j=0;j<=Math.floor(n/q);j++){
+    if(p*i+q*j!==n)continue;
+    const num=rising(r,i+j)*BigInt(u)**BigInt(i)*BigInt(v)**BigInt(j);
+    const den=factorial(i)*factorial(j);
+    assert.equal(num%den,0n);
+    sum+=num/den;
+  }
+  return sum;
+}
+function directJet(n,d,lambda,c){
+  function J(t){
+    if(t<0)return 0n;
+    let sum=0n;
+    for(let m=d;2*m<=t;m++){
+      sum+=binomial(t,2*m)*falling(m,d)*binomial(2*m,m)*BigInt(lambda)**BigInt(t-2*m);
+    }
+    return sum;
+  }
+  return J(n)+BigInt(c)*BigInt(n)*J(n-1);
+}
+test('central binomial sums and both recurrences agree throughout the integer calculator domain',()=>{
+  // All 25 supported integer parameters and every index 0..160.
+  // This reference evaluates the displayed powers and binomial coefficients;
+  // production uses a first-order recurrence checked by a Horner sum.
+  for(let r=-12;r<=12;r++){
+    const values=centralBinomialCoefficients(r,160),R=BigInt(r),B=R*R+1n;
+    for(let n=0;n<=160;n++){
+      let direct=0n;
+      for(let k=0;k<=n;k++)direct+=binomial(n,Math.floor(k/2))*(-R)**BigInt(n-k);
+      assert.equal(values[n],direct,'Defining sum mismatch r='+r+', n='+n);
+      assert.equal(centralBinomialSum(n,r),direct);
+      if(n>=1)assert.equal(R*values[n]+B*values[n-1],
+        (R+1n)*binomial(n-1,Math.floor((n-1)/2)));
+      if(n>=3){
+        const N=BigInt(n);
+        assert.equal(R*N*values[n]+(B*N-2n*R)*values[n-1]
+          -(4n*R*(N-2n)+2n*B)*values[n-2]-4n*B*(N-2n)*values[n-3],0n);
+      }
+    }
+  }
+});
+test('central binomial specializations preserve zeros, signs and exact integer inputs',()=>{
+  const negative=centralBinomialCoefficients(-1,80);
+  const zero=centralBinomialCoefficients(0,80);
+  const one=centralBinomialCoefficients(1,80);
+  for(let n=0;n<=80;n++){
+    assert.equal(negative[n],2n**BigInt(n));
+    assert.equal(zero[n],binomial(n,Math.floor(n/2)));
+    assert.equal(one[n],n%2?0n:binomial(n,n/2));
+  }
+  for(const [r,expected] of [
+    [2,['1','-1','4','-7','22','-46']],
+    [3,['1','-2','8','-24','84','-272']],
+    [4,['1','-3','14','-57','246','-1038','4424','-18777']]
+  ])assert.deepEqual(centralBinomialCoefficients(r,expected.length-1).map(String),expected);
+  const huge=2n**70n;
+  assert.deepEqual(centralBinomialCoefficients(huge,2),[1n,1n-huge,huge*huge-huge+2n]);
+  assert.throws(()=>centralBinomialCoefficients(Number.MAX_SAFE_INTEGER+1,5),/exact integer/);
+  assert.throws(()=>centralBinomialCoefficients(0.5,5),/exact integer/);
+  assert.throws(()=>centralBinomialCoefficients(4,161),/between 0 and 160/);
+  assert.throws(()=>centralBinomialSum(-1,4),/between 0 and 160/);
+});
+test('central binomial windows, formula exports and links retain the calculated parameter',()=>{
+  assert.deepEqual(MODE_LIMITS.central_binomial,{maxIndex:160,maxCount:32});
+  assert.deepEqual(MODE_DEFAULTS.central_binomial,
+    {mode:'central_binomial',start:'0',count:'12',r:'4'});
+  const raw={mode:'central_binomial',start:'144',count:'17',r:'-12'};
+  const report=computeExactWindow(raw);
+  assert.equal(report.rows[0].index,144);assert.equal(report.rows.at(-1).index,160);
+  assert.equal(report.rows.at(-1).value,String(centralBinomialSum(160,-12)));
+  assert.ok(exactWindowCSV(report).includes(report.rows.at(-1).value));
+  assert.deepEqual(readExactView(exactViewURL('https://example.test/sequence-library.html',raw)),raw);
+  assert.equal(report.centralFormulas.parameter,'-12');
+  assert.match(report.centralFormulas.expression,/r = -12\n/);
+  assert.match(report.centralFormulas.expression,/n >= 3/);
+  assert.match(report.centralFormulas.expression,/constant term 1/);
+  assert.equal(report.generatingFunction,undefined,'Moment-specific OGF metadata must stay separate');
+  const zero=computeExactWindow({...raw,start:'0',count:'8',r:'0'});
+  assert.deepEqual(zero.rows.map(row=>row.value),['1','1','2','3','6','10','20','35']);
+  assert.equal(zero.centralFormulas.zeroParameter,true);
+  assert.match(zero.verification,/without division by r/);
+  assert.deepEqual(zero.centralFormulas,centralBinomialFormulas(0));
+  assert.throws(()=>computeExactWindow({...raw,r:'13'}),/between -12 and 12/);
+  assert.throws(()=>computeExactWindow({...raw,r:'0.5'}),/integer/);
+  assert.throws(()=>computeExactWindow({...raw,start:'160',count:'2'}),/last index/);
+});
+test('exact two-delay recurrence matches independent finite compositions',()=>{
+  for(const [p,q,r,u,v] of [
+    [2,3,1,1,1],[2,5,1,1,1],[3,3,3,2,-2],
+    [4,6,2,1,1],[2,5,-3,1,1],[1,2,4,0,2],
+    [2,3,5,-1,0],[1,1,1,2,3],[3,5,-2,3,-4]
+  ]){
+    const values=sparseCoefficients(p,q,r,u,v,30);
+    for(let n=0;n<=30;n++)assert.equal(values[n],directSparse(n,p,q,r,u,v),
+      'sparse mismatch: '+[p,q,r,u,v,n].join(','));
+  }
+  assert.deepEqual(sparseCoefficients(2,5,1,1,1,11).map(String),
+    ['1','0','1','0','1','1','1','2','1','3','2','4']);
+  assert.deepEqual(sparseCoefficients(2,3,-2,1,1,9).map(String),
+    ['1','0','-2','-2','1','2','1','0','0','0']);
+});
+test('Padovan powers reproduce the original and exact convolution squares',()=>{
+  const a=padovanCoefficients(1,24);
+  assert.deepEqual(a.slice(0,12).map(String),['1','0','0','1','0','1','1','1','2','2','3','4']);
+  const squared=padovanCoefficients(2,24);
+  for(let n=0;n<=24;n++){
+    const convolution=Array.from({length:n+1},(_,k)=>a[k]*a[n-k])
+      .reduce((s,v)=>s+v,0n);
+    assert.equal(squared[n],convolution,'Padovan power mismatch n='+n);
+  }
+});
+test('four-block polynomials preserve the offset and known integer coefficients',()=>{
+  assert.deepEqual(fourBlockCoefficients(0,4).slice(1).map(String),
+    ['1','34','11056','14873104']);
+  assert.equal(fourBlockCoefficients(1,2)[1],3n);
+  assert.equal(fourBlockCoefficients(1,2)[2],294n);
+  const row=computeExactWindow({mode:'fourblock',start:'1',count:'4',a:'0'});
+  assert.deepEqual(row.rows.map(x=>x.value),['1','34','11056','14873104']);
+});
+test('unnormalized beta-binomial moments and determinant rank stay exact',()=>{
+  const values=betaMomentCoefficients(4,1,1,8);
+  assert.deepEqual(values.slice(0,4).map(String),['120','240','720','2400']);
+  const h=betaHankelCoefficients(4,1,1,8);
+  assert.equal(h[0],1n);
+  assert.equal(h[1],120n);
+  assert.equal(h[2],28800n);
+  assert.deepEqual(h.slice(6).map(String),['0','0','0']);
+  for(const [L,a,b] of [[0,1,1],[4,1,1],[5,1,2],[6,2,1]]){
+    const moments=betaMomentCoefficients(L,a,b,2*(L+1));
+    const dets=betaHankelCoefficients(L,a,b,L+3);
+    for(let n=0;n<=L+1;n++){
+      const direct=bareissDeterminant(Array.from({length:n},(_,i)=>
+        Array.from({length:n},(_,j)=>moments[i+j])));
+      assert.equal(dets[n],direct,'beta determinant mismatch '+[L,a,b,n]);
+    }
+    assert.equal(dets[L+2],0n);
+  }
+});
+test('weighted jets agree with an independently constructed finite J formula',()=>{
+  for(let d=0;d<=4;d++)for(const lambda of [-2,0,1,3])
+    for(const c of [-2,0,1,2])for(let n=0;n<=22;n++){
+      assert.equal(weightedJet(n,d,lambda,c),directJet(n,d,lambda,c),
+        'weighted mismatch '+[d,lambda,c,n].join(','));
+    }
+  assert.deepEqual(Array.from({length:7},(_,n)=>String(weightedJet(n,0,1,1))),
+    ['1','2','5','16','47','146','447']);
+  assert.deepEqual(Array.from({length:9},(_,n)=>String(weightedJet(n,1,1,1))),
+    ['0','0','2','12','48','200','750','2772','9912']);
+  assert.equal(centralWeightedMoment(1,0,1),1n);
+  assert.equal(centralWeightedMoment(3,1,1),6n);
+});
+test('fraction-free Hankel determinant agrees with terminating 4F3 and known weighted blocks',()=>{
+  assert.equal(bareissDeterminant([]),1n);
+  assert.equal(bareissDeterminant([[0n,1n],[1n,0n]]),-1n);
+  assert.equal(bareissDeterminant([[0n,0n],[0n,0n]]),0n);
+  for(const c of [-2,-1,0,1,2])for(let n=0;n<=10;n++){
+    assert.equal(weightedHankel(n,0,c),fourFthreeHankel(n,c),
+      'Hankel mismatch c='+c+', n='+n);
+  }
+  assert.deepEqual(Array.from({length:9},(_,n)=>String(weightedHankel(n,0,1))),
+    ['1','1','1','-14','-100','56','6112','58304','320448']);
+  assert.deepEqual(Array.from({length:8},(_,n)=>String(weightedHankel(n,1,1))),
+    ['1','0','0','-8','1680','-271488','-2874880','1840174080']);
+  assert.deepEqual(Array.from({length:8},(_,n)=>String(weightedHankel(n,2,1))),
+    ['1','0','0','0','0','248832','-57644421120','-289931282841600']);
+});
+test('finite differential Hankel mode matches independent source values and parity',()=>{
+  const a=[1,1,0,0],c=[1,2,1,0];
+  assert.deepEqual(Array.from({length:6},(_,n)=>String(differentialHankel(n,a,c))),
+    ['1','1','2','-84','-456','52197296']);
+  assert.deepEqual(Array.from({length:10},(_,n)=>String(polynomialDifferentialMoment(n,a,c))),
+    ['1','2','6','24','66','180','620','1120','4830','6300']);
+  const sparse=[0,1,0,0],second=[0,0,2,0];
+  assert.equal(polynomialDifferentialMoment(3,sparse,second),0n);
+  assert.equal(polynomialDifferentialMoment(4,sparse,second),48n);
+  assert.deepEqual(Array.from({length:6},(_,n)=>String(differentialHankel(n,sparse,second))),
+    ['1','0','0','0','0','254803968']);
+  const flipped=[c[0],-c[1],c[2],-c[3]];
+  for(let n=0;n<=8;n++)
+    assert.equal(differentialHankel(n,a,c),differentialHankel(n,a,flipped));
+  const report=computeExactWindow({mode:'differential_hankel',start:'0',count:'5',
+    a0:'1',a1:'1',a2:'0',a3:'0',c0:'1',c1:'2',c2:'1',c3:'0'});
+  assert.deepEqual(report.rows.map(row=>row.value),['1','1','2','-84','-456']);
+  assert.match(report.verification,/separated-block rank/);
+  assert.match(report.verification,/through size 4\./);
+  const shared=exactViewURL('https://example.test/sequence-library.html',{
+    mode:'differential_hankel',start:'0',count:'5',a0:'1',a1:'1',a2:'0',a3:'0',
+    c0:'1',c1:'2',c2:'1',c3:'0'});
+  assert.equal(new URL(shared).searchParams.get('cf-a1'),'1');
+  assert.equal(new URL(shared).searchParams.get('cf-c2'),'1');
+  assert.equal(readExactView(shared).mode,'differential_hankel');
+});
+test('structured Chebyshev Schur prefixes match independent Bareiss at singular and signed inputs',()=>{
+  // 42 parameter pairs, every size 0..12. The defining monomial moments
+  // and fraction-free elimination do not use the Chebyshev generators.
+  for(const a of [[1],[0,1],[1,1],[2,-3,1],[0,0,0,1],[1,0,2,-1],[0]]){
+    for(const c of [[1],[0,1],[1,2,1],[0,0,0,2],[1,0,-2,3],[0]]){
+      const prefix=structuredDifferentialHankel(a,c,12);
+      for(let n=0;n<=12;n++)assert.equal(prefix[n],differentialHankel(n,a,c),
+        'Structured/direct mismatch '+JSON.stringify([a,c,n]));
+    }
+  }
+  // A nonzero first determinant followed by an interior singular minor.
+  const interior=structuredDifferentialHankel([1],[1,2,1],12);
+  assert.equal(interior[1],1n);assert.equal(interior[2],0n);assert.notEqual(interior[3],0n);
+  // Pure odd differentiation needs repeated two-by-two lookahead.
+  const odd=structuredDifferentialHankel([1],[0,1],64);
+  for(let n=1;n<=64;n++)assert.equal(odd[n]===0n,n%2===1);
+});
+test('structured determinant reaches size 64 and agrees with larger direct matrices',()=>{
+  const examples=[
+    [[1,1],[1,2,1]],
+    [[12,-12,12,12],[12,-12,12,-12]],
+    [[0,0,0,1],[0,0,0,2]],
+  ];
+  for(const [a,c] of examples){
+    const prefix=structuredDifferentialHankel(a,c,64);
+    const moments=Array.from({length:127},(_,n)=>polynomialDifferentialMoment(n,a,c));
+    for(const n of [13,24,40,64]){
+      const direct=bareissDeterminant(Array.from({length:n},(_,i)=>
+        Array.from({length:n},(_,j)=>moments[i+j])));
+      assert.equal(prefix[n],direct,'Large independent determinant mismatch '+JSON.stringify([a,c,n]));
+    }
+    const flipped=c.map((value,k)=>k%2?-value:value);
+    assert.deepEqual(structuredDifferentialHankel(a,flipped,32),prefix.slice(0,33));
+  }
+  const raw={mode:'differential_hankel',start:'33',count:'32',
+    a0:'1',a1:'1',a2:'0',a3:'0',c0:'1',c1:'2',c2:'1',c3:'0'};
+  const report=computeExactWindow(raw);
+  assert.equal(MODE_LIMITS.differential_hankel.maxIndex,64);
+  assert.equal(report.rows.length,32);
+  assert.match(report.verification,/through size 12\./);
+  assert.equal(report.rows[0].index,33);assert.equal(report.rows.at(-1).index,64);
+  assert.equal(report.rows.at(-1).value,String(structuredDifferentialHankel([1,1],[1,2,1],64)[64]));
+  assert.deepEqual(readExactView(exactViewURL('https://example.test/sequence-library.html',raw)),raw);
+  assert.ok(exactWindowCSV(report).includes(report.rows.at(-1).value));
+});
+test('structured and algebraic APIs handle empty zero coefficients without rounding or mutation',()=>{
+  for(const [a,c] of [[[],[1]],[[],[]],[[1],[]],[[0,0],[1,2]]]){
+    assert.deepEqual(structuredDifferentialHankel(a,c,64),[1n,...Array(64).fill(0n)]);
+    assert.deepEqual(differentialMomentGeneratingFunction(a,c).numerator,['0']);
+    assert.deepEqual(differentialMomentsFromAlgebraicRecurrence(a,c,8),Array(9).fill(0n));
+  }
+  const a=Object.freeze([1,1,0,0]),c=Object.freeze([1,2,1,0]);
+  assert.equal(structuredDifferentialHankel(a,c,5)[5],52197296n);
+  const huge=2n**70n;
+  assert.deepEqual(structuredDifferentialHankel([huge],[1],3),[1n,huge,2n*huge**2n,4n*huge**3n]);
+  assert.throws(()=>structuredDifferentialHankel([1],[1],65),/between 0 and 64/);
+  assert.throws(()=>structuredDifferentialHankel([1],[1],-1),/between 0 and 64/);
+  assert.throws(()=>structuredDifferentialHankel([1,0,0,0,1],[1],12),/at most 3/);
+  assert.throws(()=>structuredDifferentialHankel([Number.MAX_SAFE_INTEGER+1],[1],2),/exact integers/);
+  assert.throws(()=>differentialMomentGeneratingFunction([Number.MAX_SAFE_INTEGER+1],[1]),/rounding/);
+  assert.throws(()=>differentialMomentGeneratingFunction([0.5],[1]),/integers/);
+});
+test('every finite differential moment OGF matches independent BigInt moment sums',()=>{
+  const sample=differentialMomentGeneratingFunction([1,1],[1,2,1]);
+  assert.deepEqual(sample.numerator,['1','2','-8','-4','52','-16','-24']);
+  assert.equal(sample.twiceExponent,7);
+  assert.equal(sample.degreeBound,6);
+  assert.equal(sample.weightDegree,1);
+  assert.equal(sample.operatorOrder,2);
+  for(const a of [[1],[0,1],[1,1],[2,-3,1],[0,0,1],[1,0,2,-1],[0]]){
+    for(const c of [[1],[0,1],[1,2,1],[0,0,1],[1,0,-2,3],[0]]){
+      const g=differentialMomentGeneratingFunction(a,c);
+      const numerator=g.numerator.map(BigInt),den=[1n],t=BigInt(g.twiceExponent);
+      assert.ok(numerator.length<=g.degreeBound+1);
+      for(let m=1;m<=20;m++){
+        const exact=den[m-1]*2n*(t+2n*BigInt(m)-2n);
+        assert.equal(exact%BigInt(m),0n,'Denominator binomial coefficient failed to be integral');
+        den.push(exact/BigInt(m));
+      }
+      for(let n=0;n<35;n++){
+        let predicted=0n;
+        for(let m=0;m<=Math.floor(n/2);m++){
+          const k=n-2*m;
+          if(k<numerator.length)predicted+=numerator[k]*den[m];
+        }
+        assert.equal(predicted,polynomialDifferentialMoment(n,a,c),
+          'Moment generating function mismatch for '+JSON.stringify([a,c,n]));
+      }
+    }
+  }
+  const moments=computeExactWindow({mode:'differential_moments',start:'0',count:'10',
+    a0:'1',a1:'1',a2:'0',a3:'0',c0:'1',c1:'2',c2:'1',c3:'0'});
+  assert.deepEqual(moments.rows.map(row=>row.value),
+    ['1','2','6','24','66','180','620','1120','4830','6300']);
+  assert.deepEqual(moments.generatingFunction.numerator,sample.numerator);
+  const large=computeExactWindow({mode:'differential_moments',start:'144',count:'17',
+    a0:'1',a1:'1',a2:'0',a3:'0',c0:'1',c1:'2',c2:'1',c3:'0'});
+  assert.equal(large.rows[0].index,144);
+  assert.equal(large.rows.at(-1).index,160);
+  assert.equal(large.rows.length,17);
+  assert.equal(large.rows.at(-1).value,
+    String(polynomialDifferentialMoment(160,[1,1,0,0],[1,2,1,0])));
+  const shared=exactViewURL('https://example.test/sequence-library.html',{
+    mode:'differential_moments',start:'144',count:'17',
+    a0:'1',a1:'1',a2:'0',a3:'0',c0:'1',c1:'2',c2:'1',c3:'0'});
+  assert.equal(readExactView(shared).mode,'differential_moments');
+  assert.equal(new URL(shared).searchParams.get('cf-count'),'17');
+});
+test('parity closed formulas match direct moments at every tested index, including zeros',()=>{
+  const weights=[[],[0],[1],[1,1],[-1,1],[2,-3,1,0,2],[0,0,0,1]];
+  const operators=[[],[0],[1],[0,1],[1,2,1],[0,0,0,0,1],[2,-1,0,3,0,-2,1,-1]];
+  for(const a of weights)for(const c of operators){
+    const polynomials=differentialMomentParityPolynomials(a,c);
+    for(let n=0;n<=80;n++)
+      assert.equal(differentialMomentFromParity(n,a,c,polynomials),polynomialDifferentialMoment(n,a,c),
+        'Parity formula mismatch '+JSON.stringify([a,c,n]));
+    for(let parity=0;parity<2;parity++)for(let m=0;m<40;m++){
+      const at=x=>polynomials[parity].reduceRight((sum,value)=>sum*BigInt(x)+value,0n);
+      const current=polynomialDifferentialMoment(2*m+parity,a,c);
+      const next=polynomialDifferentialMoment(2*m+2+parity,a,c);
+      assert.equal(BigInt(m+1)*at(m)*next,2n*BigInt(2*m+2*parity+1)*at(m+1)*current);
+    }
+  }
+  assert.deepEqual([0,2,4].map(n=>differentialMomentFromParity(n,[-1,1],[1])),[-1n,0n,6n]);
+  const a=Object.freeze([1,1,0,0]),c=Object.freeze([1,2,1,0]);
+  assert.deepEqual(differentialMomentParityPolynomials(a,c),[[1n,1n,0n,1n],[2n,2n]]);
+  assert.deepEqual(differentialMomentParityPolynomials([2n**70n],[1]),[[2n**70n],[0n]]);
+  assert.throws(()=>differentialMomentParityPolynomials([Number.MAX_SAFE_INTEGER+1],[1]),/rounding/);
+  assert.throws(()=>differentialMomentParityPolynomials([0.5],[1]),/integers/);
+  assert.throws(()=>differentialMomentFromParity(-1,a,c),/nonnegative/);
+  const formula=differentialMomentParityFormula(a,c);
+  assert.equal(formula.evenDegree,3);assert.equal(formula.oddDegree,1);
+  assert.deepEqual(formula.even,['1','1','0','1']);assert.deepEqual(formula.odd,['2','2']);
+  assert.match(formula.expression,/binom\(2m,m\) \* \(1 \+ m \+ m\^3\)/);
+  assert.equal(differentialMomentParityFormula([0],[1,2]).evenDegree,null);
+  assert.equal(differentialMomentParityFormula([1],[1]).oddDegree,null);
+  const window=computeExactWindow({mode:'differential_moments',start:'0',count:'10',
+    a0:'1',a1:'1',a2:'0',a3:'0',c0:'1',c1:'2',c2:'1',c3:'0'});
+  assert.deepEqual(window.momentClosedForms,formula);
+});
+test('regularized algebraic recurrence reconstructs exact moments after singular starts',()=>{
+  for(const a of [[1],[0,1],[1,1],[2,-3,1],[0,0,1],[1,0,2,-1],[0]]){
+    for(const c of [[1],[0,1],[1,2,1],[0,0,1],[1,0,-2,3],[0]]){
+      const g=differentialMomentGeneratingFunction(a,c);
+      const reconstructed=differentialMomentsFromAlgebraicRecurrence(a,c,65,g);
+      assert.equal(reconstructed.length,66);
+      const ell=g.initialZeroMoments;
+      if(ell!==null){
+        assert.ok(g.regularizedRecurrenceOrderBound>=0);
+        for(let n=0;n<ell;n++)assert.equal(reconstructed[n],0n);
+        assert.notEqual(reconstructed[ell],0n);
+      }else{
+        assert.ok(reconstructed.every(x=>x===0n));
+      }
+      for(let n=0;n<=65;n++)
+        assert.equal(reconstructed[n],polynomialDifferentialMoment(n,a,c),
+          'Regularized algebraic recurrence mismatch '+JSON.stringify([a,c,n]));
+    }
+  }
+  const singular=differentialMomentGeneratingFunction([0,1],[0,0,1]);
+  assert.equal(singular.initialZeroMoments,4);
+  assert.equal(singular.regularizedRecurrenceOrderBound,4);
+  const vanishes=differentialMomentGeneratingFunction([0],[1,2,3]);
+  assert.equal(vanishes.initialZeroMoments,null);
+  assert.equal(vanishes.regularizedRecurrenceOrderBound,0);
+});
+test('integer Meixner polynomial recurrence retains exact signs and initial values',()=>{
+  assert.deepEqual(meixnerCoefficients(1,2,8).map(String),
+    ['1','2','3','-2','-31','-30','715','2510','-30015']);
+  for(const s of [-2,0,1,5])for(let n=0;n<=28;n++){
+    const positive=meixnerCoefficients(s,3,n)[n];
+    const negative=meixnerCoefficients(s,-3,n)[n];
+    assert.equal(negative,(n%2?-1n:1n)*positive);
+  }
+});
+test('window has correct original indices, exact large numbers and CSV columns',()=>{
+  const sparse=computeExactWindow({mode:'sparse',start:'72',count:'2',
+    p:'1',q:'1',r:'1',u:'12',v:'12'});
+  assert.equal(sparse.rows[0].index,72);
+  assert.equal(sparse.rows[0].value,String(24n**72n));
+  assert.equal(sparse.rows[1].value,String(24n**73n));
+  assert.match(exactWindowCSV(sparse),/family,index,exact_integer,parameters/);
+  assert.ok(exactWindowCSV(sparse).includes(String(24n**72n)));
+  const negative=computeExactWindow({mode:'sparse',start:'0',count:'4',
+    p:'2',q:'3',r:'-2',u:'1',v:'1'});
+  assert.deepEqual(negative.rows.map(x=>x.value),['1','0','-2','-2']);
+  const h=computeExactWindow({mode:'hankel',start:'0',count:'4',d:'0',c:'1'});
+  assert.deepEqual(h.rows.map(x=>x.value),['1','1','1','-14']);
+  assert.match(h.verification,/independent terminating 4F3/);
+  assert.deepEqual(computeExactWindow({mode:'padovan',start:'0',count:'4',h:'1'})
+    .rows.map(x=>x.value),['1','0','0','1']);
+  assert.deepEqual(computeExactWindow({mode:'beta_moments',start:'0',count:'3',L:'4',a:'1',b:'1'})
+    .rows.map(x=>x.value),['120','240','720']);
+  assert.deepEqual(computeExactWindow({mode:'beta_hankel',start:'0',count:'3',L:'4',a:'1',b:'1'})
+    .rows.map(x=>x.value),['1','120','28800']);
+});
+test('shared calculator views restore exact parameters without sending coefficients',()=>{
+  const raw={mode:'jet',start:'4',count:'11',d:'2',lambda:'-1',c:'3'};
+  const link=exactViewURL('https://example.test/sequence-closed-forms.html?q=Hankel#closed-theorems',raw);
+  const url=new URL(link);
+  assert.equal(url.searchParams.get('q'),'Hankel');
+  assert.equal(url.hash,'#closed-calculator-panel');
+  assert.ok(!link.includes('exact_integer'));
+  assert.deepEqual(readExactView(link),raw);
+  assert.equal(readExactView('https://example.test/sequence-closed-forms.html'),null);
+  const duplicate=new URL(link);duplicate.searchParams.append('cf-d','5');
+  assert.throws(()=>readExactView(duplicate.href),/repeated setting/);
+  const unknown=new URL(link);unknown.searchParams.append('cf-out','999');
+  assert.throws(()=>readExactView(unknown.href),/unexpected setting/);
+  assert.throws(()=>readExactView(link.replace('cf-version=1','cf-version=999')),/Unsupported/);
+  assert.equal(exactViewURL(link,raw),link);
+  const four={mode:'fourblock',start:'1',count:'4',a:'-2'};
+  assert.deepEqual(readExactView(exactViewURL('https://example.test/sequence-library.html',four)),four);
+  const sparseView={mode:'sparse',start:'3',count:'4',p:'2',q:'5',r:'1',u:'1',v:'12'};
+  const sparseLink=exactViewURL('https://example.test/sequence-closed-forms.html',sparseView);
+  assert.equal(new URL(sparseLink).searchParams.get('cf-version'),'1');
+  assert.equal(new URL(sparseLink).searchParams.get('cf-v'),'12');
+  assert.deepEqual(readExactView(sparseLink),sparseView);
+});
+test('calculator rejects bounds and malformed integers without numerical rounding',()=>{
+  const base={mode:'sparse',p:'2',q:'3',r:'1',u:'1',v:'1',start:'0',count:'12'};
+  assert.throws(()=>computeExactWindow({...base,p:'0'}),/between 1 and 16/);
+  assert.throws(()=>computeExactWindow({...base,r:'0.5'}),/integer/);
+  assert.throws(()=>computeExactWindow({...base,count:'99'}),/between 1 and 32/);
+  assert.throws(()=>computeExactWindow({...base,start:'90',count:'12'}),/last index/);
+  assert.throws(()=>computeExactWindow({...base,r:'9007199254740993'}),/between/);
+  assert.throws(()=>computeExactWindow({mode:'hankel',start:'10',count:'8',d:'1',c:'1'}),/last index/);
+  assert.throws(()=>computeExactWindow({mode:'unknown',start:0,count:2}),/supported/);
+  assert.throws(()=>computeExactWindow({mode:'fourblock',start:'0',count:'4',a:'0'}),/between 1 and 32/);
+  assert.throws(()=>computeExactWindow({mode:'beta_moments',start:'0',count:'3',L:'4',a:'0',b:'1'}),/Beta shape a/);
+  assert.throws(()=>computeExactWindow({mode:'beta_hankel',start:'0',count:'3',L:'13',a:'1',b:'1'}),/between 0 and 12/);
+  assert.throws(()=>computeExactWindow({mode:'differential_hankel',start:'61',count:'5',
+    a0:'1',a1:'0',a2:'0',a3:'0',c0:'1',c1:'0',c2:'0',c3:'0'}),/last index/);
+});

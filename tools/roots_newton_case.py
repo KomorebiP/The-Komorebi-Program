@@ -139,7 +139,7 @@ def publish(site):
         READER,
         "Roots of unity and falling-factorial coordinates / exact source",
         html + source_lines(program.decode("utf-8")),
-        "https://github.com/KomorebiP/Operation-KOMOREBI/blob/"
+        "https://github.com/KomorebiP/The-Komorebi-Program/blob/"
         + site.revision + "/" + PROGRAM,
     )
     site.search.append(dict(

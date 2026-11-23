@@ -26,7 +26,7 @@ Use the links below to read this work and its supporting files. Ctrl+click (Comm
 
 ## Read
 
-- [Open the interactive J-Space laboratory](https://KomorebiP.github.io/Operation-KOMOREBI/j-lab.html)
+- [Open the interactive J-Space laboratory](https://KomorebiP.github.io/The-Komorebi-Program/j-lab.html)
 - [Edition README](../../experiments/jspace-causal-lab/README.md)
 
 [Back to work navigation](#work-navigation)
@@ -47,7 +47,7 @@ No Lean source or guide is linked here. See the Lean status above and the [evide
 
 ## Code
 
-These links include code, examples, checks, or build tools. Read the [edition guide](../../experiments/jspace-causal-lab/README.md) for setup instructions and what each command does. All software is beta and work in progress.
+These links include code, examples, checks, or build tools. Read the [edition guide](../../experiments/jspace-causal-lab/README.md) for setup instructions and an explanation of what each command does. All software is in beta and remains a work in progress.
 
 - [Code / scripts: runtime](../../experiments/jspace-causal-lab/runtime/)
 

@@ -12,7 +12,7 @@ Exact finite algorithms, compilation, and computational realization.
 
 ## Before you start
 
-**Suggested background:** Vectors, matrices, linear maps, kernels and images, and reading a statement with hypotheses. Consult the selected paper for any additional algebra or analysis it uses.
+**Suggested background:** Familiarity with vectors, matrices, linear maps, kernels, and images, plus experience reading statements with hypotheses. Consult the selected paper for any additional algebra or analysis it uses.
 
 **Recorded results and limits:** Internal publication release is complete. The inherited finite formal contract excludes numerical QR/SVD and canonical singular-value API identification. GPU execution was not performed.
 
@@ -32,8 +32,8 @@ Use the links below to read this work and its supporting files. Ctrl+click (Comm
 
 ## Read
 
-- [Read online: manuscript, six appendices and figures](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-viii/index.html)
-- [Worked visual atlas: all 32 HTML plates](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-viii/atlas/index.html)
+- [Read online: manuscript, six appendices, and figures](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-viii/index.html)
+- [Worked visual atlas: all 32 HTML plates](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-viii/atlas/index.html)
 - [Edition README](../../papers/paper-viii/current/README.md)
 - [Read PDF](../../papers/paper-viii/current/papers/Paper_VIII_Traditional_Final.pdf)
 - [Visual guide (PDF)](../../papers/paper-viii/current/papers/Paper_VIII_Visual_Guide_Final.pdf)
@@ -63,7 +63,7 @@ Start with the [edition guide](../../papers/paper-viii/current/README.md) and th
 
 ## Code
 
-These links include code, examples, checks, or build tools. Read the [edition guide](../../papers/paper-viii/current/README.md) for setup instructions and what each command does. All software is beta and work in progress.
+These links include code, examples, checks, or build tools. Read the [edition guide](../../papers/paper-viii/current/README.md) for setup instructions and an explanation of what each command does. All software is in beta and remains a work in progress.
 
 - [Code / scripts: source/complete/Paper_VIII_Complete_v0.6.0_With_Visual_Appendix/original_companion/legacy](../../papers/paper-viii/current/source/complete/Paper_VIII_Complete_v0.6.0_With_Visual_Appendix/original_companion/legacy/)
 

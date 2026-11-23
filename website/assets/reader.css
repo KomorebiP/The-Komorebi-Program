@@ -35,6 +35,43 @@
 @media(max-width:540px){.glossary-lookup{padding:1rem}.glossary-actions button{flex:1 0 100%}}
 @media print{.glossary-lookup{display:none}}
 
+/* Subject browsing and full-content term slides share one reference. */
+.glossary-page{max-width:100%}.glossary-intro{font-size:1.15rem;max-width:65ch}
+.glossary-search,.glossary-guide{border-block:1px solid var(--line);margin:1.5rem 0;padding:.7rem 0}.glossary-search>summary,.glossary-guide>summary,.glossary-term-index>summary{cursor:pointer;font-weight:650;min-height:44px;padding:.4rem 0}.glossary-search .glossary-lookup{margin:.5rem 0}.glossary-guide>*:not(summary){max-width:78ch}
+.glossary-section-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr));gap:1rem;margin:1rem 0 2.5rem}.glossary-section-card{display:flex;flex-direction:column;gap:.65rem;padding:1.25rem;border:1px solid var(--line);border-radius:.4rem;background:var(--surface);text-decoration:none;color:var(--ink)}.glossary-section-card:hover{border-color:var(--green);background:var(--sage-surface)}.glossary-section-card strong{font:500 1.5rem/1.3 Georgia,serif}.glossary-section-card>span:last-child{font-size:.95rem}.glossary-section-number{font-size:.8rem;font-weight:650;letter-spacing:.04em;color:var(--muted)}
+.glossary-controls{display:flex;flex-wrap:wrap;gap:.8rem 1.5rem;align-items:end;border-block:1px solid var(--line);padding:.8rem 0;margin:1.2rem 0;background:var(--paper)}.glossary-section-picker{flex:1 1 19rem;min-width:0}.glossary-controls label,.glossary-term-picker label{margin:0 0 .3rem}.glossary-controls select,.glossary-term-picker select{width:100%;max-width:100%;min-width:0}.glossary-view{display:flex;gap:.4rem;border:0;margin:0;padding:0;min-width:0}.glossary-view legend{font-size:.9rem;font-weight:650;padding:0 0 .3rem}.glossary-view button{background:var(--surface);color:var(--green);min-width:5.6rem;margin:0}.glossary-view button[aria-pressed=true]{background:var(--green);color:white}.glossary-ready .glossary-controls{position:sticky;top:0;z-index:4}
+.glossary-panels,.glossary-reading-controls,.glossary-step-controls{max-width:78ch;margin-inline:auto}.glossary-reading-controls{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:end;gap:.8rem 1.5rem;margin-block:1.5rem .5rem}.glossary-reading-controls>a{display:inline-block;min-height:44px;padding:.5rem 0}.glossary-term-picker{min-width:0}.glossary-reading-controls p{grid-column:1/-1;margin:.25rem 0;font-size:.9rem;color:var(--muted)}.glossary-step-controls{display:flex;justify-content:space-between;gap:.7rem;margin-block:.8rem 1.5rem}.glossary-step-controls button{margin:0}.glossary-panel{max-width:100%}.glossary-term{border-top:1px solid var(--line);padding:.5rem 0 1.5rem;max-width:100%}.glossary-term-index{margin:1rem 0}.glossary-ready .glossary-panel h2,.glossary-ready .glossary-term h3{scroll-margin-top:8rem}
+.glossary-ready[data-view=slides] .glossary-term{padding:1.3rem 1.6rem;border:1px solid var(--line);border-top:4px solid var(--green);border-radius:.4rem;background:var(--surface)}.glossary-ready[data-view=slides] .glossary-term h3{font:500 clamp(1.6rem,4vw,2.3rem)/1.25 Georgia,serif;margin:.3rem 0 1rem}.glossary-ready[data-view=slides] .glossary-term-index{display:none}
+#glossary-controls[hidden],#glossary-overview[hidden],#glossary-panels[hidden],#glossary-reading-controls[hidden],.glossary-step-controls[hidden],.glossary-panel[hidden],.glossary-term[hidden]{display:none}
+@media(max-width:540px){.glossary-reading-controls{grid-template-columns:1fr}.glossary-reading-controls p{grid-column:1}.glossary-controls{gap:.7rem}.glossary-section-picker{flex-basis:100%}.glossary-view{width:100%}.glossary-view button{flex:1}.glossary-step-controls button{flex:1;padding:.6rem .55rem;font-size:.95rem}.glossary-ready[data-view=slides] .glossary-term{padding:1rem}.glossary-ready .glossary-panel h2,.glossary-ready .glossary-term h3{scroll-margin-top:12rem}}
+@media(max-height:600px){.glossary-ready .glossary-controls{position:static}.glossary-ready .glossary-panel h2,.glossary-ready .glossary-term h3{scroll-margin-top:1rem}}
+@media print{.glossary-controls,.glossary-search,.glossary-step-controls,.glossary-reading-controls,.glossary-section-grid{display:none!important}#glossary-panels[hidden],.glossary-panel[hidden],.glossary-term[hidden]{display:block!important}.glossary-ready[data-view=slides] .glossary-term{padding:0;border:0;background:transparent}.glossary-term{break-inside:auto}}
+
+/* Optional lookup over the static operator catalog. */
+.operator-catalog-lookup{margin:1.5rem 0;padding:1rem 1.25rem;border:1px solid var(--line);border-radius:.3rem;background:var(--surface)}
+.operator-catalog-lookup h2{margin-top:0}
+#operator-catalog-form{display:grid;gap:.85rem;max-width:52rem}
+#operator-catalog-form label{display:block;font-weight:650;margin:0 0 .35rem}
+#operator-catalog-form input,#operator-catalog-form select{box-sizing:border-box;width:100%;max-width:100%;min-width:0;min-height:44px;font:inherit;padding:.55rem;border:1px solid var(--control-edge);border-radius:.25rem;background:var(--paper);color:inherit}
+.operator-catalog-filters{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:.85rem}
+.operator-catalog-filters>div{min-width:0}
+.operator-catalog-actions{display:flex;flex-wrap:wrap;gap:.7rem}
+.operator-catalog-actions button{margin:0;min-height:44px}
+#operator-catalog-evidence-help{font-size:.88rem;color:var(--muted);margin:0;max-width:72ch}
+#operator-catalog-status{color:var(--muted);margin:.85rem 0 0}
+#operator-catalog-results{list-style:none;padding:0;margin:0}
+#operator-catalog-results>li{padding:.9rem 0;border-top:1px solid var(--line);scroll-margin-top:1rem;overflow-wrap:anywhere}
+#operator-catalog-results>li:target{border-left:3px solid var(--focus);padding-left:.85rem}
+#operator-catalog-results h4{font-size:1.12rem;line-height:1.5;margin:0}
+#operator-catalog-results h4 a{display:inline-block;min-height:44px;padding:.35rem 0}
+.operator-catalog-id{font-family:ui-monospace,Consolas,monospace;font-size:.8em;font-weight:500;white-space:nowrap}
+#operator-catalog-results p{margin:.35rem 0;max-width:78ch}
+.operator-catalog-family,.operator-catalog-evidence{font-size:.86rem;color:var(--muted)}
+#operator-catalog-results-title{scroll-margin-top:1rem}
+@media(max-width:640px){.operator-catalog-filters{grid-template-columns:minmax(0,1fr)}.operator-catalog-lookup{padding:1rem}.operator-catalog-actions button{flex:1 0 auto}}
+@media(max-width:360px){.operator-catalog-actions button{flex-basis:100%}}
+@media print{.operator-catalog-lookup{display:none}}
+
 /* Notation is readable as a static reference. Search and math display enhance it. */
 #notation-search,.notation-filter{display:grid;grid-template-columns:minmax(0,1fr);gap:.65rem;max-width:52rem;margin:2rem 0;padding:1.3rem;border:1px solid var(--line);border-radius:.6rem}
 #notation-search input:not([type=checkbox]),#notation-search select,.notation-filter input,.notation-filter select{width:100%;min-width:0;min-height:2.8rem;font:inherit;padding:.55rem;border:1px solid var(--control-edge);border-radius:.25rem;background:var(--paper);color:inherit}
@@ -144,6 +181,8 @@ h1,h2,h3,h4{overflow-wrap:anywhere}
 /* Inline formulas keep their full scale inside the available reading width. */
 span.arithmatex{display:inline-block;max-width:100%;vertical-align:middle;overflow-x:auto;overflow-y:hidden;padding:.15em .05em}
 span.arithmatex mjx-container svg{max-width:none}
+/* Keep clipped assistive MathML from widening an otherwise fitting equation. */
+span.arithmatex mjx-assistive-mml{width:1px!important;height:1px!important;overflow:hidden!important}
 span.arithmatex.math-fits{overflow:visible}
 span.arithmatex.math-overflow{border-bottom:1px dashed var(--green)}
 @media print{span.arithmatex{display:inline;max-width:none;overflow:visible;padding:0}span.arithmatex.math-overflow{border-bottom:0}}
@@ -221,3 +260,79 @@ article div.arithmatex mjx-container svg{max-width:none}
 .reading-bibliography dd { overflow-wrap:anywhere; }
 .reading-bibliography h2 { overflow-wrap:anywhere; }
 .readable-chapter .equation-number { display:block; text-align:right; color:var(--muted); font-size:.9rem; margin:.15rem 0 .6rem; }
+/* Claims: paper overview, compact records and page controls. */
+.claim-intro{max-width:82ch}.claim-intro .lede{font-size:1.1rem;line-height:1.7}
+.claim-index-scope{max-width:76ch;border-block:1px solid var(--line);padding:.45rem 0;margin:1rem 0 1.7rem}
+.claim-index-scope>summary,.claim-paper-tools>summary{cursor:pointer;font-weight:650;min-height:44px;padding:.55rem 0}
+.claim-index-scope p{margin:.4rem 0 1rem;font-size:.95rem}
+.claim-paper-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem;margin:1rem 0 2rem}
+.claim-paper-grid a{display:flex;flex-direction:column;gap:.45rem;min-width:0;min-height:105px;text-decoration:none;color:var(--ink);padding:.85rem 1rem;border-radius:.4rem}
+.claim-paper-grid a:hover,.claim-paper-grid a.is-active{border-color:var(--green);background:var(--sage-surface)}
+.claim-paper-top{display:flex;align-items:baseline;justify-content:space-between;gap:.5rem;flex-wrap:wrap;font-size:.9rem}
+.claim-paper-top strong{color:var(--ink)}.claim-paper-top>span{color:var(--muted);font-size:.82rem}
+.claim-paper-title{font-size:.9rem;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.claim-browser{margin:1.5rem 0 1rem;scroll-margin-top:1rem}.claim-browser>h2{margin:.3rem 0 .8rem}
+.claim-filter-grid{width:100%;max-width:none;display:grid;grid-template-columns:minmax(17rem,2fr) repeat(3,minmax(9rem,1fr));gap:.7rem 1rem;align-items:start;padding:1.1rem 1.2rem}
+.claim-filter-grid>div{min-width:0}.claim-filter-grid label{font-size:.9rem;margin:0 0 .25rem}
+.claim-filter-grid input,.claim-filter-grid select{width:100%;max-width:none;min-width:0;min-height:44px}
+.claim-filter-grid .status{margin:.35rem 0 0;font-size:.8rem}
+.claim-filter-grid .claim-clear{grid-column:1/-1;justify-self:start;margin:.15rem 0 0;font-size:.9rem;padding:.45rem .8rem;min-height:42px}
+#claim-count{font-size:.95rem;font-weight:600;max-width:none;margin:.9rem 0}
+.claim-pager{display:flex;align-items:center;justify-content:flex-start;flex-wrap:wrap;gap:.8rem;padding:.6rem 0;margin:.4rem 0 1rem}
+.claim-pager button{background:var(--surface);color:var(--green);padding:.4rem .8rem;min-width:7rem;min-height:42px;font-size:.92rem;border:1px solid var(--green);margin:0}
+.claim-pager button:hover:not(:disabled){background:var(--sage-surface);color:var(--ink)}
+.claim-pager button:disabled{opacity:.46}.claim-pager [data-claim-page-status]{font-size:.9rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.claim-section{max-width:72rem;margin:1.2rem 0 2rem}.claim-section>h2{font-size:1.4rem;line-height:1.35;margin:.8rem 0 .2rem}
+.claim-section>p{margin:.25rem 0 .7rem;font-size:.9rem;color:var(--muted)}
+.claim-paper-tools{background:var(--surface);border:1px solid var(--line);border-radius:.35rem;padding:.15rem 1rem;margin:.7rem 0 1rem}
+.claim-paper-tools .document-routes{margin:.4rem 0;padding:.6rem 0}.claim-paper-tools p{margin:.5rem 0 .9rem}
+.claim-section .claim{border:0;padding:0;margin:.55rem 0;max-width:none;scroll-margin-top:1.2rem}
+.claim-record{border:1px solid var(--line);border-radius:.4rem;background:var(--surface)}
+.claim-record[open]{border-color:var(--green);box-shadow:0 2px 8px #2037280a}
+.claim-record>summary{position:relative;display:block;list-style:none;cursor:pointer;min-height:70px;padding:.85rem 3rem .85rem 1.1rem}
+.claim-record>summary::-webkit-details-marker{display:none}
+.claim-record>summary::after{content:"+";position:absolute;right:1rem;top:.78rem;color:var(--green);font-size:1.35rem;font-weight:500}
+.claim-record[open]>summary::after{content:"−"}
+.claim-record>summary:hover{background:var(--sage-surface)}
+.claim-title{display:block;max-width:85ch;color:var(--ink);font-size:1.04rem;line-height:1.4;font-weight:650}
+.claim-meta{display:block;color:var(--muted);font-size:.82rem;line-height:1.5;margin-top:.27rem;overflow-wrap:anywhere}
+.claim-body{border-top:1px solid var(--line);padding:.7rem 1.2rem 1.1rem;max-width:90ch}
+.claim-body>p{margin:.55rem 0;max-width:none}.claim-record-id{font-size:.88rem}
+.claim-body details{border-top:1px solid var(--line);padding-top:.25rem}
+.claim-body li{margin-bottom:.3rem}.claim-return{margin-top:1rem!important;font-size:.85rem}
+.claim:target .claim-record{border-color:var(--focus);outline:2px solid var(--focus);outline-offset:2px}
+@media(max-width:1100px){.claim-filter-grid{grid-template-columns:minmax(14rem,2fr) repeat(2,minmax(9rem,1fr))}.claim-filter-grid .claim-filter-query{grid-column:1/-1}}
+@media(max-width:760px){.claim-paper-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.claim-filter-grid{grid-template-columns:repeat(2,minmax(0,1fr));padding:.85rem}.claim-filter-grid .claim-filter-query{grid-column:1/-1}.claim-paper-grid a{padding:.7rem;min-height:110px}.claim-paper-top{display:block}.claim-paper-top>span{display:block}}
+@media(max-width:480px){.claim-filter-grid{grid-template-columns:1fr}.claim-filter-grid .claim-filter-query{grid-column:1}.claim-paper-grid{gap:.5rem}.claim-paper-grid a{min-height:118px;padding:.6rem}.claim-paper-title{font-size:.84rem}.claim-pager{justify-content:space-between;gap:.4rem}.claim-pager button{min-width:5.8rem;padding:.4rem}.claim-record>summary{padding:.8rem 2.4rem .8rem .8rem}.claim-body{padding:.65rem .85rem}}
+@media print{.claim-pager,.claim-paper-grid,.claim-browser,.claim-paper-tools,.claim-return{display:none!important}.claim-section[hidden],.claim[hidden]{display:block!important}.claim-record{break-inside:avoid}.claim-section{break-inside:auto}}
+
+/* Standalone paper claim directories and the compact parent index. */
+.claim-directory-search{max-width:62rem;margin:1.5rem 0 2rem;padding:1.2rem 1.4rem;border:1px solid var(--line);border-radius:.4rem;background:var(--surface)}
+.claim-directory-search h2{margin:0 0 .65rem}.claim-directory-search label{margin:.1rem 0 .4rem}
+.claim-search-row{display:flex;align-items:stretch;gap:.7rem;flex-wrap:wrap}
+.claim-search-row input[type=search]{flex:1 1 17rem;max-width:none;min-width:0}
+.claim-search-row button{flex:0 0 auto;margin:0;white-space:nowrap}
+.claim-directory-search .status{margin:.7rem 0 0}
+.claim-legacy-index{max-width:72rem;margin:2rem 0;padding:1rem 1.2rem;border:1px solid var(--line);border-radius:.4rem;background:var(--surface)}
+.claim-legacy-index>summary{cursor:pointer;min-height:44px;font-weight:650;padding:.4rem 0}
+.claim-legacy-index p{font-size:.92rem;margin:.4rem 0 .8rem}
+.claim-legacy-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.3rem 1rem;max-height:26rem;overflow-y:auto;overscroll-behavior:contain}
+.claim-legacy-link{display:block;min-width:0;overflow-wrap:anywhere;padding:.25rem 0;border-bottom:1px solid var(--line);font-size:.87rem}
+.claim-legacy-link:target{background:#fff0ad;outline:2px solid var(--focus);scroll-margin-top:1rem}
+.claim-paper-breadcrumb{margin:.5rem 0 1rem;font-size:.92rem}
+.claim-paper-heading{max-width:80ch}.claim-paper-heading h1{font-size:clamp(1.9rem,4.5vw,3rem);margin:.35rem 0 .8rem}
+.claim-paper-heading>p:last-child{color:var(--muted);max-width:75ch}
+.claim-paper-neighbors{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.7rem;margin:1.2rem 0}
+.claim-paper-neighbors a{display:inline-block;min-height:44px;padding:.5rem .8rem;background:var(--surface);border:1px solid var(--line);border-radius:.3rem;text-decoration:none}
+.claim-paper-neighbors a:hover{border-color:var(--green);background:var(--sage-surface)}
+.claim-paper-filters{grid-template-columns:minmax(14rem,2fr) repeat(2,minmax(9rem,1fr))}
+.claim-paper-filters .claim-filter-query{grid-column:auto}
+.claim-paper-footer{margin:1.5rem 0;font-size:.93rem}
+@media(max-width:1000px){.claim-paper-filters{grid-template-columns:repeat(2,minmax(0,1fr))}.claim-paper-filters .claim-filter-query{grid-column:1/-1}}
+@media(max-width:560px){.claim-paper-filters{grid-template-columns:1fr}.claim-paper-filters .claim-filter-query{grid-column:1}.claim-search-row button{width:100%}.claim-legacy-grid{grid-template-columns:1fr}.claim-directory-search{padding:.9rem}.claim-legacy-index{padding:.85rem}}
+@media print{.claim-directory-search,.claim-legacy-index,.claim-paper-neighbors{display:none!important}.claim-paper-heading{break-after:avoid}}
+
+/* Keyboard-visible affordance for wide block equations, including Markdown math. */
+div.arithmatex.math-overflow{border-bottom:1px dashed var(--green)}
+div.arithmatex.math-overflow:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+@media print{div.arithmatex.math-overflow{border-bottom:0;outline:0}}

@@ -12,11 +12,11 @@ Nonlinear constructions, compatibility, and explicit obstructions.
 
 ## Before you start
 
-**Suggested background:** Vectors, matrices, linear maps, kernels and images, and reading a statement with hypotheses. Consult the selected paper for any additional algebra or analysis it uses.
+**Suggested background:** Familiarity with vectors, matrices, linear maps, kernels, and images, plus experience reading statements with hypotheses. Consult the selected paper for any additional algebra or analysis it uses.
 
-**Recorded results and limits:** Technical reading release is complete. The accepted 16-module core does not cover the expanded monograph. The historical full-coverage count is uncertified.
+**Recorded results and limits:** The technical reading edition is complete. The accepted 16-module core does not cover the expanded monograph. The historical full-coverage count remains uncertified.
 
-**Remaining work:** Map the expanded packet-Taylor, Stirling/Touchard and later corollaries to explicit missing formal obligations.
+**Remaining work:** Map the expanded packet-Taylor, Stirling/Touchard, and later corollaries to explicit missing formal obligations.
 
 The background advice is an editorial starting point. The work itself states its prerequisites and hypotheses.
 
@@ -35,7 +35,7 @@ Use the links below to read this work and its supporting files. Ctrl+click (Comm
 
 ## Read
 
-- [Worked visual atlas: all 24 HTML plates](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-iii/atlas/index.html)
+- [Worked visual atlas: all 24 HTML plates](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-iii/atlas/index.html)
 - [Edition README](../../papers/paper-iii/current/README.md)
 - [Read PDF](../../papers/paper-iii/current/publication/Paper_III_Final_v1.0.0.pdf)
 - [Visual guide (PDF)](../../papers/paper-iii/current/publication/Paper_III_Visual_Guide_v1.0.0.pdf)
@@ -67,7 +67,7 @@ Start with the [edition guide](../../papers/paper-iii/current/README.md) and the
 
 ## Code
 
-These links include code, examples, checks, or build tools. Read the [edition guide](../../papers/paper-iii/current/README.md) for setup instructions and what each command does. All software is beta and work in progress.
+These links include code, examples, checks, or build tools. Read the [edition guide](../../papers/paper-iii/current/README.md) for setup instructions and an explanation of what each command does. All software is in beta and remains a work in progress.
 
 - [Code / scripts: tools](../../papers/paper-iii/current/tools/)
 

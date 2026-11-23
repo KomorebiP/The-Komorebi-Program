@@ -12,7 +12,7 @@ A scalar binary backend and its normalization development.
 
 ## Before you start
 
-**Suggested background:** Read the problem statement, recorded scope and open questions first. The program's definitions determine its subject prerequisites.
+**Suggested background:** Read the problem statement, recorded scope, and open questions first. The program's definitions determine its subject prerequisites.
 
 **Recorded results and limits:** Verified scalar binary backend and finite discovery fixtures. End-to-end discovery bit-cost lowering remains open.
 
@@ -50,7 +50,7 @@ Start with the [edition guide](../../research/model-theory-normalization/README.
 
 ## Code
 
-These links include code, examples, checks, or build tools. Read the [edition guide](../../research/model-theory-normalization/README.md) for setup instructions and what each command does. All software is beta and work in progress.
+These links include code, examples, checks, or build tools. Read the [edition guide](../../research/model-theory-normalization/README.md) for setup instructions and an explanation of what each command does. All software is in beta and remains a work in progress.
 
 - [Code / scripts: checks](../../research/model-theory-normalization/checks/)
 

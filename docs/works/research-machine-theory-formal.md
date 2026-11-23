@@ -12,7 +12,7 @@ The Block 15 Lean development for machine-theory structures.
 
 ## Before you start
 
-**Suggested background:** Read the problem statement, recorded scope and open questions first. The program's definitions determine its subject prerequisites.
+**Suggested background:** Read the problem statement, recorded scope, and open questions first. The program's definitions determine its subject prerequisites.
 
 **Recorded results and limits:** Earlier Block 15 checkpoint covers 23/27 selected results. The later Reviewed Mathematical Core admission covers 27/27 in a different source edition.
 
@@ -53,7 +53,7 @@ Start with the [edition guide](../../research/machine-theory-formal/README.md) a
 
 ## Code
 
-These links include code, examples, checks, or build tools. Read the [edition guide](../../research/machine-theory-formal/README.md) for setup instructions and what each command does. All software is beta and work in progress.
+These links include code, examples, checks, or build tools. Read the [edition guide](../../research/machine-theory-formal/README.md) for setup instructions and an explanation of what each command does. All software is in beta and remains a work in progress.
 
 - [Code / scripts: scripts](../../research/machine-theory-formal/scripts/)
 

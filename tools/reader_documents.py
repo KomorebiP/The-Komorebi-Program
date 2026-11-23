@@ -59,7 +59,8 @@ def tex_includes(text, path, owned, main_path=None):
 def source_lines(text, annotations=None, *, rendered_lines=None):
     annotations = annotations or {}
     lines = text.splitlines()
-    rendered_lines = [html.escape(line) for line in lines] if rendered_lines is None else rendered_lines
+    # Quotes are literal text here; escaping &, < and > is sufficient inside code.
+    rendered_lines = [html.escape(line, quote=False) for line in lines] if rendered_lines is None else rendered_lines
     if len(rendered_lines) != len(lines):
         raise ValueError('Rendered source lines must match the original line count')
     navigation = '<div id="source-navigation" class="source-navigation"><p><a href="#source-end">Skip source text</a></p>'
@@ -200,6 +201,8 @@ class ReadingDocuments:
         prepare_paper_vii_atlas(self)
         from large_signal_atlas import prepare as prepare_large_signal_atlas
         prepare_large_signal_atlas(self)
+        from special_functions_atlas import prepare as prepare_special_functions_atlas
+        prepare_special_functions_atlas(self)
 
     def primary_pdf(self, work):
         candidates = [r for r in self.records.values() if r['work'] == work and r['format'] == 'pdf']
@@ -384,6 +387,8 @@ class ReadingDocuments:
 
     def document_works(self, repo, path):
         if repo != 'collection': return []
+        if path=='docs/PHYSICS_COLLECTION.md':
+            return ['monographs-physics','physics-curvature-states','physics-energy-backreaction','physics-origin-locking']
         from readable_chapters import BOOKS
         from build_reader_site import document_url
         formal_guides=[work for work,book in BOOKS.items() if book.get('lean_reader_guide')==document_url(repo,path)]
@@ -410,7 +415,7 @@ class ReadingDocuments:
             routes = [
                 ('Written proofs', 'Written proofs and source files', 'written-proofs', 'Written arguments and available manuscript files for '+title),
                 ('Lean', 'Lean coverage and sources', 'lean', lean+'. '+assessment['scope']),
-                ('Code', 'Code and run instructions', 'code', 'Available code, scripts and software instructions for '+title)]
+                ('Code', 'Code and run instructions', 'code', 'Available code, scripts, and software instructions for '+title)]
             if any(work in t['works'] for t in self.learning.get('learning_topics', [])):
                 routes.append(('Examples', 'Worked examples', 'worked-examples-for-this-work', 'Introductory calculations linked to '+title))
             for kind, label, fragment, text in routes:
@@ -517,6 +522,8 @@ class ReadingDocuments:
         render_paper_vii_atlas(self)
         from large_signal_atlas import render as render_large_signal_atlas
         render_large_signal_atlas(self)
+        from special_functions_atlas import render as render_special_functions_atlas
+        render_special_functions_atlas(self)
         from core_visual_guides import render as render_core_visual_guides
         render_core_visual_guides(self)
         from reader_proofreading import publish as publish_proofreading

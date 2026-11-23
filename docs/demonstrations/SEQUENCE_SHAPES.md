@@ -1,6 +1,6 @@
 # Komorebi sequence shapes
 
-[Run the sequence experiments](https://KomorebiP.github.io/Operation-KOMOREBI/playground.html#sequence-growth) · [All worked examples](../HAND_WORKED_EXAMPLES.md) · [Sequence API](https://KomorebiP.github.io/Operation-KOMOREBI/math/sequences_oeis.html)
+[Run the sequence experiments](https://KomorebiP.github.io/The-Komorebi-Program/playground.html#sequence-growth) · [All worked examples](../HAND_WORKED_EXAMPLES.md) · [Sequence API](https://KomorebiP.github.io/The-Komorebi-Program/math/sequences_oeis.html)
 
 These experiments use the reciprocal families in Paper IV and the factorial
 weights in the Special Functions sequence atlas. The code runs the published
@@ -8,7 +8,7 @@ Komorebi Math package. Each plot has an exact CSV export, editable parameters,
 and routes back to its mathematical sources.
 
 For a complete combinatorial hand derivation, follow
-[Stirling, Bell and Fubini numbers through exact transfer](STIRLING_BELL_FUBINI.md).
+[Stirling, Bell, and Fubini numbers through exact transfer](STIRLING_BELL_FUBINI.md).
 It connects the factorial-weighted Stirling charts below to an invertible
 triangular transformation, a reciprocal generating function, residue-packet
 identities, and an explicit information-loss witness.
@@ -21,7 +21,7 @@ data into polyphase difference coordinates.
 
 ## Reciprocal growth
 
-[Run reciprocal growth](https://KomorebiP.github.io/Operation-KOMOREBI/playground.html#sequence-growth)
+[Run reciprocal growth](https://KomorebiP.github.io/The-Komorebi-Program/playground.html#sequence-growth)
 
 The library uses the convention
 
@@ -46,7 +46,7 @@ $A_2^{[1]}(2)=5$ contributes $5t^4/4!$. Its normalized value is $5/24$,
 not $5/2!$. At the default $N=4,r=1$, the first five values are
 $1,1,69,33661,60376809$.
 
-The preset supports integer $2\leq N\leq8$, $1\leq r\leq3$ and at most
+The preset supports integer $2\leq N\leq8$, $1\leq r\leq3$, and at most
 16 terms beginning at $n=0$. Try changing $N$ from four to two or $r$ from
 one to two. Exact integer and rational values are preserved in
 `reciprocal-growth-exact.csv`. Floating-point logarithms are used only for
@@ -55,9 +55,9 @@ separate exact CSV contains the original mathematical values.
 
 ## Reciprocal landscape
 
-[Compare the reciprocal families](https://KomorebiP.github.io/Operation-KOMOREBI/playground.html#sequence-landscape)
+[Compare the reciprocal families](https://KomorebiP.github.io/The-Komorebi-Program/playground.html#sequence-landscape)
 
-Start with the 2D chart. Each line has its own label, point shape and color.
+Start with the 2D chart. Each line has its own label, point shape, and color.
 Use the series checkboxes to compare fewer families. A vertical value of
 minus ten means $10^{-10}$. Each fall of one unit means a normalized value
 ten times smaller. The Enlarge plot button gives the chart more space.
@@ -76,7 +76,7 @@ different $N$ compares different ordinary degrees $Nn$.
 
 ## Factorial weights
 
-[Run factorial weights](https://KomorebiP.github.io/Operation-KOMOREBI/playground.html#factorial-weights)
+[Run factorial weights](https://KomorebiP.github.io/The-Komorebi-Program/playground.html#factorial-weights)
 
 The Special Functions sequence atlas, lesson S08, uses
 
@@ -109,23 +109,23 @@ omits zero contributions. The export includes all 190 triangular positions,
 including zeros. `last` can be reduced from 18, and `row` selects a row
 between zero and `last`.
 
-## Papers, proofs, Lean and code
+## Papers, proofs, Lean, and code
 
 | Experiment | Reading and written proofs | Formal coverage | Code and hand calculation |
 |---|---|---|---|
-| Reciprocal growth and landscape | [Paper IV](../works/paper-iv.md#read), [reciprocal family definition and proofs](../../papers/paper-iv/current/Paper_IV_Verification_Closeout_v1.1.0/publication_baseline/editable/traditional/Paper_IV_Traditional_Final.tex#L918) | [Paper IV Lean coverage](../works/paper-iv.md#lean) | [Sequence API](https://KomorebiP.github.io/Operation-KOMOREBI/math/sequences_oeis.html), [cyclic reciprocal hand calculation](../examples/16_CYCLIC_RECIPROCALS.md), [Paper IV code](../works/paper-iv.md#code) |
-| Factorial weights | [Special Functions](../works/monographs-special-functions.md#read), [sequence atlas lessons S07 and S08](../../monographs/special-functions/expanded_visual/chapters_sequences.tex) | [Special Functions Lean coverage](../works/monographs-special-functions.md#lean) | [Original sequence figure code](../../monographs/special-functions/expanded_visual/figures_sequences.py), [library worked examples](https://KomorebiP.github.io/Operation-KOMOREBI/math/WORKED_EXAMPLES.html#exact-sequence-families-and-offline-oeis-comparisons) |
+| Reciprocal growth and landscape | [Paper IV](../works/paper-iv.md#read), [reciprocal family definition and proofs](../../papers/paper-iv/current/Paper_IV_Verification_Closeout_v1.1.0/publication_baseline/editable/traditional/Paper_IV_Traditional_Final.tex#L918) | [Paper IV Lean coverage](../works/paper-iv.md#lean) | [Sequence API](https://KomorebiP.github.io/The-Komorebi-Program/math/sequences_oeis.html), [cyclic reciprocal hand calculation](../examples/16_CYCLIC_RECIPROCALS.md), [Paper IV code](../works/paper-iv.md#code) |
+| Factorial weights | [Special Functions](../works/monographs-special-functions.md#read), [sequence atlas lessons S07 and S08](../../monographs/special-functions/expanded_visual/chapters_sequences.tex) | [Special Functions Lean coverage](../works/monographs-special-functions.md#lean) | [Original sequence figure code](../../monographs/special-functions/expanded_visual/figures_sequences.py), [library worked examples](https://KomorebiP.github.io/The-Komorebi-Program/math/WORKED_EXAMPLES.html#exact-sequence-families-and-offline-oeis-comparisons) |
 
 The playground displays each preset's complete code and provides its Python
 download. The [preset sources](../../tools/sequence_presets.py) and
 [finite comparison tests](../../tools/test_sequence_python.py) are maintained
-with the site. The [source record](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/python-playground.json)
+with the site. The [source record](https://KomorebiP.github.io/The-Komorebi-Program/downloads/python-playground.json)
 identifies the library revision and downloadable code checksums.
 
 ## What was checked
 
 An independent ordinary rational-series inversion is compared with the
-library's integer recurrence for $N=2,\ldots,8$, $r=0,\ldots,3$ and
+library's integer recurrence for $N=2,\ldots,8$, $r=0,\ldots,3$, and
 $n=0,\ldots,15$: 448 coefficients. The power-zero row is an additional
 boundary control. The test also rejects replacing the degree factorial by
 the compressed-index factorial in the secant example.
@@ -140,4 +140,4 @@ These are finite implementation checks. They do not prove the full families,
 certify an asymptotic law, run Lean, establish new OEIS entries, or change
 the recorded proof status. The linked sources retain their existing scope.
 
-[Back to the experiments](https://KomorebiP.github.io/Operation-KOMOREBI/playground.html#sequence-growth) · [Paper IV claims](../CLAIM_LINKS.md#paper-iv) · [Special Functions evidence](../works/monographs-special-functions.md#evidence)
+[Back to the experiments](https://KomorebiP.github.io/The-Komorebi-Program/playground.html#sequence-growth) · [Paper IV claims](../CLAIM_LINKS.md#paper-iv) · [Special Functions evidence](../works/monographs-special-functions.md#evidence)

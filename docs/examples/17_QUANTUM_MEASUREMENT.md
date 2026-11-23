@@ -66,8 +66,8 @@ measurement probabilities agree.
 
 ## Try it
 
-[Read the illustrated measurement chapter](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-vii/measurements.html) ·
-[Read the Kraus-channel chapter and damping figure](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-vii/quantum-channels.html)
+[Read the illustrated measurement chapter](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-vii/measurements.html) ·
+[Read the Kraus-channel chapter and damping figure](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-vii/quantum-channels.html)
 
 Continue with [Quantum phase, measurement, and information loss](../demonstrations/QUANTUM_PHASE_MEASUREMENT.md)
 for three-setting tomography, partial dephasing, coherent records, packet
@@ -87,7 +87,7 @@ require their separately stated constructions.
 
 **Terms in this example:** [Complex conjugate](../GLOSSARY.md#complex-conjugate) · [Adjoint matrix](../GLOSSARY.md#adjoint) · [Unitary matrix](../GLOSSARY.md#unitary) · [Quantum amplitude](../GLOSSARY.md#amplitude) · [Density matrix](../GLOSSARY.md#density-matrix) · [Matrix trace](../GLOSSARY.md#trace) · [Born probability](../GLOSSARY.md#born-probability) · [Purity of a density matrix](../GLOSSARY.md#purity) · [Dephasing](../GLOSSARY.md#dephasing) · [Kraus operators](../GLOSSARY.md#kraus-operator) · [Hermitian matrix](../GLOSSARY.md#hermitian) · [Positive semidefinite matrix](../GLOSSARY.md#positive-semidefinite) · [Coherence in a chosen basis](../GLOSSARY.md#coherence)
 
-This introductory calculation covers one two-dimensional state, a unitary phase change and a measurement channel. Paper VII develops the finite quantum setting and separate continuum research targets. Quantum and Circuits provides a related route through arithmetic realizations and symmetry; the extended demonstration also reproduces its modulus-12 phase example. These subject routes add no formal claim correspondence.
+This introductory calculation covers one two-dimensional state, a unitary phase change, and a measurement channel. Paper VII develops the finite quantum setting and separate continuum research targets. Quantum and Circuits provides a related route through arithmetic realizations and symmetry; the extended demonstration also reproduces its modulus-12 phase example. These subject routes add no formal claim correspondence.
 
 ### Paper VII: Quantum Seed Calculus
 

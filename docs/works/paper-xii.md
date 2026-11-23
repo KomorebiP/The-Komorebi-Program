@@ -12,9 +12,9 @@ Patching, Hecke packets, and conditional automorphic constructions.
 
 ## Before you start
 
-**Suggested background:** Vectors, matrices, linear maps, kernels and images, and reading a statement with hypotheses. Consult the selected paper for any additional algebra or analysis it uses.
+**Suggested background:** Familiarity with vectors, matrices, linear maps, kernels, and images, plus experience reading statements with hypotheses. Consult the selected paper for any additional algebra or analysis it uses.
 
-**Recorded results and limits:** 49 revised claims map to 291 production targets in historical evidence. Original wording remains 41 complete, seven partial, one unchecked. Arithmetic and automorphic inputs remain explicit.
+**Recorded results and limits:** Historical evidence maps 49 revised claims to 291 production targets. Under the original wording, 41 claims are complete, seven are partial, and one is unchecked. Arithmetic and automorphic inputs remain explicit.
 
 **Remaining work:** Replay the pinned amended contract and preserve the original-versus-amended concordance. Do not promote missing arithmetic premises.
 
@@ -32,8 +32,8 @@ Use the links below to read this work and its supporting files. Ctrl+click (Comm
 
 ## Read
 
-- [Read online: complete monograph, reading map and revision scope](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-xii/index.html)
-- [Visual guide: all 27 HTML plates and 23 drawings](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-xii/atlas/index.html)
+- [Read online: complete monograph, reading map, and revision scope](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-xii/index.html)
+- [Visual guide: all 27 HTML plates and 23 drawings](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-xii/atlas/index.html)
 - [Edition README](../../papers/paper-xii/current/README.md)
 - [Read PDF](../../papers/paper-xii/current/core/publication/pdfs/Paper_XII_Traditional_v1.0.0.pdf)
 - [Visual guide (PDF)](../../papers/paper-xii/current/core/publication/pdfs/Paper_XII_Visual_Guide_v1.0.0.pdf)
@@ -66,7 +66,7 @@ Start with the [edition guide](../../papers/paper-xii/current/README.md) and the
 
 ## Code
 
-These links include code, examples, checks, or build tools. Read the [edition guide](../../papers/paper-xii/current/README.md) for setup instructions and what each command does. All software is beta and work in progress.
+These links include code, examples, checks, or build tools. Read the [edition guide](../../papers/paper-xii/current/README.md) for setup instructions and an explanation of what each command does. All software is in beta and remains a work in progress.
 
 - [Code / scripts: scripts](../../papers/paper-xii/current/scripts/)
 

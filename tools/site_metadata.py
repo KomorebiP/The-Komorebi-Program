@@ -1,4 +1,4 @@
-"""Static link previews, canonical URLs and a sitemap for the reader site."""
+"""Static link previews, canonical URLs and reader/crawler sitemaps."""
 from functools import lru_cache
 import hashlib
 import html
@@ -9,18 +9,30 @@ import re
 from urllib.parse import quote
 import xml.etree.ElementTree as ET
 
-BASE_URL = 'https://komorebip.github.io/Operation-KOMOREBI/'
+BASE_URL = 'https://komorebip.github.io/The-Komorebi-Program/'
+from smith_chart_unified import ALIASES as SMITH_ALIASES, PAGE as SMITH_BOOK
 CARD_RECORD = 'assets/brand/sharing-card.json'
 NOINDEX = {'404.html', 'search.html', 'side-by-side.html', 'reading-list.html', 'lean/run.html'}
 MAX_DESCRIPTION = 165
 DESCRIPTIONS = {
-    'index.html': 'Explore mathematical papers, visual guides, recorded proofs, and executable examples in the Komorebi collection.',
+    'chemistry-responses.html': 'Explore H10-derived energy scans with reusable action caches. Compare Krylov and nine-state responses, pointwise error bounds, and reproducible evidence.',
+    'chemistry-lab.html': 'Recover a nine-state Hamiltonian with three probes, explore exact ambiguity witnesses and conditional error disks, and inspect reproducible chemistry certificates.',
+    'sequences.html': 'Search integer sequences and formulas, compare published families, explore exact modular plots, and follow the source derivations.',
+    'index.html': 'Explore mathematical papers, visual guides, recorded proofs, and executable examples in The Komorebi Program.',
+    'sitemap.html': 'Browse every Komorebi reader page by section, including papers, books, visual guides, collection records, Lean proofs, and software documentation.',
     'collection/START_HERE.html': 'Start with a worked calculation, choose a reading route, and learn how to interpret the collection’s claims and evidence.',
+    'collection/OPERATOR_AUDIT.html': 'A worked operator reference covering maps, algebra, packets, transfer, recovery, and stability, with definitions, examples, exercises, and a practical checklist.',
     'read/index.html': 'Read the Komorebi papers and books online, with formatted mathematics, chapter navigation, visual guides, and links to source files.',
     'read/start.html': 'Choose a visual introduction, a full study route, or a path through the proof and evidence for papers and books with complete online editions.',
     'read/visual-guides.html': 'Explore the collection’s visual guides, with worked diagrams and links to the corresponding mathematical manuscripts.',
     'works.html': 'Browse the Komorebi collection by work, subject, completion stage, and recorded evidence, then follow the reading and source links.',
     'playground.html': 'Run and edit mathematical Python examples in your browser. Inspect the output and follow links to the written calculations and recorded scope.',
+    'smith-chart.html': 'Explore passive RF impedance, reflection coefficients, exact cyclic projector packets, dyadic refinement, and phase sampling in an interactive Smith chart.',
+    'read/smith-chart/research.html': 'Reflection geometry, exact packet calculus, passive completion, minimum-reactive RLC circuits, and explicit separation and tolerance bounds.',
+    'read/smith-chart/continuation.html': 'Read the exact six-reactive closure, certified RLC composition, degree-matching families, and the current Hughes-margin audit obligations.',
+    'collection/demonstrations/SMITH_FIRST_ORDER_RL.html': 'Derive a positive one-inductor circuit for the Smith chart draft’s affine limit, with explicit component values and Lean-checked algebra.',
+    'collection/demonstrations/SMITH_SINGULAR_COMPLETION.html': 'Use nullspace constraints to predict from singular Pick data and derive the exact feasibility boundary for two real cyclic packets.',
+    'special-functions-lab.html': 'Explore coupled contraction functions with exact rational coefficients, recurrence terms, parameter comparisons, and explicit local truncation bounds.',
     'collection/demonstrations/EULER_PACKETS.html': 'Follow Euler numbers through reciprocal series, polynomial coordinates, prime-adic bounds, and residual repair, with exact checks and source links.',
     'collection/demonstrations/WAVELET_POLYPHASE.html': 'Follow a signal through Haar decomposition, polyphase filter transport, reconstruction, and omitted-interaction errors, with exact worked checks.',
     'collection/examples/02_SEEDS.html': 'Work through finite seed-generation examples, compare operator actions, and follow the links to the mathematical sources and recorded evidence.',
@@ -33,12 +45,14 @@ def canonical_url(path):
     if (not path or path.startswith('/') or '\\' in path or any(c in path for c in '?#:\0')
             or any(p in {'', '.', '..'} for p in path.split('/')) or not path.endswith('.html')):
         raise ValueError('Invalid reader page: '+path)
+    if path in SMITH_ALIASES:
+        path = SMITH_BOOK
     target = path[:-len('index.html')] if path.split('/')[-1] == 'index.html' else path
     return BASE_URL + quote(target, safe='/')
 
 
 def indexable(path):
-    return path not in NOINDEX
+    return path not in NOINDEX and path not in SMITH_ALIASES
 
 
 def compact(text):
@@ -103,7 +117,7 @@ def description(path, title, body):
     start = body.find('<article id="chapter-text"')
     paragraphs = Paragraphs(body[start:] if start >= 0 else body).paragraphs
     return compact(paragraphs[0] if paragraphs else
-                   title+'. Read this page and its source links in the Komorebi collection.')
+                   title+'. Read this page and its source links in The Komorebi Program.')
 
 
 @lru_cache(maxsize=1)
@@ -124,7 +138,7 @@ def head_metadata(path, title, body, root=None):
     if not indexable(path):
         tags.append('<meta name="robots" content="noindex,follow">')
     properties = {
-        'og:site_name': 'Komorebi', 'og:type': 'website', 'og:title': title+' · Komorebi',
+        'og:site_name': 'The Komorebi Program', 'og:type': 'website', 'og:title': title+' · The Komorebi Program',
         'og:description': summary, 'og:url': url, 'og:image': image_url,
         'og:image:type': 'image/jpeg', 'og:image:width': image['width'],
         'og:image:height': image['height'], 'og:image:alt': image['alt'],
@@ -168,6 +182,48 @@ def verify_card(root):
     return record
 
 
+def publish_navigation(site):
+    """Build the reader's directory from the same pages used for discovery."""
+    groups = {key: {} for key in ('start', 'read', 'collection', 'works', 'lean', 'math', 'polyphase', 'other')}
+    labels = dict(start='Start here and tools', read='Papers, books and visual guides',
+                  collection='Collection guides and records', works='Works and evidence',
+                  lean='Lean proofs and browser tools', math='Komorebi Math documentation',
+                  polyphase='Polyphase Float documentation', other='Other reader pages')
+    titles = site.discovery_titles
+    for path in sorted(site.discovery_pages - {'404.html', 'sitemap.html'} - set(SMITH_ALIASES)):
+        parts = path.split('/')
+        group = ('start' if len(parts) == 1 else 'works' if path.startswith('collection/works/')
+                 else parts[0] if parts[0] in groups else 'other')
+        folder = '/'.join(parts[:-1]) if group in {'read', 'collection'} and len(parts) > 2 else ''
+        groups[group].setdefault(folder, []).append(path)
+    e = html.escape
+    def links(paths):
+        ordered = sorted(paths, key=lambda path: (path.split('/')[-1] != 'index.html', titles[path].casefold(), path))
+        return '<ol>'+''.join('<li><a data-reading-entry data-sitemap-entry href="'+
+            e(quote(path, safe='/'), quote=True)+'">'+e(titles[path])+'</a></li>' for path in ordered)+'</ol>'
+    body = ('<div class="reading-contents-index"><h1>Sitemap</h1>'
+            '<p class="lede">Find your way around The Komorebi Program.</p>'
+            '<p>Browse pages by section. Open a paper or book to see its chapters, visual guides, and source readers.</p>')
+    if 'search.html' in site.discovery_pages:
+        body += '<p>Looking for a particular term? <a href="search.html">Search the collection</a>.</p>'
+    body += '<nav class="document-routes" aria-label="Sitemap sections">'+''.join(
+        '<a href="#sitemap-'+key+'">'+e(labels[key])+'</a>' for key, folders in groups.items() if folders)+'</nav>'
+    for key, folders in groups.items():
+        if not folders:continue
+        body += '<section id="sitemap-'+key+'"><h2>'+e(labels[key])+'</h2>'
+        for folder, paths in sorted(folders.items(), key=lambda item: (
+                titles.get(item[0]+'/index.html', item[0]).casefold(), item[0])):
+            if not folder:
+                body += links(paths)
+                continue
+            label = titles.get(folder+'/index.html', folder.split('/')[-1].replace('-', ' ').replace('_', ' ').title())
+            body += ('<details class="reading-contents-group"><summary>'+e(label)+' <span>('+str(len(paths))+
+                     ' pages)</span></summary>'+links(paths)+'</details>')
+        body += '</section>'
+    body += '<p><a href="sitemap.xml">XML sitemap for search engines</a></p></div>'
+    site.page('sitemap.html', 'Sitemap', body)
+
+
 def publish(site):
     record = verify_card(site.output)
     paths = sorted(path for path in site.discovery_pages if indexable(path))
@@ -194,7 +250,7 @@ def verify(root, pages):
         assert meta['og:description'] == meta['description']
         assert meta['og:title'] == ''.join(page.head_title)
         assert meta['og:url'] == canonical_url(path)
-        assert meta['og:site_name'] == 'Komorebi' and meta['og:type'] == 'website'
+        assert meta['og:site_name'] == 'The Komorebi Program' and meta['og:type'] == 'website'
         assert meta['og:image'] == image_url and meta['og:image:type'] == 'image/jpeg'
         assert (meta['og:image:width'], meta['og:image:height']) == ('1200', '630')
         assert meta['og:image:alt'] == meta['twitter:image:alt'] == record['alt']

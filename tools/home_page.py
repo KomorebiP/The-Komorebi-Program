@@ -89,7 +89,7 @@ def entry_slides():
         '<a class="button button-secondary" href="'+secondary_target+'">'+secondary_link+'</a></div></section>'
         for key, label, description, target, link, secondary_target, secondary_link in entries)
     return ('<div class="home-copy home-entry-showcase" aria-label="Ways into the collection">'
-            '<div class="home-entry-feature"><p class="home-kicker">The Komorebi research collection</p>'
+            '<div class="home-entry-feature"><p class="home-kicker">The Komorebi Program</p>'
             '<h1 id="home-title">Explore the ideas.<br><em>Follow the evidence.</em></h1>'
             '<div class="home-entry-panels">'+panels+'</div>'
             '<div class="home-slide-controls home-entry-controls" hidden>'
@@ -101,8 +101,16 @@ def entry_slides():
 
 
 def home_page():
+    from sequence_atlas import catalogue
+    from sequence_library import library_entries
+    sequence_entries=library_entries(catalogue())
+    sequence_summary=f'{len(sequence_entries):,} records · {sum(len(item["formulas"]) for item in sequence_entries):,} formula representations'
     features = [
+        ('Sequence library', 'Search every sequence collection in one place. Compare equivalent formulas, explore exact and modular plots, and work with OEIS reference data.', 'sequence-library.html', 'Explore'),
+        ('Operator guide', 'Explore seven worked chapters and a searchable catalog of 205 operator entries. Follow linear maps, packets, transfer, recovery, stability, and polynomial calculus through exact examples, with formulas, assumptions, and source links close at hand.', 'collection/OPERATOR_AUDIT.html', 'Understand'),
         ('Recovery laboratory', 'Choose what you can measure and what you want to recover. Change the measurements, inspect exact calculations and graphs, and see either a recovery rule or two inputs that the summary cannot distinguish. Then add the information that is missing.', 'recovery-lab.html', 'Experiment'),
+        ('Chemistry laboratory', 'Recover a nine-state Hamiltonian from three complete actions. Reveal the ambiguity after two probes, explore conditional error disks, and inspect exact certificates alongside the theorem and replay files.', 'chemistry-lab.html', 'Investigate'),
+        ('Chemistry response scans', 'Reuse one action cache across an energy scan on a 52,920-state H10-derived model. Compare source-adapted Krylov and nine-state responses, inspect pointwise error bounds, and replay the calculation.', 'chemistry-responses.html', 'Compare'),
         ('Read side by side', 'Keep a statement beside its proof, or compare papers, chapters, worked examples, and formal sources. Follow references in the other pane, adjust the layout, and save a paired reading session so you can return to the same passages.', 'side-by-side.html', 'Compare'),
         ('Saved reading', 'Save a paper or bookmark a useful section as you explore the collection. Keep the works and passages you want to revisit together in one reading list, stored in this browser, and return to them when you are ready.', 'reading-list.html', 'Save'),
         ('Python playground', 'Choose a worked example from sequences, special functions, signals, or quantum models, then edit the code and run it in your browser. Inspect the output and graphs, follow links to the mathematics, and save or download your experiments.', 'playground.html', 'Calculate'),
@@ -114,6 +122,7 @@ def home_page():
         '<span class="home-route-arrow" aria-hidden="true">↗</span></a>'
         for title, description, target, label in features)
     return '<section class="home-hero" aria-labelledby="home-title">'+entry_slides()+research_slides()+'''</section>
+<section class="home-sequence-library" aria-labelledby="home-sequence-title"><div><p class="home-route-label">Sequences and formulas</p><h2 id="home-sequence-title"><a href="sequence-library.html">Explore the sequence library</a></h2><p>Classical sequences, research families, equivalent formulas, and exact plots in one searchable collection.</p><p class="home-sequence-count">'''+sequence_summary+'''</p></div><form action="sequence-library.html#library-search" method="get" role="search" aria-label="Search integer sequences"><label for="home-sequence-query">Name, formula, identifier, or integer terms</label><div><input id="home-sequence-query" name="q" type="search" placeholder="Fibonacci, hypergeometric, or 1,1,2,5,14"><button type="submit">Search sequences</button></div><p><a href="sequence-library.html#library-search">Browse all records</a> · <a href="sequence-library.html?scope=families#library-search">Generalized families</a> · <a href="sequence-library.html#identify">Identify terms</a> · <a href="sequence-library.html#oeis">Match with OEIS</a></p></form></section>
 <section class="home-ways" aria-labelledby="home-ways-title"><div class="home-section-heading"><h2 id="home-ways-title">Explore more of the site.</h2><p>Experiment with code and proofs, compare pages, and keep a reading list.</p></div>
 <div class="home-route-grid">'''+cards+'''</div></section>
 <section class="home-toolbox" id="home-interactive-title" aria-labelledby="home-toolbox-title"><div class="home-section-heading"><h2 id="home-toolbox-title">A few useful tools.</h2><p>Explore an idea, or find a specific passage.</p></div>
@@ -122,10 +131,10 @@ def home_page():
 <a href="notation.html"><span class="home-tool-icon" aria-hidden="true">α</span><span><strong>Look up notation</strong><small>Find symbols and their source context.</small></span><span aria-hidden="true">↗</span></a></div></section>
 <section class="home-future" aria-labelledby="home-future-title"><div class="home-section-heading"><h2 id="home-future-title">Future Developments</h2><a href="collection/FUTURE_DEVELOPMENTS.html">See what’s next <span aria-hidden="true">→</span></a></div>
 <p>My future research will focus on Hilbert’s 12th and 24th problems, the Strong Artin conjecture, and the Langlands program. Refining my work on machine learning and reasoning is another priority.</p>
-<div class="home-future-links"><a href="collection/FUTURE_DEVELOPMENTS.html#main-research-directions">Research directions</a><a href="collection/FUTURE_DEVELOPMENTS.html#refining-the-current-work">Refining the current work</a><a href="collection/FUTURE_DEVELOPMENTS.html#website-and-github-accessibility-and-use">Website and GitHub improvements</a></div></section>
+<div class="home-future-links"><a href="collection/FUTURE_DEVELOPMENTS.html#main-research-directions">Research directions</a><a href="collection/FUTURE_DEVELOPMENTS.html#refining-the-current-work">Refining the current work</a><a href="collection/FUTURE_DEVELOPMENTS.html#website-and-repository-usability-and-accessibility">Website and GitHub improvements</a></div></section>
 <div class="home-notes"><details class="home-more"><summary>Explore the collections and how they connect</summary>
 <div class="home-collection-list"><h2>Three repositories, one place to begin</h2><dl>
-<dt><a href="collection/index.html">Operation KOMOREBI</a></dt><dd>Papers, books, research programs, formal sources, and evidence.</dd>
+<dt><a href="collection/index.html">The Komorebi Program</a></dt><dd>Papers, books, research programs, formal sources, and evidence.</dd>
 <dt><a href="math/index.html">Komorebi Math</a></dt><dd>A Python library for finite mathematical constructions and inspectable certificates.</dd>
 <dt><a href="polyphase/index.html">Polyphase Float</a></dt><dd>A C library for arbitrary-precision binary floating-point arithmetic.</dd></dl>
 <h3>What connects the work?</h3><p>Describe an object in parts, transfer operations through those parts, and account for what a change of representation preserves or loses.</p>

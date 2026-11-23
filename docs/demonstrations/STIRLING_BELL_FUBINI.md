@@ -1,12 +1,12 @@
-# From set partitions to exact transfer: Stirling, Bell and Fubini numbers
+# From set partitions to exact transfer: Stirling, Bell, and Fubini numbers
 
 **An extended hand-worked example · Komorebi P.**
 
 One triangular table counts partitions of labelled objects into nonempty blocks. Constant and factorial weights on that same table generate Bell and ordered Bell (Fubini) numbers. We compute both from an explicit row, prove the general generating-function substitution and its inverse, trace polynomial and moment realizations, and identify the boundary between reversible data and lossy summaries.
 
-No new mathematical result is claimed. The counting identities are classical. The purpose is to follow one explicit object through the coordinate, transfer, reconstruction and obstruction language used throughout the collection.
+No new mathematical result is claimed. The counting identities are classical. The purpose is to follow one explicit object through the coordinate, transfer, reconstruction, and obstruction language used throughout the collection.
 
-[Run the existing factorial-weight experiment](https://KomorebiP.github.io/Operation-KOMOREBI/playground.html#factorial-weights) · [Read the exact program](https://KomorebiP.github.io/Operation-KOMOREBI/read/stirling-bell-fubini.html) · [Download the verified results](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/stirling-bell-fubini/source-and-results.zip)
+[Run the existing factorial-weight experiment](https://KomorebiP.github.io/The-Komorebi-Program/playground.html#factorial-weights) · [Read the exact program](https://KomorebiP.github.io/The-Komorebi-Program/read/stirling-bell-fubini.html) · [Download the verified results](https://KomorebiP.github.io/The-Komorebi-Program/downloads/stirling-bell-fubini/source-and-results.zip)
 
 ## The destination: two answers from the same partition row
 
@@ -47,9 +47,9 @@ Thus
 
 Here \(B_n\) denotes the Bell numbers and \(F_n\) denotes the ordered Bell, or Fubini, numbers. Some sources use a different symbol for \(F_n\); we use \(F\) consistently on this page.
 
-![Two triangular arrays of exact partition counts, unweighted and factorial weighted, with the row-five totals 52 and 541.](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/stirling-bell-fubini/stirling-transform.svg)
+![Two triangular arrays of exact partition counts, unweighted and factorial weighted, with the row-five totals 52 and 541.](https://KomorebiP.github.io/The-Komorebi-Program/downloads/stirling-bell-fubini/stirling-transform.svg)
 
-The image is produced by the standalone Python program. Every cell is an exact integer, not a logarithmically rounded coefficient. The complete table is available as [CSV](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/stirling-bell-fubini/stirling-rows.csv).
+The image is produced by the standalone Python program. Every cell is an exact integer, not a logarithmically rounded coefficient. The complete table is available as [CSV](https://KomorebiP.github.io/The-Komorebi-Program/downloads/stirling-bell-fubini/stirling-rows.csv).
 
 ## 1. Construct the triangular coordinates
 
@@ -196,7 +196,7 @@ The **Bell inverse** gives
 
 This inversion is not reconstructing an arbitrary Stirling row from just one Bell or Fubini value. It inverts the known **triangular transform across the sequence of all preceding output indices**.
 
-[Inspect the signed transfer matrix and its exact identity product](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/stirling-bell-fubini/signed-transfer.csv).
+[Inspect the signed transfer matrix and its exact identity product](https://KomorebiP.github.io/The-Komorebi-Program/downloads/stirling-bell-fubini/signed-transfer.csv).
 
 ## 4. Generate both families from exponential series
 
@@ -450,7 +450,7 @@ F_n=\sum_{m\ge0}\frac{m^n}{2^{m+1}}.
 
 This is an **independent interpretation**, not a claim that infinitely many terms are required to *compute* \(F_n\): the original finite Stirling row remains exact. The signed Stirling inverse still recovers the input moments \(k!\lambda^k\) from the complete prefix \((F_0(\lambda),\ldots,F_n(\lambda))\). A single output \(F_n(\lambda)\) does not recover its underlying row.
 
-The checker verifies the parameter values, polynomial recurrences, geometric falling-factorial moments, formal generating functions, reciprocal identities and signed inversions using integers and rational fractions. Download the [parameterized moment table](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/stirling-bell-fubini/moment-bridge.csv) alongside the earlier tables.
+The checker verifies the parameter values, polynomial recurrences, geometric falling-factorial moments, formal generating functions, reciprocal identities, and signed inversions using integers and rational fractions. Download the [parameterized moment table](https://KomorebiP.github.io/The-Komorebi-Program/downloads/stirling-bell-fubini/moment-bridge.csv) alongside the earlier tables.
 
 ## 6. Split the reciprocal identity into even and odd packets
 
@@ -592,7 +592,7 @@ Thus \(30+380+131=\boxed{541}\). The checker tests the entire coupled identity c
 
 The coefficient checker uses integer residue indexing and exact rational series. It does not approximate complex roots numerically. The three-packet decomposition is a **refinement of coefficient addresses**, not a new formula for \(F_n\) or an assertion about new transcendental values.
 
-[Download all reciprocal packet coefficients](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/stirling-bell-fubini/reciprocal-packets.csv).
+[Download all reciprocal packet coefficients](https://KomorebiP.github.io/The-Komorebi-Program/downloads/stirling-bell-fubini/reciprocal-packets.csv).
 
 ## 7. A real obstruction: two summaries do not determine the whole row
 
@@ -679,9 +679,9 @@ Indeed, \(P_v(\lambda)=\lambda+14\lambda^2+36\lambda^3+24\lambda^4\), while \(P_
 
 We have therefore exhibited both sides of a precise boundary: complete triangular outputs are invertible across indices, complete parameter polynomials are recoverable within a fixed row, and the two fixed summaries \(B_n,F_n\) are insufficient for unrestricted coordinate recovery. The candidate \(w\) remains a non-Stirling profile.
 
-[Download the exact interpolation and candidate comparison](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/stirling-bell-fubini/reconstruction.csv).
+[Download the exact interpolation and candidate comparison](https://KomorebiP.github.io/The-Komorebi-Program/downloads/stirling-bell-fubini/reconstruction.csv).
 
-[Inspect the obstruction witness, coordinate by coordinate](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/stirling-bell-fubini/obstruction.csv).
+[Inspect the obstruction witness, coordinate by coordinate](https://KomorebiP.github.io/The-Komorebi-Program/downloads/stirling-bell-fubini/obstruction.csv).
 
 ## 8. What the checks prove, and what they do not
 
@@ -705,23 +705,23 @@ Finite computation is a regression check, not a substitute for the displayed gen
 
 ## 9. Reproduce the exact records
 
-Python 3.10 or later is sufficient; NumPy, plotting packages and external services are unnecessary. From the collection checkout run:
+Python 3.10 or later is sufficient; NumPy, plotting packages, and external services are unnecessary. From the collection checkout run:
 
 ~~~text
 python -B examples/stirling_bell_fubini.py
 python -B examples/stirling_bell_fubini.py --output stirling-results
 ~~~
 
-The second command regenerates the exact integer CSVs, rational packet table, SVG diagram and JSON verification record. The publication build generates these outputs from this same retained program, records their SHA-256 digests and makes a source-and-results archive; the website checks its links and file identities separately.
+The second command regenerates the exact integer CSVs, rational packet table, SVG diagram, and JSON verification record. The publication build generates these outputs from this same retained program, records their SHA-256 digests, and makes a source-and-results archive; the website checks its links and file identities separately.
 
-[Read the full Python source](https://KomorebiP.github.io/Operation-KOMOREBI/read/stirling-bell-fubini.html) · [Download the Python checker](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/stirling-bell-fubini/stirling_bell_fubini.py) · [Download the source-and-results ZIP](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/stirling-bell-fubini/source-and-results.zip)
+[Read the full Python source](https://KomorebiP.github.io/The-Komorebi-Program/read/stirling-bell-fubini.html) · [Download the Python checker](https://KomorebiP.github.io/The-Komorebi-Program/downloads/stirling-bell-fubini/stirling_bell_fubini.py) · [Download the source-and-results ZIP](https://KomorebiP.github.io/The-Komorebi-Program/downloads/stirling-bell-fubini/source-and-results.zip)
 
-[Parameterized moment bridge (CSV)](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/stirling-bell-fubini/moment-bridge.csv) · [Exact row reconstruction (CSV)](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/stirling-bell-fubini/reconstruction.csv) · [Stirling rows (CSV)](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/stirling-bell-fubini/stirling-rows.csv) · [Sequence and inverse checks (CSV)](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/stirling-bell-fubini/sequence-checks.csv) · [Signed inverse matrix (CSV)](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/stirling-bell-fubini/signed-transfer.csv) · [Reciprocal packets (CSV)](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/stirling-bell-fubini/reciprocal-packets.csv) · [Obstruction witness (CSV)](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/stirling-bell-fubini/obstruction.csv) · [Exact SVG diagram](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/stirling-bell-fubini/stirling-transform.svg) · [Verification record (JSON)](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/stirling-bell-fubini/results.json)
+[Parameterized moment bridge (CSV)](https://KomorebiP.github.io/The-Komorebi-Program/downloads/stirling-bell-fubini/moment-bridge.csv) · [Exact row reconstruction (CSV)](https://KomorebiP.github.io/The-Komorebi-Program/downloads/stirling-bell-fubini/reconstruction.csv) · [Stirling rows (CSV)](https://KomorebiP.github.io/The-Komorebi-Program/downloads/stirling-bell-fubini/stirling-rows.csv) · [Sequence and inverse checks (CSV)](https://KomorebiP.github.io/The-Komorebi-Program/downloads/stirling-bell-fubini/sequence-checks.csv) · [Signed inverse matrix (CSV)](https://KomorebiP.github.io/The-Komorebi-Program/downloads/stirling-bell-fubini/signed-transfer.csv) · [Reciprocal packets (CSV)](https://KomorebiP.github.io/The-Komorebi-Program/downloads/stirling-bell-fubini/reciprocal-packets.csv) · [Obstruction witness (CSV)](https://KomorebiP.github.io/The-Komorebi-Program/downloads/stirling-bell-fubini/obstruction.csv) · [Exact SVG diagram](https://KomorebiP.github.io/The-Komorebi-Program/downloads/stirling-bell-fubini/stirling-transform.svg) · [Verification record (JSON)](https://KomorebiP.github.io/The-Komorebi-Program/downloads/stirling-bell-fubini/results.json)
 
 ### Original literature and related worked examples
 
-The [Special Functions sequence atlas, lessons S07 and S08](../../monographs/special-functions/expanded_visual/chapters_sequences.tex) already gives the Bell and factorial-weighted Fubini rows, the generating functions, and the comparison plots. Its [Special Functions monograph](../works/monographs-special-functions.md) supplies the broader sequence setting and separate Lean coverage. The existing [sequence-shapes playground](SEQUENCE_SHAPES.md) lets readers modify parameters and inspect 2D and 3D sequence maps.
+[Lessons S07 and S08 of the Special Functions sequence atlas](../../monographs/special-functions/expanded_visual/chapters_sequences.tex) already give the Bell and factorial-weighted Fubini rows, the generating functions, and the comparison plots. The [Special Functions monograph](../works/monographs-special-functions.md) supplies the broader sequence setting and separate Lean coverage. The existing [sequence-shapes playground](SEQUENCE_SHAPES.md) lets readers modify parameters and inspect 2D and 3D sequence maps.
 
-For the reciprocal and residue machinery, see the [Euler extended example](EULER_PACKETS.md), [factorial lanes](FACTORIAL_LANES.md), and [Paper IV](../works/paper-iv.md). These links establish related constructions, **not** a claim that Euler, factorial-lane and Fubini coefficients are identical.
+For the reciprocal and residue machinery, see the [Euler extended example](EULER_PACKETS.md), [factorial lanes](FACTORIAL_LANES.md), and [Paper IV](../works/paper-iv.md). These links establish related constructions, **not** a claim that Euler, factorial-lane, and Fubini coefficients are identical.
 
 [All demonstrations](../DEMONSTRATIONS.md) · [All worked examples](../HAND_WORKED_EXAMPLES.md) · [Evidence guide](../RECORDS.md)

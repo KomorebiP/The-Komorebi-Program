@@ -1,16 +1,16 @@
 # Follow a written claim
 
-The [searchable claim index](https://KomorebiP.github.io/Operation-KOMOREBI/claims.html) covers all 12 core papers with 1159 reading records. Search by title, statement text, source label or recorded Lean name. Filter by paper and statement type, then share the page address or a record’s permanent link.
+The [searchable claim index](https://KomorebiP.github.io/The-Komorebi-Program/claims.html) covers all 12 core papers with 1159 reading records. Search by title, statement text, source label or recorded Lean name. Filter by paper and statement type, then share the page address or a record’s permanent link.
 
 Paper I retains its 108 correspondence records. The source labels 69 as covered. Papers II through XII index explicit statement blocks in their current TeX manuscripts and literal included sections. The index keeps definitions, conjectures, classical inputs, and numerical certificates distinct from theorems. Historical environments and statements introduced only through macro expansion are outside this extraction. Counts describe reading entries, not the number of proved or formalized results.
 
-A proof link identifies the recorded passage or an immediately following proof block. It does not assess correctness. Paper I’s existing Lean mappings are retained. Lean correspondence for individual claims for Papers II through XII has not been transcribed into this index. Their formal guides, Lean coverage, code and evidence remain linked at paper level. This update performs no new proof review or Lean run.
+A proof link identifies the recorded passage or an immediately following proof block. It does not assess correctness. Paper I’s existing Lean mappings are retained. Lean correspondence for individual claims for Papers II through XII has not been transcribed into this index. Their formal guides, Lean coverage, code, and evidence remain linked at paper level. This update performs no new proof review or Lean run.
 
 <a id="paper-i"></a>
 
 ## Paper I: Typed Operator Systems, Seed Rank, and Exact Packet Coordinates
 
-[Open 108 correspondence records](https://KomorebiP.github.io/Operation-KOMOREBI/claims.html#paper-i).
+[Open 108 correspondence records](https://KomorebiP.github.io/The-Komorebi-Program/claims.html#paper-i).
 
 [Written proofs](works/paper-i.md#written-proofs) · [Lean](works/paper-i.md#lean) · [Code](works/paper-i.md#code) · [Evidence](works/paper-i.md#evidence)
 
@@ -18,7 +18,7 @@ A proof link identifies the recorded passage or an immediately following proof b
 
 ## Paper II: Refinement Towers, Weighted Transfer, and Integral Separation of Operator Packets
 
-[Open 65 written statement records](https://KomorebiP.github.io/Operation-KOMOREBI/claims.html#paper-ii).
+[Open 65 written statement records](https://KomorebiP.github.io/The-Komorebi-Program/claims.html#paper-ii).
 
 [Written proofs](works/paper-ii.md#written-proofs) · [Lean](works/paper-ii.md#lean) · [Code](works/paper-ii.md#code) · [Evidence](works/paper-ii.md#evidence)
 
@@ -26,7 +26,7 @@ A proof link identifies the recorded passage or an immediately following proof b
 
 ## Paper III: Typed Transfer, Nonlinear Packets, and Obstruction Theory
 
-[Open 139 written statement records](https://KomorebiP.github.io/Operation-KOMOREBI/claims.html#paper-iii).
+[Open 139 written statement records](https://KomorebiP.github.io/The-Komorebi-Program/claims.html#paper-iii).
 
 [Written proofs](works/paper-iii.md#written-proofs) · [Lean](works/paper-iii.md#lean) · [Code](works/paper-iii.md#code) · [Evidence](works/paper-iii.md#evidence)
 
@@ -34,7 +34,7 @@ A proof link identifies the recorded passage or an immediately following proof b
 
 ## Paper IV: Cyclic Analytic Functions, Reciprocal Families, and Spectral Zero Data
 
-[Open 85 written statement records](https://KomorebiP.github.io/Operation-KOMOREBI/claims.html#paper-iv).
+[Open 85 written statement records](https://KomorebiP.github.io/The-Komorebi-Program/claims.html#paper-iv).
 
 [Written proofs](works/paper-iv.md#written-proofs) · [Lean](works/paper-iv.md#lean) · [Code](works/paper-iv.md#code) · [Evidence](works/paper-iv.md#evidence)
 
@@ -42,7 +42,7 @@ A proof link identifies the recorded passage or an immediately following proof b
 
 ## Paper V: Polyphase Signal Calculus
 
-[Open 103 written statement records](https://KomorebiP.github.io/Operation-KOMOREBI/claims.html#paper-v).
+[Open 103 written statement records](https://KomorebiP.github.io/The-Komorebi-Program/claims.html#paper-v).
 
 [Written proofs](works/paper-v.md#written-proofs) · [Lean](works/paper-v.md#lean) · [Code](works/paper-v.md#code) · [Evidence](works/paper-v.md#evidence)
 
@@ -50,7 +50,7 @@ A proof link identifies the recorded passage or an immediately following proof b
 
 ## Paper VI: Transfer Semigroups: Stochastic, Bayesian, Fractional, and PDE Realizations
 
-[Open 164 written statement records](https://KomorebiP.github.io/Operation-KOMOREBI/claims.html#paper-vi).
+[Open 164 written statement records](https://KomorebiP.github.io/The-Komorebi-Program/claims.html#paper-vi).
 
 [Written proofs](works/paper-vi.md#written-proofs) · [Lean](works/paper-vi.md#lean) · [Code](works/paper-vi.md#code) · [Evidence](works/paper-vi.md#evidence)
 
@@ -58,7 +58,7 @@ A proof link identifies the recorded passage or an immediately following proof b
 
 ## Paper VII: Quantum Seed Calculus
 
-[Open 140 written statement records](https://KomorebiP.github.io/Operation-KOMOREBI/claims.html#paper-vii).
+[Open 140 written statement records](https://KomorebiP.github.io/The-Komorebi-Program/claims.html#paper-vii).
 
 [Written proofs](works/paper-vii.md#written-proofs) · [Lean](works/paper-vii.md#lean) · [Code](works/paper-vii.md#code) · [Evidence](works/paper-vii.md#evidence)
 
@@ -66,7 +66,7 @@ A proof link identifies the recorded passage or an immediately following proof b
 
 ## Paper VIII: Packet Operator Algorithms, Exact Compilation, and GPU Realization
 
-[Open 80 written statement records](https://KomorebiP.github.io/Operation-KOMOREBI/claims.html#paper-viii).
+[Open 80 written statement records](https://KomorebiP.github.io/The-Komorebi-Program/claims.html#paper-viii).
 
 [Written proofs](works/paper-viii.md#written-proofs) · [Lean](works/paper-viii.md#lean) · [Code](works/paper-viii.md#code) · [Evidence](works/paper-viii.md#evidence)
 
@@ -74,7 +74,7 @@ A proof link identifies the recorded passage or an immediately following proof b
 
 ## Paper IX: Arithmetic Packets, Dyadic Towers, and Local Polynomial Deformation
 
-[Open 79 written statement records](https://KomorebiP.github.io/Operation-KOMOREBI/claims.html#paper-ix).
+[Open 79 written statement records](https://KomorebiP.github.io/The-Komorebi-Program/claims.html#paper-ix).
 
 [Written proofs](works/paper-ix.md#written-proofs) · [Lean](works/paper-ix.md#lean) · [Code](works/paper-ix.md#code) · [Evidence](works/paper-ix.md#evidence)
 
@@ -82,7 +82,7 @@ A proof link identifies the recorded passage or an immediately following proof b
 
 ## Paper X: Universal Residual Seeds and Conditional Occupied-System Completion
 
-[Open 37 written statement records](https://KomorebiP.github.io/Operation-KOMOREBI/claims.html#paper-x).
+[Open 37 written statement records](https://KomorebiP.github.io/The-Komorebi-Program/claims.html#paper-x).
 
 [Written proofs](works/paper-x.md#written-proofs) · [Lean](works/paper-x.md#lean) · [Code](works/paper-x.md#code) · [Evidence](works/paper-x.md#evidence)
 
@@ -90,7 +90,7 @@ A proof link identifies the recorded passage or an immediately following proof b
 
 ## Paper XI: Packets, Arithmetic Realization, and Conditional Comparison
 
-[Open 90 written statement records](https://KomorebiP.github.io/Operation-KOMOREBI/claims.html#paper-xi).
+[Open 90 written statement records](https://KomorebiP.github.io/The-Komorebi-Program/claims.html#paper-xi).
 
 [Written proofs](works/paper-xi.md#written-proofs) · [Lean](works/paper-xi.md#lean) · [Code](works/paper-xi.md#code) · [Evidence](works/paper-xi.md#evidence)
 
@@ -98,7 +98,7 @@ A proof link identifies the recorded passage or an immediately following proof b
 
 ## Paper XII: Patching Support, Hecke Packets, and Conditional Automorphic Completion
 
-[Open 69 written statement records](https://KomorebiP.github.io/Operation-KOMOREBI/claims.html#paper-xii).
+[Open 69 written statement records](https://KomorebiP.github.io/The-Komorebi-Program/claims.html#paper-xii).
 
 [Written proofs](works/paper-xii.md#written-proofs) · [Lean](works/paper-xii.md#lean) · [Code](works/paper-xii.md#code) · [Evidence](works/paper-xii.md#evidence)
 

@@ -12,7 +12,7 @@ Finite pairing and Gauss-cube calculations with an explicit primitive-root speci
 
 ## Before you start
 
-**Suggested background:** Read the problem statement, recorded scope and open questions first. The program's definitions determine its subject prerequisites.
+**Suggested background:** Read the problem statement, recorded scope, and open questions first. The program's definitions determine its subject prerequisites.
 
 **Recorded results and limits:** Exact finite algebra and a fixed-point obstruction. The analytic comparison remains open.
 
@@ -47,7 +47,7 @@ No Lean source or guide is linked here. See the Lean status above and the [evide
 
 ## Code
 
-These links include code, examples, checks, or build tools. Read the [maintained edition guide](../components/H12_AMBIENT_DUAL_SLICE.md) for setup instructions and what each command does. All software is beta and work in progress.
+These links include code, examples, checks, or build tools. Read the [maintained edition guide](../components/H12_AMBIENT_DUAL_SLICE.md) for setup instructions and an explanation of what each command does. All software is in beta and remains a work in progress.
 
 - [Script: h12_ambient_dual_slice_verify.py](../../research/hilbert12-ambient-dual-slice/h12_ambient_dual_slice_verify.py)
 

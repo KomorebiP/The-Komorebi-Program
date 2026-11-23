@@ -17,8 +17,8 @@ import subprocess
 from urllib.parse import quote, unquote, urlsplit
 import zipfile
 
-REPOSITORY = 'KomorebiP/Operation-KOMOREBI'
-BASE_URL = 'https://KomorebiP.github.io/Operation-KOMOREBI/'
+REPOSITORY = 'KomorebiP/The-Komorebi-Program'
+BASE_URL = 'https://KomorebiP.github.io/The-Komorebi-Program/'
 READ_KINDS = {'guide', 'pdf', 'visual', 'formal_guide', 'text', 'claims', 'lean_setup'}
 
 
@@ -61,12 +61,10 @@ def site_navigation(page):
     def link(title, target):
         current = ' aria-current="page"' if target == page else (' aria-current="location"' if target=='read/visual-guides.html' and visual_location else '')
         url = posixpath.relpath(target, posixpath.dirname(page) or '.')
-        icon = ('<svg class="site-search-icon" viewBox="0 0 20 20" width="17" height="17" '
-                'aria-hidden="true" focusable="false"><circle cx="8.5" cy="8.5" r="5.5"/>'
-                '<path d="m12.5 12.5 4 4"/></svg>') if target == 'search.html' else ''
-        return '<a href="'+html.escape(url, quote=True)+'"'+current+'>'+icon+html.escape(title)+'</a>'
+        return '<a href="'+html.escape(url, quote=True)+'"'+current+'>'+html.escape(title)+'</a>'
     groups = [
         ('Read', [('Reading routes', 'collection/READING_ROUTES.html'),
+                  ('Operator guide', 'collection/OPERATOR_AUDIT.html'),
                   ('Extended case studies', 'collection/DEMONSTRATIONS.html#extended-case-studies'),
                   ('Saved reading', 'reading-list.html'),
                   ('Physics collection', 'collection/PHYSICS_COLLECTION.html'),
@@ -75,9 +73,12 @@ def site_navigation(page):
                   ('Read side by side', 'side-by-side.html'),
                   ('Worked examples', 'collection/HAND_WORKED_EXAMPLES.html')]),
         ('Look up', [('Claims', 'claims.html'),
+                     ('Sequence library', 'sequence-library.html'),
                      ('Inspect Lean', 'lean/index.html'),
                      ('Notation', 'notation.html')]),
         ('Use', [('Signal laboratory', 'signal-lab.html'),
+                 ('Smith chart laboratory', 'smith-chart.html'),
+                 ('Special Functions laboratory', 'special-functions-lab.html'),
                  ('Recovery laboratory', 'recovery-lab.html'),
                  ('J-Space laboratory', 'j-lab.html'),
                  ('Interactive diagrams', 'interactive.html'),
@@ -94,9 +95,7 @@ def site_navigation(page):
             link('Glossary', 'collection/GLOSSARY.html')+link('About', 'collection/START_HERE.html')+
             '</div><div class="site-nav-tools">'+link('Search', 'search.html')+
             '<button id="site-menu-toggle" type="button" aria-expanded="true" '
-            'aria-controls="site-menu-panel" hidden><svg class="site-browse-icon" viewBox="0 0 20 20" '
-            'width="16" height="16" aria-hidden="true" focusable="false"><path '
-            'd="M3 3h5v5H3zm9 0h5v5h-5zM3 12h5v5H3zm9 0h5v5h-5z"/></svg>'
+            'aria-controls="site-menu-panel" hidden>'
             'Browse <span aria-hidden="true">▾</span></button></div></div>'
             '<div id="site-menu-panel" class="site-menu-panel">'+panel+'</div></nav>')
 
@@ -305,6 +304,7 @@ class Site:
         return posixpath.relpath(target,posixpath.dirname(page) or '.')
     def page(self,path,title,body,source=None):
         esc=html.escape
+        from smith_chart_unified import ALIASES as smith_aliases
         from reading_list import enhance, saveable
         body=enhance(self,path,title,body)
         reading_list_assets=''
@@ -340,24 +340,33 @@ class Site:
         article_start=body.find('<article id="chapter-text"')
         side_context=body[:article_start] if edition(path) and article_start>=0 else body
         has_side_action=('class="side-launch"' in side_context) if edition(path) else ('data-side-reader-link' in side_context)
-        if not work_page and not has_side_action and path not in {'side-by-side.html','index.html','404.html','interactive.html','signal-lab.html','recovery-lab.html','j-lab.html','works.html','reading-list.html','lean/playground.html','lean/run.html','read/visual-guides.html'}:
+        if not work_page and not has_side_action and not path.startswith('sequence-archive/') and path not in smith_aliases and path not in {'side-by-side.html','index.html','404.html','sitemap.html','interactive.html','signal-lab.html','smith-chart.html','special-functions-lab.html','recovery-lab.html','chemistry-lab.html','chemistry-responses.html','j-lab.html','works.html','reading-list.html','lean/playground.html','lean/run.html','read/visual-guides.html','sequences.html','sequence-explorer.html','sequence-archive.html'}:
             pair=self.rel('side-by-side.html',path)+'?left='+quote(path,safe='')
             launch='<p class="side-launch"><a data-side-reader-link href="'+esc(pair,quote=True)+'">Read side by side</a></p>'
             body=re.sub(r'(</h1>)',lambda match:match[1]+launch,body,count=1)
         body=standardize(body,path)
+        if path == 'read/smith-chart/research.html':
+            from smith_chart_research import reading_chrome
+            body=reading_chrome(body)
         root=self.rel('index.html',path)
         nav_html=site_navigation(path)
         source_html=('<a href="'+esc(source,quote=True)+'">Source on GitHub</a>') if source else ''
         glossary_script=('<script defer src="'+self.rel('assets/glossary.js',path)+'?v='+hashlib.sha256((self.root/'website/assets/glossary.js').read_bytes()).hexdigest()[:12]+'"></script>') if path=='collection/GLOSSARY.html' else ''
+        from operator_catalog_reader import script_tag as operator_catalog_script
+        operator_script=operator_catalog_script(self,path)
         home_assets=''
         search_script=('<script defer src="'+self.rel('assets/search-engine.js',path)+'?v='+hashlib.sha256((self.root/'website/assets/search-engine.js').read_bytes()).hexdigest()[:12]+'"></script>') if path=='search.html' else ''
         if path=='index.html':
             for name in ('home.css','home-slides.js'):
                 url=self.rel('assets/'+name,path)+'?v='+hashlib.sha256((self.root/'website/assets'/name).read_bytes()).hexdigest()[:12]
                 home_assets+=('<link rel="stylesheet" href="'+url+'">') if name.endswith('.css') else ('<script defer src="'+url+'"></script>')
+        if path=='collection/COMPUTATIONAL_CHEMISTRY.html' or path.startswith('read/computational-chemistry/'):
+            url=self.rel('assets/chemistry-reading.css',path)+'?v='+hashlib.sha256((self.root/'website/assets/chemistry-reading.css').read_bytes()).hexdigest()[:12]
+            home_assets+='<link rel="stylesheet" href="'+url+'">'
         brand_assets={name:self.rel('assets/brand/'+name,path)+'?v='+hashlib.sha256(
             (self.root/'website/assets/brand'/name).read_bytes()).hexdigest()[:12]
             for name in ('komorebi-logo.svg','favicon.svg','favicon-32.png','apple-touch-icon.png')}
+        mathjax_extra = ('<script defer src="'+self.rel('assets/smith-research-mathjax.js',path)+'"></script>') if path == 'read/smith-chart/research.html' else ''
         from core_visual_guides import is_visual_guide
         visual_work=path.split('/')[1] if path.startswith('read/') and path.count('/')>1 else ''
         visual_page=bool(visual_work and '<article id="chapter-text"' in body and is_visual_guide(visual_work,path))
@@ -365,6 +374,8 @@ class Site:
         metadata=head_metadata(path,title,body,self.root)
         if not hasattr(self,'discovery_pages'):self.discovery_pages=set()
         self.discovery_pages.add(path)
+        if not hasattr(self,'discovery_titles'):self.discovery_titles={}
+        self.discovery_titles[path]=title
         doc='''<!doctype html>
 <html lang="en" prefix="og: https://ogp.me/ns#"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 '''+metadata+'''
@@ -372,13 +383,15 @@ class Site:
 <link rel="icon" type="image/svg+xml" sizes="any" href="'''+brand_assets['favicon.svg']+'''">
 <link rel="icon" type="image/png" sizes="32x32" href="'''+brand_assets['favicon-32.png']+'''">
 <link rel="apple-touch-icon" sizes="180x180" href="'''+brand_assets['apple-touch-icon.png']+'''">
-<title>'''+esc(title)+''' · Komorebi</title><link rel="stylesheet" href="'''+self.rel('assets/reader.css',path)+'?v='+hashlib.sha256((self.root/'website/assets/reader.css').read_bytes()).hexdigest()[:12]+'''">
+<title>'''+esc(title)+''' · The Komorebi Program</title><link rel="stylesheet" href="'''+self.rel('assets/reader.css',path)+'?v='+hashlib.sha256((self.root/'website/assets/reader.css').read_bytes()).hexdigest()[:12]+'''">
 <link rel="stylesheet" href="'''+self.rel('assets/open-research.css',path)+'?v='+hashlib.sha256((self.root/'website/assets/open-research.css').read_bytes()).hexdigest()[:12]+'''">
 <link rel="stylesheet" href="'''+self.rel('assets/side-reader.css',path)+'?v='+hashlib.sha256((self.root/'website/assets/side-reader.css').read_bytes()).hexdigest()[:12]+'''">
-<script defer src="'''+self.rel('assets/mathjax-config.js',path)+'''"></script><script defer src="'''+self.rel('assets/mathjax/tex-svg-full.js',path)+'''"></script>
-'''+search_script+'''<script defer src="'''+self.rel('assets/reader.js',path)+'?v='+hashlib.sha256((self.root/'website/assets/reader.js').read_bytes()).hexdigest()[:12]+'''"></script>'''+glossary_script+chapter_help_script+home_assets+reading_list_assets+'''</head><body class="open-research'''+(' home-page' if path == 'index.html' else '')+(' reading-page' if reading_page else '')+(' work-page' if work_page else '')+(' visual-reading' if visual_page else '')+'''">
-<a class="skip-link" href="#main">Skip to main content</a><header class="site-header"><a class="brand" href="'''+root+'''" aria-label="Komorebi home"><span class="brand-wordmark"><img class="brand-logo" src="'''+brand_assets['komorebi-logo.svg']+'''" alt="Komorebi" width="1320" height="240"><span class="brand-fallback" aria-hidden="true">Komorebi</span><small>Mathematics · proofs · software</small></span></a>'''+nav_html+'''</header>
-<main id="main" tabindex="-1">'''+body+'''</main><footer><div class="footer-inner"><nav class="footer-links" aria-label="Project information">'''+source_html+'''<a href="'''+self.rel('collection/PROJECT_STATEMENT.html',path)+'''">Project and authorship statement</a><a href="'''+self.rel('collection/ACCESSIBILITY.html',path)+'''">Accessibility and reporting problems</a><a href="'''+self.rel('sitemap.xml',path)+'''">Sitemap</a></nav><a class="footer-github" href="https://github.com/'''+REPOSITORY+'''">Return to GitHub <span aria-hidden="true">↗</span></a></div></footer></body></html>'''
+<link rel="stylesheet" href="'''+self.rel('assets/math-display.css',path)+'?v='+hashlib.sha256((self.root/'website/assets/math-display.css').read_bytes()).hexdigest()[:12]+'''">
+<script type="module" src="'''+self.rel('assets/math-display.mjs',path)+'?v='+hashlib.sha256((self.root/'website/assets/math-display.mjs').read_bytes()).hexdigest()[:12]+'''"></script>
+<script defer src="'''+self.rel('assets/mathjax-config.js',path)+'''"></script>'''+mathjax_extra+'''<script defer src="'''+self.rel('assets/mathjax/tex-svg-full.js',path)+'''"></script>
+'''+search_script+'''<script defer src="'''+self.rel('assets/reader.js',path)+'?v='+hashlib.sha256((self.root/'website/assets/reader.js').read_bytes()).hexdigest()[:12]+'''"></script>'''+glossary_script+operator_script+chapter_help_script+home_assets+reading_list_assets+'''</head><body class="open-research'''+(' smith-chart-page' if path=='smith-chart.html' else '')+(' home-page' if path == 'index.html' else '')+(' reading-page' if reading_page else '')+(' work-page' if work_page else '')+(' visual-reading' if visual_page else '')+'''">
+<a class="skip-link" href="#main">Skip to main content</a><header class="site-header"><a class="brand" href="'''+root+'''"><span class="brand-wordmark"><img class="brand-logo" src="'''+brand_assets['komorebi-logo.svg']+'''" alt="" width="1320" height="240"><span class="brand-fallback" aria-hidden="true">Komorebi</span><small>The Komorebi Program</small></span></a>'''+nav_html+'''</header>
+<main id="main" tabindex="-1">'''+body+'''</main><footer><div class="footer-inner"><nav class="footer-links" aria-label="Project information">'''+source_html+'''<a href="'''+self.rel('collection/PROJECT_STATEMENT.html',path)+'''">Project and authorship statement</a><a href="'''+self.rel('collection/ACCESSIBILITY.html',path)+'''">Accessibility and reporting problems</a><a href="'''+self.rel('sitemap.html',path)+'''">Sitemap</a></nav><a class="footer-github" href="https://github.com/'''+REPOSITORY+'''">Return to GitHub <span aria-hidden="true">↗</span></a></div></footer></body></html>'''
         self.write(path,doc)
     def collect_documents(self):
         maintained=set(self.status['maintained_documents'])
@@ -397,6 +410,12 @@ class Site:
             for p in ('README.md','LICENSE.md','CONTRIBUTING.md','SUPPORT.md'):
                 if (root/p).is_file():self.documents[(key,p)]=(root/p).read_text(encoding='utf-8')
     def resolve(self,repo,path,page,target,is_image=False):
+        from smith_chart_unified import canonical_target as smith_target
+        def reader_target(destination,fragment=''):
+            destination,fragment=smith_target(destination,fragment)
+            return self.rel(destination,page)+('#'+fragment if fragment else '')
+        from project_urls import canonical_project_url
+        target=canonical_project_url(html.unescape(target))
         parts=urlsplit(html.unescape(target))
         if parts.scheme or parts.netloc:
             # Keep cross-repository documentation within the public reading site.
@@ -406,19 +425,20 @@ class Site:
                     if target.startswith(prefix):
                         relative=unquote(parts.path.split('/blob/'+revision+'/',1)[1])
                         if (key,relative) in self.documents:
-                            return self.rel(document_url(key,relative),page)+('#'+parts.fragment if parts.fragment else '')
+                            return reader_target(document_url(key,relative),parts.fragment)
                         if key=='collection' and not is_image:
                             local=self.reader.resolve(relative,page,parts.fragment)
                             if local:return local
             base=urlsplit(BASE_URL)
             if parts.scheme in {'http','https'} and parts.netloc.lower()==base.netloc.lower() and parts.path.startswith(base.path):
-                return self.rel(parts.path[len(base.path):] or 'index.html',page)+('?'+parts.query if parts.query else '')+('#'+parts.fragment if parts.fragment else '')
+                destination,fragment=smith_target(parts.path[len(base.path):] or 'index.html',parts.fragment)
+                return self.rel(destination,page)+('?'+parts.query if parts.query else '')+('#'+fragment if fragment else '')
             return target
         resolved=posixpath.normpath(posixpath.join(posixpath.dirname(path),unquote(parts.path))) if parts.path else path
         if resolved.startswith('../') or resolved.startswith('/'):
             return github(self.repos[repo],self.revisions[repo],resolved.lstrip('/'))
         if (repo,resolved) in self.documents:
-            return self.rel(document_url(repo,resolved),page)+('#'+parts.fragment if parts.fragment else '')
+            return reader_target(document_url(repo,resolved),parts.fragment)
         if repo == 'collection':
             for edition in getattr(self,'editorial_editions',{}).values():
                 if resolved == edition['pdf_source']:
@@ -455,9 +475,19 @@ class Site:
     def markdown_pages(self):
         import markdown
         for (repo,path),text in self.documents.items():
+            if repo == 'collection':
+                from reader_copyediting import apply_markdown
+                text = apply_markdown(self.root, path, text)
             page=document_url(repo,path)
+            from smith_chart_unified import ALIASES as smith_aliases, publish_redirect as smith_redirect
+            if repo == 'collection' and page in smith_aliases:
+                smith_redirect(self,page,smith_aliases[page])
+                continue
             rendered=markdown.markdown(text,extensions=['tables','fenced_code','toc','pymdownx.arithmatex'],extension_configs={'toc':{'slugify':slugify},'pymdownx.arithmatex':{'generic':True}})
             rendered=math_fences(rendered)
+            if repo=='collection' and path=='docs/COMPUTATIONAL_CHEMISTRY.md':
+                from computational_chemistry import overview_rendering
+                rendered=overview_rendering(self,rendered)
             rewrite=Rewriter(lambda target,image:self.resolve(repo,path,page,target,image))
             rewrite.feed(rendered)
             title_match=re.search(r'^#\s+(.+)',text,re.M)
@@ -465,11 +495,15 @@ class Site:
             section={'collection':'Collection','math':'Komorebi Math','polyphase':'Polyphase Float'}[repo]
             content=''.join(rewrite.out)
             if repo=='collection' and path=='docs/GLOSSARY.md':
-                from glossary_reader import glossary_lookup, glossary_return_links
+                from glossary_reader import glossary_reader_page
                 glossary_config=json.loads((self.root/'manifests/reader-experience.json').read_bytes())
-                content=glossary_return_links(content,glossary_config)
-                lookup=glossary_lookup(glossary_config)
-                content=re.sub(r'(</h1>)',lambda m:m[1]+lookup,content,count=1)
+                content=glossary_reader_page(content,glossary_config)
+            if repo=='collection' and path=='docs/operators/catalog/README.md':
+                from operator_catalog import load_catalog
+                from operator_catalog_reader import lookup_html, search_entries
+                operator_catalog=load_catalog(self.root)
+                content=re.sub(r'(</h1>)',lambda m:m[1]+lookup_html(operator_catalog,page),content,count=1)
+                self.search.extend(search_entries(self,operator_catalog))
             is_euler = repo=='collection' and path=='docs/demonstrations/EULER_PACKETS.md'
             if is_euler:
                 from euler_navigation import decorate
@@ -484,10 +518,10 @@ class Site:
                 if pdf and not self.assessments[identifier].get('editorial_edition'):
                     link='<p><a href="'+self.rel(pdf['url'],page)+'">Read the written arguments in the PDF</a>. The manuscript source remains available below.</p>'
                     content=content.replace('<h2 id="written-proofs">Written proofs</h2>','<h2 id="written-proofs">Written proofs</h2>'+link)
-            else:
+            elif not (repo=='collection' and path=='docs/GLOSSARY.md'):
                 contents=page_contents(content)
                 content=re.sub(r'(</h1>)',lambda m:m[1]+contents,content,count=1)
-            article_class=' class="euler-example"' if is_euler else ''
+            article_class=' class="euler-example"' if is_euler else ' class="glossary-page"' if repo=='collection' and path=='docs/GLOSSARY.md' else ''
             body='<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="'+self.rel('index.html',page)+'">Home</a> / <a href="'+self.rel(repo+'/index.html',page)+'">'+section+'</a></nav><article'+article_class+'>'+content+'</article>'
             self.page(page,title,body,github(self.repos[repo],self.revisions[repo],path))
             plain=re.sub(r'<[^>]+>',' ',rendered)
@@ -624,7 +658,7 @@ class Site:
             ''.join('<option value="'+e(code)+'">'+e(label)+'</option>'
                     for code,label in options)+'</select>'
             for key,title,default,options in facet_dimensions)
-        self.page('search.html','Search the collection','<h1>Search the collection</h1><p>Search papers, visual guides, proofs, notation, code, and worked examples. Choose a work or result type to narrow the list. Use a PDF’s reader search for its full text.</p><form id="site-search" data-facets="work-facets.json?v='+e(self.revision)+'" data-index="search-index.json?v='+e(self.revision)+'"><label for="search-query">Word, symbol name or question</label><input id="search-query" type="search" name="q" autocomplete="off"><div class="search-primary-fields"><div><label for="search-work">Work</label><select id="search-work"><option value="">All works</option>'+work_options+'</select></div><div>'+'<label for="search-kind">Result type</label><select id="search-kind"><option value="">All result types</option><option>Claims</option><option>Written proofs</option><option>Lean</option><option>Code</option><option>Glossary</option><option>Notation</option><option>Examples</option><option>Papers and source</option><option>Guides</option><option>Visual guides</option></select></div></div><details id="search-extra-options" class="search-extra-options"><summary>More options</summary><label for="search-group">Repository</label><select id="search-group"><option value="">All repositories</option><option>Collection</option><option>Komorebi Math</option><option>Polyphase Float</option></select>'+search_facets+'<label for="search-size">Results per page</label><select id="search-size" name="per_page"><option value="10">10</option><option value="20">20</option><option value="40" selected>40</option><option value="80">80</option></select><p>Discipline, completion stage, Lean coverage, and evidence describe associated works. Filtering by these fields excludes entries without an associated work.</p></details><div class="search-actions"><button type="submit">Search</button><button type="reset">Clear search</button></div></form><p id="search-status" role="status" aria-live="polite">Enter a search term.</p>'+page_navigation('search','top')+'<ol id="search-results"></ol>'+page_navigation('search','bottom')+'<noscript><p>Search needs JavaScript. You can still <a href="works.html">browse all works</a> and use the <a href="collection/GLOSSARY.html">glossary</a>.</p></noscript>')
+        self.page('search.html','Search the collection','<h1>Search the collection</h1><p>Search papers, visual guides, proofs, notation, code, and worked examples. Choose a work or result type to narrow the list. Use a PDF’s reader search for its full text.</p><form id="site-search" data-facets="work-facets.json?v='+e(self.revision)+'" data-index="search-index.json?v='+e(self.revision)+'"><label for="search-query">Word, symbol name, or question</label><input id="search-query" type="search" name="q" autocomplete="off"><div class="search-primary-fields"><div><label for="search-work">Work</label><select id="search-work"><option value="">All works</option>'+work_options+'</select></div><div>'+'<label for="search-kind">Result type</label><select id="search-kind"><option value="">All result types</option><option>Claims</option><option>Written proofs</option><option>Lean</option><option>Code</option><option>Glossary</option><option>Notation</option><option>Examples</option><option>Papers and source</option><option>Guides</option><option>Visual guides</option></select></div></div><details id="search-extra-options" class="search-extra-options"><summary>More options</summary><label for="search-group">Repository</label><select id="search-group"><option value="">All repositories</option><option>Collection</option><option>Komorebi Math</option><option>Polyphase Float</option></select>'+search_facets+'<label for="search-size">Results per page</label><select id="search-size" name="per_page"><option value="10">10</option><option value="20">20</option><option value="40" selected>40</option><option value="80">80</option></select><p>Discipline, completion stage, Lean coverage, and evidence describe associated works. Filtering by these fields excludes entries without an associated work.</p></details><div class="search-actions"><button type="submit">Search</button><button type="reset">Clear search</button></div></form><p id="search-status" role="status" aria-live="polite">Enter a search term.</p>'+page_navigation('search','top')+'<ol id="search-results"></ol>'+page_navigation('search','bottom')+'<noscript><p>Search needs JavaScript. You can still <a href="works.html">browse all works</a> and use the <a href="collection/GLOSSARY.html">glossary</a>.</p></noscript>')
         self.claim_index()
         self.reader.search_routes()
         learning=json.loads((self.root/'manifests/reader-experience.json').read_bytes())
@@ -642,11 +676,27 @@ class Site:
         body='<link rel="stylesheet" href="assets/download-selector.css?v='+self.revision+'"><h1>Choose your downloads</h1><p>Build one ZIP from the files you want, or download a ready-made reading selection.</p><p><a href="#build-a-zip">Build your own ZIP</a> · <a href="#ready-made">Ready-made reading ZIPs</a> · <a href="collection/DOWNLOADS.html#obtain-a-full-component">Complete source downloads</a></p>'+selector_interface(self)
         body+='<h2 id="ready-made">Ready-made reading ZIPs</h2><p>One reading selection per work, with license notices and checksums. These are not complete Lean or software builds.</p><p><a href="downloads/index.json">All bundle contents and checksums (JSON)</a></p><div class="download-list">'
         for r in self.bundle_records:
-            body+='<section id="'+r['work']+'"><h3>'+e(r['title'])+'</h3><p><a download href="'+r['url']+'">Download reading ZIP</a> · '+f'{r["archive_bytes"]/1048576:.1f}'+' MB · '+str(len(r['files']))+' selected files · <a href="downloads.html?work='+r['work']+'#build-a-zip">Choose files</a></p><details><summary>Contents and checksum</summary><ul>'+''.join('<li>'+e(x['path'])+'</li>' for x in r['files'])+'</ul><p>ZIP SHA-256: <code>'+r['archive_sha256']+'</code></p></details><p><a href="collection/works/'+r['work']+'.html">Work, limits and evidence</a></p></section>'
+            body+='<section id="'+r['work']+'"><h3>'+e(r['title'])+'</h3><p><a download href="'+r['url']+'">Download reading ZIP</a> · '+f'{r["archive_bytes"]/1048576:.1f}'+' MB · '+str(len(r['files']))+' selected files · <a href="downloads.html?work='+r['work']+'#build-a-zip">Choose files</a></p><details><summary>Contents and checksum</summary><ul>'+''.join('<li>'+e(x['path'])+'</li>' for x in r['files'])+'</ul><p>ZIP SHA-256: <code>'+r['archive_sha256']+'</code></p></details><p><a href="collection/works/'+r['work']+'.html">Work, limits, and evidence</a></p></section>'
         self.page('downloads.html','Choose your downloads',body+'</div>')
-        self.page('404.html','Page not found','<h1>This page could not be found</h1><p>Use the <a href="'+BASE_URL+'">Komorebi starting page</a>, <a href="'+BASE_URL+'search.html">search</a> or <a href="'+BASE_URL+'works.html">work index</a> to find the current page.</p>')
+        self.page('404.html','Page not found','<h1>This page could not be found</h1><p>Use the <a href="'+BASE_URL+'">The Komorebi Program starting page</a>, <a href="'+BASE_URL+'search.html">search</a>, or <a href="'+BASE_URL+'works.html">work index</a> to find the current page.</p>')
     def claim_index(self):
         render_claim_index(self)
+    def smith_chart_lab(self):
+        """Publish the projector-resolved Smith chart as an ordinary reader page."""
+        source='website/smith-chart-body.html'
+        css='assets/smith-chart.css'
+        script='assets/smith-chart.js'
+        css_hash=digest((self.root/'website'/css).read_bytes())[:12]
+        script_hash=digest((self.root/'website'/script).read_bytes())[:12]
+        body='<link rel="stylesheet" href="'+css+'?v='+css_hash+'">'
+        body+=(self.root/source).read_text(encoding='utf-8')
+        body+='<p class="smith-sources"><a href="read/smith-chart/research.html#companion-guide">Derivation, verification scope, and limitations</a></p>'
+        body+='<script defer src="'+script+'?v='+script_hash+'"></script>'
+        self.page('smith-chart.html','Smith chart and projector laboratory',body,
+                  github(REPOSITORY,self.revision,source))
+        self.search.append(dict(title='Smith chart and projector laboratory',
+            group='Collection',kind='Examples',url='smith-chart.html',work_ids=[],
+            text='RF impedance admittance reflection coefficients Cayley map roots of unity cyclic projectors exact packets Smith chart transmission line Poisson sampling numerical tests'))
     def demonstration_program(self):
         """Publish the teaching program as readable source and an exact download."""
         from reader_documents import source_lines
@@ -693,6 +743,15 @@ class Site:
         publish_stirling_case(self)
         from roots_newton_case import publish as publish_roots_newton_case
         publish_roots_newton_case(self)
+        self.smith_chart_lab()
+        from smith_chart_research import publish as publish_smith_chart_research
+        publish_smith_chart_research(self)
+        from smith_chart_continuation import publish as publish_smith_chart_continuation
+        publish_smith_chart_continuation(self)
+        from computational_chemistry import publish as publish_computational_chemistry
+        publish_computational_chemistry(self)
+        from special_functions_lab import build as build_special_functions_lab
+        build_special_functions_lab(self)
         self.markdown_pages()
         self.reader.render()
         from reading_paths import publish as publish_reading_paths
@@ -719,6 +778,12 @@ class Site:
         build_signal_lab(self)
         from recovery_lab import build as build_recovery_lab
         build_recovery_lab(self)
+        from chemistry_lab import build as build_chemistry_lab
+        chemistry_lab = build_chemistry_lab(self)
+        from chemistry_responses import build as build_chemistry_responses
+        chemistry_responses = build_chemistry_responses(self)
+        from sequence_atlas import build as build_sequence_atlas
+        sequence_atlas = build_sequence_atlas(self)
         from jspace_lab import build as build_jspace_lab
         jspace_lab = build_jspace_lab(self)
         self.indexes()
@@ -726,7 +791,8 @@ class Site:
         build_reading_list(self)
         from side_reader import build as build_side_reader
         side_reader = build_side_reader(self)
-        from site_metadata import publish as publish_metadata
+        from site_metadata import publish_navigation, publish as publish_metadata
+        publish_navigation(self)
         discovery = publish_metadata(self)
         self.write('.nojekyll','')
         result=dict(collection_revision=self.revision,library_revisions=self.revisions,html_guides=len(self.documents),works=len(self.registry['components']),claim_records=len(self.claims['records']),reading_bundles=len(self.bundle_records),bundle_bytes=sum(x['archive_bytes'] for x in self.bundle_records),new_proof_review=False,new_lean_execution=False)
@@ -738,6 +804,9 @@ class Site:
         result['lean_browser'] = lean_browser
         result['side_reader'] = side_reader
         result['jspace_lab'] = jspace_lab
+        result['chemistry_lab'] = chemistry_lab
+        result['chemistry_responses'] = chemistry_responses
+        result['sequence_atlas'] = sequence_atlas
         result['search'] = self.search_summary
         result['discovery'] = discovery
         self.write('build-info.json',json.dumps(result,indent=2)+'\n')

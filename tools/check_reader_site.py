@@ -16,6 +16,7 @@ class Page(HTMLParser):
     def __init__(self,text):
         super().__init__()
         self.ids=[];self.links=[];self.inputs=[];self.labels=set()
+        self.proofreading_notes=[]
         self.h1=0;self.main=0;self.language=None;self.title=False;self.skip=False
         self.images_without_alt=0
         self.images=[]
@@ -33,6 +34,8 @@ class Page(HTMLParser):
             if tag=='meta' and ('name' in a or 'property' in a):self.metadata.append((a.get('name',a.get('property')),a.get('content','')))
             if tag=='link' and a.get('rel')=='canonical':self.canonicals.append(a.get('href'))
         if 'id' in a:self.ids.append(a['id'])
+        if 'data-proofreading-note' in a or 'proofreading-note' in (a.get('class') or '').split():
+            self.proofreading_notes.append((a.get('data-proofreading-note'),a.get('id')))
         if tag=='html':self.language=a.get('lang')
         if tag=='title':self.title=True
         if tag=='h1':self.h1+=1
@@ -73,10 +76,15 @@ def check_png_image_sizes(root,page,images):
     from reader_documents import png_dimensions
     for image in images:
         path=posixpath.normpath(posixpath.join(posixpath.dirname(page),unquote(urlsplit(image['src']).path)))
-        if PurePosixPath(path).suffix.lower()!='.png':
+        suffix=PurePosixPath(path).suffix.lower()
+        if suffix not in {'.png','.webp'}:
             continue
-        width,height=png_dimensions((root/path).read_bytes())
-        assert (image.get('width'),image.get('height'))==(str(width),str(height)), (page,'Image dimensions differ from PNG',path)
+        if suffix=='.png':
+            width,height=png_dimensions((root/path).read_bytes())
+        else:
+            from reader_figure_assets import dimensions
+            width,height=dimensions((root/path).read_bytes(),path)
+        assert (image.get('width'),image.get('height'))==(str(width),str(height)), (page,'Image dimensions differ from '+suffix[1:].upper(),path)
 
 
 def check_table_reading_aids(markup,aids):
@@ -90,7 +98,10 @@ def check_table_reading_aids(markup,aids):
         assert caption and caption[1].strip(),('Missing table caption',identifier)
         if 'caption' in aid:
             assert caption[1]==Chapter('',{}).inline(aid['caption']),('Table caption differs',identifier)
-        assert table[1].count('scope="col"')==len(aid.get('subheaders',aid['headers'])),('Missing column headers',identifier)
+        column_headers = len(aid.get('subheaders',aid['headers']))
+        if 'subheaders' in aid:
+            column_headers += sum(bool(cell.strip()) and r'\multicolumn' not in cell for cell in aid['headers'])
+        assert table[1].count('scope="col"')==column_headers,('Missing column headers',identifier)
         if 'subheaders' in aid:
             assert table[1].count('scope="colgroup"')==sum(r'\multicolumn' in cell for cell in aid['headers']),('Missing column groups',identifier)
         body=re.search(r'<tbody>(.*?)</tbody>',table[1],re.S)
@@ -126,6 +137,9 @@ def check_readable_chapter(root, documents, pages):
             validate_monolithic(main,BOOKS[spec['work']])
             assert (report['start_line'],report['end_line'])==(spec['start_line'],spec['end_line'])
         macro_source=BOOKS[spec['work']].get('macro_source',main_path)
+        if BOOKS[spec['work']].get('custom_reader')=='physics':
+            from physics_reading import macro_source as physics_macro_source
+            macro_source=physics_macro_source(spec)
         if BOOKS[spec['work']].get('custom_reader')=='quantum':
             from quantum_symmetry import SOURCE,MACROS
             if source==SOURCE:macro_source=MACROS
@@ -147,6 +161,9 @@ def check_readable_chapter(root, documents, pages):
             expressions=source_math(raw.decode('utf-8-sig'),spec)
         elif BOOKS[spec['work']].get('custom_reader')=='machine_native_reasoning':
             from machine_native_reasoning_reading import source_math
+            expressions=source_math(raw.decode('utf-8-sig'),spec)
+        elif BOOKS[spec['work']].get('custom_reader')=='physics':
+            from physics_reading import source_math
             expressions=source_math(raw.decode('utf-8-sig'),spec)
         elif BOOKS[spec['work']].get('custom_reader')=='methodology':
             from methodology_reading import source_math
@@ -187,6 +204,9 @@ def check_readable_chapter(root, documents, pages):
         elif BOOKS[spec['work']].get('custom_reader')=='quantum':
             from quantum_reading import source_macros
             expected_macros=source_macros(lambda path:(root/records[path]['file_url']).read_text(encoding='utf-8-sig'),spec)
+        elif BOOKS[spec['work']].get('custom_reader')=='physics':
+            from physics_reading import source_macros
+            expected_macros=source_macros(lambda path:(root/records[path]['file_url']).read_text(encoding='utf-8-sig'),spec)
         elif BOOKS[spec['work']].get('custom_reader')=='kcos':
             from kcos_reading import source_macros
             expected_macros=source_macros((root/records[macro_source]['file_url']).read_text(encoding='utf-8-sig'))
@@ -218,15 +238,48 @@ def check_readable_chapter(root, documents, pages):
     return count
 
 
-def inspect_site(root):
+def check_image_sources(documents):
+    """Bind figure publications to retained document or original image records."""
+    sources={r['repository_path']:r for r in documents['files']}
+    sources.update({r['repository_path']:r for r in documents.get('images',[]) if not r.get('source')})
+    for record in documents.get('images',[]):
+        if record.get('source'):
+            assert record['source'] in sources, ('Missing retained figure source',record['source'])
+            assert sources[record['source']]['sha256']==record['source_sha256'],record['source']
+
+
+FINAL_EDITION_HTML = 'assets/weighted-central-binomial-hankel-v1.0.html'
+
+
+def check_final_edition_downloads(root):
+    """Authenticate frozen paper downloads before checking site-page chrome."""
+    source = Path(__file__).resolve().parents[1]/'research/sequence-closed-forms/final-edition/v1.0/ARTIFACTS.json'
+    receipt = json.loads(source.read_bytes())
+    base = 'assets/weighted-central-binomial-hankel-v1.0.'
+    assert json.loads((root/(base+'json')).read_bytes()) == receipt, 'Final-edition artifact receipt changed'
+    for suffix, name in [('pdf', 'PAPER.pdf'), ('html', 'PAPER.html'), ('md', 'PAPER.md')]:
+        assert hashlib.sha256((root/(base+suffix)).read_bytes()).hexdigest() == receipt['files'][name], (name, 'Frozen final-edition download changed')
+    text = (root/FINAL_EDITION_HTML).read_text(encoding='utf-8')
+    page = Page(text)
+    assert page.language == 'en' and page.title and (page.h1, page.main) == (1, 1) and page.skip
+    assert len(page.ids) == len(set(page.ids)) and page.images_without_alt == 0
+    assert '<script' not in text.lower() and text.count('<mjx-container') == 638
+    for target in page.links:
+        if target.startswith('#'):assert unquote(target[1:]) in page.ids, (FINAL_EDITION_HTML, target)
+    return dict(edition=receipt['edition'], url=FINAL_EDITION_HTML,
+                authenticated_downloads=3, source_hashes_match=True, static_math_expressions=638)
+
+
+def inspect_site(root, *, compact_html=False, delivery_artifacts=None):
     files={p.relative_to(root).as_posix() for p in root.rglob('*') if p.is_file()}
     from jspace_lab import APP_URL as JSPACE_APP_URL, verify as verify_jspace_lab
     jspace_lab = verify_jspace_lab(root)
+    final_edition = check_final_edition_downloads(root)
     # The pinned third-party viewer has its own interface and localization markup.
     # Verify its integrity separately, while checking every link into it below.
-    # Only the authenticated, unchanged lab asset keeps its original interface.
-    # Its reader-site entry still receives all ordinary accessibility/link checks.
-    pages={p:Page((root/p).read_text(encoding='utf-8')) for p in files if p.endswith('.html') and not p.startswith('assets/pdfjs/') and p != JSPACE_APP_URL}
+    # Only authenticated frozen assets keep their original standalone interface.
+    # Their reader-site entries still receive all accessibility and link checks.
+    pages={p:Page((root/p).read_text(encoding='utf-8')) for p in files if p.endswith('.html') and not p.startswith('assets/pdfjs/') and p not in {JSPACE_APP_URL, FINAL_EDITION_HTML}}
     from site_metadata import verify as verify_metadata
     discovery=verify_metadata(root,pages)
     links=0;fragments=0
@@ -372,9 +425,7 @@ def inspect_site(root):
         raw=(root/record['file_url']).read_bytes()
         assert len(raw)==record['size'] and hashlib.sha256(raw).hexdigest()==record['sha256'],record['repository_path']
         assert hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()==record['git_blob_sha1']
-        if record.get('source'):
-            sources={r['repository_path']:r for r in documents['files']}
-            assert sources[record['source']]['sha256']==record['source_sha256']
+    check_image_sources(documents)
     readable_math = check_readable_chapter(root,documents,pages)
     from paper_ix_reading import verify_bibliography as verify_paper_ix_bibliography
     verify_paper_ix_bibliography(root,documents,pages)
@@ -440,6 +491,14 @@ def inspect_site(root):
     side_reader=check_side_reader(root,pages)
     from special_functions_reading import verify as verify_special_functions
     special_functions=verify_special_functions(root,documents,pages)
+    from special_functions_atlas import verify as verify_special_functions_atlas
+    special_functions_atlas=verify_special_functions_atlas(root,documents,pages)
+    from physics_visual import verify as verify_physics_visual
+    physics_visual=verify_physics_visual(root,documents,pages)
+    from physics_companions import verify as verify_physics_companions
+    physics_companions=verify_physics_companions(root,documents,pages)
+    from physics_discovery import verify as verify_physics_discovery
+    physics_discovery=verify_physics_discovery(root,documents,pages)
     from reading_navigation import verify as verify_reading_navigation
     reading_navigation=verify_reading_navigation(root,pages,documents)
     from reader_proofreading import verify as verify_proofreading
@@ -462,20 +521,30 @@ def inspect_site(root):
     verify_lean_browser(root,documents)
     from reading_paths import verify as verify_reading_paths
     reading_paths=verify_reading_paths(root,documents,pages)
+    if compact_html:
+        from compact_reader_html import compact_tree
+        print('HTML packaging: '+json.dumps(compact_tree(root)),flush=True)
+    delivery=None
+    if delivery_artifacts is not None:
+        from reader_delivery import package
+        delivery=package(root,delivery_artifacts)
+        print('Reader delivery: '+json.dumps(delivery),flush=True)
     site_bytes=sum(p.stat().st_size for p in root.rglob('*') if p.is_file())
     print('Published site bytes:',site_bytes,flush=True)
     assert site_bytes < 1024**3, 'Published reader site exceeds GitHub Pages size limit: '+str(site_bytes)
-    return dict(status='PASS',html_pages=len(pages),local_links=links,fragments=fragments,discovery=discovery,jspace_lab=jspace_lab,euler_worked_examples=euler_cases,factorial_worked_examples=factorial_cases,wavelet_worked_examples=wavelet_cases,stirling_worked_examples=stirling_cases,roots_newton_worked_examples=roots_newton_cases,
+    return dict(status='PASS',delivery=delivery,html_pages=len(pages),local_links=links,fragments=fragments,discovery=discovery,jspace_lab=jspace_lab,final_edition=final_edition,euler_worked_examples=euler_cases,factorial_worked_examples=factorial_cases,wavelet_worked_examples=wavelet_cases,stirling_worked_examples=stirling_cases,roots_newton_worked_examples=roots_newton_cases,
                 quantum_worked_examples=quantum_cases,search_pages=len(index),search_catalog=search_catalog,reading_bundles=len(bundles),checked_bundle_files=zipped_files,download_selection=download_selection,side_reader=side_reader,
                 reading_documents=len(documents['files']),pdfs=pdf_count,editorial_editions=len(editions),readable_math_expressions=readable_math,paper_vii=paper_vii,atlas=atlas,paper_i_atlas=paper_i_atlas,core_worked_atlases=core_worked_atlases,paper_viii_atlas=paper_viii_atlas,paper_ix_atlas=paper_ix_atlas,paper_x_atlas=paper_x_atlas,paper_xi_atlas=paper_xi_atlas,paper_xii_atlas=paper_xii_atlas,paper_v_atlas=paper_v_atlas,paper_vi_atlas=paper_vi_atlas,paper_vii_atlas=paper_vii_atlas,notation=notation,special_functions=special_functions,reading_navigation=reading_navigation,
-                proofreading=proofreading,copyediting=copyediting,reading_links=reading_links,statement_navigation=statement_navigation,reference_previews=reference_previews,reading_paths=reading_paths,lean_reader=lean_reader,lean_playground=lean_playground,lean_execution=lean_execution,large_signal_atlas=large_signal_atlas,scope='Static navigation, HTML structure and ZIP source identities. Not WCAG certification or mathematical review.')
+                proofreading=proofreading,copyediting=copyediting,reading_links=reading_links,statement_navigation=statement_navigation,reference_previews=reference_previews,reading_paths=reading_paths,lean_reader=lean_reader,lean_playground=lean_playground,lean_execution=lean_execution,large_signal_atlas=large_signal_atlas,special_functions_atlas=special_functions_atlas,physics_visual=physics_visual,physics_companions=physics_companions,physics_discovery=physics_discovery,scope='Static navigation, HTML structure and ZIP source identities. Not WCAG certification or mathematical review.')
 
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--site',type=Path,required=True)
+    p.add_argument('--compact-html',action='store_true',help='After verification, compact generated HTML attributes and verify parsed contents are unchanged')
+    p.add_argument('--delivery-artifacts',type=Path,help='After all source checks, package Pages delivery and retain byte-identical release exports in this directory')
     args=p.parse_args()
-    result=inspect_site(args.site)
+    result=inspect_site(args.site,compact_html=args.compact_html,delivery_artifacts=args.delivery_artifacts)
     (args.site/'verification.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8')
     print(json.dumps(result))
 

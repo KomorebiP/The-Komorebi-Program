@@ -8,13 +8,13 @@ permissions:
   contents: read
 concurrency:
   group: reader-site-${{ github.ref }}
-  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+  cancel-in-progress: true
 jobs:
   build:
     runs-on: ubuntu-24.04
-    timeout-minutes: 45
+    timeout-minutes: 60
     permissions:
-      contents: read
+      contents: write
       pages: read
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
@@ -74,6 +74,38 @@ jobs:
           python -B -m unittest discover -s tools -p 'test_*python.py' -v
       - name: Test reader rendering safeguards
         run: |
+          python -B -m unittest discover -s tools -p 'test_sequence_atlas.py' -v
+          python -B -m unittest discover -s tools -p 'test_sequence_library.py' -v
+          python -B -m unittest discover -s tools -p 'test_sequence_closed_forms.py' -v
+          python -B -m unittest discover -s tools -p 'test_sequence_closed_forms_extended.py' -v
+          python -B -m unittest discover -s tools -p 'test_sequence_closed_forms_central.py' -v
+          python -B -m unittest discover -s tools -p 'test_sequence_algebraic_kernel_examples.py' -v
+          python -B -m unittest discover -s tools -p 'test_sequence_polynomial_hankel.py' -v
+          python -B -m unittest discover -s tools -p 'test_sequence_differential_hankel.py' -v
+          python -B -m unittest discover -s tools -p 'test_sequence_differential_hankel_bridge.py' -v
+          python -B tools/verify_sequence_rational_hankel.py --output .reader-build/rational-hankel-verification.json
+          python -B tools/verify_sequence_linear_hankel.py --output .reader-build/linear-hankel-certificate.json
+          python -B tools/verify_sequence_quadratic_hankel.py --output .reader-build/quadratic-hankel-uniform.json
+          python -B tools/verify_sequence_parity_structure.py --output .reader-build/hankel-parity-structure.json
+          python -B tools/verify_sequence_hankel_symbol.py --output .reader-build/hankel-symbol-ideal.json
+          python -B tools/verify_sequence_quadratic_certificate.py --input verification/sequence-library/hankel-compression/quadratic-certificate.json --output .reader-build/quadratic-hankel-audit.json
+          python -B tools/verify_sequence_mixed_hankel.py --input verification/sequence-library/hankel-compression/mixed-certificate.json --output .reader-build/mixed-hankel-audit.json
+          python -B tools/verify_sequence_sharp_quadratic.py --output .reader-build/sharp-quadratic-audit.json
+          python -B tools/verify_sequence_uniform_mixed.py --sample-certificate verification/sequence-library/hankel-compression/mixed-certificate.json --output .reader-build/uniform-mixed-audit.json
+          python -B tools/verify_sequence_exceptional_hankel.py --certificate verification/sequence-library/hankel-compression/exceptional-certificate.json --output .reader-build/exceptional-orders-audit.json
+          python -B tools/verify_sequence_interior_hankel.py --coefficients verification/sequence-library/hankel-compression/interior-coefficients.json --certificate verification/sequence-library/hankel-compression/interior-certificate.json --output .reader-build/interior-orders-audit.json
+          python -B -m unittest discover -s tools -p 'test_sequence_hankel_orders.py' -v
+          python -B -m unittest discover -s tools -p 'test_sequence_final_edition.py' -v
+          node --test tools/test_sequence_hankel_orders.mjs
+          python -B -m unittest discover -s tools -p 'test_sequence_linear_hankel_bridge.py' -v
+          python -B -m unittest discover -s tools -p 'test_sequence_math_reading.py' -v
+          node --test tools/test_sequence_closed_forms_core.mjs
+          python -B -m unittest discover -s tools -p 'test_sequence_closed_form_handoffs.py' -v
+          python -B -m unittest discover -s tools -p 'test_sequence_families.py' -v
+          node --test tools/test_sequence_atlas.mjs tools/test_sequence_atlas_search.mjs tools/test_sequence_atlas_discovery.mjs tools/test_sequence_atlas_interface.mjs tools/test_sequence_atlas_study.mjs tools/test_sequence_atlas_directory.mjs tools/test_sequence_archive.mjs tools/test_sequence_plot_options.mjs tools/test_sequence_library.mjs tools/test_sequence_inspection_links.mjs tools/test_sequence_workbench.mjs tools/test_sequence_readability.mjs tools/test_sequence_math.mjs tools/test_sequence_triangle.mjs tools/test_sequence_transfer.mjs tools/test_sequence_research.mjs
+          python -B tools/audit_sequence_archive.py --output .reader-build/sequence-archive-audit.json
+          python -B -m unittest discover -s tools -p 'test_reader_delivery.py' -v
+          node --test tools/test_reader_data.cjs
           python -B -m unittest discover -s tools -p 'test_site_metadata.py' -v
           python -B -m unittest discover -s tools -p 'test_search_catalog.py' -v
           node --test tools/test_search_engine.cjs tools/test_search_interface.cjs
@@ -89,6 +121,10 @@ jobs:
           node --test tools/test_lean_frontend.mjs tools/test_lean_frontend_adapter.mjs
           python -B -m unittest discover -s tools -p 'test_lean_execution.py' -v
           node --test tools/test_lean_execution.cjs
+          python -B -m unittest discover -s tools -p 'test_physics_reading.py' -v
+          python -B -m unittest discover -s tools -p 'test_physics_visual.py' -v
+          python -B -m unittest discover -s tools -p 'test_physics_companions.py' -v
+          python -B -m unittest discover -s tools -p 'test_physics_discovery.py' -v
           python -B -m unittest discover -s tools -p 'test_methodology_reading.py' -v
           python -B -m unittest discover -s tools -p 'test_large_signal_reading.py' -v
           python -B -m unittest discover -s tools -p 'test_large_signal_atlas.py' -v
@@ -125,6 +161,11 @@ jobs:
           python -B -m unittest discover -s tools -p 'test_paper_xi_reading.py' -v
           python -B -m unittest discover -s tools -p 'test_paper_xii_reading.py' -v
           python -B -m unittest discover -s tools -p 'test_special_functions_reading.py' -v
+          python -B -m unittest discover -s tools -p 'test_special_functions_atlas.py' -v
+          python -B -m unittest discover -s tools -p 'test_special_functions_lab.py' -v
+          python -B -m unittest discover -s tools -p 'test_reader_figure_encoding.py' -v
+          node --check website/assets/special-functions-lab-core.mjs
+          node --check website/assets/special-functions-lab.js
           python -B -m unittest discover -s tools -p 'test_reading_navigation.py' -v
           python -B -m unittest discover -s tools -p 'test_reading_paths.py' -v
           python -B -m unittest discover -s tools -p 'test_reading_list.py' -v
@@ -153,6 +194,43 @@ jobs:
           node --test tools/test_recovery_lab.cjs
           python -B -m unittest discover -s tools -p 'test_recovery_lab.py' -v
           node --test tools/test_signal_lab.cjs
+          python -B -m unittest discover -s tools -p 'test_smith_chart_site.py' -v
+          python -B -m unittest discover -s tools -p 'test_smith_chart_research.py' -v
+          python -B -m unittest discover -s tools -p 'test_computational_chemistry.py' -v
+          python -B -m unittest discover -s tools -p 'test_chemistry_lab.py' -v
+          python -B -m unittest discover -s tools -p 'test_chemistry_responses.py' -v
+          node tools/test_chemistry_responses.mjs
+          python -B -m unittest discover -s tools -p 'test_chemistry_continuous.py' -v
+          node tools/test_chemistry_continuous.mjs
+          node --check website/assets/chemistry-continuous.js
+          python -B -m unittest discover -s tools -p 'test_chemistry_budget.py' -v
+          node tools/test_chemistry_budget.mjs
+          python -B -m unittest discover -s tools -p 'test_chemistry_polynomial.py' -v
+          node tools/test_chemistry_polynomial.mjs
+          node --check website/assets/chemistry-polynomial-core.mjs
+          python -B research/computational-chemistry/stage17/qualify_frontiers.py --output .reader-build/chemistry-budget-qualification
+          node --check website/assets/chemistry-budget.js
+          node tools/test_chemistry_lab.mjs
+          node --check website/assets/chemistry-lab.js
+          node --check tools/test_chemistry_lab_browser.cjs
+          node --check tools/test_computational_chemistry_browser.cjs
+          node --check tools/test_chemistry_reading_browser.cjs
+          python -B -m unittest discover -s tools -p 'test_smith_chart_continuation.py' -v
+          python -B -m unittest discover -s tools -p 'test_smith_unified.py' -v
+          python -B -m unittest discover -s tools -p 'test_smith_reading.py' -v
+          python -B -m unittest discover -s tools -p 'test_smith_systematic.py' -v
+          python -B -m unittest discover -s tools -p 'test_smith_breakthrough.py' -v
+          python -B -m unittest discover -s tools -p 'test_smith_coefficient_routes.py' -v
+          python -B -m unittest discover -s tools -p 'test_smith_physical_constraints.py' -v
+          python -B -m unittest discover -s tools -p 'test_smith_balanced_resonance.py' -v
+          python -B -m unittest discover -s tools -p 'test_smith_regular_balanced.py' -v
+          python -B -m unittest discover -s tools -p 'test_smith_transfer.py' -v
+          node --check website/assets/smith-research.js
+          node --check tools/test_smith_research_browser.cjs
+          node --test tools/test_smith_book_redirect.cjs
+          python -B tools/smith_chart_boundary_examples.py
+          node --check website/assets/smith-chart.js
+          node --test tools/test_smith_chart_phase.cjs
           node --test tools/test_signal_lab_workspace.cjs
           python -B -m unittest discover -s tools -p 'test_signal_lab.py' -v
           python -B -m unittest discover -s tools -p 'test_jspace_lab.py' -v
@@ -160,13 +238,31 @@ jobs:
           python -B -m unittest discover -s tools -p 'test_reader_runtime.py' -v
           python -B -m unittest discover -s tools -p 'test_glossary_reader.py' -v
           node tools/test_glossary_lookup.cjs
+          node --test tools/test_glossary_sections.cjs
           node tools/test_side_reader.cjs
           node tools/test_side_sessions.cjs
           python -B -m unittest discover -s tools -p 'test_side_reader.py' -v
       - name: Verify the manuscript claim index
         run: python -B tools/claim_navigation.py --check
       - name: Check the hand-worked arithmetic
-        run: python -B tools/check_hand_examples.py
+        run: |
+          python -B tools/check_hand_examples.py
+          python -B -m unittest discover -s tools -p 'test_operator_guide.py' -v
+          python -B examples/operator_observation.py
+          python -B -m unittest discover -s tools -p 'test_operator_observation.py' -v
+          python -B examples/operator_dynamics.py
+          python -B -m unittest discover -s tools -p 'test_operator_dynamics.py' -v
+          python -B examples/operator_memory.py
+          python -B -m unittest discover -s tools -p 'test_operator_memory.py' -v
+          python -B examples/operator_cutoffs.py
+          python -B -m unittest discover -s tools -p 'test_operator_cutoffs.py' -v
+          python -B examples/operator_compositions.py
+          python -B -m unittest discover -s tools -p 'test_operator_compositions.py' -v
+      - name: Check operator catalog sources, examples, and lookup
+        run: |
+          python -B tools/operator_catalog.py --check
+          python -B -m unittest discover -s tools -p 'test_operator_catalog*.py' -v
+          node tools/test_operator_catalog_lookup.cjs
       - name: Check the complete demonstrations and expected output
         run: python -B tools/check_demonstrations.py
       - name: Check the extended Euler derivation and exact library agreement
@@ -204,8 +300,10 @@ jobs:
           PY
       - name: Build and run the introductory C example
         run: |
-          sudo apt-get update
-          sudo apt-get install -y cmake libgmp-dev
+          if ! command -v cmake >/dev/null || ! dpkg-query -W -f='${Status}' libgmp-dev 2>/dev/null | grep -qx 'install ok installed'; then
+            sudo apt-get update
+            sudo apt-get install -y cmake libgmp-dev
+          fi
           cmake -S .reader-libraries/polyphase -B .reader-build/polyphase -DCMAKE_BUILD_TYPE=Release -DPPF_OPENMP=OFF -DPPF_MPFR_SUPPORT=OFF -DPPF_BUILD_EXAMPLES=ON -DBUILD_TESTING=OFF
           cmake --build .reader-build/polyphase --parallel --target example_basic
           python - <<'PY'
@@ -223,7 +321,12 @@ jobs:
       - name: Build the reader site and reading ZIPs
         run: python -B tools/build_reader_site.py --math-root .reader-libraries/math --polyphase-root .reader-libraries/polyphase --mathjax-root .reader-build/mathjax --pdfjs-root .reader-build/pdfjs --python-root .reader-build/python --lean-wasm-root .reader-build/lean-wasm --revision '${{ github.sha }}' --output reader-site
       - name: Check HTML links, access features and all reading ZIPs
-        run: python -B tools/check_reader_site.py --site reader-site
+        run: python -B tools/check_reader_site.py --site reader-site --compact-html --delivery-artifacts .reader-build/reader-downloads
+      - name: Publish and verify revision-bound reader downloads
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python -B tools/publish_reader_downloads.py --site reader-site --artifacts .reader-build/reader-downloads
       - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
       - uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b

@@ -2,7 +2,7 @@
 
 **Komorebi P. · First published 27 October 2026**
 
-Komorebi is my independent mathematical research project, published under the name **Komorebi P.** It brings together manuscripts, formal developments, software, calculations, experiments, and guides for readers.
+The Komorebi Program is my independent mathematical research project, published under the name **Komorebi P.** It brings together manuscripts, formal developments, software, calculations, experiments, and guides for readers.
 
 At its center is Realization Calculus, which studies how mathematical objects are represented, decomposed, transferred, and reconstructed, and what information or obstructions remain after those operations. Komorebi Space provides a framework for comparing compatible realizations. The individual works develop different parts of this program, each with its own assumptions, claims, and supporting evidence.
 
@@ -32,7 +32,7 @@ The citation record is incomplete. Until now, keeping track of every source and 
 
 Specific contributions need specific credit. This acknowledgment accompanies that continuing work and does not replace citations to the sources actually used. For OEIS material, the aim is to identify the sequence entry and the particular comment, formula, reference, or program used, together with its credited contributor or underlying source where available. An absent citation should not be read as a claim that the corresponding idea, formula, or code originated here.
 
-Readers who recognize a missing or inaccurate attribution are welcome to [report it through the repository's issue tracker](https://github.com/KomorebiP/Operation-KOMOREBI/issues/new/choose). Identifying the passage, formula, or program and the relevant source will help me make a precise correction.
+Readers who recognize a missing or inaccurate attribution are welcome to [report it through the repository's issue tracker](https://github.com/KomorebiP/The-Komorebi-Program/issues/new/choose). Identifying the passage, formula, or program and the relevant source will help me make a precise correction.
 
 ## Current state and publication circumstances
 

@@ -1,0 +1,296 @@
+import gzip
+import hashlib
+import json
+import re
+from pathlib import Path
+import tempfile
+import unittest
+from audit_sequence_library import checks
+from sequence_atlas import catalogue
+from sequence_library import (library_entries,verified_oeis_coverage,matches_block,
+                              oeis_prefix_note,oeis_comparison_summary)
+from sequence_formula_catalogue import formula_variants,expanded_catalogue
+from update_sequence_library_oeis import compare,compare_snapshot
+
+
+class SequenceLibraryTests(unittest.TestCase):
+    def test_complete_oeis_receipts_cover_closed_form_records_with_exact_terms(self):
+        entries=library_entries(catalogue())
+        receipt=json.loads((Path(__file__).resolve().parents[1]/
+                           'manifests/sequence-library-oeis.json').read_text())
+        covered=verified_oeis_coverage(entries,receipt)
+        self.assertEqual(covered,{entry['id'] for entry in entries})
+        self.assertEqual(len(covered),2333)
+        closed=[entry for entry in entries if entry.get('closed_form_collection')]
+        self.assertEqual(len(closed),41)
+        self.assertEqual(sum(bool(receipt['matches'][entry['id']]) for entry in closed),17)
+        for identifier,reference,length in (
+                ('KFOR-CF-PAD-1','A000931',24),
+                ('KFOR-CF-JET-00','A163865',24),
+                ('KFOR-CF-R-p0','A273352',12)):
+            self.assertTrue(any(hit['id']==reference and hit['matched_terms']==length
+                                for hit in receipt['matches'][identifier]))
+        for entry in closed:
+            entry.update(oeis_checked=entry['id'] in covered,
+                         matches=receipt['matches'][entry['id']],
+                         match_count=receipt['total_matches'][entry['id']])
+            entry['oeis_prefix_note']=oeis_prefix_note(entry,receipt['minimum_terms'])
+            html=matches_block(entry)
+            self.assertNotIn('comparison pending',html)
+            self.assertNotIn('Not yet compared',oeis_comparison_summary(entry))
+            if not entry['matches']:
+                self.assertIn('No contiguous match of eight terms',html)
+                self.assertIn('does not establish novelty',html)
+            if entry['id'] in ('KFOR-CF-JET-04','KFOR-CF-W-4-1'):
+                self.assertIn('zero',entry['oeis_prefix_note'])
+                self.assertIn('Agreement need not extend',html)
+        # The older finite comparisons are still bound to their exact inputs.
+        original=[entry for entry in entries if not entry.get('closed_form_collection')]
+        self.assertEqual(hashlib.sha256(json.dumps(
+            [(entry['id'],entry['terms']) for entry in original],
+            separators=(',',':')).encode()).hexdigest(),
+            'ed9224065b5004fb1e2d9b6cfa42ca286764228760fa9bd271305add6f0eb299')
+
+    def test_oeis_checked_status_requires_receipt_membership_and_valid_hashes(self):
+        from copy import deepcopy
+        entries=[dict(id='CHECKED',terms=[str(n) for n in range(8)]),
+                 dict(id='PENDING',terms=['0']*8)]
+        digest=hashlib.sha256(json.dumps(
+            [('CHECKED',entries[0]['terms'])],separators=(',',':')).encode()).hexdigest()
+        receipt=dict(matches={'CHECKED':[]},total_matches={'CHECKED':0},
+                     catalogue_terms_sha256=digest,stripped_sha256='a'*64,
+                     names_sha256='b'*64,snapshot=dict(files=[
+                         dict(file='stripped.gz',sha256='a'*64),
+                         dict(file='names.gz',sha256='b'*64)]))
+        self.assertEqual(verified_oeis_coverage(entries,receipt),{'CHECKED'})
+        changed=deepcopy(entries);changed[0]['terms'][3]='99'
+        with self.assertRaisesRegex(ValueError,'term changes'):
+            verified_oeis_coverage(changed,receipt)
+        changed=deepcopy(receipt);changed['total_matches']['PENDING']=0
+        with self.assertRaisesRegex(ValueError,'record sets differ'):
+            verified_oeis_coverage(entries,changed)
+        changed=deepcopy(receipt);changed['matches']['MISSING']=[];changed['total_matches']['MISSING']=0
+        with self.assertRaisesRegex(ValueError,'missing or duplicate'):
+            verified_oeis_coverage(entries,changed)
+        changed=deepcopy(receipt);changed['stripped_sha256']='c'*64
+        with self.assertRaisesRegex(ValueError,'reference hash differs'):
+            verified_oeis_coverage(entries,changed)
+        pending=dict(id='PENDING',offset=0,terms=['0']*8,oeis_checked=False,
+                     matches=[],match_count=0,closed_form_collection=True)
+        self.assertIn('comparison pending',matches_block(pending))
+        self.assertNotIn('No contiguous match',matches_block(pending))
+        self.assertEqual(oeis_comparison_summary(pending),'Not yet compared')
+
+    def test_snapshot_reproduction_rejects_wrong_reference_bytes(self):
+        entry=dict(id='LOCAL',terms=[str(n) for n in range(8)])
+        with tempfile.TemporaryDirectory() as tmp:
+            source=Path(tmp)
+            with gzip.open(source/'stripped.gz','wt',encoding='utf-8') as stream:
+                stream.write('# OEIS fixture\nA000001 ,0,1,2,3,4,5,6,7,\n')
+            with gzip.open(source/'names.gz','wt',encoding='utf-8') as stream:
+                stream.write('A000001 Fixture\n')
+            snapshot=dict(files=[])
+            for name in ('stripped.gz','names.gz'):
+                raw=(source/name).read_bytes()
+                snapshot['files'].append(dict(file=name,bytes=len(raw),
+                                              sha256=hashlib.sha256(raw).hexdigest()))
+            (source/'snapshot.json').write_text(json.dumps(snapshot))
+            report=compare_snapshot(source,[entry])
+            self.assertEqual(report['snapshot'],snapshot)
+            self.assertEqual(report['matches']['LOCAL'][0]['matched_terms'],8)
+            (source/'names.gz').write_bytes(b'different reference data')
+            with self.assertRaisesRegex(ValueError,'snapshot bytes differ: names.gz'):
+                compare_snapshot(source,[entry])
+
+    def test_closed_form_reader_links_target_existing_record_ids(self):
+        from sequence_generalized import family_definitions
+        reader=(Path(__file__).parent/'sequence_library.py').read_text(encoding='utf-8')
+        record_links=set(re.findall(r'sequence-families/(KFOR-CF-[A-Za-z0-9-]+)\.html',reader))
+        family_links=set(re.findall(r'generalized-families/(GF-CF-[A-Za-z0-9-]+)\.html',reader))
+        known_records={entry['id'] for entry in expanded_catalogue()}
+        known_families={family['id'] for family in family_definitions()}
+        self.assertGreaterEqual(len(record_links),3)
+        self.assertTrue(record_links <= known_records,record_links-known_records)
+        self.assertTrue(family_links <= known_families,family_links-known_families)
+
+    def test_calculator_handoffs_unify_exact_records_without_changing_coefficients(self):
+        from urllib.parse import parse_qs,urlparse
+        from sequence_library import calculator_link
+        entries=library_entries(catalogue())
+        linked=[item for item in entries if item.get('calculator_url')]
+        self.assertEqual(len(linked),41)
+        self.assertEqual({item['closed_form_family'] for item in linked},{
+            'GF-CF-SPARSE','GF-CF-PADOVAN','GF-CF-FOUR-BLOCK',
+            'GF-CF-WEIGHTED-HANKEL','GF-CF-BETA-MOMENTS',
+            'GF-CF-BETA-HANKEL','GF-CF-BINOMIAL-JETS','GF-CF-MEIXNER',
+            'GF-CF-CENTRAL-BINOMIAL'})
+        for item in linked:
+            url=item['calculator_url']
+            parsed=urlparse(url)
+            self.assertEqual(parsed.path,'sequence-library.html')
+            self.assertEqual(parsed.fragment,'closed-calculator-panel')
+            params=parse_qs(parsed.query,strict_parsing=True)
+            self.assertTrue(all(len(values)==1 for values in params.values()))
+            self.assertEqual(params['q'],['id:'+item['id']])
+            self.assertEqual(params['cf-version'],['1'])
+            self.assertEqual(params['cf-mode'],[item['calculator']['mode']])
+            self.assertEqual(params['cf-start'],[str(item['offset'])])
+            self.assertGreaterEqual(int(params['cf-count'][0]),1)
+            self.assertLessEqual(int(params['cf-count'][0]),12)
+            for key,value in item['calculator'].items():
+                if key!='mode':
+                    self.assertEqual(params['cf-'+key],[str(value)])
+            self.assertEqual(calculator_link(item),url)
+            self.assertEqual(len(item['terms']),24)
+        self.assertFalse(any(item.get('calculator_url')
+                             for item in entries if not item.get('closed_form_collection')))
+        sparse=next(item for item in linked if item['id']=='KFOR-CF-S-2-5-1-1-1')
+        self.assertEqual(sparse['calculator']['p'],2)
+        self.assertEqual(sparse['calculator']['q'],5)
+        jets=next(item for item in linked if item['id']=='KFOR-CF-JET-02')
+        self.assertEqual(jets['calculator']['lambda'],1)
+        self.assertEqual(jets['calculator']['d'],2)
+        four=next(item for item in linked if item['id']=='KFOR-CF-R-p1')
+        self.assertEqual(four['offset'],1)
+        self.assertEqual(four['calculator']['a'],1)
+        beta=next(item for item in linked if item['id']=='KFOR-CF-BH-4-1-1')
+        self.assertEqual(beta['calculator']['L'],4)
+        self.assertEqual(beta['calculator']['a'],1)
+
+    def test_complete_parameter_windows_and_independent_formulas(self):
+        report=checks();self.assertEqual(report['records'],2205);self.assertEqual(report['terms'],56923)
+        self.assertEqual(report['checks']['source_index_maps'],55939)
+
+    def test_unified_records_preserve_old_ids_offsets_and_formula_types(self):
+        entries=library_entries(catalogue());self.assertEqual(len(entries),2333);self.assertEqual(len({x['id'] for x in entries}),2333)
+        self.assertEqual(sum(len(x['formulas']) for x in entries),7126)
+        self.assertTrue(all(len(x['terms'])==(sum(x['triangle']['row_lengths']) if x.get('triangle') else 48 if x['id'].startswith('KFOR-KB-') else 24) for x in expanded_catalogue()))
+        self.assertTrue(any(x['offset']==2 for x in entries))
+        for kind in ['reciprocal','catalan','central-binomial']:
+            entry=next(x for x in catalogue() if x['kind']==kind)
+            self.assertTrue(any(f['kind']=='hypergeometric' for f in formula_variants(entry)))
+
+    def test_formula_source_degrees_follow_the_existing_exact_index_map(self):
+        from sequence_library import source_degree
+        entries=library_entries(catalogue())
+        formulas=[item for item in entries if item['collection']=='formulas']
+        self.assertEqual(len(formulas),2205)
+        self.assertEqual(sum(len(item['terms']) for item in formulas),56923)
+        by_id={item['id']:item for item in formulas}
+        for item in formulas:
+            degrees=[source_degree(item,item['offset']+i) for i in range(len(item['terms']))]
+            self.assertEqual(len(degrees),len(item['terms']))
+            self.assertTrue(all(isinstance(degree,int) and degree>=0 for degree in degrees))
+        self.assertEqual(source_degree(by_id['KFOR-P-03-02'],2),6)
+        self.assertEqual(source_degree(by_id['KFOR-P-03-02'],3),9)
+        self.assertEqual(source_degree(by_id['KFOR-TRI-P-03'],5),6)
+        self.assertEqual(source_degree(by_id['KFOR-HC-04'],2),4)
+        self.assertNotIn('source_degrees',next(item for item in entries if item['collection']=='atlas'))
+
+    def test_indexed_source_receipts_cover_exact_integer_data(self):
+        import hashlib
+        from sequence_library import exact_record_receipt, source_degree
+        record=next(item for item in library_entries(catalogue()) if item['id']=='KFOR-P-03-02')
+        augmented=dict(record,source_degrees=[source_degree(record,record['offset']+i)
+                              for i in range(len(record['terms']))])
+        payload=[augmented['id'],augmented['collection'],augmented['offset'],
+                 augmented.get('index_symbol','n'),augmented['terms'],augmented['source_degrees']]
+        expected=hashlib.sha256(json.dumps(payload,ensure_ascii=False,
+                          separators=(',',':')).encode('utf-8')).hexdigest()
+        self.assertEqual(exact_record_receipt(augmented),expected)
+        self.assertEqual(len(expected),64)
+        self.assertNotEqual(exact_record_receipt({**augmented,'terms':['11',*augmented['terms'][1:]]}),expected)
+        self.assertNotEqual(exact_record_receipt({**augmented,'offset':3}),expected)
+        self.assertNotEqual(exact_record_receipt({**augmented,'source_degrees':[9,*augmented['source_degrees'][1:]]}),expected)
+        plain=next(item for item in library_entries(catalogue()) if item['collection']=='atlas')
+        self.assertEqual(len(exact_record_receipt(plain)),64)
+
+    def test_research_tools_have_disjoint_reading_sections(self):
+        from sequence_generalized import sections
+        ids=('generalized','research-graph','identify','modular-dynamics','research-notebooks')
+        complete=sections()
+        for identifier in ids:
+            part=sections(only=[identifier])
+            self.assertIn('id="'+identifier+'"',part)
+            self.assertEqual(part.count('<section id='),1)
+            self.assertIn(part,complete)
+            self.assertTrue(part.endswith('</section>'))
+        self.assertEqual(sections(only=['generalized','research-graph']).count('<section id='),2)
+        with self.assertRaises(ValueError):
+            sections(only=['missing-tool'])
+
+    def test_research_family_directory_covers_all_indexed_records(self):
+        from collections import Counter
+        entries=library_entries(catalogue())
+        research=[item for item in entries if 'research-derived' in item['tags']]
+        counts=Counter(item['kind'] for item in research)
+        expected={
+            'secancy parameter column':88,
+            'secancy coefficient triangle':11,
+            'Euler-transfer theta':12,
+            'theta polynomial column':12,
+            'theta coefficient triangle':1,
+            'block-Appell coefficient triangle':21,
+            'block-Appell coefficient column':84,
+            'k-step reciprocal power':120,
+            'k-bonacci':10,
+        }
+        self.assertEqual(counts,expected)
+        self.assertEqual(sum(counts.values()),359)
+        self.assertEqual(len({item['id'] for item in research}),359)
+
+    def test_research_windows_keep_real_indices_and_ordinary_polynomial_coefficients(self):
+        from sequence_formula_catalogue import secancy_polynomials,theta_polynomial_rows
+        from sequence_library import source_degree
+        self.assertEqual(secancy_polynomials(3,3)[2],(0,9,10))
+        self.assertEqual(theta_polynomial_rows(4)[3],(0,-16,-30,-45,-45,-75,-61))
+        entries={e['id']:e for e in expanded_catalogue()}
+        for key,offset,degree,first in [('KFOR-P-03-02',2,6,'10'),('KFOR-H-02',0,0,'1'),('KFOR-HC-04',2,4,'5')]:
+            e=entries[key];self.assertEqual(e['offset'],offset);self.assertEqual(e['terms'][0],first);self.assertEqual(source_degree(e,offset),degree);self.assertIn('research-derived',e['tags']);self.assertIn('novelty unassessed',e['status'])
+        self.assertEqual(entries['KFOR-H-02']['terms'][:4],['1','-6','144','-7536'])
+
+    def test_full_triangles_retain_zeros_coordinates_and_source_degrees(self):
+        from sequence_research_tables import research_additions,cell_coordinates,exact_integer
+        from fractions import Fraction
+        from sequence_library import source_degree
+        with self.assertRaises(ValueError):exact_integer(Fraction(3,2))
+        self.assertEqual(exact_integer(Fraction(4,2)),2)
+        entries={item['id']:item for item in research_additions()}
+        self.assertEqual(len(entries),139)
+        self.assertEqual(sum('triangle' in item for item in entries.values()),55)
+        p=entries['KFOR-TRI-P-03'];self.assertEqual(p['terms'][:6],['1','0','1','0','9','10'])
+        self.assertEqual(cell_coordinates(p,5),(2,2));self.assertEqual(source_degree(p,5),6)
+        theta=entries['KFOR-TRI-H'];self.assertEqual(theta['terms'][:9],['1','0','-1','-1','0','2','3','6','5'])
+        self.assertEqual(cell_coordinates(theta,8),(2,4));self.assertEqual(source_degree(theta,8),4)
+        column=entries['KFOR-AC-03-01-02'];self.assertEqual(column['terms'][:2],['1','-10']);self.assertEqual(source_degree(column,1),5)
+
+    def test_connection_equations_retain_exact_indices_and_static_readability(self):
+        from sequence_research_notes import research_connections
+        from sequence_research_tables import research_additions,triangle_section
+        edges=research_connections()['edges']
+        def edge(kind,target):
+            return next(e for e in edges if e['kind']==kind and e['target']==target)
+        self.assertTrue(next(e['math_plain'] for e in edges if e['kind']=='subsequence').startswith('b(n)=a('))
+        self.assertIn(r'\Theta_{2n}',edge('coefficient extraction','KFOR-HC-04')['math_tex'])
+        self.assertIn(r'E_{3n+2}',edge('coefficient extraction','KFOR-AC-03-01-02')['math_tex'])
+        self.assertIn(r'\Theta_{2n}(2)',edge('polynomial evaluation','KFOR-H-02')['math_tex'])
+        self.assertIn(r'\delta_{n,k}',edge('inverse matrices','KFOR-TRI-BI-03')['math_tex'])
+        self.assertTrue(all(e['math_plain'] and e['math_tex'] for e in edges if e['kind'] in
+            ('subsequence','seed shift','coefficient extraction','polynomial evaluation','inverse matrices','ordinary convolution')))
+        entries={entry['id']:entry for entry in research_additions()}
+        self.assertIn('j=n^2+k',triangle_section(entries['KFOR-TRI-H']))
+        self.assertIn(r'\frac{n(n+1)}{2}',triangle_section(entries['KFOR-TRI-P-03']))
+        self.assertIn('data-math-latex=',triangle_section(entries['KFOR-TRI-B-03']))
+
+    def test_snapshot_contiguous_matching_extends_and_caps_with_exact_totals(self):
+        entry=dict(id='LOCAL',terms=[str(x) for x in range(1,13)])
+        with tempfile.TemporaryDirectory() as tmp:
+            p=Path(tmp)
+            with gzip.open(p/'terms.gz','wt',encoding='utf-8') as stream:stream.write('# OEIS fixture\n'+''.join(f'A{i:06d} ,99,1,2,3,4,5,6,7,8,9,10,11,12,\n' for i in range(1,6)))
+            with gzip.open(p/'names.gz','wt',encoding='utf-8') as stream:stream.write(''.join(f'A{i:06d} Fixture {i}\n' for i in range(1,6)))
+            report=compare(p/'terms.gz',p/'names.gz',[entry],limit=2)
+            self.assertEqual(report['sequence_count'],5);self.assertEqual(report['total_matches']['LOCAL'],5);self.assertEqual(len(report['matches']['LOCAL']),2)
+            self.assertTrue(all(x['position']==1 and x['matched_terms']==12 for x in report['matches']['LOCAL']))
+
+
+if __name__=='__main__':unittest.main()

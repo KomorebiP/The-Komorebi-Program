@@ -12,7 +12,7 @@ Residual structures and completion under stated premises.
 
 ## Before you start
 
-**Suggested background:** Vectors, matrices, linear maps, kernels and images, and reading a statement with hypotheses. Consult the selected paper for any additional algebra or analysis it uses.
+**Suggested background:** Familiarity with vectors, matrices, linear maps, kernels, and images, plus experience reading statements with hypotheses. Consult the selected paper for any additional algebra or analysis it uses.
 
 **Recorded results and limits:** The amended 20/20 contract is conditional. Transported targets and a summand in a supplied carrier are separate outputs. General arithmetic attachment remains open.
 
@@ -32,8 +32,8 @@ Use the links below to read this work and its supporting files. Ctrl+click (Comm
 
 ## Read
 
-- [Read online: manuscript, historical continuations and final conditional completion](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-x/index.html)
-- [Visual guide: all 30 HTML plates and the opening scope contract](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-x/atlas/index.html)
+- [Read online: manuscript, historical continuations, and final conditional completion](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-x/index.html)
+- [Visual guide: all 30 HTML plates and the opening scope contract](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-x/atlas/index.html)
 - [Edition README](../../papers/paper-x/current/README.md)
 - [Read PDF](../../papers/paper-x/current/publication/pdfs/Paper_X_Traditional_Final.pdf)
 - [Visual guide (PDF)](../../papers/paper-x/current/publication/pdfs/Paper_X_Visual_Guide_Final.pdf)
@@ -63,7 +63,7 @@ Start with the [edition guide](../../papers/paper-x/current/README.md) and the b
 
 ## Code
 
-These links include code, examples, checks, or build tools. Read the [edition guide](../../papers/paper-x/current/README.md) for setup instructions and what each command does. All software is beta and work in progress.
+These links include code, examples, checks, or build tools. Read the [edition guide](../../papers/paper-x/current/README.md) for setup instructions and an explanation of what each command does. All software is in beta and remains a work in progress.
 
 - [Code / scripts: inherited_baseline/original_companion](../../papers/paper-x/current/inherited_baseline/original_companion/)
 

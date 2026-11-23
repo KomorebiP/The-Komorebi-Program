@@ -22,7 +22,7 @@ The background advice is an editorial starting point. The work itself states its
 
 [Reading routes](../READING_ROUTES.md) · [Glossary](../GLOSSARY.md) · [Claim links](../CLAIM_LINKS.md#monographs-quantum-and-circuits) · [Download this work](../DOWNLOADS.md#monographs-quantum-and-circuits)
 
-[Start here: choose a visual introduction, full study, or formal companion](https://KomorebiP.github.io/Operation-KOMOREBI/read/monographs-quantum-and-circuits/start.html). Each path links directly to the HTML edition and explains useful background.
+[Start here: choose a visual introduction, full study, or formal companion](https://KomorebiP.github.io/The-Komorebi-Program/read/monographs-quantum-and-circuits/start.html). Each path links directly to the HTML edition and explains useful background.
 
 ### A route through the volume
 
@@ -47,7 +47,7 @@ For circuits, the formal companion covers C01, the sharing-aware degree dependen
 
 ### Try the arithmetic phase example
 
-Follow [the modulus-12 calculation](../demonstrations/QUANTUM_PHASE_MEASUREMENT.md#10-the-collections-modulus-12-phase-example), then [change the phase in the browser](https://KomorebiP.github.io/Operation-KOMOREBI/playground.html#physics-arithmetic-phase). Compare coherent sign replacement with coordinate dephasing. The [exact Python program](../../examples/quantum_phase_measurement.py) reproduces this finite teaching example using the standard library; it does not run Lean.
+Follow [the modulus-12 calculation](../demonstrations/QUANTUM_PHASE_MEASUREMENT.md#10-the-collections-modulus-12-phase-example), then [change the phase in the browser](https://KomorebiP.github.io/The-Komorebi-Program/playground.html#physics-arithmetic-phase). Compare coherent sign replacement with coordinate dephasing. The [exact Python program](../../examples/quantum_phase_measurement.py) reproduces this finite teaching example using the standard library; it does not run Lean.
 
 ### Worked examples for this work
 
@@ -61,7 +61,7 @@ Use the links below to read this work and its supporting files. Ctrl+click (Comm
 
 ## Read
 
-- [Read online: complete volume, appendices, proofs and sources](https://KomorebiP.github.io/Operation-KOMOREBI/read/monographs-quantum-and-circuits/index.html)
+- [Read online: complete volume, appendices, proofs, and sources](https://KomorebiP.github.io/The-Komorebi-Program/read/monographs-quantum-and-circuits/index.html)
 - [Edition README](../../monographs/quantum-and-circuits/README.md)
 - [Read PDF](../../monographs/quantum-and-circuits/volume/output/Realization_Calculus_Quantum_and_Circuits.pdf)
 - [Visual guide (PDF)](../../monographs/quantum-and-circuits/sources/quantum/Quantum_Arithmetic_Complete_Release/output/Komorebi_Quantum_Arithmetic_Visual_Guide.pdf)
@@ -97,7 +97,7 @@ Start with the [edition guide](../../monographs/quantum-and-circuits/README.md) 
 
 ## Code
 
-These links include code, examples, checks, or build tools. Read the [edition guide](../../monographs/quantum-and-circuits/README.md) for setup instructions and what each command does. All software is beta and work in progress.
+These links include code, examples, checks, or build tools. Read the [edition guide](../../monographs/quantum-and-circuits/README.md) for setup instructions and an explanation of what each command does. All software is in beta and remains a work in progress.
 
 - [Portable formal replay wrapper (requires the external Lean kit)](../../monographs/quantum-and-circuits/release_tools/replay_formal.py)
 - [Symmetry packet implementation and exact checks](../../monographs/quantum-and-circuits/sources/symmetry/Symmetry_Collapse_in_Quantum_Computation_Source/code/)

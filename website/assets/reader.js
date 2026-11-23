@@ -1,14 +1,21 @@
 "use strict";
 
 // Only formulas that need horizontal scrolling gain an extra keyboard stop.
+// Handle both inline and display equations, preserving existing labels and roles.
 // Recheck after typesetting, text settings, responsive layout, and live results.
 {
   const managed = new Map();
   let scheduled = false;
-  const attributes = {tabindex: "0", role: "group",
+  const inlineAttributes = {tabindex: "0", role: "group",
     "aria-label": "Inline equation. Scroll horizontally if needed.",
     title: "Scroll horizontally to read the full equation."};
+  const displayAttributes = {tabindex: "0", role: "region",
+    "aria-label": "Display equation. Scroll horizontally if needed.",
+    title: "Scroll horizontally to read the full equation."};
+  const attributesFor = formula =>
+    formula.matches("div.arithmatex") ? displayAttributes : inlineAttributes;
   function restore(formula, added) {
+    const attributes = attributesFor(formula);
     for (const name of added) {
       if (formula.getAttribute(name) === attributes[name]) formula.removeAttribute(name);
     }
@@ -25,7 +32,7 @@
         managed.delete(formula);
       }
     }
-    for (const formula of document.querySelectorAll("span.arithmatex")) {
+    for (const formula of document.querySelectorAll("span.arithmatex, div.arithmatex")) {
       if (!managed.has(formula)) {
         managed.set(formula, new Set());
         if (observer) observer.observe(formula);
@@ -37,7 +44,7 @@
       if (formula.clientWidth > 0 && contentWidth > formula.clientWidth + 1) {
         formula.classList.remove("math-fits");
         formula.classList.add("math-overflow");
-        for (const [name, value] of Object.entries(attributes)) {
+        for (const [name, value] of Object.entries(attributesFor(formula))) {
           if (!formula.hasAttribute(name)) { formula.setAttribute(name, value); added.add(name); }
         }
       } else { restore(formula, added); added.clear(); formula.classList.add("math-fits"); }
@@ -50,9 +57,9 @@
   window.addEventListener("resize", schedule);
   window.addEventListener("load", schedule, {once: true});
   if (typeof MutationObserver !== "undefined") new MutationObserver(records => {
-    if (records.some(record => record.target.closest?.("span.arithmatex") ||
+    if (records.some(record => record.target.closest?.("span.arithmatex, div.arithmatex") ||
         [...record.addedNodes].some(node => node.nodeType === 1 &&
-          (node.matches("span.arithmatex") || node.querySelector("span.arithmatex"))))) schedule();
+          (node.matches("span.arithmatex, div.arithmatex") || node.querySelector("span.arithmatex, div.arithmatex"))))) schedule();
   }).observe(document.body, {childList: true, subtree: true});
 }
 
@@ -266,6 +273,14 @@ function normalized(value) {
     .replace(/[^\p{L}\p{N}]+/gu, " ").trim();
 }
 function wordsFor(value) { return normalized(value).split(/\s+/).filter(Boolean); }
+function catalogSearchIdentifier(value) {
+  const match = value.trim().match(/^(op|rel)\s*(?:-\s*)?([0-9]+)$/i);
+  return match ? match[1].toLowerCase() + "-" + (match[2].replace(/^0+/, "") || "0") : "";
+}
+function catalogDestinationIdentifier(url) {
+  const match = url.match(/^collection\/operators\/catalog\/(?:RELATIONS\.html#(rel-[0-9]{2})|[A-L]_[A-Z_]+\.html#(op-[0-9]{3}))$/);
+  return match ? catalogSearchIdentifier(match[1] || match[2]) : "";
+}
 function highlightedText(element, value, words) {
   // Text nodes keep source snippets inert. Highlight whole matching words,
   // including accents and symbol names handled by the search normalizer.
@@ -315,57 +330,152 @@ function filterItems(input, selector, status, group) {
 
 const workQuery = document.querySelector("#work-query");
 if (workQuery) filterItems(workQuery, ".work", document.querySelector("#work-count"), document.querySelector("#work-group"));
+// Maintain direct links to claims.html#<id> after moving records to paper pages.
+// The index retains real links as a no-JavaScript fallback.
+const claimLegacyDirectory = document.querySelector(".claim-legacy-index");
+if (claimLegacyDirectory) {
+  function followLegacyClaim() {
+    if (location.hash) {
+      let id;
+      try { id = decodeURIComponent(location.hash.slice(1)); } catch { return; }
+      const target = document.getElementById(id);
+      if (target && (target.matches(".claim-legacy-link") ||
+          target.matches(".claim-paper-grid a[data-claim-paper]"))) {
+        window.location.replace(target.href);
+      }
+      return;
+    }
+    // The former single-page index also supported shareable filter URLs.
+    const old = new URLSearchParams(location.search);
+    const paperId = old.get("paper");
+    const query = old.get("q");
+    const type = old.get("kind");
+    if (paperId) {
+      const paperLink = document.getElementById(paperId);
+      if (paperLink && paperLink.matches(".claim-paper-grid a[data-claim-paper]")) {
+        const target = new URL(paperLink.href);
+        for (const key of ["q", "kind", "size", "page"]) {
+          if (old.has(key)) target.searchParams.set(key, old.get(key));
+        }
+        window.location.replace(target.href);
+      }
+    } else if (query || type) {
+      const target = new URL("search.html", location.href);
+      target.searchParams.set("type", "Claims");
+      if (query) target.searchParams.set("q", query);
+      window.location.replace(target.href);
+    }
+  }
+  window.addEventListener("hashchange", followLegacyClaim);
+  followLegacyClaim();
+}
+
 const claimQuery = document.querySelector("#claim-query");
 if (claimQuery) {
   const paper = document.querySelector("#claim-paper");
   const kind = document.querySelector("#claim-kind");
+  const size = document.querySelector("#claim-size");
   const count = document.querySelector("#claim-count");
   const empty = document.querySelector("#claim-empty");
   const items = Array.from(document.querySelectorAll(".claim"));
   const sections = Array.from(document.querySelectorAll(".claim-section"));
+  const pagers = Array.from(document.querySelectorAll(".claim-pager"));
+  const paperLinks = Array.from(document.querySelectorAll("[data-claim-paper]"));
   const texts = new Map(items.map(item => [item, normalized(item.dataset.search)]));
   const params = new URLSearchParams(location.search);
   claimQuery.value = params.get("q") || "";
   paper.value = params.get("paper") || "";
   kind.value = params.get("kind") || "";
-  function apply(clearHash = false) {
+  size.value = ["20", "40", "80"].includes(params.get("size")) ? params.get("size") : "20";
+  let currentPage = Math.max(1, Number.parseInt(params.get("page"), 10) || 1);
+
+  function apply({resetPage = false, clearHash = false} = {}) {
+    if (resetPage) currentPage = 1;
     const words = wordsFor(claimQuery.value);
-    let shown = 0;
-    const visiblePapers = new Set();
-    for (const item of items) {
-      const match = (!paper.value || item.dataset.paper === paper.value) &&
-        (!kind.value || item.dataset.kind === kind.value) && words.every(word => texts.get(item).includes(word));
-      item.hidden = !match;
-      if (match) { shown++; visiblePapers.add(item.dataset.paper); }
+    const matches = items.filter(item =>
+      (!paper.value || item.dataset.paper === paper.value) &&
+      (!kind.value || item.dataset.kind === kind.value) &&
+      words.every(word => texts.get(item).includes(word)));
+    const pageSize = Number(size.value);
+    const pages = Math.max(1, Math.ceil(matches.length / pageSize));
+    currentPage = Math.max(1, Math.min(pages, currentPage));
+    const from = (currentPage - 1) * pageSize;
+    const visible = matches.slice(from, from + pageSize);
+    const showing = new Set(visible);
+    const shownPapers = new Set(visible.map(item => item.dataset.paper));
+    for (const item of items) item.hidden = !showing.has(item);
+    for (const section of sections) section.hidden = !shownPapers.has(section.dataset.paper);
+    for (const link of paperLinks) link.classList.toggle("is-active", paper.value === link.dataset.claimPaper);
+    if (matches.length) {
+      count.textContent = `Showing ${from + 1}–${Math.min(from + pageSize, matches.length)} of ${matches.length} matching records (${items.length} total)`;
+    } else {
+      count.textContent = `No matches among ${items.length} records`;
     }
-    for (const section of sections) section.hidden = !visiblePapers.has(section.dataset.paper);
-    count.textContent = `${shown} of ${items.length} records across ${visiblePapers.size} ${visiblePapers.size === 1 ? "paper" : "papers"}`;
-    empty.hidden = shown > 0;
-    saveParams({q: claimQuery.value, paper: paper.value, kind: kind.value}, clearHash);
+    empty.hidden = matches.length > 0;
+    for (const pager of pagers) {
+      pager.hidden = matches.length <= pageSize;
+      pager.querySelector("[data-claim-page-status]").textContent = `Page ${currentPage} of ${pages}`;
+      pager.querySelector('[data-claim-step="-1"]').disabled = currentPage === 1;
+      pager.querySelector('[data-claim-step="1"]').disabled = currentPage === pages;
+    }
+    saveParams({q: claimQuery.value, paper: paper.value, kind: kind.value,
+      size: size.value === "20" ? "" : size.value, page: currentPage === 1 ? "" : String(currentPage)}, clearHash);
   }
+
   function revealHash() {
     let id;
     try { id = decodeURIComponent(location.hash.slice(1)); } catch { return; }
     const target = document.getElementById(id);
-    if (!target || !(target.matches(".claim") || sections.some(s => s.querySelector("h2") === target))) return;
-    paper.value = target.dataset.paper || id;
-    claimQuery.value = "";
-    kind.value = "";
-    apply();
-    requestAnimationFrame(() => { target.scrollIntoView(); });
+    if (!target) return;
+    if (target.matches(".claim")) {
+      paper.value = target.dataset.paper;
+      claimQuery.value = "";
+      kind.value = "";
+      const position = items.filter(item => item.dataset.paper === paper.value).indexOf(target);
+      currentPage = Math.floor(Math.max(0, position) / Number(size.value)) + 1;
+      apply();
+      const record = target.querySelector(".claim-record");
+      if (record) record.open = true;
+      requestAnimationFrame(() => target.scrollIntoView({block: "start"}));
+    } else if (target.matches(".claim-section > h2")) {
+      paper.value = target.closest(".claim-section").dataset.paper;
+      claimQuery.value = "";
+      kind.value = "";
+      apply({resetPage: true});
+      requestAnimationFrame(() => target.scrollIntoView({block: "start"}));
+    }
   }
-  claimQuery.addEventListener("input", () => apply(true));
-  paper.addEventListener("change", () => apply(true));
-  kind.addEventListener("change", () => apply(true));
-  claimQuery.form.addEventListener("submit", event => { event.preventDefault(); apply(true); });
-  claimQuery.form.addEventListener("reset", () => setTimeout(() => { apply(true); claimQuery.focus(); }, 0));
-  for (const link of document.querySelectorAll("[data-claim-paper]")) {
+
+  claimQuery.addEventListener("input", () => apply({resetPage: true, clearHash: true}));
+  paper.addEventListener("change", () => apply({resetPage: true, clearHash: true}));
+  kind.addEventListener("change", () => apply({resetPage: true, clearHash: true}));
+  size.addEventListener("change", () => apply({resetPage: true, clearHash: true}));
+  claimQuery.form.addEventListener("submit", event => { event.preventDefault(); apply({resetPage: true, clearHash: true}); });
+  claimQuery.form.addEventListener("reset", event => {
+    event.preventDefault();
+    claimQuery.value = "";
+    paper.value = "";
+    kind.value = "";
+    size.value = "20";
+    apply({resetPage: true, clearHash: true});
+    claimQuery.focus();
+  });
+  for (const link of paperLinks) {
     link.addEventListener("click", () => {
       paper.value = link.dataset.claimPaper;
       claimQuery.value = "";
       kind.value = "";
-      apply();
+      apply({resetPage: true});
     });
+  }
+  for (const pager of pagers) {
+    for (const button of pager.querySelectorAll("[data-claim-step]")) {
+      button.addEventListener("click", () => {
+        currentPage += Number(button.dataset.claimStep);
+        apply({clearHash: true});
+        document.getElementById("claim-browser").scrollIntoView({block: "start"});
+      });
+    }
   }
   window.addEventListener("hashchange", revealHash);
   apply();
@@ -406,7 +516,7 @@ if (form) {
       if (display === renderGeneration && request === generation) {
         page = shownPage;
         saveParams({page: page > 1 ? String(page) : ""});
-        status.textContent = "Results could not load. Try Search again or browse the work index.";
+        status.textContent = "Results could not be loaded. Try Search again or browse the work index.";
         results.removeAttribute("aria-busy");
       }
       return;
@@ -457,7 +567,7 @@ if (form) {
       results.append(li);
     }
     status.textContent = found.length === 1 ? "1 result." : found.length ? `${found.length} results. Showing ${startIndex + 1}–${Math.min(startIndex + pageSize, found.length)}.` :
-      "No results. Try fewer words, clear the filters or browse the glossary.";
+      "No results. Try fewer words, clear the filters, or browse the glossary.";
     for (const pager of pagers) {
       pager.hidden = pages === 1;
       pager.querySelector(".search-page-status").textContent = "of " + pages;
@@ -502,6 +612,7 @@ if (form) {
       extraOptions.querySelector("summary").textContent = "More options" + (active ? ` · ${active} active` : "") + (pageSize !== 40 ? ` · ${pageSize} per page` : "");
     }
     const words = wordsFor(query);
+    const catalogIdentifier = catalogSearchIdentifier(query);
     saveParams({q: query, repository, type, work: workId, ...selectedFacets,
       page: page > 1 ? String(page) : "", per_page: pageSize !== 40 ? String(pageSize) : ""});
     if (window.MathJax && window.MathJax.typesetClear) window.MathJax.typesetClear([results]);
@@ -517,7 +628,8 @@ if (form) {
     try {
       if (!engine) throw new Error("Search could not be initialized");
       if (!indexPromise) indexPromise = engine.load().then(rows => rows.map(item => ({...item,
-        normalizedTitle: normalized(item.title)}))).catch(error => { indexPromise = null; throw error; });
+        normalizedTitle: normalized(item.title), catalogIdentifier: catalogDestinationIdentifier(item.url)})))
+        .catch(error => { indexPromise = null; throw error; });
       if (hasWorkFacets && !facetPromise) {
         facetPromise = fetch(form.dataset.facets).then(response => {
           if (!response.ok) throw new Error("Work facets could not be loaded");
@@ -539,12 +651,14 @@ if (form) {
       const score = item => (normalized(query) === item.normalizedTitle ? 100 : 0) +
         words.filter(word => item.normalizedTitle.includes(word)).length * 10 +
         (item.kind === "Claims" || item.kind === "Glossary" ? 1 : 0);
-      found.sort((a, b) => score(b) - score(a) || a.title.localeCompare(b.title));
+      // Stable catalog destinations take priority for a complete OP/REL query.
+      const catalogRank = item => Number(Boolean(catalogIdentifier && item.catalogIdentifier === catalogIdentifier));
+      found.sort((a, b) => catalogRank(b) - catalogRank(a) || score(b) - score(a) || a.title.localeCompare(b.title));
       queryWords = words;
       await renderPage();
     } catch (error) {
       if (request === generation) {
-        status.textContent = "Search could not load. Use the work index or glossary, or try again.";
+        status.textContent = "Search could not be loaded. Use the work index or glossary, or try again.";
         results.removeAttribute("aria-busy");
       }
     }

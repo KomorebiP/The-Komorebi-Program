@@ -217,7 +217,7 @@ def publish_start(reader, book):
     for path,title in RESOURCES[:3]:
         record=reader.records[path]
         body += '<li>'+link(title,record['url'])+'</li>'
-    body += '<li><a href="https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/monographs/large-signal-model/Lean/verification/current/report.json">Full accepted execution record on GitHub</a></li>'
+    body += '<li><a href="https://github.com/KomorebiP/The-Komorebi-Program/blob/main/monographs/large-signal-model/Lean/verification/current/report.json">Full accepted execution record on GitHub</a></li>'
     body += '</ul><h2>Explore the software and reference examples</h2><p>The PR-LASM software package has its own implementation and assessment record. Use its documentation for setup and runtime details; the mathematical coverage count does not establish empirical model performance.</p>'
     body += '<p>'+link('Open the PR-LASM software work page','collection/works/large-signal-model.html')+'</p>'
     record=reader.records[RESOURCES[-1][0]]

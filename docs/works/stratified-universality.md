@@ -12,7 +12,7 @@ A stratified universality development with traditional, visual, and formal compa
 
 ## Before you start
 
-**Suggested background:** Read the problem statement, recorded scope and open questions first. The program's definitions determine its subject prerequisites.
+**Suggested background:** Read the problem statement, recorded scope, and open questions first. The program's definitions determine its subject prerequisites.
 
 **Recorded results and limits:** Complete amended reading/source package. 75 components have mixed proved/imported/conditional/conjectural status. The reconstructed Lean core has no fresh compiler pass.
 
@@ -55,7 +55,7 @@ Start with the [edition guide](../../research/stratified-universality/README.md)
 
 ## Code
 
-These links include code, examples, checks, or build tools. Read the [edition guide](../../research/stratified-universality/README.md) for setup instructions and what each command does. All software is beta and work in progress.
+These links include code, examples, checks, or build tools. Read the [edition guide](../../research/stratified-universality/README.md) for setup instructions and an explanation of what each command does. All software is in beta and remains a work in progress.
 
 - [Script: build_release.py](../../research/stratified-universality/build_release.py)
 

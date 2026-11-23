@@ -56,10 +56,11 @@ SOURCE_TITLES = {
 }
 CONFIG = dict(work=WORK, label='Special Functions', base=BASE, main=MAIN,
               index=INDEX,bib_page=INDEX.replace('index.html','references.html'), title='Special Functions: Function families and their structure',
+              atlas_index='read/'+WORK+'/atlas/index.html',
               main_chapters=7, chapters=[dict(url=INDEX.replace('index.html', 'reading-map.html'))],
               custom_reader=True,
               lean_reader_guide='collection/SPECIAL_FUNCTIONS_FORMAL_SOURCES.html',
-              lean_reader_note='The selected sources include the inherited finite core, coupled production modules through SF-LEAN-B17, audit files, and controls. The source guide distinguishes their roles and recorded coverage.')
+              lean_reader_note='The selected sources include the inherited finite core, coupled production modules through SF-LEAN-B20, audit files, and controls. The source guide distinguishes their roles and recorded coverage.')
 
 
 def mask(text):
@@ -229,7 +230,7 @@ def prepare_book(reader, config):
 def render_book(reader, book):
     from reading_navigation import navigation, outline, resources, work_links,contents_list
     from readable_chapters import (HEADINGS, chapter_text, original_math, render_table,
-                                   group, passage_links, reading_options, typography, plain_math)
+                                   group, passage_links, reading_options, navigation_title, plain_math)
     site, reports = reader.site, []
     chapters = book['chapters']
     for index, (spec, raw, chapter) in enumerate(chapters):
@@ -237,7 +238,7 @@ def render_book(reader, book):
         body = '<p class="eyebrow">Special Functions · Reading edition</p><h1>'+html.escape(spec['title'])+'</h1>'+navigation(book['config'],page)
         body += '<p class="reading-start"><a href="#chapter-text">Start reading</a></p>'
         headings = [n for n in chapter.nodes if n['kind'] in HEADINGS]
-        body += outline('<nav class="chapter-contents" aria-label="On this page"><h2>On this page</h2><ol>'+''.join('<li><a href="#'+n['id']+'">'+html.escape(typography(n['title']))+'</a></li>' for n in headings)+'</ol></nav>')
+        body += outline('<nav class="chapter-contents" aria-label="On this page"><h2>On this page</h2><ol>'+''.join('<li><a href="#'+n['id']+'">'+html.escape(navigation_title(n['title']))+'</a></li>' for n in headings)+'</ol></nav>')
         body += resources(work_links(reader,WORK,page)+'<p><a href="'+reader.resolve(spec['source'],page)+'">Original TeX with line links</a></p>'+reading_options())
         body += '<article id="chapter-text" class="readable-chapter'+(' reading-bibliography' if page==book['config']['bib_page'] else '')+'">'
         proof_targets = proof_links(headings)
@@ -283,6 +284,7 @@ def render_book(reader, book):
     site.write(REPORT,json.dumps(reports,ensure_ascii=False,indent=2)+'\n')
     body = '<p class="eyebrow">Read Special Functions</p><h1>Special Functions</h1><p class="lede">Function families and their structure</p><p>Read the seven main chapters, the ten proof appendices, and the notation, references, and evidence notes. The HTML edition follows the retained monograph, with selectable equations, original figures, and links to the source of each passage.</p>'+reader.work_routes(WORK,INDEX)
     body += '<p class="reading-start"><a class="button" href="'+site.rel(chapters[0][0]['url'],INDEX)+'">Start reading</a> <a href="'+site.rel(source_url('notation.tex'),INDEX)+'">Notation and glossary</a> · <a href="'+site.rel(source_url('references.tex'),INDEX)+'">References</a></p>'
+    body += '<p><a href="'+site.rel(CONFIG['atlas_index'],INDEX)+'">Expanded visual lessons</a> · <a href="'+site.rel('special-functions-lab.html',INDEX)+'">Coupled-function laboratory</a></p>'
     body += '<nav class="chapter-contents reading-contents-index" aria-label="Special Functions chapters"><h2>Contents</h2>'+contents_list(book['config'],INDEX)+'</nav>'
     assessment = next(c for c in json.loads((site.root/'manifests/project-status.json').read_bytes())['components'] if c['id']==WORK)
     body += '<h2>Formal coverage and evidence</h2><p>'+html.escape(assessment['scope'])+'</p><p><a href="'+site.rel('collection/works/'+WORK+'.html',INDEX)+'#lean">Lean sources and current recorded scope</a> · <a href="'+site.rel(source_url('evidence_notes.tex'),INDEX)+'">Source edition evidence notes and open questions</a></p>'

@@ -198,6 +198,9 @@ CHAPTERS += MACHINE_NATIVE_CHAPTERS
 from kcos_reading import BOOK as KCOS_BOOK, CHAPTERS as KCOS_CHAPTERS
 BOOKS[KCOS_BOOK['work']] = KCOS_BOOK
 CHAPTERS += KCOS_CHAPTERS
+from physics_reading import BOOK as PHYSICS_BOOK, CHAPTERS as PHYSICS_CHAPTERS
+BOOKS[PHYSICS_BOOK['work']] = PHYSICS_BOOK
+CHAPTERS += PHYSICS_CHAPTERS
 # One full chapter menu per page; footers keep direct reading routes.
 for _book in BOOKS.values():
     _book['footer_index_only']=True
@@ -209,10 +212,12 @@ NUMBERED.update('hist'+kind for kind in ('theorem','proposition','lemma','coroll
 NUMBERED.add('numericalcertificate')
 NUMBERED.update({'principle','question'})
 NUMBERED.update({'algorithm','protocol','counterexample'})
+NUMBERED.add('diagnostic')
 KIND_NAMES = {'classical':'Classical input','statement':'Supplementary statement','standardfact':'Standard fact','certificate':'Numerical certificate','text':'Passage','roadmap':'Formalization target','classicalinput':'Classical input'}
 KIND_NAMES.update({'hist'+kind:'Historical '+('standard fact' if kind=='standardfact' else kind)
                   for kind in ('theorem','proposition','lemma','corollary','definition','example','remark','standardfact')})
 KIND_NAMES['numericalcertificate']='Numerical certificate'
+KIND_NAMES['diagnostic']='Controlled diagnostic'
 HEADINGS = {'part':2,'section':2,'subsection':3,'subsubsection':4,'paragraph':5}
 MATH_PATTERN = re.compile(r'(?<!\\)\$(.*?)(?<!\\)\$|(?<!\\)\\\[(.*?)\\\]|(\\begin\{align\*\}.*?\\end\{align\*\})|(?<!\\)\\\((.*?)\\\)',re.S)
 PANELS = {'keyidea': 'The central idea', 'interpretation': 'How to read the result',
@@ -607,6 +612,7 @@ class Chapter:
                     numbers=list(dict.fromkeys(getattr(self,'equation_numbers',{}).get(key)
                         for key in re.findall(r'\\label\{([^{}]+)\}',tex)))
                     numbers=[n for n in numbers if n]
+                    numbers=getattr(self,'display_equation_numbers',{}).get(len(self.math)-1,numbers)
                     if numbers:out.append('<span class="equation-number">'+html.escape(', '.join('('+n+')' for n in numbers))+'</span>')
                 pos = math.end()
             elif text[pos]=='$':
@@ -890,6 +896,8 @@ def prepare(reader):
                 from large_signal_reading import prepare_book
             elif config['custom_reader'] == 'machine_native_reasoning':
                 from machine_native_reasoning_reading import prepare_book
+            elif config['custom_reader'] == 'physics':
+                from physics_reading import prepare_book
             elif config['custom_reader'] == 'methodology':
                 from methodology_reading import prepare_book
             elif config['custom_reader'] == 'foundational':
@@ -1124,6 +1132,12 @@ def render(reader):
         else:
             reports.extend(render_book(reader,book))
     reader.site.write('documents/readable-chapters.json',json.dumps(reports,ensure_ascii=False,separators=(',',':'))+'\n')
+    from physics_visual import render as render_physics_visual
+    render_physics_visual(reader)
+    from physics_companions import render as render_physics_companions
+    render_physics_companions(reader)
+    from physics_discovery import publish as publish_physics_discovery
+    publish_physics_discovery(reader)
     render_reading_index(reader)
     from reading_navigation import publish_record
     publish_record(reader.site,BOOKS)
@@ -1142,13 +1156,15 @@ def render_reading_index(reader):
         body+='<section id="'+identifier+'"><h2>'+group+'</h2><div class="work-list">'
         for work,config in BOOKS.items():
             if bool(re.fullmatch(r'paper-[ivx]+',work))!=core:continue
-            body+='<section class="work"><p class="eyebrow">'+config['label']+'</p><h3>'+html.escape(config['title'])+'</h3><p>'+str(len(entries(config)))+' reading pages'+(' · opening selection' if config.get('partial') else '')+'</p><nav aria-label="'+config['label']+' reading formats">'
+            summary=config.get('reading_page_summary') or str(len(entries(config)))+' reading pages'+(' · opening selection' if config.get('partial') else '')
+            body+='<section class="work"><p class="eyebrow">'+config['label']+'</p><h3>'+html.escape(config['title'])+'</h3><p>'+html.escape(summary)+'</p><nav aria-label="'+config['label']+' reading formats">'
             if config.get('partial'):body+='<p>Opening chapters are available in HTML; continue in the PDF or linked sources.</p>'
             if config.get('reading_guide') and guide_enabled(site,work):body+='<a class="button" href="'+site.rel(config['reading_guide'],page)+'">Start here</a>'
             else:body+='<a class="button" href="'+site.rel(config['chapters'][0]['url'],page)+'">Start reading</a>'
             body+='<a href="'+site.rel(config['index'],page)+'">Contents</a>'
             visual=config.get('atlas_index') or config.get('visual_guide_index')
             if visual:body+='<a href="'+site.rel(visual,page)+'">Visual guide</a>'
+            if config.get('verification_index'):body+='<a href="'+site.rel(config['verification_index'],page)+'">Verification and sources</a>'
             pdf=reader.primary_pdf(work)
             if pdf:body+='<a href="'+site.rel(pdf['url'],page)+'">Read PDF</a>'
             body+='</nav></section>'
@@ -1238,7 +1254,7 @@ def render_statement_directory(reader,book):
     if not has_statement_finder(config):return
     site=reader.site;page=statement_directory_url(config);e=html.escape
     body='<p class="eyebrow">Find in '+e(config['label'])+'</p><h1>'+e(config['label'])+': Statements and proofs</h1>'
-    scope='in this HTML selection' if config.get('partial') else 'anywhere in this work'
+    scope=config.get('statement_scope') or ('in this HTML selection' if config.get('partial') else 'anywhere in this work')
     body+='<p>Find a statement '+scope+' by title, printed number, type or source label. Entries follow the chapter order. Each proof link opens the written proof passage.</p>'
     body+='<div class="reading-statement-directory"><h2>Statements by chapter</h2>'
     for spec,_,chapter in book['chapters']:
@@ -1443,6 +1459,9 @@ def render_book(reader,book):
         elif config.get('custom_reader')=='machine_native_reasoning':
             from machine_native_reasoning_reading import source_math
             expressions=source_math(raw.decode('utf-8-sig'),spec)
+        elif config.get('custom_reader')=='physics':
+            from physics_reading import source_math
+            expressions=source_math(raw.decode('utf-8-sig'),spec)
         elif config.get('custom_reader')=='methodology':
             from methodology_reading import source_math
             expressions=source_math(raw.decode('utf-8-sig'),spec)
@@ -1472,6 +1491,8 @@ def render_book(reader,book):
             raise ValueError('Reading math differs at '+source+' expression '+str(difference)+' rendered '+str(chapter.math[difference:difference+1])+' original '+str(expressions[difference:difference+1]))
         report=dict(source=source,source_sha256=hashlib.sha256(raw).hexdigest(),url=page,math_expressions=len(expressions),math_sequence_sha256=hashlib.sha256(json.dumps(expressions,ensure_ascii=False).encode()).hexdigest(),references=len(chapter.references),labels=sum(len(n['labels']) for n in chapter.nodes),nodes=[{k:n[k] for k in ('kind','id','line','end_line','labels','number','source','source_spans') if k in n} for n in chapter.nodes],macro_source=getattr(chapter,'macro_source',config.get('macro_source',config['main'])),macros=chapter.macros,new_proof_review=False,new_lean_execution=False)
         if getattr(chapter,'nested_tables',None):report['nested_tables']=chapter.nested_tables
+        if hasattr(chapter,'display_equation_numbers'):
+            report['display_equation_numbers']={str(k):v for k,v in chapter.display_equation_numbers.items()}
         aided_tables.update(getattr(chapter,'table_aids_used',set()))
         reports.append(report)
         if 'start_line' in spec: report.update(start_line=spec['start_line'],end_line=spec['end_line'])
@@ -1510,6 +1531,9 @@ def render_book_index(reader,book,reports):
     for anchor in config.get('contents_anchors',[]):body+='<span id="'+html.escape(anchor,quote=True)+'"></span>'
     body+='<nav class="chapter-contents reading-contents-index" aria-label="'+label+' chapters"><h2>Contents</h2>'
     body+=contents_list(config,page)+'</nav>'
+    if config.get('custom_reader')=='physics':
+        from physics_reading import full_book_routes
+        body+=full_book_routes(reader,book,page)
     for collected in config.get('collected_parts',[]):
         body+='<p><a href="'+site.rel(collected['url'],page)+'">'+html.escape(collected['title'])+'</a></p>'
     if config.get('continuation_sources'):

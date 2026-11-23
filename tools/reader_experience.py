@@ -1,11 +1,12 @@
 """Reading routes and introductions derived from the collection's recorded scope."""
 import json
 import ast
+import html
 import posixpath
 import re
 from urllib.parse import quote
 
-SITE = 'https://KomorebiP.github.io/Operation-KOMOREBI/'
+SITE = 'https://KomorebiP.github.io/The-Komorebi-Program/'
 GUIDED_DEMONSTRATIONS = {
     'docs/demonstrations/PACKETS.md': ('Reconstruct an operator', ['paper-i']),
     'docs/demonstrations/REFINEMENT.md': ('Refine a signal', ['paper-ii','paper-v']),
@@ -37,10 +38,20 @@ def load(root):
         if 'example_text' in term:
             assert isinstance(term['example_text'], str) and term['example_text'].strip()
             assert term.get('example'), 'A short example needs a worked-example link'
+        if 'quick_example' in term:
+            assert isinstance(term['quick_example'], str) and term['quick_example'].strip()
+        if 'explanation' in term:
+            assert isinstance(term['explanation'], list) and term['explanation']
+            assert all(isinstance(p, str) and p.strip() for p in term['explanation'])
     for step in data.get('glossary_start', []):
         assert step['terms'] and set(step['terms']) <= identifiers
     for comparison in data.get('glossary_comparisons', []):
         assert len(comparison['terms']) == 2 and set(comparison['terms']) <= identifiers
+    routes = data.get('glossary_routes', [])
+    assert len({route['id'] for route in routes}) == len(routes)
+    for route in routes:
+        assert route['terms'] and set(route['terms']) <= identifiers
+        assert route['title'] and route['question'] and route['reading'] and route['reading_label']
     topics=data.get('learning_topics',[])
     assert len({x['id'] for x in topics})==len(topics)
     assert len({x['example'] for x in topics})==len(topics)
@@ -59,6 +70,9 @@ def introduction(root, component, assessment, page):
         background = ('Complex vectors and matrices, orthogonal projectors, and finite Fourier transforms for the arithmetic and symmetry parts; '
                       'linear algebra and explicit gate costs for the catalytic part; Boolean functions and polynomials over the binary field for the circuit part. '
                       'The introductory measurement example below offers a shorter starting point.')
+    if component['id']=='monographs-physics':
+        background=('Begin with linear algebra, complex inner products, and finite sums. Fourier series and operator domains enter the continuum treatment; '
+                    'later parts state their geometric and physical assumptions.')
     text = ('## Before you start\n\n**Suggested background:** '+background+'\n\n'
             '**Recorded results and limits:** '+assessment['scope']+'\n\n'
             '**Remaining work:** '+assessment['next_step']+'\n\n'
@@ -68,6 +82,12 @@ def introduction(root, component, assessment, page):
             ('Download this work','docs/DOWNLOADS.md#'+component['id'])])+'\n\n')
     if component['id']=='monographs-quantum-and-circuits':
         text+=quantum_reading_guide(page)
+    if component['id']=='monographs-physics':
+        from physics_discovery import reading_summary
+        text+='### Read Physics online\n\n'+reading_summary()+'. The HTML sequences retain the source wording, equations, and evidence limits.\n\n'
+        text+=' · '.join('['+label+']('+SITE+target+')' for label,target in [
+            ('Start here','read/monographs-physics/start.html'),('Treatments','read/monographs-physics/index.html'),
+            ('Visual atlases','read/monographs-physics/atlas/index.html'),('Verification companions','read/monographs-physics/verification/index.html')])+'\n\n'
     topics=[t for t in data.get('learning_topics',[]) if component['id'] in t['works']]
     if topics:
         text+='### Worked examples for this work\n\n'
@@ -80,6 +100,10 @@ def introduction(root, component, assessment, page):
             text+='**Complete demonstration with runnable code:** '+' · '.join(demonstrations)+'.\n\n'
     if component['id']=='monographs-special-functions':
         text+='### Explore Special Functions\n\n'+link('Books, five families, and the coupled-function lab','docs/SPECIAL_FUNCTIONS.md',page)+'\n\n'
+        text+=' · '.join('['+label+']('+SITE+target+')' for label,target in [
+            ('Guided reading','read/monographs-special-functions/start.html'),
+            ('Expanded visual lessons','read/monographs-special-functions/atlas/index.html'),
+            ('Interactive coupled-function laboratory','special-functions-lab.html')])+'\n\n'
     return text
 
 
@@ -150,7 +174,7 @@ The [completion guide](../COMPLETION_STATUS.md#lean-coverage) explains the label
 4. Continue to [Komorebi Math worked examples](https://github.com/KomorebiP/komorebi-math/blob/main/docs/WORKED_EXAMPLES.md) or [Polyphase Float's complete C programs](https://github.com/KomorebiP/polyphase-float/blob/main/docs/manual/README.md).
 5. Use the library's testing instructions to check the operations you intend to use.
 
-Komorebi Math supports its declared Python environments. Polyphase Float's supported build baseline is Linux x86-64, LP64 and 64-bit GMP limbs. Windows readers should use its documented Linux/WSL route.
+Komorebi Math supports its declared Python environments. Polyphase Float's supported build baseline is Linux x86-64, LP64, and 64-bit GMP limbs. Windows readers should use its documented Linux/WSL route.
 ''')}
 
 
@@ -173,7 +197,7 @@ def render_reader_pages(root, components, assessments):
     downloads=downloads.replace('These are reading selections.', 'Use [Build your own ZIP]('+SITE+'downloads.html#build-a-zip) to combine files from several works. Start with reading files or PDFs, then adjust individual manuscript sources, Lean files, code, guides, and worked examples. The selector shows the file count and size, adds available license notices, and checks each file against its recorded SHA-256 checksum. Choose Prepare ZIP, then Save ZIP when it is ready. You can cancel preparation without losing your choices. Custom ZIPs support up to 200 MiB of source files and are prepared in your browser. The ready-made ZIPs also work without JavaScript.\n\nThese are reading selections.',1)
     claim_data=json.loads((root/'manifests/claim-navigation.json').read_bytes())
     counts={w['id']:sum(r['work_id']==w['id'] for r in claim_data['records']) for w in claim_data['works']}
-    claims='# Follow a written claim\n\nThe [searchable claim index]('+SITE+'claims.html) covers all 12 core papers with '+str(len(claim_data['records']))+' reading records. Search by title, statement text, source label or recorded Lean name. Filter by paper and statement type, then share the page address or a record’s permanent link.\n\nPaper I retains its 108 correspondence records. The source labels 69 as covered. Papers II through XII index explicit statement blocks in their current TeX manuscripts and literal included sections. The index keeps definitions, conjectures, classical inputs, and numerical certificates distinct from theorems. Historical environments and statements introduced only through macro expansion are outside this extraction. Counts describe reading entries, not the number of proved or formalized results.\n\nA proof link identifies the recorded passage or an immediately following proof block. It does not assess correctness. Paper I’s existing Lean mappings are retained. Lean correspondence for individual claims for Papers II through XII has not been transcribed into this index. Their formal guides, Lean coverage, code and evidence remain linked at paper level. This update performs no new proof review or Lean run.\n\n'
+    claims='# Follow a written claim\n\nThe [searchable claim index]('+SITE+'claims.html) covers all 12 core papers with '+str(len(claim_data['records']))+' reading records. Search by title, statement text, source label or recorded Lean name. Filter by paper and statement type, then share the page address or a record’s permanent link.\n\nPaper I retains its 108 correspondence records. The source labels 69 as covered. Papers II through XII index explicit statement blocks in their current TeX manuscripts and literal included sections. The index keeps definitions, conjectures, classical inputs, and numerical certificates distinct from theorems. Historical environments and statements introduced only through macro expansion are outside this extraction. Counts describe reading entries, not the number of proved or formalized results.\n\nA proof link identifies the recorded passage or an immediately following proof block. It does not assess correctness. Paper I’s existing Lean mappings are retained. Lean correspondence for individual claims for Papers II through XII has not been transcribed into this index. Their formal guides, Lean coverage, code, and evidence remain linked at paper level. This update performs no new proof review or Lean run.\n\n'
     for c in components:
         identifier=c['id']
         downloads += '<a id="'+identifier+'"></a>\n\n## '+c['title']+'\n\n[Reading ZIP and contents]('+SITE+'downloads.html#'+identifier+') · '+link('Work and evidence','docs/works/'+identifier+'.md','docs/DOWNLOADS.md')+'\n\n'
@@ -185,26 +209,39 @@ def render_reader_pages(root, components, assessments):
         else:
             claims+='A detailed statement index has not yet been transcribed for this work. Follow its written proofs and any linked correspondence map. This does not imply that a map or proof is absent from the source edition.\n\n'
         claims += link('Written proofs','docs/works/'+identifier+'.md#written-proofs','docs/CLAIM_LINKS.md')+' · '+link('Lean','docs/works/'+identifier+'.md#lean','docs/CLAIM_LINKS.md')+' · '+link('Code','docs/works/'+identifier+'.md#code','docs/CLAIM_LINKS.md')+' · '+link('Evidence','docs/works/'+identifier+'.md#evidence','docs/CLAIM_LINKS.md')+'\n\n'
-    downloads+='## Obtain a full component\n\nUse Git 2.25 or later for sparse checkout. Replace COMPONENT_PATH with the exact source directory linked from the work page. Record the checked-out revision.\n\n```text\ngit clone --filter=blob:none --no-checkout https://github.com/KomorebiP/Operation-KOMOREBI.git komorebi-work\ncd komorebi-work\ngit sparse-checkout init --cone\ngit sparse-checkout set COMPONENT_PATH\ngit checkout main\ngit rev-parse HEAD\n```\n\nThis obtains the selected component and root files. Dependencies or sibling projects named by its build instructions may still need to be added. For the complete collection checks, use a full checkout as described in [Verification](VERIFICATION.md).\n\n[Browse works](BROWSE.md) · [Reading routes](READING_ROUTES.md)\n'
+    downloads+='## Obtain a full component\n\nUse Git 2.25 or later for sparse checkout. Replace COMPONENT_PATH with the exact source directory linked from the work page. Record the checked-out revision.\n\n```text\ngit clone --filter=blob:none --no-checkout https://github.com/KomorebiP/The-Komorebi-Program.git komorebi-work\ncd komorebi-work\ngit sparse-checkout init --cone\ngit sparse-checkout set COMPONENT_PATH\ngit checkout main\ngit rev-parse HEAD\n```\n\nThis obtains the selected component and root files. Dependencies or sibling projects named by its build instructions may still need to be added. For the complete collection checks, use a full checkout as described in [Verification](VERIFICATION.md).\n\n[Browse works](BROWSE.md) · [Reading routes](READING_ROUTES.md)\n'
     claims+='[Browse works](BROWSE.md) · [Evidence labels](COMPLETION_STATUS.md)\n'
     out['docs/DOWNLOADS.md']=downloads
     out['docs/CLAIM_LINKS.md']=claims
     return {p:s.rstrip()+'\n' for p,s in out.items()}
 
 
+def glossary_prose(value):
+    """Glossary fields are literal text; adjoint stars must not become emphasis."""
+    return ''.join('\\'+char if char in '\\`*_[]#' else char for char in html.escape(value, quote=False))
+
+
 def render_glossary(config):
     terms={x['id']:x for x in config['glossary']}
-    text='# Glossary and notation\n\n'
-    text+='This guide explains '+str(len(terms))+' terms used in the collection and its finite examples. '
-    text+='Use the [first reading route](#a-first-reading), [compare nearby ideas](#compare-nearby-ideas), browse a subject, or open the [alphabetical index](#alphabetical-index).\n\n'
-    text+='[Find a glossary term on the reading website]('+SITE+'collection/GLOSSARY.html#glossary-lookup): search names, abbreviations, definitions and short examples, or choose a subject. Open the glossary beside a paper with **Read side by side**.\n\n'
+    text='# Glossary\n\n'
+    text+='This guide explains '+str(len(terms))+' terms used across the collection, its operator guide, and worked examples. '
+    text+='Use the [first reading route](#a-first-reading), '
+    if config.get('glossary_routes'):text+='[follow a subject route](#subject-reading-routes), '
+    text+='[compare nearby ideas](#compare-nearby-ideas), [browse by subject](#browse-by-subject), or open the [alphabetical index](#alphabetical-index).\n\n'
+    text+='[Find a glossary term on the reading website]('+SITE+'collection/GLOSSARY.html#glossary-lookup): search names, abbreviations, definitions, and short examples, or choose a subject. Open the glossary beside a paper with **Read side by side**.\n\n'
     text+='A word can have a more specific meaning in another paper. The paper’s definitions and hypotheses take precedence. Examples and source links provide context without changing any recorded evidence status.\n\n'
-    text+='[Look up notation across the collection](NOTATION_INDEX.md) · [Work through the calculations by hand](HAND_WORKED_EXAMPLES.md) · [Papers, proofs, Lean, and code by topic](LEARNING_MAP.md) · [First software runs](FIRST_RUN.md)\n\n'
+    text+='[Operator guide](OPERATOR_AUDIT.md) · [Look up notation across the collection](NOTATION_INDEX.md) · [Work through the calculations by hand](HAND_WORKED_EXAMPLES.md) · [Papers, proofs, Lean, and code by topic](LEARNING_MAP.md) · [First software runs](FIRST_RUN.md)\n\n'
     if config.get('glossary_start'):
-        text+='## A first reading\n\nFollow these terms for a short route through the finite examples. Each definition links to a worked calculation.\n\n'
+        text+='## A first reading\n\nFollow these terms for a short route through the main ideas. Use their examples and source links to go deeper.\n\n'
         for index, step in enumerate(config['glossary_start'], 1):
             text+=str(index)+'. '+' · '.join('['+terms[key]['term']+'](#'+key+')' for key in step['terms'])+' — '+step['description']+'\n'
         text+='\n'
+    if config.get('glossary_routes'):
+        text+='## Subject reading routes\n\nChoose a question, follow its terms in order, then work through the linked reading. Quick examples are small illustrations; the linked works state their full assumptions and evidence.\n\n'
+        for route in config['glossary_routes']:
+            text+='<a id="route-'+route['id']+'"></a>\n\n### '+route['title']+'\n\n'+route['question']+'\n\n'
+            text+=' → '.join('['+terms[key]['term']+'](#'+key+')' for key in route['terms'])+'\n\n'
+            text+='[Continue with '+route['reading_label']+']('+route['reading']+').\n\n'
     if config.get('glossary_comparisons'):
         text+='## Compare nearby ideas\n\nThese distinctions use the glossary’s stated settings. Follow both entries for their definitions and examples.\n\n'
         text+='| Terms | Distinction to keep in view |\n|---|---|\n'
@@ -221,10 +258,13 @@ def render_glossary(config):
         text+='<a id="'+section['id']+'"></a>\n\n## '+section['title']+'\n\n'+section['description']+'\n\n'
         text+=' · '.join('['+x['term']+'](#'+x['id']+')' for x in group)+'\n\n'
         for term in group:
-            text+='<a id="'+term['id']+'"></a>\n\n### '+term['term']+'\n\n'+term['definition']+'\n\n'
+            text+='<a id="'+term['id']+'"></a>\n\n### '+term['term']+'\n\n'+glossary_prose(term['definition'])+'\n\n'
+            for paragraph in term.get('explanation', []):
+                text+=glossary_prose(paragraph)+'\n\n'
             if term.get('aliases'):text+='**Also called:** '+', '.join(term['aliases'])+'.\n\n'
-            if term.get('example_text'):text+='**In the worked example:** '+term['example_text']+'\n\n'
-            if term.get('note'):text+='**Keep in mind:** '+term['note']+'\n\n'
+            if term.get('quick_example'):text+='**Quick example:** '+glossary_prose(term['quick_example'])+'\n\n'
+            if term.get('example_text'):text+='**In the worked example:** '+glossary_prose(term['example_text'])+'\n\n'
+            if term.get('note'):text+='**Keep in mind:** '+glossary_prose(term['note'])+'\n\n'
             links=[]
             if term.get('example'):links.append('[Hand-worked example]('+term['example']+')')
             if term.get('source')!=term.get('example'):

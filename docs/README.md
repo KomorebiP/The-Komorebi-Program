@@ -4,18 +4,21 @@ Use these guides to find works, software, and project records. Each dated review
 
 | Find | Guide |
 |---|---|
-| A starting point for your background or task | [Reading routes](READING_ROUTES.md) and the [public website](https://KomorebiP.github.io/Operation-KOMOREBI/) |
+| A starting point for your background or task | [Reading routes](READING_ROUTES.md) and the [public website](https://KomorebiP.github.io/The-Komorebi-Program/) |
 | The central idea and current direction | [Project overview](START_HERE.md) |
 | Future research priorities and site improvements | [Future Developments](FUTURE_DEVELOPMENTS.md) |
 | How the papers and books connect | [Project map and documented dependencies](PROJECT_MAP.md) |
 | A complete path from calculation to code and evidence | [Three demonstrations](DEMONSTRATIONS.md) |
+| New precision-aware reconstruction research | [Directional ghosts, query fibers, and Frobenius transfers](DIRECTIONAL_GHOSTS.md) · [Source and regression tests](../research/directional-ghosts/README.md) |
+| Operator concepts, worked examples, and a practical checklist | [Operator guide](OPERATOR_AUDIT.md) |
+| Operator formulas, assumptions, source links, and composition laws | [Operator catalog](operators/catalog/README.md) |
 | Introductory terminology and notation | [Glossary](GLOSSARY.md) |
 | Calculations with every step shown | [Hand-worked examples](HAND_WORKED_EXAMPLES.md) |
 | Examples connected to papers, proofs, Lean, and code | [Topic map](LEARNING_MAP.md) |
 | A small program with expected output | [First runs](FIRST_RUN.md) |
-| Statement locations, formal modules and reading ZIPs | [Claim links](CLAIM_LINKS.md) and [downloads](DOWNLOADS.md) |
+| Statement locations, formal modules, and reading ZIPs | [Claim links](CLAIM_LINKS.md) and [downloads](DOWNLOADS.md) |
 | Checked claims in the extended examples and K-COS certificates | [Lean reader companions](LEAN_READER_COMPANIONS.md) |
-| Actual falling-factorial coordinates, Fourier projectors and packet products | [Lean polynomial transport](LEAN_POLYNOMIAL_TRANSPORT.md) |
+| Actual falling-factorial coordinates, Fourier projectors, and packet products | [Lean polynomial transport](LEAN_POLYNOMIAL_TRANSPORT.md) |
 | Accessible formats and known limits | [Accessibility](ACCESSIBILITY.md) |
 | Direct PDFs, manuscript text, proofs, Lean, and code | [Browse by work](BROWSE.md) |
 | A reading route through the mathematics | [Start here](START_HERE.md) |

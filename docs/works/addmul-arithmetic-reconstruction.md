@@ -12,9 +12,9 @@ A finite arithmetic-reconstruction block with explicit rejection controls.
 
 ## Before you start
 
-**Suggested background:** Read the problem statement, recorded scope and open questions first. The program's definitions determine its subject prerequisites.
+**Suggested background:** Read the problem statement, recorded scope, and open questions first. The program's definitions determine its subject prerequisites.
 
-**Recorded results and limits:** Three positive Lean units and exact finite controls cover finite observation, filter budgets and a carry example. No global height mechanism.
+**Recorded results and limits:** Three positive Lean units and exact finite controls cover finite observation, filter budgets, and a carry example. No global height mechanism.
 
 **Remaining work:** Formulate and prove the next arithmetic comparison beyond the finite reconstruction class before making a global-height claim.
 
@@ -50,7 +50,7 @@ Start with the [edition guide](../../research/addmul-arithmetic-reconstruction/R
 
 ## Code
 
-These links include code, examples, checks, or build tools. Read the [edition guide](../../research/addmul-arithmetic-reconstruction/README.md) for setup instructions and what each command does. All software is beta and work in progress.
+These links include code, examples, checks, or build tools. Read the [edition guide](../../research/addmul-arithmetic-reconstruction/README.md) for setup instructions and an explanation of what each command does. All software is in beta and remains a work in progress.
 
 - [Code / scripts: tests](../../research/addmul-arithmetic-reconstruction/tests/)
 

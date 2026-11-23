@@ -94,7 +94,7 @@ class EulerPublicationTests(unittest.TestCase):
         site.repos={}
         self.assertEqual(site.resolve('collection','docs/demonstrations/EULER_PACKETS.md',
             'collection/demonstrations/EULER_PACKETS.html',
-            'https://komorebip.github.io/Operation-KOMOREBI/downloads/euler-packets/results.json?v=1#data'),
+            'https://komorebip.github.io/The-Komorebi-Program/downloads/euler-packets/results.json?v=1#data'),
             '../../downloads/euler-packets/results.json?v=1#data')
 
     def test_optional_tap_program_and_results_are_bound_and_published(self):

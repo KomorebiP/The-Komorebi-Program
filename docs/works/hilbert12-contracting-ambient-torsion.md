@@ -12,7 +12,7 @@ Finite torsion transport and separate distribution arguments. Inherited analytic
 
 ## Before you start
 
-**Suggested background:** Read the problem statement, recorded scope and open questions first. The program's definitions determine its subject prerequisites.
+**Suggested background:** Read the problem statement, recorded scope, and open questions first. The program's definitions determine its subject prerequisites.
 
 **Recorded results and limits:** Exact 343-point torsion dynamics and written distribution identities. Numerical diagnostics are not interval certificates or gamma algebraicity.
 
@@ -46,7 +46,7 @@ No Lean source or guide is linked here. See the Lean status above and the [evide
 
 ## Code
 
-These links include code, examples, checks, or build tools. Read the [reading files](#read) for setup instructions and what each command does. All software is beta and work in progress.
+These links include code, examples, checks, or build tools. Read the [reading files](#read) for setup instructions and an explanation of what each command does. All software is in beta and remains a work in progress.
 
 - [Script: h12_full_ambient_torsion_verify.py](../../research/hilbert12-contracting-ambient-torsion/h12_full_ambient_torsion_verify.py)
 

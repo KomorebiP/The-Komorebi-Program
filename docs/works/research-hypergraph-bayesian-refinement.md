@@ -12,7 +12,7 @@ Hypergraph structure, lumpability, and Bayesian refinement.
 
 ## Before you start
 
-**Suggested background:** Read the problem statement, recorded scope and open questions first. The program's definitions determine its subject prerequisites.
+**Suggested background:** Read the problem statement, recorded scope, and open questions first. The program's definitions determine its subject prerequisites.
 
 **Recorded results and limits:** Internally complete manuscript and finite certificates. External proof and literature-priority reviews remain pending.
 
@@ -49,7 +49,7 @@ No Lean source or guide is linked here. See the Lean status above and the [evide
 
 ## Code
 
-These links include code, examples, checks, or build tools. Read the [edition guide](../../research/hypergraph-bayesian-refinement/README.md) for setup instructions and what each command does. All software is beta and work in progress.
+These links include code, examples, checks, or build tools. Read the [edition guide](../../research/hypergraph-bayesian-refinement/README.md) for setup instructions and an explanation of what each command does. All software is in beta and remains a work in progress.
 
 - [Finite reference implementation (Python)](../../research/hypergraph-bayesian-refinement/src/priq/core.py)
 

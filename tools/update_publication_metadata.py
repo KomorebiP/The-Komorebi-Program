@@ -13,7 +13,7 @@ import json
 import re
 from pathlib import Path
 
-REPOSITORY='KomorebiP/Operation-KOMOREBI'
+REPOSITORY='KomorebiP/The-Komorebi-Program'
 HISTORY_PATH='manifests/history/release-candidate-2026-10-09.json'
 CURRENT_PATH='manifests/release-candidate.json'
 INDEX_PATH='manifests/source-components.json'

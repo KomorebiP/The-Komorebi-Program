@@ -2,13 +2,13 @@
 
 **1.0.0rc3 · Qualified beta distribution · Updated 30 October 2026**
 
-[Download the qualified beta](https://github.com/KomorebiP/Operation-KOMOREBI/releases/tag/constructive-repair-1.0.0rc3-qualified-e58a66e5e5fc) · [Source and original release records](../../packages/constructive-repair/) · [Public API](../../packages/constructive-repair/docs/PUBLIC_API.md) · [Qualification summary](../../verification/constructive-repair/qualified-2026-10-30/summary.json)
+[Download the qualified beta](https://github.com/KomorebiP/The-Komorebi-Program/releases/tag/constructive-repair-1.0.0rc3-qualified-e58a66e5e5fc) · [Source and original release records](../../packages/constructive-repair/) · [Public API](../../packages/constructive-repair/docs/PUBLIC_API.md) · [Qualification summary](../../verification/constructive-repair/qualified-2026-10-30/summary.json)
 
 Constructive Repair provides exact rational repair certificates, a Python API and CLI, and separately recorded Lean proofs. **Python certificate validity and Lean kernel acceptance are separate results.** The Python distribution has completed its stated Linux and Windows qualification.
 
 ## Qualified distribution — 30 October 2026
 
-The [qualified beta release](https://github.com/KomorebiP/Operation-KOMOREBI/releases/tag/constructive-repair-1.0.0rc3-qualified-e58a66e5e5fc) contains a dependency-free wheel and two complete source/evidence archives. Both platforms accepted byte-identical wheel bytes. All 2,254 imported component files match their recorded hashes, and all seven wheel runtime files match those sources.
+The [qualified beta release](https://github.com/KomorebiP/The-Komorebi-Program/releases/tag/constructive-repair-1.0.0rc3-qualified-e58a66e5e5fc) contains a dependency-free wheel and two complete source/evidence archives. Both platforms accepted byte-identical wheel bytes. All 2,254 imported component files match their recorded hashes, and all seven wheel runtime files match those sources.
 
 | Executed configuration | Release tests | Engine tests | Installed acceptance |
 |---|---|---|---|
@@ -25,7 +25,7 @@ The accepted wheel SHA-256 is:
 
 The wheel carries the current MIT code license, collection reuse notice, and release README. A separate build overlay records those metadata changes; the imported component retains its original bytes. Qualification uses setuptools 84.1.0 and wheel 0.48.0, with canonical wheel metadata/ZIP encoding and source-bound acceptance.
 
-The [qualification summary](../../verification/constructive-repair/qualified-2026-10-30/summary.json), [Linux receipt](../../verification/constructive-repair/qualified-2026-10-30/qualification-linux-py3135.json), [Windows receipt](../../verification/constructive-repair/qualified-2026-10-30/qualification-windows-py3135.json), and [release record](../../verification/constructive-repair/qualified-2026-10-30/release-record.json) bind the exact source revision, runtime files, wheel, platform results, and published assets. The [workflow run](https://github.com/KomorebiP/Operation-KOMOREBI/actions/runs/41014446732) retains the executed jobs and diagnostics.
+The [qualification summary](../../verification/constructive-repair/qualified-2026-10-30/summary.json), [Linux receipt](../../verification/constructive-repair/qualified-2026-10-30/qualification-linux-py3135.json), [Windows receipt](../../verification/constructive-repair/qualified-2026-10-30/qualification-windows-py3135.json), and [release record](../../verification/constructive-repair/qualified-2026-10-30/release-record.json) bind the exact source revision, runtime files, wheel, platform results, and published assets. The [workflow run](https://github.com/KomorebiP/The-Komorebi-Program/actions/runs/41014446732) retains the executed jobs and diagnostics.
 
 ## Install or reproduce the qualified beta
 
@@ -46,13 +46,13 @@ The qualification checks historical proof-source, axiom-record, lineage, and mon
 
 ## Earlier Windows 11 check — 27 October 2026
 
-The following checks used the committed source at [ef52463dbe47](https://github.com/KomorebiP/Operation-KOMOREBI/commit/ef52463dbe476bcf0c027ed00c68c6d6fb2fdfb3), Windows 11 on AMD64, and CPython 3.12.14. All **2,254 selected source files** matched their SHA-256 import receipt before the run and remained unchanged afterward. Work ran in a separate copy.
+The following checks used the committed source at [ef52463dbe47](https://github.com/KomorebiP/The-Komorebi-Program/commit/ef52463dbe476bcf0c027ed00c68c6d6fb2fdfb3), Windows 11 on AMD64, and CPython 3.12.14. All **2,254 selected source files** matched their SHA-256 import receipt before the run and remained unchanged afterward. Work ran in a separate copy.
 
 | Check | Observed result | Scope |
 |---|---|---|
 | Offline wheel build | Passed | Local setuptools 84.1.0 and wheel 0.48.0. No dependency download. |
 | Wheel/source correspondence | Passed, 7 runtime Python files | Every runtime member matches its committed source bytes. |
-| Engine regression suite | 134 passed | Existing certificate, rational-menu and branch-menu tests. |
+| Engine regression suite | 134 passed | Existing certificate, rational-menu, and branch-menu tests. |
 | Release regression suite | 95 passed, 3 skipped, 2 errors out of 100 discovered | The two errors occurred during symlink fixture creation, before the checker assertions. The three skips are explicitly POSIX/Linux-specific. **This suite did not pass.** |
 | Isolated installed-wheel acceptance | Passed, 72 cases / 369 probe checks / 20 platform checks | Offline installation, API and CLI use, fresh solutions and retained certificates, Unicode paths, overwrite prevention, resource limits, and rejection of malformed inputs and corrupt certificates. |
 | New Lean replay | Not run | Existing compiler and proof records retain their original scope and date. |

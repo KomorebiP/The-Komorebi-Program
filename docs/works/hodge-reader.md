@@ -12,9 +12,9 @@ Actual cycle realization and comparison correspondence remain open. Sources mark
 
 ## Before you start
 
-**Suggested background:** Read the problem statement, recorded scope and open questions first. The program's definitions determine its subject prerequisites.
+**Suggested background:** Read the problem statement, recorded scope, and open questions first. The program's definitions determine its subject prerequisites.
 
-**Recorded results and limits:** Finished evidence reader with conditional geometric arguments. Current Lean elaboration was blocked before compilation and general Hodge remains open.
+**Recorded results and limits:** Finished evidence reader with conditional geometric arguments. Current Lean elaboration was blocked before compilation, and the general Hodge conjecture remains open.
 
 **Remaining work:** Compile the exact conditional source with pinned dependencies, then address the independent algebraic-cycle realization inputs.
 
@@ -54,7 +54,7 @@ Start with the [edition guide](../../research/hodge-reader/README.md) and the bu
 
 ## Code
 
-These links include code, examples, checks, or build tools. Read the [edition guide](../../research/hodge-reader/README.md) for setup instructions and what each command does. All software is beta and work in progress.
+These links include code, examples, checks, or build tools. Read the [edition guide](../../research/hodge-reader/README.md) for setup instructions and an explanation of what each command does. All software is in beta and remains a work in progress.
 
 - [Script: build.py](../../research/hodge-reader/build.py)
 
