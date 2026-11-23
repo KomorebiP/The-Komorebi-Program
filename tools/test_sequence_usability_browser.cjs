@@ -21,7 +21,8 @@ async function ready(page){
 async function visit(page,name,kind){
   await page.goto(href(name));await ready(page);
   assert.equal(await page.locator('[data-library]').getAttribute('data-page'),kind);
-  assert.equal(await page.locator('.sl-page-tabs a').count(),5);
+  assert.equal(await page.locator('.sl-page-tabs a').count(),6);
+  assert.equal(await page.locator('.sl-page-tabs a[href^="sequence-network.html"]').count(),1);
   assert.equal(await page.locator('.sl-page-tabs [aria-current=page]').count(),1);
   await fit(page);
 }
@@ -64,7 +65,9 @@ async function visit(page,name,kind){
         'Only Plot, Save and Compare are the default actions');
       await page.locator('#sl-results>li').first().locator(':scope > .sl-result-more > summary').click();
       assert.equal(await page.locator('#sl-results>li').first().locator(':scope > .sl-result-more').evaluate(el=>el.open),true);
-      assert.equal(await page.locator('#sl-results>li').first().locator('.sl-result-more .sp-actions a').isVisible(),true);
+      const expandedActions=page.locator('#sl-results>li').first().locator('.sl-result-more .sp-actions');
+      assert.equal(await expandedActions.getByRole('link',{name:'Read formulas'}).isVisible(),true);
+      assert.equal(await expandedActions.getByRole('link',{name:'Formula network'}).isVisible(),true);
       await page.locator('#sl-results .sl-result-definition summary').first().click();
       assert.equal(await page.locator('#sl-results .sl-result-definition').first().evaluate(el=>el.open),true);
       await page.waitForFunction(()=>{
@@ -672,7 +675,7 @@ async function visit(page,name,kind){
     const context=await browser.newContext({javaScriptEnabled:false,viewport:{width:320,height:900}});
     const page=await context.newPage();
     await page.goto(href('sequence-library.html'));
-    assert.equal(await page.locator('.sl-page-tabs a').count(),5);
+    assert.equal(await page.locator('.sl-page-tabs a').count(),6);
     assert.equal(await page.locator('#sl-search').isVisible(),false);
     assert.equal(await page.locator('#sl-count a[href="sequence-library/index.html"]').count(),1);
     await page.goto(href('sequence-library.html#transfers'));

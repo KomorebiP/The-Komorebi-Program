@@ -12,3 +12,9 @@ export function referenceValues(line){
 }
 export function referencePositions(values,query){return query.type==='terms'?matchTerms(values,query.pattern):[];}
 export function referenceNameMatches(id,name,query){return query.type==='id'?id===query.id:query.type==='name'&&query.words.every(word=>normalizeText(name).includes(word));}
+
+/** Canonical Network-page handoff for an official OEIS identifier. */
+export function referenceNetworkUrl(value){
+  const id=String(value??'').trim().toUpperCase();
+  return /^A\d{6}$/.test(id)?'sequence-network.html?q='+id+'#sequence-network':null;
+}
