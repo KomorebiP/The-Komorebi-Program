@@ -42,7 +42,10 @@ jobs:
                   'Directional ghosts',
                   'Frobenius',
                   '2026-11-23',
-                  'Query',
+                  'A small reconstruction example',
+                  'Notation for implementation',
+                  'Alternative minimal rescue coordinates',
+                  'mathjax/tex-svg-full.js',
               ),
               paths[1]: (
                   'collection/DIRECTIONAL_GHOSTS.html',
