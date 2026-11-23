@@ -71,6 +71,17 @@ function siteSearchLink(id) {
   a.href='sequence-library.html?q='+encodeURIComponent('oeis:'+id)+'#library-search';
   return a;
 }
+function readableDomain(domain) {
+  const text=String(domain||'');
+  if(text==='local n>=0 with nonsingular ratio denominator')
+    return 'Local indices n ≥ 0, where the required denominator is nonzero.';
+  if(text==='all local n>=0')return 'All local indices n ≥ 0.';
+  if(text==='all integer n>=0 for quadratic channel definition')
+    return 'All integer indices n ≥ 0 under the quadratic-channel definition.';
+  if(text==='formal generating series under source and target OGF premises')
+    return 'Conditional on the recorded ordinary generating functions of both sequences.';
+  return text;
+}
 function equation(plain, tex, label, className='sn-statement') {
   const el=node('div',plain,className);
   el.setAttribute('aria-label',label+': '+plain);
@@ -107,7 +118,7 @@ function explainEdge(edge, names) {
   const evidence=node('p',undefined,'sn-evidence');
   evidence.append(node('strong','Evidence: '),document.createTextNode(EVIDENCE[edge.evidence] || 'Unclassified evidence'));
   li.append(evidence);
-  li.append(node('p','Domain: '+edge.domain,'sn-domain'));
+  li.append(node('p','Valid domain: '+readableDomain(edge.domain),'sn-domain'));
 
   const details=node('details',undefined,'sn-record-details');
   details.append(node('summary','Original archive expression, sequence titles, and provenance'));
@@ -125,6 +136,7 @@ function explainEdge(edge, names) {
     details.append(node('p','Index maps: '+Object.entries(edge.index_maps).map(([id,ranges])=>
       id+': '+ranges.map(pair=>'n ↦ '+pair[0]+'n'+(pair[1]>=0?'+':'')+pair[1]).join(', ')).join(' · '),'sn-details'));
   }
+  details.append(node('p','Original domain: '+edge.domain,'sn-details'));
   details.append(node('p','Source receipt: '+edge.source_receipt,'sn-receipt'),
                  node('p','Proof reference: '+edge.proof_ref,'sn-receipt'));
   li.append(details);
