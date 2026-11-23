@@ -21,7 +21,8 @@ async function ready(page){
 async function visit(page,name,kind){
   await page.goto(href(name));await ready(page);
   assert.equal(await page.locator('[data-library]').getAttribute('data-page'),kind);
-  assert.equal(await page.locator('.sl-page-tabs a').count(),5);
+  assert.equal(await page.locator('.sl-page-tabs a').count(),6);
+  assert.equal(await page.locator('.sl-page-tabs a[href^="sequence-network.html"]').count(),1);
   assert.equal(await page.locator('.sl-page-tabs [aria-current=page]').count(),1);
   await fit(page);
 }
@@ -672,7 +673,7 @@ async function visit(page,name,kind){
     const context=await browser.newContext({javaScriptEnabled:false,viewport:{width:320,height:900}});
     const page=await context.newPage();
     await page.goto(href('sequence-library.html'));
-    assert.equal(await page.locator('.sl-page-tabs a').count(),5);
+    assert.equal(await page.locator('.sl-page-tabs a').count(),6);
     assert.equal(await page.locator('#sl-search').isVisible(),false);
     assert.equal(await page.locator('#sl-count a[href="sequence-library/index.html"]').count(),1);
     await page.goto(href('sequence-library.html#transfers'));
