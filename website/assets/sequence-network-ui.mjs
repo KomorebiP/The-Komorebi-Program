@@ -1,6 +1,8 @@
 /** Read-only OEIS transfer graph. Never executes source expressions. */
+import {formatNetworkMath} from './sequence-network-format.mjs';
 const OEIS = /^A\d{6}$/;
 const MAX_RESULTS = 60;
+const PAGE_SIZE = 12;
 const EVIDENCE = Object.freeze({
   all_index_formula_identity: 'Algebraic identity of extracted formula expressions',
   all_index_formula_identity_on_tail: 'Algebraic formula identity on the stated nonsingular tail',
@@ -65,27 +67,82 @@ function officialLink(id, label) {
   return a;
 }
 function siteSearchLink(id) {
-  const a=node('a','Search the local Sequence Library');
+  const a=node('a','Search '+id+' in the local Sequence Library');
   a.href='sequence-library.html?q='+encodeURIComponent('oeis:'+id)+'#library-search';
   return a;
 }
+function readableDomain(domain) {
+  const text=String(domain||'');
+  if(text==='local n>=0 with nonsingular ratio denominator')
+    return 'Local indices n ≥ 0, where the required denominator is nonzero.';
+  if(text==='all local n>=0')return 'All local indices n ≥ 0.';
+  if(text==='all integer n>=0 for quadratic channel definition')
+    return 'All integer indices n ≥ 0 under the quadratic-channel definition.';
+  if(text==='formal generating series under source and target OGF premises')
+    return 'Conditional on the recorded ordinary generating functions of both sequences.';
+  return text;
+}
+function equation(plain, tex, label, className='sn-statement') {
+  const el=node('div',plain,className);
+  el.setAttribute('aria-label',label+': '+plain);
+  if(tex)el.setAttribute('data-math-latex',tex);
+  return el;
+}
 function explainEdge(edge, names) {
   const li=node('li',undefined,'sn-result');
+  li.setAttribute('aria-label','Archived transfer: '+edge.target+' from '+edge.inputs.join(', '));
   const kind=node('span',KIND[edge.kind] || 'Formula connection','sn-rel-kind');
   const heading=node('h3');heading.append(kind,officialLink(edge.target),document.createTextNode(' ← '));
-  edge.inputs.forEach((input,i)=>{if(i)heading.append(document.createTextNode(' + '));heading.append(officialLink(input));});
+  edge.inputs.forEach((input,i)=>{if(i)heading.append(document.createTextNode(', '));heading.append(officialLink(input));});
   li.append(heading);
-  const detail=[edge.target,...edge.inputs].map(id=>`${id}: ${names.get(id) || 'OEIS sequence'}`).join(' · ');
-  li.append(node('p',detail,'sn-details'));
-  li.append(node('p',edge.expression,'sn-statement'));
-  li.append(node('p',EVIDENCE[edge.evidence] || 'Unclassified evidence','sn-evidence'));
-  li.append(node('p','Domain: '+edge.domain,'sn-details'));
+
+  const formatted=formatNetworkMath(edge);
+  const block=node('section',undefined,'sn-formula-block');
+  block.append(node('h4',edge.kind==='riordan'?'Recorded transform':'Transfer formula','sn-formula-label'));
+  block.append(equation(formatted.plain,formatted.tex,'Transfer formula'));
+  if(formatted.definition){
+    block.append(node('p','Defining factor','sn-formula-label'));
+    block.append(equation(formatted.definition.plain,formatted.definition.tex,'Definition of L','sn-definition'));
+  }
+  if(formatted.parameters?.length){
+    const parameters=node('dl',undefined,'sn-parameters');
+    for(const [name,value] of formatted.parameters){
+      const item=node('div',undefined,'sn-parameter');
+      item.append(node('dt',name),node('dd',value));parameters.append(item);
+    }
+    block.append(parameters);
+  }
+  if(formatted.help)block.append(node('p',formatted.help,'sn-help'));
+  li.append(block);
+
+  const evidence=node('p',undefined,'sn-evidence');
+  evidence.append(node('strong','Evidence: '),document.createTextNode(EVIDENCE[edge.evidence] || 'Unclassified evidence'));
+  li.append(evidence);
+  li.append(node('p','Valid domain: '+readableDomain(edge.domain),'sn-domain'));
+
+  const details=node('details',undefined,'sn-record-details');
+  details.append(node('summary','Original archive expression, sequence titles, and provenance'));
+  const detailList=node('dl',undefined,'sn-source-names');
+  for(const id of [edge.target,...edge.inputs]){
+    const item=node('div');
+    item.append(node('dt',id===edge.target?'Target '+id:'Input '+id),
+                node('dd',names.get(id) || 'OEIS sequence'));
+    detailList.append(item);
+  }
+  details.append(detailList);
+  details.append(node('p','Exact source expression (unchanged):','sn-original-label'),
+                 node('pre',edge.expression,'sn-original'));
   if(edge.kind==='hyperedge' && Object.keys(edge.index_maps || {}).length){
-    li.append(node('p','Index maps: '+Object.entries(edge.index_maps).map(([id,ranges])=>
+    details.append(node('p','Index maps: '+Object.entries(edge.index_maps).map(([id,ranges])=>
       id+': '+ranges.map(pair=>'n ↦ '+pair[0]+'n'+(pair[1]>=0?'+':'')+pair[1]).join(', ')).join(' · '),'sn-details'));
   }
+  details.append(node('p','Original domain: '+edge.domain,'sn-details'));
+  details.append(node('p','Source receipt: '+edge.source_receipt,'sn-receipt'),
+                 node('p','Proof reference: '+edge.proof_ref,'sn-receipt'));
+  li.append(details);
+
   const controls=node('div',undefined,'sn-actions');
-  controls.append(officialLink(edge.target,'View target on OEIS'),siteSearchLink(edge.target));
+  controls.append(officialLink(edge.target,'View '+edge.target+' on OEIS'),siteSearchLink(edge.target));
   li.append(controls);
   return li;
 }
@@ -96,9 +153,10 @@ async function mount() {
         status=root.querySelector('#sn-status'), results=root.querySelector('#sn-results'),
         handoffs=root.querySelector('#sn-handoffs'), sourcePanel=root.querySelector('#sn-source-formulas'),
         sourceButton=root.querySelector('#sn-source-load'), sourceStatus=root.querySelector('#sn-source-status'),
-        sourceResults=root.querySelector('#sn-source-results'), sourceMore=root.querySelector('#sn-source-more');
+        sourceResults=root.querySelector('#sn-source-results'), sourceMore=root.querySelector('#sn-source-more'),
+        more=root.querySelector('#sn-show-more');
   if(!input || !filter || !status || !results || !handoffs || !sourcePanel ||
-      !sourceButton || !sourceStatus || !sourceResults || !sourceMore) return;
+      !sourceButton || !sourceStatus || !sourceResults || !sourceMore || !more) return;
   try {
     const sources=await Promise.all([
       fetch(new URL('./sequence-network-data.json',import.meta.url)),
@@ -145,6 +203,22 @@ async function mount() {
         if(version===sourceVersion)sourceStatus.textContent='Source formula text could not load. The original OEIS entry remains available.';
       }finally{if(version===sourceVersion)sourceButton.disabled=false;}
     });
+    let current=null, shown=0;
+    const showNext=()=>{
+      if(!current)return;
+      const end=Math.min(current.results.length,shown+PAGE_SIZE);
+      for(const edge of current.results.slice(shown,end))results.append(explainEdge(edge,names));
+      shown=end;
+      const remaining=current.results.length-shown;
+      more.hidden=remaining===0;
+      if(remaining)more.textContent='Show next '+Math.min(PAGE_SIZE,remaining)+' connections ('+remaining+' remaining)';
+      const suffix=current.total>MAX_RESULTS?' · limited to first '+MAX_RESULTS+' indexed results':'';
+      status.textContent=current.total.toLocaleString()+' archived connections found · showing '+shown+suffix+'.';
+      if(!current.total && shown===0){
+        results.append(node('li','No archived transfer in this curated index. Search the main OEIS reference database for additional sequences or formulas.','sn-no-results'));
+      }
+    };
+    more.addEventListener('click',showNext);
     const rerender=()=>{
       const query=input.value.trim().slice(0,200);
       const requested=OEIS.test(query.toUpperCase())?query.toUpperCase():'';
@@ -155,25 +229,24 @@ async function mount() {
         sourceStatus.textContent=requested?'Formula text loads only when requested.':'';
       }
       sourcePanel.hidden=!requested;
-      const selected=networkSearch(data,query,filter.value,MAX_RESULTS,handoffsData.matches);
+      window.KomorebiMath?.clear?.(results);
       results.replaceChildren();handoffs.replaceChildren();
+      current=null;shown=0;more.hidden=true;
       if(!query){
-        status.textContent=`${data.edges.length.toLocaleString()} archived formula-transfer records covering ${data.records.length.toLocaleString()} OEIS IDs. Enter an ID or name to explore.`;
-        const suggestions=node('p','Examples: A000108 (Catalan), A000129 (Pell), A000217 (triangular).');
-        handoffs.append(suggestions);return;
+        status.textContent=data.edges.length.toLocaleString()+' archived formula-transfer records covering '+data.records.length.toLocaleString()+' OEIS IDs. Enter an ID or name to explore.';
+        handoffs.append(node('p','Examples: A000108 (Catalan), A000129 (Pell), A000217 (triangular).'));
+        return;
       }
+      const selected=networkSearch(data,query,filter.value,MAX_RESULTS,handoffsData.matches);
       if(selected.localLeads.length){
         const aside=node('aside',undefined,'sn-handoff');
-        aside.append(node('p',`Local ID ${query}: finite OEIS matches, not all-index identifications. Open a reference to explore its formula network.`));
+        aside.append(node('p','Local ID '+query+': finite OEIS matches, not all-index identifications. Open a reference to explore its formula network.'));
         selected.localLeads.slice(0,8).forEach(hit=>{
-          const a=node('a',`${hit.id} (${hit.terms} matching terms)`);a.href=networkLink(hit.id);aside.append(a);
+          const a=node('a',hit.id+' ('+hit.terms+' matching terms)');a.href=networkLink(hit.id);aside.append(a);
         });handoffs.append(aside);
       }
-      status.textContent=`${selected.total.toLocaleString()} archived connections found${selected.total>MAX_RESULTS?` · displaying first ${MAX_RESULTS}`:''}.`;
-      for(const edge of selected.results)results.append(explainEdge(edge,names));
-      if(!selected.total){
-        results.append(node('li','No archived transfer in this curated index. Search the main OEIS reference database for additional sequences or formulas.','sn-no-results'));
-      }
+      current=selected;
+      showNext();
     };
     const fromUrl=new URLSearchParams(location.search).get('q') || '';
     input.value=fromUrl.slice(0,200);

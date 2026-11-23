@@ -1,6 +1,6 @@
 # Directional ghosts, Frobenius obstructions, query fibers, and contractive transfers
 
-**Research status:** Written algebraic proofs with finite computational checks; not Lean-certified or independently reviewed. The term *new* refers to this research continuation, not established historical novelty.
+**Research status:** Written algebraic proofs supported by finite computational checks. No Lean formalization, independent peer review, or historical novelty assessment has been completed. Here, *new* means new within this research continuation.
 
 [Sequence transfer network](SEQUENCE_TRANSFER_NETWORK.md) · [Sequence Library](https://KomorebiP.github.io/The-Komorebi-Program/sequence-network.html) · [Research sources and reproducibility](../research/directional-ghosts/README.md)
 
@@ -8,17 +8,32 @@
 **Research checkpoint: 2026-11-23.**  
 **Inputs:** `Komorebi_Ambient_Realization_All_Progress_2026-11-23.zip` and `Komorebi_Precision_Aware_Transfer_Bridge_v1_2_2026-11-23.zip`.
 
-**Claim discipline.** These are new *extensions in this research continuation*, not claims of historical priority. They are proved below by exact algebra and checked by independent finite computations. Existing source results concern a one-variable primitive logarithmic derivative, finite-module query fibers, and question-relative reconstruction. All multivariate directional, optimization, lattice-asymptotic, nonlinear-observation query-fiber, and contracting-coboundary statements below were derived for this continuation. No literature novelty search or Lean formalization has been completed.
+**Scope of this note.** The results below extend the earlier one-variable logarithmic-derivative and finite-module reconstruction work to multivariate directional observations, prime-power lattice counts, nonlinear-observation query fibers, and contracting transfer operators. The written proofs and finite tests support the statements under their stated assumptions; they do not establish historical priority, independent source verification, or Lean certification.
+
+## Reader's guide
+
+The central question is how much information about a truncated generating function survives a family of observations. These results distinguish **full reconstruction** of its coefficients from **query reconstruction**, where only a chosen answer must be determined.
+
+| Term | Meaning in this note |
+| --- | --- |
+| Source \(A\) | A truncated formal series with constant coefficient \(1\). |
+| Directional ghost \(\Gamma_i(A)\) | The logarithmic derivative \(\delta_i A/A\) along a specified weighted direction. |
+| Precision \(p^k\) | Coefficients are determined modulo the stated prime power. |
+| Fiber | All coefficient arrays compatible with the observed signatures. |
+| Rescue channel | An independently available supplementary measurement. It cannot be synthesized from the same information already lost. |
+| \(\Phi_q\) | A lossless change of series coordinates defined by \(A(\mathbf{x})/A(\mathbf{x}^q)\). |
+
+**Reading route:** Sections 2–3 quantify the remaining source ambiguity. Section 4 asks what is needed for a particular query. Section 5 gives a lossless transformation that may offer more useful coordinates, without creating new information. Section 6 separates the established results from unresolved research objectives.
 
 ## 1. Setup
 
-Fix a prime `p`, integers `k>=1`, `D>=1`, `d>=1`, and the truncated ring
+Fix a prime \(p\), integers \(k,D,d\geq1\), and the truncated formal-series ring
 
 \[
 R_D=\mathbb Z_p[x_1,\ldots,x_d]/(x_1,\ldots,x_d)^{D+1},\qquad I=(x_1,\ldots,x_d).
 \]
 
-Write `A=1+sum_{0<|alpha|<=D} a_alpha x^alpha`, so `A` lies in the multiplicative group `1+I`.
+Write \(A=1+\sum_{0<|\alpha|\le D}a_\alpha\mathbf{x}^\alpha\), so \(A\) belongs to the multiplicative group \(1+I\).
 
 For integer weight vectors `w_i=(w_{i1},...,w_{id})`, define the commuting Euler derivations
 
@@ -27,7 +42,7 @@ For integer weight vectors `w_i=(w_{i1},...,w_{id})`, define the commuting Euler
 \Gamma_i(A)=\frac{\delta_i A}{A}.
 \]
 
-Suppose the `i`th signature is given modulo `p^{k+h_i}` with `h_i>=0`. Input reconstruction is sought modulo `p^k`. Set `v_p(0)=+infinity` and `lambda_{i,alpha}=w_i dot alpha`.
+Suppose the \(i\)th signature is observed modulo \(p^{k+h_i}\), where \(h_i\ge0\). The goal is to reconstruct the input modulo \(p^k\). Define \(v_p(0)=+\infty\) and \(\lambda_{i,\alpha}=w_i\cdot\alpha\).
 
 The signature readings are **independent observations** of the source; no deterministic postprocessing of an existing signature is assumed to produce additional independent signatures.
 
@@ -65,7 +80,7 @@ Knowledge modulo `p^k` of the named source coefficients `a_alpha` at these `b` m
 
 ## 3. An exact prime-power lattice formula
 
-Assume all `h_i=h` and assemble weight rows into `W` of size `r x d`.
+Assume all \(h_i=h\), and assemble the weight rows into an \(m\times d\) matrix \(W\).
 
 Define the discrete congruence count
 
@@ -108,16 +123,16 @@ The residual ambiguity consists precisely of the nested exponent classes divisib
 
 For `W=I_2`, `E=(binom(7,2)-1)+(binom(4,2)-1)+(binom(3,2)-1)=20+5+2=27`.
 
-**Theorem 3.4 (Smith-lattice density).** Fix `p,k,h,W,d`, and let the nonzero p-adic Smith valuations of `W` be `s_1,...,s_r`. Then, as `D -> infinity`,
+**Theorem 3.4 (Smith-lattice density).** Fix \(p,k,h,W,d\). Let \(\rho\) be the rank of \(W\), and let \(s_1,\ldots,s_\rho\) denote the valuations of its nonzero Smith invariant factors, **including factors with valuation zero**. Then, as \(D\to\infty\),
 
 \[
 \boxed{E(W;p,k,h,D)=\frac{D^d}{d!}\sum_{t=h+1}^{h+k}
- p^{-\sum_{j=1}^{r}\max(0,t-s_j)}+O_{p,k,h,W,d}(D^{d-1}).}
+ p^{-\sum_{j=1}^{\rho}\max(0,t-s_j)}+O_{p,k,h,W,d}(D^{d-1}).}
 \]
 
-**Proof.** The homomorphism `W:(Z/p^t)^d -> (Z/p^t)^r` has image size `p^{sum_j max(0,t-s_j)}` by Smith normal form. Exactly the reciprocal fraction of residue classes modulo `p^t` lies in its kernel. The lattice points in a growing nonnegative simplex are asymptotically equidistributed among fixed residue classes, each class contributing `D^d/(d! p^{td}) + O(D^{d-1})`. Therefore `N_t(W,D)=(D^d/d!) / |im W_t|+O(D^{d-1})`. Sum over the finitely many `t`. QED.
+**Proof.** The homomorphism \(W:(\mathbb Z/p^t)^d\to(\mathbb Z/p^t)^m\) has image size \(p^{\sum_{j=1}^{\rho}\max(0,t-s_j)}\) by Smith normal form. Exactly the reciprocal fraction of residue classes modulo `p^t` lies in its kernel. The lattice points in a growing nonnegative simplex are asymptotically equidistributed among fixed residue classes, each class contributing `D^d/(d! p^{td}) + O(D^{d-1})`. Therefore `N_t(W,D)=(D^d/d!) / |im W_t|+O(D^{d-1})`. Sum over the finitely many `t`. QED.
 
-This provides an exact leading-order prediction of the ambiguity *from Smith invariants of the derivative-direction matrix* before enumerating any monomials. It also exposes a precision/observation-count tradeoff: extra p-independent rows can reduce ambiguity dramatically, but they cost additional observation computation.
+This provides an exact leading-order prediction of the ambiguity *from Smith invariants of the derivative-direction matrix* before enumerating any monomials. It also exposes a precision-versus-observation tradeoff: adding directions that improve the rank modulo \(p\) can reduce ambiguity, but independent observations require additional computation or access to the source.
 
 ## 4. Query-specific reconstruction from nonlinear ghost observations
 

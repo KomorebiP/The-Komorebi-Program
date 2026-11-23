@@ -11,6 +11,16 @@ Search results have a “Formula network” link. Local IDs hand off to at most 
 
 The browser loads the compact data only on `sequence-network.html`, not when visitors first open the Sequence Library search. It neither runs the v1.4 Python optimizer nor executes external OEIS code. The existing site still provides calculators, comparison, exact local formula text, and official OEIS reference lookup.
 
+## Reading a transfer result
+
+The target OEIS identifier appears **to the left of the arrow**. Identifiers to the right are the archived source formulas or sequence inputs. The network presents mathematical **formula relationships**, not independently checked identifications of every named OEIS sequence.
+
+Gauge records now show their ratio equation separately from the scale \(K\), base \(c\), starting index \(t_0\), and defining factor \(L\). The archived gauge strings sometimes use \(t\) for the input of \(L\) while writing \(n\) inside its product. For display only, the reader uses the neutral variable \(u\) in the definition \(L(u)\). This is a change of **dummy variable**, not a change to the stored formula. The complete original text, offsets, proof reference, and source receipt remain available under each record's disclosure.
+
+Formula and quadratic-channel records use mathematical typesetting where the archive grammar is supported. Riordan records display their stored parameters without inventing a full OGF equation that the index does not contain. Unsupported notation remains readable as original text. Nothing on this page executes source expressions.
+
+On narrow or zoomed screens, the search controls stack vertically. Results appear in batches of 12 so readers do not have to navigate a single very long list. The site-wide **Math display** preference switches between typeset notation and plain source text. Wide equations have their own horizontal scroll area. Keyboard access and source-text fallbacks are retained.
+
 ## Retained mathematical material
 
 A compact, pinned projection of the **Komorebi OEIS Sparse Transfer Compiler v1.4** contributes:
@@ -26,7 +36,7 @@ A compact, pinned projection of the **Komorebi OEIS Sparse Transfer Compiler v1.
 
 The archived formulas and identities originated in the retained 99,999-entry OEIS source snapshot. The pinned SQLite SHA-256 is `a121d7a6a5b6aa78a5a333fe748b604f170511bf8250ca16533f58cbcfa9e9f5`. Manifest `sources` hashes bind the three archived ledgers. Source OEIS names and formula text are attributed to **The Online Encyclopedia of Integer Sequences, OEIS Foundation Inc.**, under **CC BY-SA 4.0**. This page provides an independent Komorebi search presentation.
 
-The site build checks the structural integrity of the projected transfer index and local-to-OEIS comparisons, but it does **not** rerun 539 full source-formula proofs or revalidate the entire 99,999-entry database. The archived proof receipt and proof scope stay visible. Neither finite OEIS matches nor formula-level proofs automatically establish an all-index OEIS sequence identification. Those distinctions are essential for the index and its interface labels.
+The site build checks the structural integrity of the projected transfer index and local-to-OEIS comparisons, but it does **not** rerun all 539 source-formula proof checks or revalidate the entire 99,999-entry database. The archived proof receipt and proof scope stay visible. Neither finite OEIS matches nor formula-level proofs automatically establish an all-index OEIS sequence identification. Those distinctions are essential for the index and its interface labels.
 
 ## Files and reproducibility
 
