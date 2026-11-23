@@ -71,10 +71,18 @@ class ClaimDirectoryPageTests(unittest.TestCase):
             self.assertEqual(body.count('<article class="claim"'), 1)
             self.assertIn('id="claim-filters"', body)
         self.assertIn('side-by-side.html?', pages['claims/paper-i.html'])
+        # Local claims-page links retain their relative ../ prefix.
+        self.assertIn('href="../documents/test.tex.html#L7"', pages['claims/paper-i.html'])
         direct = [item for item in site.search if item['kind'] == 'Claims']
         self.assertEqual(len(direct), len(PAPERS))
         self.assertTrue(all(item['url'].startswith('claims/paper-')
                             for item in direct))
+        # Site-wide search is rooted at search.html, not the claims directory.
+        proofs = [item for item in site.search if item['kind'] == 'Written proofs']
+        self.assertEqual([item['url'] for item in proofs],
+                         ['documents/test.tex.html#L7'])
+        self.assertTrue(all(not item['url'].startswith('../') for item in site.search))
+        check_search_targets(proofs, {'documents/test.tex.html': SimpleNamespace(ids=['L7'])})
 
 
 def manuscript_table_fixtures(root,work):
