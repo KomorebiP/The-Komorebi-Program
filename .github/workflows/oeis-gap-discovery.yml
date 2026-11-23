@@ -55,7 +55,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Exact source parser and adversarial safety controls
-        run: PYTHONPATH=tools python -B -m unittest discover -s tools -p 'test_oeis_*.py' -v
+        run: PYTHONPATH=tools python -B -m unittest test_oeis_gap_automation test_oeis_cfinite_bridge -v
       - name: Produce pinned transfer gap report
         run: |
           python -B tools/oeis_gap_automation.py audit \

@@ -16,7 +16,7 @@ and does not promote conditional identities into unconditional OEIS proofs.
 - `tools/oeis_identification_proofs.py`: safe OEIS `.seq` parser, exact OGF/recurrence/name-definition checks, certificate replay and conditional overlay output.
 - `tools/oeis_hypergeometric_gate.py`: Pochhammer and first-order P-recursive ratio proof gates.
 - `tools/oeis_precursive_gate.py`: conditional order 2–4 rational Ore-gauge implication gate.
-- `tools/test_oeis_*.py`: 58 positive and rejection unit tests.
+- The five named proof-gate test modules listed below: 58 positive and rejection unit tests at the initial checkpoint.
 - `fixtures/oeis_identification/`: four abbreviated genuine examples and separate intentionally synthetic adversarial `.seq` fixtures.
 - `fixtures/existing_sequence_network_v15.json`: synthetic network fixture for the earlier gap-engine tests, not a substitute for the public 916-node index.
 - `.github/workflows/oeis-*.yml`: optional workflows, including one to fetch real OEIS `.seq` source and retain proof receipts.
@@ -28,7 +28,7 @@ and does not promote conditional identities into unconditional OEIS proofs.
 From the project root:
 
 ```sh
-python -B -m unittest discover -s tools -p 'test_oeis_*.py' -v
+PYTHONPATH=tools python -B -m unittest test_oeis_gap_automation test_oeis_cfinite_bridge test_oeis_identification_proofs test_oeis_hypergeometric_gate test_oeis_precursive_gate -v
 python -B tools/oeis_identification_proofs.py \
   --oeis-root fixtures/oeis_identification \
   --output reports/oeis-identification-demo
@@ -45,9 +45,7 @@ obligations, proof mathematics, and source-provenance boundaries.
 ## Verify on official OEIS source
 
 Clone `https://github.com/oeis/oeisdata` into a separate directory, then run the
-commands in `docs/OEIS_IDENTIFICATION_PROOF_GATE.md`. The scheduled GitHub
-workflow can perform this source-bound check on a hosted runner, but **the
-workflow is not enabled until the files are actually committed to GitHub**.
+commands in `docs/OEIS_IDENTIFICATION_PROOF_GATE.md`. The GitHub workflow performs this bounded source check on relevant pull requests, main-branch pushes, or manual dispatch. Scheduled source clones remain disabled until their resource costs have been reviewed.
 Record both the source git commit and the SHA-256 of each `.seq` file.
 
 The output separates source assertions, finite consistency, exact formal
@@ -63,7 +61,7 @@ all source additions. Apply from the root of `KomorebiP/The-Komorebi-Program`:
 ```sh
 git apply --check KOMOREBI_OEIS_AUTOMATION_PROOF_STAGE3_FULL.patch
 git apply KOMOREBI_OEIS_AUTOMATION_PROOF_STAGE3_FULL.patch
-python -B -m unittest discover -s tools -p 'test_oeis_*.py' -v
+PYTHONPATH=tools python -B -m unittest test_oeis_gap_automation test_oeis_cfinite_bridge test_oeis_identification_proofs test_oeis_hypergeometric_gate test_oeis_precursive_gate -v
 ```
 
 Check for collisions with later repository changes before applying. The patch

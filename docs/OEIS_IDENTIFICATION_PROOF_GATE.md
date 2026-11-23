@@ -61,7 +61,7 @@ An explicit polynomial formula \(a(n)=p(n)\), with degree at most seven, is hand
 Requires Python 3.12+ and the three local modules (stdlib only):
 
 ```
-python -B -m unittest discover -s tools -p 'test_oeis_*.py' -v
+PYTHONPATH=tools python -B -m unittest test_oeis_gap_automation test_oeis_cfinite_bridge test_oeis_identification_proofs test_oeis_hypergeometric_gate test_oeis_precursive_gate -v
 python -B tools/oeis_identification_proofs.py \
   --oeis-root fixtures/oeis_identification \
   --output verification/oeis-identification/demo

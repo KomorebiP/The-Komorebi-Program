@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
-import {networkSearch,networkLink,sourceFormulaRows} from '../website/assets/sequence-network-ui.mjs';
+import {networkSearch,networkLink,networkProfile,sourceFormulaRows} from '../website/assets/sequence-network-ui.mjs';
 import {formatNetworkMath,algebraLatex} from '../website/assets/sequence-network-format.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const data=JSON.parse(readFileSync(path.join(root,'manifests/sequence-transfer-network.json'),'utf8'));
@@ -118,4 +118,38 @@ test('sequence-name matches do not mask independent formula-text matches',()=>{
     'no formula-text matches are lost when a sequence name matches');
   assert.equal(networkSearch(data,'binomial','all',data.edges.length).total,331,
     'the previously verified binomial inventory is unchanged');
+});
+
+
+test('exact OEIS identifiers select direct graph incidences, not title references',()=>{
+  const catalan=networkProfile(data,'a000108');
+  assert.equal(catalan.record.id,'A000108');
+  assert.deepEqual([catalan.total,catalan.target,catalan.input],[9,0,9]);
+  assert.equal(networkSearch(data,'a000108','all',data.edges.length).total,9);
+  assert.equal(networkSearch(data,'text:A000108','all',data.edges.length).total,17);
+  assert.equal(networkSearch(data,'A000302','all',data.edges.length).total,17);
+  assert.equal(networkSearch(data,'text:A000302','all',data.edges.length).total,61);
+  assert.equal(networkSearch(data,'A000217','all',data.edges.length).total,59);
+  assert.equal(networkProfile(data,'A000931').record,null);
+  assert.equal(networkSearch(data,'A000931','all',data.edges.length).total,0);
+  assert.deepEqual(networkSearch(data,'constructor').localLeads,[]);
+  assert.deepEqual(networkSearch(data,'toString').localLeads,[]);
+  assert.equal(networkProfile(data,'not-an-id'),null);
+});
+
+test('every curated identifier has exact role counts and complete unique incident records',()=>{
+  for(const record of data.records){
+    const id=record.id;
+    const expected=data.edges.filter(e=>e.target===id || e.inputs.includes(id));
+    const profile=networkProfile(data,id);
+    const search=networkSearch(data,id,'all',data.edges.length);
+    assert.equal(profile.total,expected.length,id);
+    assert.equal(profile.target,expected.filter(e=>e.target===id).length,id);
+    assert.equal(profile.input,expected.filter(e=>e.inputs.includes(id)).length,id);
+    assert.equal(search.total,expected.length,id);
+    assert.deepEqual(new Set(search.results.map(e=>e.key)),new Set(expected.map(e=>e.key)),id);
+    for(const kind of ['hyperedge','gauge','riordan','quadratic']){
+      assert.equal(networkProfile(data,id,kind).total,expected.filter(e=>e.kind===kind).length,id+' '+kind);
+    }
+  }
 });

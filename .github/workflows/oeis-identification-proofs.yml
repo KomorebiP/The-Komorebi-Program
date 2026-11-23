@@ -1,6 +1,7 @@
 name: OEIS pinned identification proof checks
 on:
   push:
+    branches: [main]
     paths:
       - 'tools/oeis_identification_proofs.py'
       - 'tools/oeis_gap_automation.py'
@@ -17,8 +18,7 @@ on:
       - 'fixtures/oeis_identification/**'
       - '.github/workflows/oeis-identification-proofs.yml'
   workflow_dispatch:
-  schedule:
-    - cron: '23 8 * * 0'
+  # Scheduled source clones are intentionally disabled pending resource review.
 permissions:
   contents: read
 jobs:

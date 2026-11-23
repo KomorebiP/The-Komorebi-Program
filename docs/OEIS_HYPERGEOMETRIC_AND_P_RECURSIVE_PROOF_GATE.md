@@ -77,7 +77,7 @@ The three audit collections generate five first-order Pochhammer normal forms, e
 ## Exact reproduction
 
 ```bash
-python -B -m unittest discover -s tools -p 'test_oeis_*.py' -v
+PYTHONPATH=tools python -B -m unittest test_oeis_gap_automation test_oeis_cfinite_bridge test_oeis_identification_proofs test_oeis_hypergeometric_gate test_oeis_precursive_gate -v
 python -B tools/oeis_identification_proofs.py \
   --oeis-root fixtures/oeis_identification --output verification/oeis/identification
 python -B tools/oeis_hypergeometric_gate.py \
