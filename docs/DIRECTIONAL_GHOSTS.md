@@ -72,7 +72,7 @@ Thus there are \(2^{0+1+0+2}=8\) compatible source reductions modulo \(4\), with
 
 Extra precision may differ by direction. For \(d=2\), \(D=2\), \(p=2\), and \(k=2\), observe the \(x\)-coordinate ghost modulo \(4\) and the \(y\)-coordinate ghost modulo \(8\), so \(h_x=0\) and \(h_y=1\). The only blind monomial is \(x^2\), with \(e_{(2,0)}=1\). All other positive monomials have \(e_\alpha=0\). Consequently **each attainable measured fiber contains exactly two distinct source reductions modulo \(4\)**.
 
-This count allows the source reductions to have different lifts modulo \(8\). It cannot be obtained by evaluating the higher-precision \(y\) observation directly on a source represented only modulo \(4\). An exhaustive finite check is included in the repository's directional-ghost regression tests.
+This count allows the source reductions to have different lifts modulo \(8\). It cannot be obtained by evaluating the higher-precision \(y\) observation directly on a source represented only modulo \(4\). An exhaustive regression enumerates all \(8^5=32{,}768\) source lifts and all \(2{,}048\) attainable nonlinear signature pairs, each with exactly two source reductions modulo \(4\).
 
 ## 2. Exact multichannel directional-ghost fiber theorem
 
