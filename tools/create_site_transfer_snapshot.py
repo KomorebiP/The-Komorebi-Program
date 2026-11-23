@@ -45,8 +45,11 @@ def construct(db_path, hyperedges, gauges, riordan_replay, output):
         components = obj.get('gauge_linear_factors',[])
         if len(components)>8:continue
         terms = ['(%s*n%+d)^%s'%(int(c['a']),int(c['b']),int(c['power'])) for c in components]
-        statement = 'b(n) / a(n): base=%s, exponential=%s, factors=%s'%(
-            obj['base_ratio'],obj['exponential_factor'],','.join(terms) or '1')
+        start=int(obj['tail_start_local'])
+        statement = ('b(t)/a(t) = K*c^(t-t0)*L(t)/L(t0); '
+                     'K=%s, c=%s, t0=%s, L(t)=%s; offsets a=%s, b=%s'%(
+                     obj['base_ratio'],obj['exponential_factor'],start,
+                     '*'.join(terms) or '1',obj['source_offset'],obj['target_offset']))
         edges.append(dict(key='g:'+hashlib.sha256((obj['source_formula']+'|'+obj['target_formula']).encode()).hexdigest()[:20],
                           kind='gauge',target=target,inputs=[source],expression=statement,
                           index_maps={source:[[1,0]]},domain='local n>='+str(obj['tail_start_local'])+
@@ -64,11 +67,17 @@ def construct(db_path, hyperedges, gauges, riordan_replay, output):
                           evidence='conditional_exact_ogf_identity',proof_ref=obj['archived_certificate_key'],
                           source_receipt=obj['source_formula_sha256_current']))
     # Two established quadratic exponential channels, with two outputs per family.
-    for c,q,targets in ((1,2,['A001333','A000129']),(2,3,['A001075','A001353'])):
-        for target in targets:
-            edges.append(dict(key=f'q:{c}:{q}:{target}',kind='quadratic',target=target,inputs=[x for x in targets if x!=target],
-                              expression=f'(c+sqrt(q))^n=B_n+sqrt(q)*D_n; c={c}, q={q}',
-                              index_maps={},domain='all integer n>=0 for quadratic channel definition',
+    for c,q,(B,D) in ((1,2,('A001333','A000129')),(2,3,('A001075','A001353'))):
+        # Derive one channel from the other using a shift, not a falsely
+        # implied same-index one-input transfer.  D(n+1)=B(n)+c*D(n).
+        for target,source,statement in (
+            (B,D,f'{B}(n) = {D}(n+1) - {c}*{D}(n)'),
+            (D,B,f'{D}(n) = ({B}(n+1) - {c}*{B}(n))/{q}'),
+        ):
+            edges.append(dict(key=f'q:{c}:{q}:{target}',kind='quadratic',target=target,inputs=[source],
+                              expression=statement,
+                              index_maps={source:[[1,0],[1,1]]},
+                              domain='all integer n>=0 for quadratic channel definition',
                               evidence='exact_quadratic_algebra',proof_ref=f'quadratic-channel:{c}:{q}',
                               source_receipt=DB_SHA256))
     keys = [x['key'] for x in edges]
