@@ -55,6 +55,16 @@ async function main(){
     await page.waitForFunction(()=>document.querySelectorAll('#sn-source-results li').length>0,null,{timeout:45000});
     assert.match(await page.locator('#sn-source-status').innerText(),/unreviewed OEIS records/);
     assert.match(await page.locator('#sn-source-results').innerText(),/binomial/);
+    assert.equal(await page.locator('#sn-source-results li').count(),25);
+    await page.locator('#sn-source-results li').first().evaluate(el=>{el.dataset.keepOnPagination='yes';});
+    await page.locator('#sn-source-more').focus();
+    await page.keyboard.press('Enter');
+    assert.equal(await page.locator('#sn-source-results li').count(),50,
+      'archival formula text continues in batches of 25');
+    assert.equal(await page.locator('#sn-source-results li').first().getAttribute('data-keep-on-pagination'),'yes',
+      'existing archival lines are not removed and recreated');
+    assert.equal(await page.locator('#sn-source-results li').nth(25).evaluate(el=>document.activeElement===el),true,
+      'keyboard focus follows the first newly disclosed archive line');
     await page.selectOption('#sn-filter','gauge');
     await page.waitForFunction(()=>Boolean(document.querySelector('.sn-result .sn-definition')));
     const gauge=page.locator('.sn-result').first();

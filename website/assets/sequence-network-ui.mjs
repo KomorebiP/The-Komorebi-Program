@@ -24,9 +24,11 @@ export function networkSearch(data, rawQuery, category='all', limit=MAX_RESULTS,
   for(const edge of data.edges || []) {
     if(category!=='all' && edge.kind!==category) continue;
     const incident=[edge.target,...edge.inputs];
-    if(incident.some(id=>matching.has(id)) || (!matching.size && (
-        String(edge.expression).toLocaleLowerCase().includes(key) ||
-        String(edge.kind).toLocaleLowerCase().includes(key)))) candidates.push(edge);
+    // Combine name/ID matches with formula and relation-class matches.
+    // A named sequence must not hide another record whose expression matches.
+    if(incident.some(id=>matching.has(id)) ||
+       String(edge.expression).toLocaleLowerCase().includes(key) ||
+       String(edge.kind).toLocaleLowerCase().includes(key)) candidates.push(edge);
   }
   const exact=q.toUpperCase();
   candidates.sort((a,b)=>{
@@ -173,17 +175,24 @@ async function mount() {
         .catch(error=>{sourcePromise=null;throw error;});
       return sourcePromise;
     };
-    const renderSource=()=>{
-      sourceResults.replaceChildren();
-      for(const item of sourceRows.slice(0,sourceShown)){
+    const renderSource=(focusAdded=false)=>{
+      // Append new archive lines instead of rebuilding the reader's existing
+      // list. This preserves selection, screen-reader position and disclosure.
+      const start=sourceResults.children.length;
+      for(const item of sourceRows.slice(start,sourceShown)){
         const li=node('li',undefined,'sn-source-line');
         li.append(node('p',item.kind,'sn-source-kind'),node('pre',item.text,'sn-source-expression'));
         sourceResults.append(li);
       }
       sourceMore.hidden=sourceShown>=sourceRows.length;
       if(!sourceMore.hidden)sourceMore.textContent=`Show more formulas (${sourceRows.length-sourceShown} remaining)`;
+      if(focusAdded && sourceShown>start){
+        const firstAdded=sourceResults.children[start];
+        firstAdded.tabIndex=-1;
+        firstAdded.focus();
+      }
     };
-    sourceMore.addEventListener('click',()=>{sourceShown=Math.min(sourceRows.length,sourceShown+25);renderSource();});
+    sourceMore.addEventListener('click',()=>{sourceShown=Math.min(sourceRows.length,sourceShown+25);renderSource(true);});
     sourceButton.addEventListener('click',async()=>{
       const requested=activeId, version=sourceVersion;
       if(!requested)return;

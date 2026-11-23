@@ -7,7 +7,7 @@
 
 The Sequence Library remains the single search entry point for local KSEQ, KFOR, and KOM records, mathematical formulas, OEIS terms, comparisons, and exact calculators. The **Network** tab provides a source-bound read-only collection of transfer relations, without replacing the existing finite-convolution **Transfer** workbench.
 
-Search results have a “Formula network” link. Local IDs hand off to at most eight finite OEIS comparison matches, **explicitly identified as finite matching leads**. An OEIS ID, such as `A000108`, opens the incident directed identities, hypergeometric gauges, Riordan transforms, and quadratic channels. Search by name and simple formula text is supported.
+Search results have a “Formula network” link. Local IDs hand off to at most eight finite OEIS comparison matches, **explicitly identified as finite matching leads**. An OEIS ID, such as `A000108`, opens the incident directed identities, hypergeometric gauges, Riordan transforms, and quadratic channels. Search by name and simple formula text is supported. Both sequence-name matches and matching archived formula expressions are included when the same query matches each category; neither result class suppresses the other.
 
 The browser loads the compact data only on `sequence-network.html`, not when visitors first open the Sequence Library search. It neither runs the v1.4 Python optimizer nor executes external OEIS code. The existing site still provides calculators, comparison, exact local formula text, and official OEIS reference lookup.
 
@@ -19,7 +19,7 @@ Gauge records now show their ratio equation separately from the scale \(K\), bas
 
 Formula and quadratic-channel records use mathematical typesetting where the archive grammar is supported. Riordan records display their stored parameters without inventing a full OGF equation that the index does not contain. Unsupported notation remains readable as original text. Nothing on this page executes source expressions.
 
-On narrow or zoomed screens, the search controls stack vertically. Results appear in batches of 12 so readers do not have to navigate a single very long list. Every matching record in the pinned index remains accessible, even when a search matches more than 60 relations. The **Show next connections** button moves keyboard focus to the first newly revealed record and keeps the result count explicit. The site-wide **Math display** preference switches between typeset notation and plain source text. Wide equations have their own horizontal scroll area. Keyboard access and source-text fallbacks are retained.
+On narrow or zoomed screens, the search controls stack vertically. Results appear in batches of 12 so readers do not have to navigate a single very long list. Every matching record in the pinned index remains accessible, even when a search matches more than 60 relations. The **Show next connections** button moves keyboard focus to the first newly revealed record and keeps the result count explicit. The separately loaded source-formula list appends groups of 25 without remounting earlier lines, and its **Show more formulas** control likewise focuses the first newly revealed line. The site-wide **Math display** preference switches between typeset notation and plain source text. Wide equations have their own horizontal scroll area. Keyboard access and source-text fallbacks are retained.
 
 ## Retained mathematical material
 

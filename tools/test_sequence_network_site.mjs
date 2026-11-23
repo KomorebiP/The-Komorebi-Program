@@ -92,3 +92,30 @@ test('large sequence-name searches expose every pinned edge instead of silently 
   assert.equal(networkSearch(data,'n','all',data.edges.length).results.length,data.edges.length,
     'maximum-size search can be explored incrementally');
 });
+
+
+test('sequence-name matches do not mask independent formula-text matches',()=>{
+  const fixture={
+    records:[
+      {id:'A000001',name:'Numbers featuring 3'},
+      {id:'A000002',name:'Another sequence'},
+      {id:'A000003',name:'Third collection'}
+    ],
+    edges:[
+      {key:'named',target:'A000001',inputs:[],kind:'hyperedge',expression:'n+1'},
+      {key:'expression',target:'A000002',inputs:[],kind:'hyperedge',expression:'3*n'}
+    ]
+  };
+  const matched=networkSearch(fixture,'3','all',fixture.edges.length);
+  assert.equal(matched.total,2);
+  assert.deepEqual(new Set(matched.results.map(e=>e.key)),new Set(['named','expression']));
+  const q='3', named=new Set(data.records.filter(x=>
+    x.id.toLowerCase()===q || x.name.toLowerCase().includes(q)).map(x=>x.id));
+  const expected=data.edges.filter(e=>[e.target,...e.inputs].some(id=>named.has(id)) ||
+    String(e.expression).toLowerCase().includes(q) ||
+    String(e.kind).toLowerCase().includes(q));
+  assert.equal(networkSearch(data,q,'all',data.edges.length).total,expected.length,
+    'no formula-text matches are lost when a sequence name matches');
+  assert.equal(networkSearch(data,'binomial','all',data.edges.length).total,331,
+    'the previously verified binomial inventory is unchanged');
+});
