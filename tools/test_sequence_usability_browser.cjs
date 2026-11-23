@@ -65,7 +65,9 @@ async function visit(page,name,kind){
         'Only Plot, Save and Compare are the default actions');
       await page.locator('#sl-results>li').first().locator(':scope > .sl-result-more > summary').click();
       assert.equal(await page.locator('#sl-results>li').first().locator(':scope > .sl-result-more').evaluate(el=>el.open),true);
-      assert.equal(await page.locator('#sl-results>li').first().locator('.sl-result-more .sp-actions a').isVisible(),true);
+      const expandedActions=page.locator('#sl-results>li').first().locator('.sl-result-more .sp-actions');
+      assert.equal(await expandedActions.getByRole('link',{name:'Read formulas'}).isVisible(),true);
+      assert.equal(await expandedActions.getByRole('link',{name:'Formula network'}).isVisible(),true);
       await page.locator('#sl-results .sl-result-definition summary').first().click();
       assert.equal(await page.locator('#sl-results .sl-result-definition').first().evaluate(el=>el.open),true);
       await page.waitForFunction(()=>{
