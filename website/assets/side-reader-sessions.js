@@ -2,6 +2,14 @@
 (function (root) {
   const core = typeof module === "object" && module.exports ? require("./side-reader-core.js") : root.KomorebiSideReader;
   const sides = ["left", "right"];
+  // Reuse saved sessions from the former project path on the same origin.
+  function storageKey(base) {
+    const url = new URL(base);
+    const path = url.hostname === "komorebip.github.io" && url.pathname === "/The-Komorebi-Program/"
+      ? "/Operation-KOMOREBI/" : url.pathname;
+    return "komorebi.reader.sessions.v1:" + path;
+  }
+
   const number = (value, fallback = 0, min = 0, max = 1e8) => typeof value === "number" && Number.isFinite(value) && value >= min && value <= max ? value : fallback;
   function pdfHash(value) {
     if (typeof value !== "string" || value.length > 200) return null;
@@ -77,7 +85,7 @@
   function create(options) {
     const {base, data, getState, getFrame, isCurrent, restoreSession, titleFor} = options;
     const $ = id => document.getElementById(id);
-    const key = "komorebi.reader.sessions.v1:" + new URL(base).pathname;
+    const key = storageKey(base);
     const message = text => {$("side-session-status").textContent = text;};
     let storage, saved;
     try { storage = window.localStorage; saved = library(storage.getItem(key)); } catch { saved = library(null); }
@@ -326,7 +334,7 @@
         prepare(session); resume = null; $("side-session-resume").hidden = true; return session;
       }};
   }
-  const api = {pdfHash, snapshot, library, withBookmark, writeLibrary, initialSession, create};
+  const api = {storageKey, pdfHash, snapshot, library, withBookmark, writeLibrary, initialSession, create};
   if (typeof module === "object" && module.exports) module.exports = api;
   else root.KomorebiReaderSessions = api;
 })(globalThis);

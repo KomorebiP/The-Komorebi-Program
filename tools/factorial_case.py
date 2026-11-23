@@ -78,7 +78,7 @@ def publish(site) -> dict:
     )
     site.page(READER, 'Factorial lanes / exact Python program',
               body+source_lines(program.decode('utf-8')),
-              'https://github.com/KomorebiP/Operation-KOMOREBI/blob/'
+              'https://github.com/KomorebiP/The-Komorebi-Program/blob/'
               +site.revision+'/'+PROGRAM)
     site.search.append(dict(
         title='Factorial lanes / exact Python checker',

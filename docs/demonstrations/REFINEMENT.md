@@ -2,9 +2,9 @@
 
 [All demonstrations](../DEMONSTRATIONS.md) · [Project map](../PROJECT_MAP.md#foundations) · [Glossary: refinement](../GLOSSARY.md#refinement)
 
-[Run and edit this example in your browser](https://KomorebiP.github.io/Operation-KOMOREBI/playground.html#refinement)
+[Run and edit this example in your browser](https://KomorebiP.github.io/The-Komorebi-Program/playground.html#refinement)
 
-[Explore the interactive diagram](https://KomorebiP.github.io/Operation-KOMOREBI/interactive.html#refinement)
+[Explore the interactive diagram](https://KomorebiP.github.io/The-Komorebi-Program/interactive.html#refinement)
 to reshape the signal, refine its address packets, and inspect what is lost when a packet is discarded.
 
 **Question:** What changes when a signal is described by finer address classes?
@@ -88,11 +88,11 @@ use exact integer arithmetic, including the reconstruction after a packet is dis
 
 | Continue to | Route and scope |
 |---|---|
-| Paper | [Paper II's readable chapters](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-ii/index.html). |
-| Exact claim | [Nested residue refinement](https://KomorebiP.github.io/Operation-KOMOREBI/claims.html#paper-ii-thm-residue_refinement). |
-| Written proof | [Readable statement](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-ii/refinement-and-residue-coordinates.html#L476) and [proof](https://KomorebiP.github.io/Operation-KOMOREBI/read/paper-ii/refinement-and-residue-coordinates.html#L486). |
+| Paper | [Paper II's readable chapters](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-ii/index.html). |
+| Exact claim | [Nested residue refinement](https://KomorebiP.github.io/The-Komorebi-Program/claims.html#paper-ii-thm-residue_refinement). |
+| Written proof | [Readable statement](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-ii/refinement-and-residue-coordinates.html#L476) and [proof](https://KomorebiP.github.io/The-Komorebi-Program/read/paper-ii/refinement-and-residue-coordinates.html#L486). |
 | Lean | [Paper II's recorded coverage and setup](../works/paper-ii.md#lean). Individual claim mappings are not transcribed in this claim index. Consult the formal guide for the exact scope. |
-| Program | [Read or download the complete program](https://KomorebiP.github.io/Operation-KOMOREBI/read/demonstrations.html). |
+| Program | [Read or download the complete program](https://KomorebiP.github.io/The-Komorebi-Program/read/demonstrations.html). |
 | Signal applications | [Paper V](../works/paper-v.md) and the library's [signal realization guide](https://github.com/KomorebiP/komorebi-math/blob/main/docs/UNIFIED_LANGUAGE.md#signal-realization). |
 | More hand calculations | [Residue refinement](../examples/05_REFINEMENT.md) and [Haar averages and differences](../examples/14_HAAR_PAIRS.md). |
 

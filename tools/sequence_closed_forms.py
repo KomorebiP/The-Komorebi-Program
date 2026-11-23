@@ -7,7 +7,7 @@ reproducible windows, not claims of historical novelty or OEIS exclusion.
 from math import comb
 
 COUNT = 24
-SOURCE = ('https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/'
+SOURCE = ('https://github.com/KomorebiP/The-Komorebi-Program/blob/main/'
           'research/sequence-closed-forms/IDENTITIES.md')
 
 
@@ -239,7 +239,7 @@ def closed_form_families():
             recurrence='',explanation=note,collection='generalized',
             paper_refs=[],family_names=[title]))
         if identifier=='GF-CF-WEIGHTED-HANKEL':
-            theorem=('https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/'
+            theorem=('https://github.com/KomorebiP/The-Komorebi-Program/blob/main/'
                      'research/sequence-closed-forms/POLYNOMIAL_HANKEL_STRUCTURE.md')
             result[-1]['formulas'].append(dict(
                 title='Arbitrary polynomial-weight Chebyshev structure',
@@ -250,7 +250,7 @@ def closed_form_families():
                            'has rank <= 2(degree(P)+1), with exact Schur generators.',
                 source=theorem))
             result[-1]['note']+=' Arbitrary polynomial weights admit a bounded-rank Chebyshev Gram representation and an exact structured determinant solver.'
-            higher=('https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/'
+            higher=('https://github.com/KomorebiP/The-Komorebi-Program/blob/main/'
                     'research/sequence-closed-forms/FINITE_DIFFERENTIAL_HANKEL.md')
             result[-1]['formulas'].append(dict(
                 title='Finite-order differential Hankel rank theorem',

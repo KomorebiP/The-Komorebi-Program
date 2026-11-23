@@ -16,7 +16,7 @@ import re
 import subprocess
 from pathlib import Path
 
-REPO_URL = 'https://github.com/KomorebiP/Operation-KOMOREBI'
+REPO_URL = 'https://github.com/KomorebiP/The-Komorebi-Program'
 STAGES = ('scoped_release', 'reading_release', 'development', 'prototype',
           'reader_available', 'unassessed', 'earlier_checkpoint')
 
@@ -117,7 +117,7 @@ def render(data):
 
 Recorded {data['as_of']} · **Komorebi P.**
 
-[Filter by discipline, completion, and proof evidence](https://KomorebiP.github.io/Operation-KOMOREBI/works.html) · [Browse the collection](BROWSE.md) · [Start here](START_HERE.md) · [Repository home](../README.md)
+[Filter by discipline, completion, and proof evidence](https://KomorebiP.github.io/The-Komorebi-Program/works.html) · [Browse the collection](BROWSE.md) · [Start here](START_HERE.md) · [Repository home](../README.md)
 
 **Completion, Lean coverage, and confidence describe different things.** A finished book may contain open research. A checked Lean proof may belong to an unfinished project. Choose a completion stage below, open a work's evidence record, then follow its paper, proofs, Lean, and code link.
 
@@ -184,7 +184,7 @@ To strengthen a formal status, supply the exact claim map, pinned source and env
     page = 'docs/STATUS_CATALOG.md'
     catalogue = f'''# Project status and evidence catalogue
 
-[Filter works](https://KomorebiP.github.io/Operation-KOMOREBI/works.html) · [Browse the collection](BROWSE.md) · [Status guide](COMPLETION_STATUS.md) · [Finalization queue](FINALIZATION_QUEUE.md)
+[Filter works](https://KomorebiP.github.io/The-Komorebi-Program/works.html) · [Browse the collection](BROWSE.md) · [Status guide](COMPLETION_STATUS.md) · [Finalization queue](FINALIZATION_QUEUE.md)
 
 Status, scope, and evidence for **{len(primary)} primary works** and **[{len(supporting)} supporting collections](#supporting-and-historical-collections)**. Completion, Lean coverage, and evidence basis describe separate aspects of each work. The [status guide](COMPLETION_STATUS.md) defines the labels.
 
@@ -497,6 +497,8 @@ def main():
     outputs.update(navigation.outputs)
     from record_navigation import render_record_pages
     outputs.update(render_record_pages(root, data, tree))
+    from project_urls import canonical_project_links
+    outputs = {path: canonical_project_links(content) for path, content in outputs.items()}
     maintained = {p: (root/p).read_text(encoding='utf-8') for p in data.get('maintained_documents', [])}
     documents = {**maintained, **outputs}
     known = set(tree) | set(documents) | set(data.get('assessment_records', [])) | {'manifests/project-status.json'}

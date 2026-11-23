@@ -34,13 +34,13 @@ These introductory calculations lead into this work’s subject. The source and 
 
 [Books, five families, and the coupled-function lab](../SPECIAL_FUNCTIONS.md)
 
-[Guided reading](https://KomorebiP.github.io/Operation-KOMOREBI/read/monographs-special-functions/start.html) · [Expanded visual lessons](https://KomorebiP.github.io/Operation-KOMOREBI/read/monographs-special-functions/atlas/index.html) · [Interactive coupled-function laboratory](https://KomorebiP.github.io/Operation-KOMOREBI/special-functions-lab.html)
+[Guided reading](https://KomorebiP.github.io/The-Komorebi-Program/read/monographs-special-functions/start.html) · [Expanded visual lessons](https://KomorebiP.github.io/The-Komorebi-Program/read/monographs-special-functions/atlas/index.html) · [Interactive coupled-function laboratory](https://KomorebiP.github.io/The-Komorebi-Program/special-functions-lab.html)
 
 Use the links below to read this work and its supporting files. Ctrl+click (Command+click on macOS) opens a link in another tab. Your browser’s Back button returns here.
 
 ## Read
 
-- [Read online: chapters, proof appendices, figures, and glossary](https://KomorebiP.github.io/Operation-KOMOREBI/read/monographs-special-functions/index.html)
+- [Read online: chapters, proof appendices, figures, and glossary](https://KomorebiP.github.io/The-Komorebi-Program/read/monographs-special-functions/index.html)
 - [Edition README](../../monographs/special-functions/README.md)
 - [Read PDF](../../monographs/special-functions/books/Special_Functions.pdf)
 - [Expanded Visual Guide (current PDF)](../../monographs/special-functions/books/Expanded_Visual_Guide.pdf)

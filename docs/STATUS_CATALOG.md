@@ -1,6 +1,6 @@
 # Project status and evidence catalogue
 
-[Filter works](https://KomorebiP.github.io/Operation-KOMOREBI/works.html) · [Browse the collection](BROWSE.md) · [Status guide](COMPLETION_STATUS.md) · [Finalization queue](FINALIZATION_QUEUE.md)
+[Filter works](https://KomorebiP.github.io/The-Komorebi-Program/works.html) · [Browse the collection](BROWSE.md) · [Status guide](COMPLETION_STATUS.md) · [Finalization queue](FINALIZATION_QUEUE.md)
 
 Status, scope, and evidence for **90 primary works** and **[71 supporting collections](#supporting-and-historical-collections)**. Completion, Lean coverage, and evidence basis describe separate aspects of each work. The [status guide](COMPLETION_STATUS.md) defines the labels.
 

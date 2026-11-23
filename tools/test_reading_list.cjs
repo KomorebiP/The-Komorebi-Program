@@ -117,3 +117,12 @@ test('search, removal, empty state and focus work without recreating an external
   p.output.querySelectorAll('button')[0].click();
   assert.equal(p.empty.hidden,false);assert.equal(p.document.activeElement,p.input);
 });
+
+
+test('renamed project keeps the existing saved-reading key and relative bookmarks', () => {
+  const former = 'https://komorebip.github.io/Operation-KOMOREBI/';
+  const current = 'https://komorebip.github.io/The-Komorebi-Program/';
+  assert.equal(api.storageKey(current), api.storageKey(former));
+  const saved = JSON.stringify({schema:1,items:[entry]});
+  assert.deepEqual(api.parse(saved,current), api.parse(saved,former));
+});

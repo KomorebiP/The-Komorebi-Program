@@ -52,7 +52,7 @@ export function mountWorkbench({root,entries,snapshot,referenceClient}){
     <details id="sw-certificate-notes" class="sw-certificate-notes"><summary>What does an exact comparison certificate verify?</summary>
       <p>The certificate contains its exact stored integer inputs, source data SHA-256 fingerprints, recorded index conventions, selected transforms, every displayed integer and finite agreement counts. It independently replays these calculations with exact integer arithmetic before download.</p>
       <p>It proves only the finite calculation relative to the embedded inputs, not equality of infinite sequences, source authority or novelty. For local records the complete indexed data is also checked against its published catalogue receipt. OEIS excerpt positions do not provide mathematical offsets.</p>
-      <p><a href="https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/tools/verify_sequence_comparison_certificate.mjs">Offline verification script</a> (run with Node.js 24 using the repository checkout). The exact CSV export remains available separately.</p>
+      <p><a href="https://github.com/KomorebiP/The-Komorebi-Program/blob/main/tools/verify_sequence_comparison_certificate.mjs">Offline verification script</a> (run with Node.js 24 using the repository checkout). The exact CSV export remains available separately.</p>
     </details>
     <details id="sw-verify-certificate" class="sw-verify-certificate">
       <summary>Verify a saved comparison certificate</summary>

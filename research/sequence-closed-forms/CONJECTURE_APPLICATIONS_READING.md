@@ -176,8 +176,8 @@ For an odd prime \(p\), define
 \[
 L_r=p^{r-1}\operatorname{lcm}(p-1,4).
 \]
+Define the sign \(\varepsilon_{p,n}\) by the following two cases:
 \[
-\varepsilon_{p,n}=
 \begin{cases}
 1,&p\equiv1\pmod4,\\
 (-1)^{n+1},&p\equiv3\pmod4.
@@ -539,7 +539,7 @@ G(x)&=\sum_{n\ge0}a_nx^n\\
 }
 \]
 
-The base manuscript derives a uniform polynomial recurrence with at most \(m+1\) consecutive terms and includes zero weights, the cubic and quartic cases, and shifted coefficient extraction. Previously recorded fixed-parameter cubic and quartic recurrences are identified there as known after translation of notation. This uniform construction complements the block-weight theorem in the [weighted binomial reading page](https://komorebip.github.io/Operation-KOMOREBI/sequence-central-binomial.html).
+The base manuscript derives a uniform polynomial recurrence with at most \(m+1\) consecutive terms and includes zero weights, the cubic and quartic cases, and shifted coefficient extraction. Previously recorded fixed-parameter cubic and quartic recurrences are identified there as known after translation of notation. This uniform construction complements the block-weight theorem in the [weighted binomial reading page](https://komorebip.github.io/The-Komorebi-Program/sequence-central-binomial.html).
 
 Another companion result classifies the scaled radical recurrence associated with OEIS A134389, including arbitrary initial values. Its closed form gives explicit parity formulas for the original sequence. That fixed generating function was already recorded, so the novelty assessment applies only to the wider derivation and not to the original special case.
 
@@ -557,7 +557,7 @@ The original checkpoint additionally includes full exact verification of its Han
 
 The original continuation packages include the editable LaTeX sources, exact Python programs, frozen JSON outputs, SHA-256 checksums, and handoff instructions.
 
-The current exact checkers are also available directly in the repository: [Euler spectra and jets](https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/tools/sequence_euler_spectral_jet.py), [arithmetic Cauchy minors](https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/tools/sequence_arithmetic_subminors.py), and [test contracts](https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/tools/test_sequence_conjecture_applications.py).
+The current exact checkers are also available directly in the repository: [Euler spectra and jets](https://github.com/KomorebiP/The-Komorebi-Program/blob/main/tools/sequence_euler_spectral_jet.py), [arithmetic Cauchy minors](https://github.com/KomorebiP/The-Komorebi-Program/blob/main/tools/sequence_arithmetic_subminors.py), and [test contracts](https://github.com/KomorebiP/The-Komorebi-Program/blob/main/tools/test_sequence_conjecture_applications.py).
 
 Run the published verification programs from the repository root using Python 3.10 or later:
 

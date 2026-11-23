@@ -12,7 +12,7 @@ from math import comb
 
 COUNT = 24
 FAMILY_ID = 'GF-CF-CENTRAL-BINOMIAL'
-SOURCE = ('https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/'
+SOURCE = ('https://github.com/KomorebiP/The-Komorebi-Program/blob/main/'
           'research/sequence-closed-forms/CENTRAL_BINOMIAL_RECURRENCE.md')
 
 

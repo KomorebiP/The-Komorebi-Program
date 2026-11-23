@@ -2,7 +2,7 @@
 
 This guide explains 332 terms used across the collection, its operator guide, and worked examples. Use the [first reading route](#a-first-reading), [follow a subject route](#subject-reading-routes), [compare nearby ideas](#compare-nearby-ideas), [browse by subject](#browse-by-subject), or open the [alphabetical index](#alphabetical-index).
 
-[Find a glossary term on the reading website](https://KomorebiP.github.io/Operation-KOMOREBI/collection/GLOSSARY.html#glossary-lookup): search names, abbreviations, definitions, and short examples, or choose a subject. Open the glossary beside a paper with **Read side by side**.
+[Find a glossary term on the reading website](https://KomorebiP.github.io/The-Komorebi-Program/collection/GLOSSARY.html#glossary-lookup): search names, abbreviations, definitions, and short examples, or choose a subject. Open the glossary beside a paper with **Read side by side**.
 
 A word can have a more specific meaning in another paper. The paper’s definitions and hypotheses take precedence. Examples and source links provide context without changing any recorded evidence status.
 
@@ -3574,7 +3574,7 @@ Their zero directions can differ because their dimensions differ. A block sum fo
 
 **Keep in mind:** For a column partition A = \[A₁ … A\_B\], the exact identity AAᵀ = Σ\_b A\_bA\_bᵀ retains every column. Dropping a block changes the operator.
 
-[Further reading](https://github.com/KomorebiP/Operation-KOMOREBI/blob/da8e6d29558688c3580a5258bf11773449428452/monographs/cos-method/book/chapters/01_gaussian.tex#L39) · [Positive semidefinite matrix](#positive-semidefinite) · [Eigenvalue](#eigenvalue) · [Range core](#range-core) · [Gaussian quadratic form](#gaussian-quadratic-form) · [Classical frame operator](#classical-frame-operator)
+[Further reading](https://github.com/KomorebiP/The-Komorebi-Program/blob/da8e6d29558688c3580a5258bf11773449428452/monographs/cos-method/book/chapters/01_gaussian.tex#L39) · [Positive semidefinite matrix](#positive-semidefinite) · [Eigenvalue](#eigenvalue) · [Range core](#range-core) · [Gaussian quadratic form](#gaussian-quadratic-form) · [Classical frame operator](#classical-frame-operator)
 
 <a id="range-core"></a>
 
@@ -3590,7 +3590,7 @@ The containment hypothesis is the key exactness condition. If Q captures only an
 
 **Keep in mind:** If the chosen subspace misses part of the range, the omitted residual requires a separate bound. A floating-point rank threshold does not establish exact range capture.
 
-[Further reading](https://github.com/KomorebiP/Operation-KOMOREBI/blob/da8e6d29558688c3580a5258bf11773449428452/monographs/cos-method/book/chapters/04_range.tex#L127) · [Gram operator](#gram-operator) · [Image](#image) · [Orthogonal projector](#orthogonal-projector) · [Residual](#residual)
+[Further reading](https://github.com/KomorebiP/The-Komorebi-Program/blob/da8e6d29558688c3580a5258bf11773449428452/monographs/cos-method/book/chapters/04_range.tex#L127) · [Gram operator](#gram-operator) · [Image](#image) · [Orthogonal projector](#orthogonal-projector) · [Residual](#residual)
 
 <a id="characteristic-function"></a>
 
@@ -3606,7 +3606,7 @@ Unlike a moment-generating function at arbitrary real arguments, it always exist
 
 **Keep in mind:** For an admissible exponential tilt with cumulant generator κ, the monograph uses φθ(t) = exp(κ(θ+it)−κ(θ)). The domain and logarithm branch are stated with that transform.
 
-[Further reading](https://github.com/KomorebiP/Operation-KOMOREBI/blob/da8e6d29558688c3580a5258bf11773449428452/monographs/cos-method/book/chapters/06_packets.tex#L73) · [COS method](#cos-method) · [Gaussian quadratic form](#gaussian-quadratic-form) · [Complex conjugate](#complex-conjugate)
+[Further reading](https://github.com/KomorebiP/The-Komorebi-Program/blob/da8e6d29558688c3580a5258bf11773449428452/monographs/cos-method/book/chapters/06_packets.tex#L73) · [COS method](#cos-method) · [Gaussian quadratic form](#gaussian-quadratic-form) · [Complex conjugate](#complex-conjugate)
 
 <a id="gaussian-quadratic-form"></a>
 
@@ -3622,7 +3622,7 @@ The relevant eigenvalues belong to the covariance-weighted symmetric matrix, not
 
 **Keep in mind:** The zero-mean assumption gives the central reduction. Positive semidefiniteness makes the eigenvalues nonnegative and the law supported on \[0,∞), as required by the positive-tail formula. A central indefinite form has the same reduction with signed eigenvalues. Noncentral forms require their additional parameters. With no nonzero eigenvalues, Q is identically zero.
 
-[Further reading](https://github.com/KomorebiP/Operation-KOMOREBI/blob/da8e6d29558688c3580a5258bf11773449428452/monographs/cos-method/book/chapters/01_gaussian.tex#L9) · [Finite-dimensional Gaussian model](#gaussian-model) · [Covariance matrix](#covariance) · [Eigenvalue](#eigenvalue) · [Characteristic function](#characteristic-function)
+[Further reading](https://github.com/KomorebiP/The-Komorebi-Program/blob/da8e6d29558688c3580a5258bf11773449428452/monographs/cos-method/book/chapters/01_gaussian.tex#L9) · [Finite-dimensional Gaussian model](#gaussian-model) · [Covariance matrix](#covariance) · [Eigenvalue](#eigenvalue) · [Characteristic function](#characteristic-function)
 
 <a id="cos-method"></a>
 
@@ -3638,7 +3638,7 @@ K-COS additionally approximates spectral transform data using packets. A justifi
 
 **Keep in mind:** The positive-tail formula uses frequencies kπ/b on \[0,b\] and half weight on the zero mode. A finite sum is an approximation until the applicable remainders and numerical arithmetic have been controlled.
 
-[Further reading](https://github.com/KomorebiP/Operation-KOMOREBI/blob/da8e6d29558688c3580a5258bf11773449428452/monographs/cos-method/book/chapters/07_inversion.tex#L1) · [Characteristic function](#characteristic-function) · [Gaussian quadratic form](#gaussian-quadratic-form) · [Centered spectral packet](#centered-spectral-packet) · [Analytic error budget](#analytic-error-budget)
+[Further reading](https://github.com/KomorebiP/The-Komorebi-Program/blob/da8e6d29558688c3580a5258bf11773449428452/monographs/cos-method/book/chapters/07_inversion.tex#L1) · [Characteristic function](#characteristic-function) · [Gaussian quadratic form](#gaussian-quadratic-form) · [Centered spectral packet](#centered-spectral-packet) · [Analytic error budget](#analytic-error-budget)
 
 <a id="centered-spectral-packet"></a>
 
@@ -3654,7 +3654,7 @@ Retaining only a finite number of those summaries generally loses information ab
 
 **Keep in mind:** The expansion needs |2s/(1−2sμ)|·maxⱼ|λⱼ−μ| &lt; 1 on the frequencies and tilt being used. Nearby eigenvalues alone do not establish that condition for every query.
 
-[Further reading](https://github.com/KomorebiP/Operation-KOMOREBI/blob/da8e6d29558688c3580a5258bf11773449428452/monographs/cos-method/book/chapters/06_packets.tex#L94) · [Packet](#packet) · [Eigenvalue](#eigenvalue) · [COS method](#cos-method) · [Analytic error budget](#analytic-error-budget)
+[Further reading](https://github.com/KomorebiP/The-Komorebi-Program/blob/da8e6d29558688c3580a5258bf11773449428452/monographs/cos-method/book/chapters/06_packets.tex#L94) · [Packet](#packet) · [Eigenvalue](#eigenvalue) · [COS method](#cos-method) · [Analytic error budget](#analytic-error-budget)
 
 <a id="directed-enclosure"></a>
 
@@ -3670,7 +3670,7 @@ Both protections are needed. Rigorously rounding an incomplete formula does not 
 
 **Keep in mind:** For a probability interval \[p₋,p₊\], the stated relative acceptance test requires p₋ &gt; 0 and p₊/p₋−1 ≤ ε. A narrow interval is insufficient if a required source of error was omitted.
 
-[Further reading](https://github.com/KomorebiP/Operation-KOMOREBI/blob/da8e6d29558688c3580a5258bf11773449428452/monographs/cos-method/book/chapters/09_intervals.tex#L1) · [Certificate](#certificate) · [Rounding](#rounding) · [Analytic error budget](#analytic-error-budget) · [Tolerance](#tolerance)
+[Further reading](https://github.com/KomorebiP/The-Komorebi-Program/blob/da8e6d29558688c3580a5258bf11773449428452/monographs/cos-method/book/chapters/09_intervals.tex#L1) · [Certificate](#certificate) · [Rounding](#rounding) · [Analytic error budget](#analytic-error-budget) · [Tolerance](#tolerance)
 
 <a id="analytic-error-budget"></a>
 
@@ -3686,7 +3686,7 @@ The bounds must apply simultaneously to the stated parameters and query. They al
 
 **Keep in mind:** These real or complex arithmetic bounds do not automatically enclose floating-point rounding. A numerical certificate must also account for its finite arithmetic and exact-input interpretation.
 
-[Further reading](https://github.com/KomorebiP/Operation-KOMOREBI/blob/da8e6d29558688c3580a5258bf11773449428452/monographs/cos-method/book/chapters/07_inversion.tex#L1) · [Centered spectral packet](#centered-spectral-packet) · [Truncation](#truncation) · [Directed enclosure](#directed-enclosure) · [Residual](#residual)
+[Further reading](https://github.com/KomorebiP/The-Komorebi-Program/blob/da8e6d29558688c3580a5258bf11773449428452/monographs/cos-method/book/chapters/07_inversion.tex#L1) · [Centered spectral packet](#centered-spectral-packet) · [Truncation](#truncation) · [Directed enclosure](#directed-enclosure) · [Residual](#residual)
 
 <a id="circular-shift"></a>
 

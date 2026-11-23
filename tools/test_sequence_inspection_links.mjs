@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {INSPECTION_WINDOW_SIZE,createInspectionLink,readInspectionLink} from '../website/assets/sequence-inspection-links.mjs';
 
-const base='https://komorebip.github.io/Operation-KOMOREBI/sequence-workspace.html?old=1#notebook';
+const base='https://komorebip.github.io/The-Komorebi-Program/sequence-workspace.html?old=1#notebook';
 const entry={
   id:'KFOR-P-03-02',offset:2,terms:Array.from({length:24},(_,i)=>String(i*i)),
   formulas:Array.from({length:4},(_,i)=>({expression:'formula '+i}))
@@ -13,7 +13,7 @@ test('an exact view link is canonical, independently shareable and offset aware'
   const raw=createInspectionLink(base,entry,2,18);
   const url=new URL(raw);
   assert.equal(url.origin,'https://komorebip.github.io');
-  assert.equal(url.pathname,'/Operation-KOMOREBI/sequence-library.html');
+  assert.equal(url.pathname,'/The-Komorebi-Program/sequence-library.html');
   assert.equal(url.hash,'#sl-results');
   assert.deepEqual([...url.searchParams.entries()],[
     ['q','id:KFOR-P-03-02'],['sl-record','KFOR-P-03-02'],

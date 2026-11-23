@@ -26,7 +26,7 @@ Use the links below to read this work and its supporting files. Ctrl+click (Comm
 
 ## Read
 
-- [Reconstructed edition: complete 97-chapter book and editable source](https://KomorebiP.github.io/Operation-KOMOREBI/read/research-machine-native-reasoning-wider/reconstructed-edition.html)
+- [Reconstructed edition: complete 97-chapter book and editable source](https://KomorebiP.github.io/The-Komorebi-Program/read/research-machine-native-reasoning-wider/reconstructed-edition.html)
 - [Edition README](../../research/machine-native-reasoning-wider/README.md)
 - [Read PDF](../../research/machine-native-reasoning-wider/Machine_Native_Reasoning_Reviewed_Continuation.pdf)
 

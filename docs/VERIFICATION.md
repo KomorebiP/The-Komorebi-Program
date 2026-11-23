@@ -2,7 +2,7 @@
 
 **Komorebi P. · Work in progress · 27 October 2026**
 
-Operation-KOMOREBI contains separate manuscripts, formal projects, packages, and experiments. Select a component before installing dependencies or attempting a build. All executable software is **beta and work in progress**. Each result applies to its recorded revision, environment, and tested scope.
+The Komorebi Program contains separate manuscripts, formal projects, packages, and experiments. Select a component before installing dependencies or attempting a build. All executable software is **beta and work in progress**. Each result applies to its recorded revision, environment, and tested scope.
 
 ## Obtain a checkout
 
@@ -11,8 +11,8 @@ You can read the collection on GitHub without installing anything. To run the co
 From a directory where you want a new copy:
 
 ```text
-git -c core.longpaths=true clone https://github.com/KomorebiP/Operation-KOMOREBI.git
-cd Operation-KOMOREBI
+git -c core.longpaths=true clone https://github.com/KomorebiP/The-Komorebi-Program.git
+cd The-Komorebi-Program
 git rev-parse HEAD
 python --version
 ```
@@ -64,7 +64,7 @@ python -B -m unittest discover -s tests -p "test_*.py" -v
 python -B tools/replay_lean.py --self-test
 ```
 
-The classifier self-test checks diagnostic handling. It does not run the Lean compiler. The workflow's success applies to these checks on its displayed commit. [View workflow runs](https://github.com/KomorebiP/Operation-KOMOREBI/actions/workflows/artifact-checks.yml).
+The classifier self-test checks diagnostic handling. It does not run the Lean compiler. The workflow's success applies to these checks on its displayed commit. [View workflow runs](https://github.com/KomorebiP/The-Komorebi-Program/actions/workflows/artifact-checks.yml).
 
 ## Reproduce a component result
 
@@ -130,4 +130,4 @@ This includes a synthetic CLI round trip and rejection controls. No real checkpo
 
 ## Replay the reader Lean companions
 
-The [reader companion guide](LEAN_READER_COMPANIONS.md) links the factorial, coefficient-projector, Stirling recovery, and K-COS logarithmic claims. The [polynomial transport guide](LEAN_POLYNOMIAL_TRANSPORT.md) covers the constructed falling-factorial equivalence, complex Fourier averaging, concrete projectors, and transported multiplication. Each companion has its own exact inventory, source-bound replay receipt, and rejection controls. The dedicated [Reader Lean companions workflow](https://github.com/KomorebiP/Operation-KOMOREBI/actions/workflows/reader-lean-companions.yml) performs fresh isolated builds on relevant changes.
+The [reader companion guide](LEAN_READER_COMPANIONS.md) links the factorial, coefficient-projector, Stirling recovery, and K-COS logarithmic claims. The [polynomial transport guide](LEAN_POLYNOMIAL_TRANSPORT.md) covers the constructed falling-factorial equivalence, complex Fourier averaging, concrete projectors, and transported multiplication. Each companion has its own exact inventory, source-bound replay receipt, and rejection controls. The dedicated [Reader Lean companions workflow](https://github.com/KomorebiP/The-Komorebi-Program/actions/workflows/reader-lean-companions.yml) performs fresh isolated builds on relevant changes.

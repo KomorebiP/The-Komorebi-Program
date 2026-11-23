@@ -19,7 +19,7 @@ from reader_delivery import REPOSITORY, verify
 def request(url, token, *, data=None, content_type='application/json', timeout=120):
     headers = {'Authorization': 'Bearer '+token, 'Accept': 'application/vnd.github+json',
                'X-GitHub-Api-Version': '2022-11-28', 'Content-Type': content_type,
-               'User-Agent': 'Operation-KOMOREBI-reader-publication'}
+               'User-Agent': 'The-Komorebi-Program-reader-publication'}
     with urlopen(Request(url, data=data, headers=headers), timeout=timeout) as response:
         return json.load(response)
 

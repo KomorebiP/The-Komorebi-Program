@@ -2,7 +2,7 @@
 
 Start with the task you want to complete. These routes are editorial suggestions and do not change the recorded status of any work.
 
-[Choose a guided reading path](https://KomorebiP.github.io/Operation-KOMOREBI/read/start.html)
+[Choose a guided reading path](https://KomorebiP.github.io/The-Komorebi-Program/read/start.html)
 for a paper or book with both a complete HTML manuscript and an HTML visual guide.
 Each guide offers a visual introduction, a study sequence, and supporting evidence.
 
@@ -13,7 +13,7 @@ For the collection as a whole, read the [project overview](START_HERE.md) and [p
 - [Inspect a proof](routes/PROOF_REVIEW.md)
 - [Run the software](routes/SOFTWARE.md)
 
-[Hand-worked examples](HAND_WORKED_EXAMPLES.md) · [Searchable website](https://KomorebiP.github.io/Operation-KOMOREBI/) · [Browse works](BROWSE.md) · [Glossary](GLOSSARY.md) · [First runs](FIRST_RUN.md)
+[Hand-worked examples](HAND_WORKED_EXAMPLES.md) · [Searchable website](https://KomorebiP.github.io/The-Komorebi-Program/) · [Browse works](BROWSE.md) · [Glossary](GLOSSARY.md) · [First runs](FIRST_RUN.md)
 
 [Explore the physics collection](PHYSICS_COLLECTION.md): packet currents, quantum phase, continuum approximation, special functions, and research studies.
 

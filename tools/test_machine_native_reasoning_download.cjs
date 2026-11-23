@@ -10,7 +10,7 @@ const revision = '65e73adf1f0c9f79325ea5d893c3cd77c9ff9183';
 async function localFetch(url) {
   const parsed = new URL(url);
   assert.equal(parsed.origin,'https://raw.githubusercontent.com');
-  const prefix = '/KomorebiP/Operation-KOMOREBI/' + revision + '/';
+  const prefix = '/KomorebiP/The-Komorebi-Program/' + revision + '/';
   assert.ok(parsed.pathname.startsWith(prefix));
   const raw = await readFile(join(root,parsed.pathname.slice(prefix.length)));
   return {ok:true,status:200,arrayBuffer:async()=>raw.buffer.slice(raw.byteOffset,raw.byteOffset+raw.byteLength)};

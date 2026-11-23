@@ -12,7 +12,7 @@ from sequence_archive_families import ARCHIVE_MEMBERSHIP, archive_definitions, a
 
 ROOT=Path(__file__).resolve().parents[1]
 MANIFEST='manifests/sequence-generalized-sources.json'
-BASE='https://github.com/KomorebiP/Operation-KOMOREBI/blob/8a97573e979e868e675629b091ed3f5841ac2eb3/'
+BASE='https://github.com/KomorebiP/The-Komorebi-Program/blob/8a97573e979e868e675629b091ed3f5841ac2eb3/'
 REG='monographs/special-functions/supporting-sources/projector-special-functions-registry/Projector_Special_Functions_Registry.tex'
 # The general coefficient-section construction applies beyond the finite set
 # of parent generators offered by the exact browser controls.
@@ -79,7 +79,7 @@ def family_definitions():
         source=sources[item['paper']];locator=item['locator']
         if isinstance(locator,str) and item['paper']=='REGISTRY':locator=next(h['line'] for h in source['headings'] if h['title']==locator)
         if isinstance(locator,str):locator=next((h['line'] for h in source['headings'] if h['title'].lower().replace(' ','-')==locator),1)
-        if item['id'] in ('GF-LINEAR','GF-KBONACCI','GF-SECANCY'):item['derivation']='https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/research/sequence-families/DERIVATIONS.md'
+        if item['id'] in ('GF-LINEAR','GF-KBONACCI','GF-SECANCY'):item['derivation']='https://github.com/KomorebiP/The-Komorebi-Program/blob/main/research/sequence-families/DERIVATIONS.md'
         refs=[item['paper']]+(['PAPER-IV'] if item['id'] in ('GF-RECIPROCAL','GF-TANGENT','GF-CONGRUENTIAL','GF-APPELL') else [])
         if item['id'] in ('GF-RECIPROCAL','GF-KBONACCI'):refs.append('ARCHIVE')
         item.setdefault('family_type','coefficient family' if item['engine'] else 'analytic family')
@@ -114,7 +114,7 @@ def catalogue(entries):
     from sequence_atlas_index import connection_graph
     relations=[{k:v for k,v in edge.items() if k!='rows'} for edge in research_connections()['edges']]
     for edge in connection_graph([e for e in entries if e['collection']=='atlas'])['edges']:
-        relations.append(dict(key='finite-'+edge['key'],source=edge['source_id'],target=edge['target_id'],kind='finite transform comparison',statement=edge['label']+' agrees at the twelve displayed stored positions. This finite comparison does not prove an infinite identity.',source_url='https://komorebip.github.io/Operation-KOMOREBI/sequences/'+edge['source_id']+'.html#connections',reversible=False,checked_overlaps=edge['matched_terms']))
+        relations.append(dict(key='finite-'+edge['key'],source=edge['source_id'],target=edge['target_id'],kind='finite transform comparison',statement=edge['label']+' agrees at the twelve displayed stored positions. This finite comparison does not prove an infinite identity.',source_url='https://komorebip.github.io/The-Komorebi-Program/sequences/'+edge['source_id']+'.html#connections',reversible=False,checked_overlaps=edge['matched_terms']))
     archived=[entry for entry in entries if entry['id'] in ARCHIVE_MEMBERSHIP]
     return dict(schema=1,families=families,sources=source_manifest()['sources'],relations=relations,
         record_coverage=dict(records=len(entries),assigned=sum(bool(membership(entry)) for entry in entries)),
@@ -181,7 +181,7 @@ def build_pages(site,data,wrap):
     from sequence_library import library_entries
     from sequence_atlas import catalogue as atlas_catalogue
     records={item['id']:item for item in library_entries(atlas_catalogue())}
-    public_base='https://komorebip.github.io/Operation-KOMOREBI/'
+    public_base='https://komorebip.github.io/The-Komorebi-Program/'
     def csv_text(rows):
         output=io.StringIO(newline='');writer=csv.writer(output);writer.writerows(rows);return output.getvalue()
     index_rows=[['id','title','construction_type','parameter_domain','definition','notes','source_id','source_title','source','indexed_records','url']]

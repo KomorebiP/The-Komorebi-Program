@@ -1,6 +1,6 @@
 # Notation index
 
-[Open the notation index](https://komorebip.github.io/Operation-KOMOREBI/notation.html) · [Glossary](GLOSSARY.md) · [Browse works](BROWSE.md) · [Worked examples](HAND_WORKED_EXAMPLES.md)
+[Open the notation index](https://komorebip.github.io/The-Komorebi-Program/notation.html) · [Glossary](GLOSSARY.md) · [Browse works](BROWSE.md) · [Worked examples](HAND_WORKED_EXAMPLES.md)
 
 The notation index gathers mathematical symbols from the selected reading sources. Search by symbol, TeX spelling, symbol name or words from a source excerpt. Choose a work when a letter has several meanings. Exact TeX matching preserves case and distinguishes spellings that look similar in plain text.
 

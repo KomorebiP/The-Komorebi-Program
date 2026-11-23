@@ -1,6 +1,6 @@
 # Komorebi sequence shapes
 
-[Run the sequence experiments](https://KomorebiP.github.io/Operation-KOMOREBI/playground.html#sequence-growth) · [All worked examples](../HAND_WORKED_EXAMPLES.md) · [Sequence API](https://KomorebiP.github.io/Operation-KOMOREBI/math/sequences_oeis.html)
+[Run the sequence experiments](https://KomorebiP.github.io/The-Komorebi-Program/playground.html#sequence-growth) · [All worked examples](../HAND_WORKED_EXAMPLES.md) · [Sequence API](https://KomorebiP.github.io/The-Komorebi-Program/math/sequences_oeis.html)
 
 These experiments use the reciprocal families in Paper IV and the factorial
 weights in the Special Functions sequence atlas. The code runs the published
@@ -21,7 +21,7 @@ data into polyphase difference coordinates.
 
 ## Reciprocal growth
 
-[Run reciprocal growth](https://KomorebiP.github.io/Operation-KOMOREBI/playground.html#sequence-growth)
+[Run reciprocal growth](https://KomorebiP.github.io/The-Komorebi-Program/playground.html#sequence-growth)
 
 The library uses the convention
 
@@ -55,7 +55,7 @@ separate exact CSV contains the original mathematical values.
 
 ## Reciprocal landscape
 
-[Compare the reciprocal families](https://KomorebiP.github.io/Operation-KOMOREBI/playground.html#sequence-landscape)
+[Compare the reciprocal families](https://KomorebiP.github.io/The-Komorebi-Program/playground.html#sequence-landscape)
 
 Start with the 2D chart. Each line has its own label, point shape, and color.
 Use the series checkboxes to compare fewer families. A vertical value of
@@ -76,7 +76,7 @@ different $N$ compares different ordinary degrees $Nn$.
 
 ## Factorial weights
 
-[Run factorial weights](https://KomorebiP.github.io/Operation-KOMOREBI/playground.html#factorial-weights)
+[Run factorial weights](https://KomorebiP.github.io/The-Komorebi-Program/playground.html#factorial-weights)
 
 The Special Functions sequence atlas, lesson S08, uses
 
@@ -113,13 +113,13 @@ between zero and `last`.
 
 | Experiment | Reading and written proofs | Formal coverage | Code and hand calculation |
 |---|---|---|---|
-| Reciprocal growth and landscape | [Paper IV](../works/paper-iv.md#read), [reciprocal family definition and proofs](../../papers/paper-iv/current/Paper_IV_Verification_Closeout_v1.1.0/publication_baseline/editable/traditional/Paper_IV_Traditional_Final.tex#L918) | [Paper IV Lean coverage](../works/paper-iv.md#lean) | [Sequence API](https://KomorebiP.github.io/Operation-KOMOREBI/math/sequences_oeis.html), [cyclic reciprocal hand calculation](../examples/16_CYCLIC_RECIPROCALS.md), [Paper IV code](../works/paper-iv.md#code) |
-| Factorial weights | [Special Functions](../works/monographs-special-functions.md#read), [sequence atlas lessons S07 and S08](../../monographs/special-functions/expanded_visual/chapters_sequences.tex) | [Special Functions Lean coverage](../works/monographs-special-functions.md#lean) | [Original sequence figure code](../../monographs/special-functions/expanded_visual/figures_sequences.py), [library worked examples](https://KomorebiP.github.io/Operation-KOMOREBI/math/WORKED_EXAMPLES.html#exact-sequence-families-and-offline-oeis-comparisons) |
+| Reciprocal growth and landscape | [Paper IV](../works/paper-iv.md#read), [reciprocal family definition and proofs](../../papers/paper-iv/current/Paper_IV_Verification_Closeout_v1.1.0/publication_baseline/editable/traditional/Paper_IV_Traditional_Final.tex#L918) | [Paper IV Lean coverage](../works/paper-iv.md#lean) | [Sequence API](https://KomorebiP.github.io/The-Komorebi-Program/math/sequences_oeis.html), [cyclic reciprocal hand calculation](../examples/16_CYCLIC_RECIPROCALS.md), [Paper IV code](../works/paper-iv.md#code) |
+| Factorial weights | [Special Functions](../works/monographs-special-functions.md#read), [sequence atlas lessons S07 and S08](../../monographs/special-functions/expanded_visual/chapters_sequences.tex) | [Special Functions Lean coverage](../works/monographs-special-functions.md#lean) | [Original sequence figure code](../../monographs/special-functions/expanded_visual/figures_sequences.py), [library worked examples](https://KomorebiP.github.io/The-Komorebi-Program/math/WORKED_EXAMPLES.html#exact-sequence-families-and-offline-oeis-comparisons) |
 
 The playground displays each preset's complete code and provides its Python
 download. The [preset sources](../../tools/sequence_presets.py) and
 [finite comparison tests](../../tools/test_sequence_python.py) are maintained
-with the site. The [source record](https://KomorebiP.github.io/Operation-KOMOREBI/downloads/python-playground.json)
+with the site. The [source record](https://KomorebiP.github.io/The-Komorebi-Program/downloads/python-playground.json)
 identifies the library revision and downloadable code checksums.
 
 ## What was checked
@@ -140,4 +140,4 @@ These are finite implementation checks. They do not prove the full families,
 certify an asymptotic law, run Lean, establish new OEIS entries, or change
 the recorded proof status. The linked sources retain their existing scope.
 
-[Back to the experiments](https://KomorebiP.github.io/Operation-KOMOREBI/playground.html#sequence-growth) · [Paper IV claims](../CLAIM_LINKS.md#paper-iv) · [Special Functions evidence](../works/monographs-special-functions.md#evidence)
+[Back to the experiments](https://KomorebiP.github.io/The-Komorebi-Program/playground.html#sequence-growth) · [Paper IV claims](../CLAIM_LINKS.md#paper-iv) · [Special Functions evidence](../works/monographs-special-functions.md#evidence)

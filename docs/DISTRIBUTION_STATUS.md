@@ -8,7 +8,7 @@ Recorded 27 October 2026. The canonical repositories and publication collection 
 |---|---|
 | Collection reuse terms | [LICENSE.md](../LICENSE.md), together with the relevant component licenses and third-party notices. |
 | Source publication and available editions | [Publication status](PUBLICATION_STATUS.md), [component index](COMPONENT_INDEX.md), and [source coverage](SOURCE_COVERAGE.md). |
-| Frozen publication distributions | [Realization Calculus publication collection](https://github.com/KomorebiP/Operation-KOMOREBI/releases/tag/papers-2026-10-25). |
+| Frozen publication distributions | [Realization Calculus publication collection](https://github.com/KomorebiP/The-Komorebi-Program/releases/tag/papers-2026-10-25). |
 | Independent software libraries | [Software guide](LIBRARIES.md) and the libraries' own current license and release records. |
 | Structured publication evidence | [Public publication record](../manifests/release-candidate.json). Its legacy filename is retained for compatibility. |
 | Authorship and publication circumstances | [Public project statement](PROJECT_STATEMENT.md). |

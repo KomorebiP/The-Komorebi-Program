@@ -8,7 +8,7 @@ permissions:
   contents: read
 concurrency:
   group: reader-site-${{ github.ref }}
-  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+  cancel-in-progress: true
 jobs:
   build:
     runs-on: ubuntu-24.04
@@ -83,6 +83,21 @@ jobs:
           python -B -m unittest discover -s tools -p 'test_sequence_polynomial_hankel.py' -v
           python -B -m unittest discover -s tools -p 'test_sequence_differential_hankel.py' -v
           python -B -m unittest discover -s tools -p 'test_sequence_differential_hankel_bridge.py' -v
+          python -B tools/verify_sequence_rational_hankel.py --output .reader-build/rational-hankel-verification.json
+          python -B tools/verify_sequence_linear_hankel.py --output .reader-build/linear-hankel-certificate.json
+          python -B tools/verify_sequence_quadratic_hankel.py --output .reader-build/quadratic-hankel-uniform.json
+          python -B tools/verify_sequence_parity_structure.py --output .reader-build/hankel-parity-structure.json
+          python -B tools/verify_sequence_hankel_symbol.py --output .reader-build/hankel-symbol-ideal.json
+          python -B tools/verify_sequence_quadratic_certificate.py --input verification/sequence-library/hankel-compression/quadratic-certificate.json --output .reader-build/quadratic-hankel-audit.json
+          python -B tools/verify_sequence_mixed_hankel.py --input verification/sequence-library/hankel-compression/mixed-certificate.json --output .reader-build/mixed-hankel-audit.json
+          python -B tools/verify_sequence_sharp_quadratic.py --output .reader-build/sharp-quadratic-audit.json
+          python -B tools/verify_sequence_uniform_mixed.py --sample-certificate verification/sequence-library/hankel-compression/mixed-certificate.json --output .reader-build/uniform-mixed-audit.json
+          python -B tools/verify_sequence_exceptional_hankel.py --certificate verification/sequence-library/hankel-compression/exceptional-certificate.json --output .reader-build/exceptional-orders-audit.json
+          python -B tools/verify_sequence_interior_hankel.py --coefficients verification/sequence-library/hankel-compression/interior-coefficients.json --certificate verification/sequence-library/hankel-compression/interior-certificate.json --output .reader-build/interior-orders-audit.json
+          python -B -m unittest discover -s tools -p 'test_sequence_hankel_orders.py' -v
+          python -B -m unittest discover -s tools -p 'test_sequence_final_edition.py' -v
+          node --test tools/test_sequence_hankel_orders.mjs
+          python -B -m unittest discover -s tools -p 'test_sequence_linear_hankel_bridge.py' -v
           python -B -m unittest discover -s tools -p 'test_sequence_math_reading.py' -v
           node --test tools/test_sequence_closed_forms_core.mjs
           python -B -m unittest discover -s tools -p 'test_sequence_closed_form_handoffs.py' -v
@@ -185,6 +200,16 @@ jobs:
           python -B -m unittest discover -s tools -p 'test_chemistry_lab.py' -v
           python -B -m unittest discover -s tools -p 'test_chemistry_responses.py' -v
           node tools/test_chemistry_responses.mjs
+          python -B -m unittest discover -s tools -p 'test_chemistry_continuous.py' -v
+          node tools/test_chemistry_continuous.mjs
+          node --check website/assets/chemistry-continuous.js
+          python -B -m unittest discover -s tools -p 'test_chemistry_budget.py' -v
+          node tools/test_chemistry_budget.mjs
+          python -B -m unittest discover -s tools -p 'test_chemistry_polynomial.py' -v
+          node tools/test_chemistry_polynomial.mjs
+          node --check website/assets/chemistry-polynomial-core.mjs
+          python -B research/computational-chemistry/stage17/qualify_frontiers.py --output .reader-build/chemistry-budget-qualification
+          node --check website/assets/chemistry-budget.js
           node tools/test_chemistry_lab.mjs
           node --check website/assets/chemistry-lab.js
           node --check tools/test_chemistry_lab_browser.cjs

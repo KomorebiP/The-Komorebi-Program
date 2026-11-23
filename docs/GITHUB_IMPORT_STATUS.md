@@ -4,11 +4,11 @@ Source availability recorded 2026-10-30. Library checks and release tags observe
 
 ## Current source availability
 
-The input source checkout was [080487d6401a7e9d90c415fd9ffbbf8d825e3842](https://github.com/KomorebiP/Operation-KOMOREBI/commit/080487d6401a7e9d90c415fd9ffbbf8d825e3842). The verified receipt set identifies **161 imported components** and **138,326 distinct source files**. The [component index](COMPONENT_INDEX.md) separates primary works, supporting scientific sources, and any selected components without a verified receipt.
+The input source checkout was [080487d6401a7e9d90c415fd9ffbbf8d825e3842](https://github.com/KomorebiP/The-Komorebi-Program/commit/080487d6401a7e9d90c415fd9ffbbf8d825e3842). The verified receipt set identifies **161 imported components** and **138,326 distinct source files**. The [component index](COMPONENT_INDEX.md) separates primary works, supporting scientific sources, and any selected components without a verified receipt.
 
 Availability is derived from each component's receipt, expected source-tree digest, and the exact bytes of every owned file. An archive attachment or a selected filename alone does not establish this status. These records identify the published sources. Replaying the mathematics is a separate check.
 
-The initial 18-component source-file import completed successfully in [Actions run 40521059972](https://github.com/KomorebiP/Operation-KOMOREBI/actions/runs/40521059972) on 27 October 2026. Subsequent component receipts identify the expanded source collection.
+The initial 18-component source-file import completed successfully in [Actions run 40521059972](https://github.com/KomorebiP/The-Komorebi-Program/actions/runs/40521059972) on 27 October 2026. Subsequent component receipts identify the expanded source collection.
 
 ## Software qualification records
 

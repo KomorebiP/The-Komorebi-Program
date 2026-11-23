@@ -926,8 +926,8 @@
     },
     {
       "path": "docs/SOURCES_AND_CONTRIBUTIONS.md",
-      "sha256": "b7410ab727f44e2937072e302fde0e457e4857b684410560e36a8c2c826493a3",
-      "git_blob_sha1": "773ae5432d6e67b82cb02581e9888c5f7fb284f7"
+      "sha256": "476344f060e005a6141c401025ed1659df20c4ac7f2e76a4334fc9e91a7e38ec",
+      "git_blob_sha1": "31c35573c7849c5cd0c444f002f290fca27566c2"
     }
   ],
   "accepted_runs": [

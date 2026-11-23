@@ -4723,7 +4723,7 @@
       "term": "Gram operator",
       "section": "signal-and-spectral-evaluation",
       "definition": "For a real matrix A, either K = AAᵀ on its output space or H = AᵀA on its input space. Both are positive semidefinite. Their positive eigenvalues agree with multiplicity, although their dimensions and zero-eigenvalue multiplicities can differ.",
-      "source": "https://github.com/KomorebiP/Operation-KOMOREBI/blob/da8e6d29558688c3580a5258bf11773449428452/monographs/cos-method/book/chapters/01_gaussian.tex#L39",
+      "source": "https://github.com/KomorebiP/The-Komorebi-Program/blob/da8e6d29558688c3580a5258bf11773449428452/monographs/cos-method/book/chapters/01_gaussian.tex#L39",
       "related": [
         "positive-semidefinite",
         "eigenvalue",
@@ -4747,7 +4747,7 @@
       "term": "Range core",
       "section": "signal-and-spectral-evaluation",
       "definition": "A representation of a real factor A in coordinates on a chosen subspace. If Q has orthonormal columns and the range of A is contained in the range of Q, then B = QᵀA gives A = QB. The matrices BBᵀ and AAᵀ have the same nonzero spectrum, including multiplicity. The core is smaller when Q has fewer columns than A has rows.",
-      "source": "https://github.com/KomorebiP/Operation-KOMOREBI/blob/da8e6d29558688c3580a5258bf11773449428452/monographs/cos-method/book/chapters/04_range.tex#L127",
+      "source": "https://github.com/KomorebiP/The-Komorebi-Program/blob/da8e6d29558688c3580a5258bf11773449428452/monographs/cos-method/book/chapters/04_range.tex#L127",
       "related": [
         "gram-operator",
         "image",
@@ -4769,7 +4769,7 @@
       "term": "Characteristic function",
       "section": "signal-and-spectral-evaluation",
       "definition": "For a real random variable Q, φ(t) = E[exp(itQ)] at real frequency t. It encodes the probability law in Fourier coordinates. Unlike a real moment-generating function, it is defined for every real t because the integrand has modulus one.",
-      "source": "https://github.com/KomorebiP/Operation-KOMOREBI/blob/da8e6d29558688c3580a5258bf11773449428452/monographs/cos-method/book/chapters/06_packets.tex#L73",
+      "source": "https://github.com/KomorebiP/The-Komorebi-Program/blob/da8e6d29558688c3580a5258bf11773449428452/monographs/cos-method/book/chapters/06_packets.tex#L73",
       "related": [
         "cos-method",
         "gaussian-quadratic-form",
@@ -4790,7 +4790,7 @@
       "term": "Gaussian quadratic form",
       "section": "signal-and-spectral-evaluation",
       "definition": "A random variable Q = XᵀMX with real Gaussian vector X and symmetric matrix M. In the central positive case X has mean zero and covariance Σ, M is positive semidefinite, and Q has the same law as ΣⱼλⱼZⱼ² for independent standard normal Zⱼ and eigenvalues λⱼ of Σ¹ᐟ²MΣ¹ᐟ².",
-      "source": "https://github.com/KomorebiP/Operation-KOMOREBI/blob/da8e6d29558688c3580a5258bf11773449428452/monographs/cos-method/book/chapters/01_gaussian.tex#L9",
+      "source": "https://github.com/KomorebiP/The-Komorebi-Program/blob/da8e6d29558688c3580a5258bf11773449428452/monographs/cos-method/book/chapters/01_gaussian.tex#L9",
       "related": [
         "gaussian-model",
         "covariance",
@@ -4811,7 +4811,7 @@
       "term": "COS method",
       "section": "signal-and-spectral-evaluation",
       "definition": "A Fourier-cosine method for evaluating distributional quantities from characteristic-function values. K-COS applies this representation to Gaussian quadratic-form tails, with a stated window, retained mode count, spectral approximation and error bounds.",
-      "source": "https://github.com/KomorebiP/Operation-KOMOREBI/blob/da8e6d29558688c3580a5258bf11773449428452/monographs/cos-method/book/chapters/07_inversion.tex#L1",
+      "source": "https://github.com/KomorebiP/The-Komorebi-Program/blob/da8e6d29558688c3580a5258bf11773449428452/monographs/cos-method/book/chapters/07_inversion.tex#L1",
       "related": [
         "characteristic-function",
         "gaussian-quadratic-form",
@@ -4832,7 +4832,7 @@
       "term": "Centered spectral packet",
       "section": "signal-and-spectral-evaluation",
       "definition": "In K-COS, a nonempty group P of eigenvalues represented by its count n, mean μ, and centered power sums Mₘ = Σⱼ∈P(λⱼ−μ)ᵐ. Thus M₀ = n and M₁ = 0. Truncated transform expansions also carry a remainder bound.",
-      "source": "https://github.com/KomorebiP/Operation-KOMOREBI/blob/da8e6d29558688c3580a5258bf11773449428452/monographs/cos-method/book/chapters/06_packets.tex#L94",
+      "source": "https://github.com/KomorebiP/The-Komorebi-Program/blob/da8e6d29558688c3580a5258bf11773449428452/monographs/cos-method/book/chapters/06_packets.tex#L94",
       "related": [
         "packet",
         "eigenvalue",
@@ -4854,7 +4854,7 @@
       "term": "Directed enclosure",
       "section": "signal-and-spectral-evaluation",
       "definition": "An interval guaranteed to contain the specified exact quantity. Its finite arithmetic rounds outward, and its final endpoints include every required analytic remainder. The claim concerns the encoded inputs and stated mathematical model.",
-      "source": "https://github.com/KomorebiP/Operation-KOMOREBI/blob/da8e6d29558688c3580a5258bf11773449428452/monographs/cos-method/book/chapters/09_intervals.tex#L1",
+      "source": "https://github.com/KomorebiP/The-Komorebi-Program/blob/da8e6d29558688c3580a5258bf11773449428452/monographs/cos-method/book/chapters/09_intervals.tex#L1",
       "related": [
         "certificate",
         "rounding",
@@ -4876,7 +4876,7 @@
       "term": "Analytic error budget",
       "section": "signal-and-spectral-evaluation",
       "definition": "A sum of justified bounds for the approximation steps in a mathematical model. The K-COS budget separates spectral-packet approximation, support and cosine-folding error, and omitted Fourier modes.",
-      "source": "https://github.com/KomorebiP/Operation-KOMOREBI/blob/da8e6d29558688c3580a5258bf11773449428452/monographs/cos-method/book/chapters/07_inversion.tex#L1",
+      "source": "https://github.com/KomorebiP/The-Komorebi-Program/blob/da8e6d29558688c3580a5258bf11773449428452/monographs/cos-method/book/chapters/07_inversion.tex#L1",
       "related": [
         "centered-spectral-packet",
         "truncation",

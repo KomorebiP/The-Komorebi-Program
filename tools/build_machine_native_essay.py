@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 MANUSCRIPT = ROOT / 'docs/essays/MACHINE_NATIVE_MATHEMATICS.md'
 PROJECT = ROOT / 'publication/machine-native-mathematics'
 PUBLIC_PDF = ROOT / 'website/assets/publications/machine-native-mathematics.pdf'
-SITE = 'https://komorebip.github.io/Operation-KOMOREBI/'
+SITE = 'https://komorebip.github.io/The-Komorebi-Program/'
 INLINE = re.compile(r'\\\((.*?)\\\)|`([^`]+)`|\*\*([^*]+)\*\*|\*([^*]+)\*|\[([^\]]+)\]\(([^)]+)\)')
 
 PREAMBLE = r'''\documentclass[11pt,oneside,openany]{book}
@@ -106,7 +106,7 @@ def public_url(target):
     elif resolved.startswith('website/assets/'):
         result = SITE + resolved[len('website/'):]
     else:
-        result = 'https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/' + resolved
+        result = 'https://github.com/KomorebiP/The-Komorebi-Program/blob/main/' + resolved
     return result + ('#' + fragment if fragment else '')
 
 

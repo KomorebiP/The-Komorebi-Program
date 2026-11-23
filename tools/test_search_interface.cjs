@@ -36,7 +36,7 @@ function setup(query='',options={}){
     pager.selectors['[data-search-page="previous"]'].dataset.searchPage='previous';
     pager.selectors['[data-search-page="next"]'].dataset.searchPage='next';return pager;
   });
-  const location=new URL('https://example.test/Operation-KOMOREBI/search.html'+query);
+  const location=new URL('https://example.test/The-Komorebi-Program/search.html'+query);
   const pushes=[];const history={replaceState(a,b,url){location.href=String(url);},pushState(a,b,url){pushes.push(String(url));location.href=String(url);}};
   const document={querySelector:s=>elements[s],querySelectorAll:s=>s==='.search-pagination'?pagers:
     s==='[data-search-page]'?pagers.flatMap(p=>[p.selectors['[data-search-page="previous"]'],p.selectors['[data-search-page="next"]']]):

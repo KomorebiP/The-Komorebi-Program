@@ -26,7 +26,7 @@ def sha256(data):
 def raw_url(revision, path):
     if not re.fullmatch(r'[0-9a-f]{40}', revision):
         raise ValueError('A full source revision is required')
-    return 'https://raw.githubusercontent.com/KomorebiP/Operation-KOMOREBI/' + revision + '/' + quote(path, safe='/')
+    return 'https://raw.githubusercontent.com/KomorebiP/The-Komorebi-Program/' + revision + '/' + quote(path, safe='/')
 
 
 def archive_contents(root):
@@ -140,8 +140,8 @@ def historical_body(root, revision):
     dialog = dialog.replace('aria-label="Expanded mathematical figure"',
                             'aria-label="Expanded mathematical figure" aria-describedby="dialog-caption"', 1)
     zip_url = html.escape(raw_url(revision, ARCHIVE), quote=True)
-    replay_url = 'https://github.com/KomorebiP/Operation-KOMOREBI/blob/' + revision + '/research/smith-chart/README.md'
-    census_url = 'https://github.com/KomorebiP/Operation-KOMOREBI/blob/' + revision + '/research/smith-chart/computations/README.md'
+    replay_url = 'https://github.com/KomorebiP/The-Komorebi-Program/blob/' + revision + '/research/smith-chart/README.md'
+    census_url = 'https://github.com/KomorebiP/The-Komorebi-Program/blob/' + revision + '/research/smith-chart/computations/README.md'
     note = ('<aside class="research-notice" aria-label="Source and research status">'
             '<div class="research-notice-copy"><p class="research-notice-label">Historical research reading · updated 12 November 2026</p>'
             '<p>Revised prose and vector diagrams accompany the complete research draft. '
@@ -210,7 +210,7 @@ def publish(site):
         value = site.rel(path, PAGE) + '?v=' + sha256((site.root / 'website' / path).read_bytes())[:12]
         body = ('<link rel="stylesheet" href="' + value + '">' + body) if name.endswith('.css') else (body + '<script defer src="' + value + '"></script>')
     site.page(PAGE, TITLE, body,
-              'https://github.com/KomorebiP/Operation-KOMOREBI/tree/' + revision + '/research/smith-chart/unified')
+              'https://github.com/KomorebiP/The-Komorebi-Program/tree/' + revision + '/research/smith-chart/unified')
     site.search.append(dict(title=TITLE, group='Collection', kind='Examples', url=PAGE, work_ids=[],
         text='Smith chart exact six reactive closure deterministic certified family synthesis compact physical boundaries Hughes margin packet transfer'))
     for slug in ('reading-guide','exact-six','composition','low-order-synthesis','families','deterministic-family','obstruction','quantitative-transfer','effective-margin','compact-model-audit','formal-graph-core','global-transfer','typed-margins','component-tolerances','singular-completion','one-inductor','companion-guide'):

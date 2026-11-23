@@ -70,7 +70,7 @@ def build(site):
 <noscript><p class="jlab-note">Enable JavaScript to run the agents, or <a href="assets/j-space/causal-lab.html" download="Komorebi_JSpace_Causal_Lab_v1_4.html">download the self-contained lab</a> and open it in a browser with JavaScript enabled.</p></noscript>
 
 <aside class="jlab-context" aria-label="About this experiment"><p><strong>How far does a result go?</strong> A changed answer shows an effect in this case. It does not establish a naturally writable J-space or show that the edit works on other states, models or long sequences. Keep the failed cases and reference errors alongside the successes.</p>
-<div class="jlab-resources"><a href="collection/works/experiments-jspace-causal-lab.html">Methods and source files <span aria-hidden="true">↗</span></a><a href="https://github.com/KomorebiP/Operation-KOMOREBI/blob/REVISION/experiments/jspace-causal-lab/REPORT.md">Laboratory report <span aria-hidden="true">↗</span></a><a href="interactive.html">More interactive mathematics <span aria-hidden="true">→</span></a></div></aside>
+<div class="jlab-resources"><a href="collection/works/experiments-jspace-causal-lab.html">Methods and source files <span aria-hidden="true">↗</span></a><a href="https://github.com/KomorebiP/The-Komorebi-Program/blob/REVISION/experiments/jspace-causal-lab/REPORT.md">Laboratory report <span aria-hidden="true">↗</span></a><a href="interactive.html">More interactive mathematics <span aria-hidden="true">→</span></a></div></aside>
 </div>'''
     body = body.replace('APP_VERSION', APP_SHA256[:12]).replace('REVISION', site.revision).replace('WORKBENCH_STYLE', asset('jspace-workbench.css'))
     body = '<link rel="stylesheet" href="'+asset('jspace-lab.css')+'">'+body

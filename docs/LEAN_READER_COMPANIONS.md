@@ -65,6 +65,6 @@ python -B tools/verify_lean_companion.py --project formal/polynomial-transport -
 
 Each output directory must be new or empty. The runner uses the existing dependency cache and does not update it. On a standard Lean installation, prepare the dependencies for the pinned project and omit `--runtime`.
 
-The [Reader Lean companions workflow](https://github.com/KomorebiP/Operation-KOMOREBI/actions/workflows/reader-lean-companions.yml) rebuilds all three companions on relevant pull requests and changes to `main`. Its artifacts keep fresh compiler diagnostics and rejection results for the recorded revision.
+The [Reader Lean companions workflow](https://github.com/KomorebiP/The-Komorebi-Program/actions/workflows/reader-lean-companions.yml) rebuilds all three companions on relevant pull requests and changes to `main`. Its artifacts keep fresh compiler diagnostics and rejection results for the recorded revision.
 
 [Demonstrations](DEMONSTRATIONS.md) · [Run and verify](VERIFICATION.md) · [Formal source finder](browse/LEAN.md)

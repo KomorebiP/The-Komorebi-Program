@@ -4,7 +4,7 @@ from functools import lru_cache
 from math import comb, factorial
 
 SOURCE='https://github.com/KomorebiP/komorebi-math/blob/a3aa04ac18a523f30c50c7f5dba709f88e904eff/src/komorebi_math/sequences/families.py#L81'
-DERIVATION='https://github.com/KomorebiP/Operation-KOMOREBI/blob/main/research/sequence-connections/IDENTITIES.md#generalized-k-step-coefficients'
+DERIVATION='https://github.com/KomorebiP/The-Komorebi-Program/blob/main/research/sequence-connections/IDENTITIES.md#generalized-k-step-coefficients'
 LEGACY_ORDERS={'KOM013':3,'KOM014':4,'KOM015':5,'KOM016':6}
 
 
