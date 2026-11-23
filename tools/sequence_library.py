@@ -267,6 +267,8 @@ def build(site,atlas):
         attrs=' data-entry="'+e(entry['id'])+'.json"' if entry else (' data-family="'+e(family)+'"' if family else '')
         if page_kind:attrs+=' data-page="'+e(page_kind,quote=True)+'"'
         return ''.join('<link rel="stylesheet" href="'+prefix+'assets/'+name+'?v='+hashlib.sha256((site.output/'assets'/name).read_bytes()).hexdigest()[:12]+'">' for name in ['sequence-archive.css','sequence-plot-options.css','sequence-library.css','sequence-reading.css','sequence-research.css'])+'<div class="sar sl-library" data-library'+attrs+'>'+body+'</div><script type="module" src="'+prefix+'assets/sequence-library.js?v='+hashlib.sha256((site.output/'assets/sequence-library.js').read_bytes()).hexdigest()[:12]+'"></script>'
+    from sequence_network_site import build_site_assets, network_section, local_network_link
+    network_meta=build_site_assets(site,entries)
     site.write('assets/sequence-research-connections.json',json.dumps(research_connections(),ensure_ascii=False,separators=(',',':'))+'\n')
     generalized_pages(site,generalized,wrap)
     total=len(entries);representations=sum(len(x['formulas']) for x in entries)
@@ -274,7 +276,7 @@ def build(site,atlas):
     collections=[('', 'All records',total)]+[(key,label,sum(x['collection']==key for x in entries)) for key,label in [('formulas','Formula families'),('atlas','Curated sequences'),('recovered','Research archive')]]
     collection_buttons='<div class="sl-collections" role="group" aria-label="Search collections">'+''.join('<button type="button" data-collection="'+key+'" aria-pressed="'+('true' if not key else 'false')+'">'+label+' <span>'+f'{count:,}'+'</span></button>' for key,label,count in collections)+'</div>'
     def page_nav(active):
-        pages=[('Search','sequence-library.html','search'),('Transfer','sequence-transfers.html#transfers','transfer'),('Compare','sequence-compare.html#comparison','compare'),('Research','sequence-research.html#research-families','research'),('OEIS','sequence-oeis.html#oeis','oeis')]
+        pages=[('Search','sequence-library.html','search'),('Transfer','sequence-transfers.html#transfers','transfer'),('Network','sequence-network.html#sequence-network','network'),('Compare','sequence-compare.html#comparison','compare'),('Research','sequence-research.html#research-families','research'),('OEIS','sequence-oeis.html#oeis','oeis')]
         return '<nav class="sl-page-tabs" aria-label="Sequence Library pages">'+''.join('<a href="'+url+'"'+(' aria-current="page"' if active==key else '')+'>'+label+'</a>' for label,url,key in pages)+'</nav>'
     def page_heading(title,description,active,anchor):
         return ('<a class="sl-skip" href="#'+anchor+'">Skip to '+e(title)+'</a>'
@@ -636,12 +638,28 @@ def build(site,atlas):
         'Each comparison is bound to the stored integer terms and retained reference data. '
         'Finite agreement is not a proof of infinite equality or historical novelty.</p></details>'
         '</section>')
+    network_gateway=(
+        '<section id="sl-network-gateway" class="sl-optional-section" aria-labelledby="sl-network-title">'
+        '<h2 id="sl-network-title">Search formula connections</h2>'
+        '<p>Explore formula-level OEIS identities, multi-input relations, gauges and Riordan transfers. '
+        '<a href="sequence-network.html#sequence-network">Open the transfer network</a>. '
+        'Proofs of extracted formulas are distinguished from finite OEIS comparisons.</p></section>'
+    )
     site.page('sequence-library.html','Sequence Library · Search',
-              wrap(closed_css+header+workflow_nav+controls+closed_calculator+research_hub+about+legacy,page_kind='search'))
+              wrap(closed_css+header+workflow_nav+network_gateway+controls+closed_calculator+research_hub+about+legacy,page_kind='search'))
     site.page('sequence-transfers.html','Sequence Library · Transfer',
               wrap(page_heading('Transfer between sequences',
                   'Calculate exact forward and inverse convolution maps between stored scalar prefixes. All certificates refer to the selected finite window.',
-                  'transfer','transfers')+transfers,page_kind='transfer'))
+                  'transfer','transfers')+network_gateway+transfers,page_kind='transfer'))
+    site.page('sequence-network.html','Sequence Library · Network',
+              wrap(page_heading('Formula transfer network',
+                   'Search source-linked OEIS formula relationships. The original sequence search and exact calculators remain available.',
+                   'network','sequence-network')+network_section(network_meta),page_kind='network')
+              +'<link rel="stylesheet" href="'+network_meta['styles']+'">'
+              +'<script type="module" src="'+network_meta['script']+'"></script>')
+    site.search.append(dict(title='Sequence transfer network',group='Tools',
+                            kind='Sequence search',work_ids=[],url='sequence-network.html',
+                            text='OEIS formula identities gauge Riordan quadratic channels polyphase transfers network search'))
     site.page('sequence-compare.html','Sequence Library · Compare',
               wrap(page_heading('Compare sequences',
                   'Compare up to four stored sequences or OEIS excerpts. Exact values remain in the data table while plots show finite windows.',
@@ -1209,7 +1227,7 @@ def build(site,atlas):
         value_label='a(j)' if entry.get('triangle') else 'a(n)'
         index_note=('Stored cells use flat indices j='+str(start)+'–'+str(end)+'. Within each row n, columns k are listed in increasing order. The source degree is computed from the row, not from j. ' if entry.get('triangle') else 'Stored indices run from n='+str(start)+' to n='+str(end)+'. The source degree/index map is '+e(entry['degree'])+'. ')+'Stored sequence values are exact integers. '+('Original rational coefficients are listed separately. ' if rational else '')+'Plots use this stored window. '+e(entry['explanation'])
         rows=''.join('<tr id="n-'+str(n)+'"><th scope="row">'+str(n)+'</th>'+coordinates(n)+'<td>'+str(source_degree(entry,n))+'</td><td>'+value+'</td>'+('<td>'+e(rational[n-start])+'</td>' if rational else '')+'</tr>' for n,value in enumerate(entry['terms'],start=start))
-        body='<nav aria-label="Breadcrumb"><a href="../sequence-library.html">Sequence library</a> / '+e(identifier)+'</nav><header class="sar-header"><p class="sar-kicker">'+e(identifier)+' / Parameter record</p><h1>'+e(entry['title'])+'</h1><p>'+e(entry['status'])+'</p><nav aria-label="Entry sections"><a href="#definition">Definition</a><a href="#formulas">Formula representations</a>'+('<a href="#triangle">Coefficient triangle</a>' if entry.get('triangle') else '')+'<a href="#plot">Plot</a><a href="#exact-data">Exact data</a><a href="#oeis-matches">OEIS comparisons</a></nav></header><section id="definition"><h2>Definition and indexing</h2><p class="sar-formula">'+e(entry['formula'])+'</p><p>'+index_note+'</p>'+related+'</section><section id="formulas"><h2>Equivalent representations</h2>'+formula_block(entry)+'</section>'+triangle_section(entry)+plot_section(entry)+'<section id="exact-data"><h2>Exact indexed data</h2><p><a download href="'+identifier+'.csv">CSV</a> · <a download href="'+identifier+'.txt">Indexed text</a> · <a download href="'+identifier+'.json">Entry JSON with all formulas and comparisons</a></p><div class="sar-scroll" tabindex="0" role="region" aria-label="Exact stored values"><table><thead><tr><th scope="col">'+index_label+'</th>'+('<th scope="col">Row n</th><th scope="col">Column k</th>' if entry.get('triangle') else '')+'<th scope="col">Source degree/index</th><th scope="col">'+value_label+'</th>'+('<th scope="col">Original rational q(n)</th>' if rational else '')+'</tr></thead><tbody>'+rows+'</tbody></table></div></section>'+matches_block(entry)+'<section id="sources"><h2>Sources and reproduction</h2><p><a href="'+e(entry['source'])+'">Definition and construction source</a></p><p>The terms and formulas use the parameters listed above. KFOR identifiers are local to this library. OEIS entries use A-numbers.</p><details><summary>Reproduce this record</summary><p>Read <a href="'+e(entry['source'])+'">this record’s construction source</a> for its definitions and parameters.</p><p><a download href="../assets/sequence-formula-source.zip">Download the generators and source notes</a>. To regenerate this record as JSON, extract the bundle and run <code>python tools/sequence_formula_catalogue.py --id '+identifier+'</code> from its root directory.</p></details></section>'
+        body='<nav aria-label="Breadcrumb"><a href="../sequence-library.html">Sequence library</a> / '+e(identifier)+'</nav><header class="sar-header"><p class="sar-kicker">'+e(identifier)+' / Parameter record</p><h1>'+e(entry['title'])+'</h1><p>'+e(entry['status'])+'</p><nav aria-label="Entry sections"><a href="#definition">Definition</a><a href="#formulas">Formula representations</a>'+('<a href="#triangle">Coefficient triangle</a>' if entry.get('triangle') else '')+'<a href="#plot">Plot</a><a href="#exact-data">Exact data</a><a href="#oeis-matches">OEIS comparisons</a></nav></header><section id="definition"><h2>Definition and indexing</h2><p class="sar-formula">'+e(entry['formula'])+'</p><p>'+index_note+'</p>'+related+'</section><section id="formulas"><h2>Equivalent representations</h2>'+formula_block(entry)+'</section>'+local_network_link(entry,'../')+triangle_section(entry)+plot_section(entry)+'<section id="exact-data"><h2>Exact indexed data</h2><p><a download href="'+identifier+'.csv">CSV</a> · <a download href="'+identifier+'.txt">Indexed text</a> · <a download href="'+identifier+'.json">Entry JSON with all formulas and comparisons</a></p><div class="sar-scroll" tabindex="0" role="region" aria-label="Exact stored values"><table><thead><tr><th scope="col">'+index_label+'</th>'+('<th scope="col">Row n</th><th scope="col">Column k</th>' if entry.get('triangle') else '')+'<th scope="col">Source degree/index</th><th scope="col">'+value_label+'</th>'+('<th scope="col">Original rational q(n)</th>' if rational else '')+'</tr></thead><tbody>'+rows+'</tbody></table></div></section>'+matches_block(entry)+'<section id="sources"><h2>Sources and reproduction</h2><p><a href="'+e(entry['source'])+'">Definition and construction source</a></p><p>The terms and formulas use the parameters listed above. KFOR identifiers are local to this library. OEIS entries use A-numbers.</p><details><summary>Reproduce this record</summary><p>Read <a href="'+e(entry['source'])+'">this record’s construction source</a> for its definitions and parameters.</p><p><a download href="../assets/sequence-formula-source.zip">Download the generators and source notes</a>. To regenerate this record as JSON, extract the bundle and run <code>python tools/sequence_formula_catalogue.py --id '+identifier+'</code> from its root directory.</p></details></section>'
         body=body.replace('<section id="plot"',entry_details(entry)+'<section id="plot"',1)
         if entry.get('calculator_url'):
             handoff='<p class="sl-record-calculator"><a href="../'+e(entry['calculator_url'],quote=True)+'">Calculate exact values with these parameters</a>. The calculator opens at this record’s first stored index.</p>'
