@@ -1,0 +1,4668 @@
+{
+  "schema": 1,
+  "author": "Komorebi P.",
+  "source_database_sha256": "a121d7a6a5b6aa78a5a333fe748b604f170511bf8250ca16533f58cbcfa9e9f5",
+  "integrity_check": "ok",
+  "source_sequence_models": 3337,
+  "source_certificates_recertified": 539,
+  "indexed_eligible": 110,
+  "indexed_sample_replayed": 110,
+  "exact_outputs": 110,
+  "transfer_cost_reductions_heuristic_median": 57.142857142857146,
+  "cost_scope": "Explicit demonstrator operation scores, not runtime or bit complexity",
+  "source_scope": "Exact extracted formula identities; OEIS identification remains finite term checked",
+  "samples": [
+    {
+      "target": "A000096",
+      "requested_index": 23,
+      "inputs": [
+        "A000217",
+        "A000290"
+      ],
+      "index_maps": {
+        "A000217": [
+          [
+            1,
+            3
+          ]
+        ],
+        "A000290": [
+          [
+            1,
+            3
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000217",
+          26
+        ],
+        [
+          "A000290",
+          26
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 26,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "b825540fe693f2445ce6ae05aa49a32fd264cf35a0397b6f2df4e83cbb726b1e",
+      "output_sha256": "308831041ea4863c3f87d222c31f759411898c874a9006b4bd6c745858b8f3bd",
+      "replay_term_hashes": [
+        "04a8708c3a481ced13845a30de522486895de0592222c29326d9139ec2b9df25",
+        "63db0204e2f34aaadace364d046ef5d7614b8cb287b939e55ac05c53aee90de1",
+        "308831041ea4863c3f87d222c31f759411898c874a9006b4bd6c745858b8f3bd"
+      ]
+    },
+    {
+      "target": "A000124",
+      "requested_index": 37,
+      "inputs": [
+        "A002061"
+      ],
+      "index_maps": {
+        "A002061": [
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A002061",
+          37
+        ],
+        [
+          "A002061",
+          39
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 39,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "070a597779b71cb52398eb12f0e413b39199c6f27f14dc13efcb28623320cfbd",
+      "output_sha256": "e4e549408422875958476160732390defefcac7c2bd8353d918fe452d20de2a6",
+      "replay_term_hashes": [
+        "6fdd9b073bc00a5da50bbb71825e6461116845cf1fbb3c84cd22aed47a75fdc2",
+        "485d997d70d9483c517eb6f36b649bf37d701e15b0f398df6d01b478d164e82c",
+        "e4e549408422875958476160732390defefcac7c2bd8353d918fe452d20de2a6"
+      ]
+    },
+    {
+      "target": "A000225",
+      "requested_index": 23,
+      "inputs": [
+        "A000325",
+        "A079583"
+      ],
+      "index_maps": {
+        "A000325": [
+          [
+            1,
+            1
+          ]
+        ],
+        "A079583": [
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000325",
+          24
+        ],
+        [
+          "A079583",
+          23
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 24,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "c140d86e6df971f68ac342fd5911ea71073772dc4518b0246f39364ccacbb1fd",
+      "output_sha256": "028a50f0142a2cd3642e0010f07fa3c3e605cf8a89ba0496ab6d21c7dc36dae2",
+      "replay_term_hashes": [
+        "7a07cd8b4316431bc805711b0cc876fa87fe931aa5163000468933986848e96e",
+        "c50fe3ca1803554aeb67900f36d904bb7af71c83f525c08a8d7a4a778ee7d144",
+        "028a50f0142a2cd3642e0010f07fa3c3e605cf8a89ba0496ab6d21c7dc36dae2"
+      ]
+    },
+    {
+      "target": "A000295",
+      "requested_index": 23,
+      "inputs": [
+        "A000225",
+        "A079583"
+      ],
+      "index_maps": {
+        "A000225": [
+          [
+            1,
+            1
+          ]
+        ],
+        "A079583": [
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000225",
+          24
+        ],
+        [
+          "A079583",
+          23
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 24,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "8b54f07cdf199e4d7da64d21c4b5bc84f8aa8a6f91e4bbee3b089a528451d8ac",
+      "output_sha256": "dca67db5963576b202343208320ae967df6a1afe157ee1906338fa548f0c11e1",
+      "replay_term_hashes": [
+        "671a7bbdc6c3ee7eb01b776fa376732db5a0ffa952a9356c006d319f6349889c",
+        "c50fe3ca1803554aeb67900f36d904bb7af71c83f525c08a8d7a4a778ee7d144",
+        "dca67db5963576b202343208320ae967df6a1afe157ee1906338fa548f0c11e1"
+      ]
+    },
+    {
+      "target": "A000330",
+      "requested_index": 37,
+      "inputs": [
+        "A000332"
+      ],
+      "index_maps": {
+        "A000332": [
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000332",
+          38
+        ],
+        [
+          "A000332",
+          40
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 40,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "43a6bcc5c94ed7e1308b8f68ec69c7c78cbc2707cd8cb59f168d8b7f9f9ceb52",
+      "output_sha256": "fa57bd66cb6354a6d8af1e7b47b28589e586bf1303a9080652bf2cfe6b9bbab4",
+      "replay_term_hashes": [
+        "8caed0fc2d83a5d74e9bb19c0b115c531180652b86dceab955958125df482d77",
+        "751f2b84844a3da6bc3d1688d2fb7a23ae6e8774673ea26904fec1b500e2977e",
+        "fa57bd66cb6354a6d8af1e7b47b28589e586bf1303a9080652bf2cfe6b9bbab4"
+      ]
+    },
+    {
+      "target": "A000330",
+      "requested_index": 23,
+      "inputs": [
+        "A000217",
+        "A007290"
+      ],
+      "index_maps": {
+        "A000217": [
+          [
+            1,
+            0
+          ]
+        ],
+        "A007290": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000217",
+          23
+        ],
+        [
+          "A007290",
+          24
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 24,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "b70aa84c58df4909f0598a6bdc3c4ebe15fce72a27ef322ab92bf63962827791",
+      "output_sha256": "34847964b077f2b990d462d3c92caf3d6522012582e8f5ca03669204447bae8d",
+      "replay_term_hashes": [
+        "c76b405781134be1dab7fe45adfb8c32104805a01de7b863e1004b66d56edf9f",
+        "cbfb88946b86a506b3fe929406925a3122561acfd665a891785128b4ea4c5ca4",
+        "34847964b077f2b990d462d3c92caf3d6522012582e8f5ca03669204447bae8d"
+      ]
+    },
+    {
+      "target": "A000337",
+      "requested_index": 37,
+      "inputs": [
+        "A000295"
+      ],
+      "index_maps": {
+        "A000295": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000295",
+          37
+        ],
+        [
+          "A000295",
+          38
+        ],
+        [
+          "A000295",
+          39
+        ]
+      ],
+      "computed_term_count": 4,
+      "full_source_prefix_horizon": 39,
+      "exact_match": true,
+      "cost_score": 20,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "947eb820f59cd418871cda884a2b9c895d4a631732ee8cc4ffa6e6b2eb5198ba",
+      "output_sha256": "d1b1e37556413f9987bd3b5a3f10ad353ee8f52ade6310665f5c82334ba0a416",
+      "replay_term_hashes": [
+        "f06088076cfe4684fc60e92f29a507ef97e649d577fda72c2b0f71bf41ae2de4",
+        "9eafe2a16d2075756fbb1cb99e79122377ad509743adb2fe91fcc4f8372e42f6",
+        "25e7ca69e3741b415ae878ca3a3b64620f54be8b1a0a00a09307e8607e5df7ce",
+        "d1b1e37556413f9987bd3b5a3f10ad353ee8f52ade6310665f5c82334ba0a416"
+      ]
+    },
+    {
+      "target": "A001845",
+      "requested_index": 37,
+      "inputs": [
+        "A005900"
+      ],
+      "index_maps": {
+        "A005900": [
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A005900",
+          37
+        ],
+        [
+          "A005900",
+          38
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "08052ec3dac29b4b2141b5fd017112dfddb5d9b401fb54bd683d8d74f0b79390",
+      "output_sha256": "4f509ffd0fc02b60a62c3b851ec69c0d242e899921526d3f34772969aae31457",
+      "replay_term_hashes": [
+        "472efc1b76f4f590df272ae52dc697a920855a36cd6b8eb5280a95bff8be60ad",
+        "ab71eea92abe4890132dac97c3edbb9cb7924f5792b72f857d84380c64ce0a92",
+        "4f509ffd0fc02b60a62c3b851ec69c0d242e899921526d3f34772969aae31457"
+      ]
+    },
+    {
+      "target": "A001845",
+      "requested_index": 23,
+      "inputs": [
+        "A000330",
+        "A005900"
+      ],
+      "index_maps": {
+        "A000330": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "A005900": [
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000330",
+          23
+        ],
+        [
+          "A000330",
+          24
+        ],
+        [
+          "A005900",
+          23
+        ]
+      ],
+      "computed_term_count": 4,
+      "full_source_prefix_horizon": 24,
+      "exact_match": true,
+      "cost_score": 20,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "0f088cdbe5d7888b4d954ddc2bbff9c0b324e04914a89d0cadc0dd1952bdd7fd",
+      "output_sha256": "732c6036918b7f0fc815a071d341654785047af15e6beb74b036d8fe66378ca2",
+      "replay_term_hashes": [
+        "34847964b077f2b990d462d3c92caf3d6522012582e8f5ca03669204447bae8d",
+        "0ec89b31a9f42decb7bad3c678c0994266ae6382435ec44c7ed3144b0f3dae2a",
+        "cb7f423e8c37a17b68993b6b88e83de15f7a0f1ed8e6a03145018f696ae0947e",
+        "732c6036918b7f0fc815a071d341654785047af15e6beb74b036d8fe66378ca2"
+      ]
+    },
+    {
+      "target": "A002063",
+      "requested_index": 23,
+      "inputs": [
+        "A000302",
+        "A004171"
+      ],
+      "index_maps": {
+        "A000302": [
+          [
+            1,
+            0
+          ]
+        ],
+        "A004171": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000302",
+          23
+        ],
+        [
+          "A004171",
+          24
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 24,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "609fc571c907bce59d5c690b82cadd8a0b046ab3425d959ec6fdd03fa8b18644",
+      "output_sha256": "c015deb3b969965c8d68c8a2d3873f5f86a064f27e2d2961773d863bf4b07350",
+      "replay_term_hashes": [
+        "3bddd876c94aa42eb25387163d34214d2ff23f856cef8bcfdff583a61abbc3c2",
+        "5ba234f057fea418a04d61dcf3aedf40025d01088ba298fbed909c615d9aef0a",
+        "c015deb3b969965c8d68c8a2d3873f5f86a064f27e2d2961773d863bf4b07350"
+      ]
+    },
+    {
+      "target": "A002378",
+      "requested_index": 37,
+      "inputs": [
+        "A002061"
+      ],
+      "index_maps": {
+        "A002061": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A002061",
+          38
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "89c31b3320fde95f9306867c8cfcb38aab1f148ab7a58827451c442cc4d545f9",
+      "output_sha256": "1326c6c44cc5e89cc510c9d2a17dd02c9105a377df60cf64d953c1eb4b06b00d",
+      "replay_term_hashes": [
+        "a3346b8b4c26feb607f8a40699c934ef426dee5ceebf51f9f7209aa79c08a0da",
+        "1326c6c44cc5e89cc510c9d2a17dd02c9105a377df60cf64d953c1eb4b06b00d"
+      ]
+    },
+    {
+      "target": "A002414",
+      "requested_index": 37,
+      "inputs": [
+        "A000567"
+      ],
+      "index_maps": {
+        "A000567": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000567",
+          38
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "64e6c9ffc17400dc4f7bcb2ef374b9ff7d616c558ca7cbcceab7dc0aa5ad0e35",
+      "output_sha256": "b798731a3011b144dd29b8c473768a4e1ad8a69ae5ea4bae93f0169bdb9b0caa",
+      "replay_term_hashes": [
+        "9cf876e274c8bbc32e1ad874ee32f4d7c10c9a3f14a77931ea1f27acedad9d09",
+        "b798731a3011b144dd29b8c473768a4e1ad8a69ae5ea4bae93f0169bdb9b0caa"
+      ]
+    },
+    {
+      "target": "A002414",
+      "requested_index": 23,
+      "inputs": [
+        "A000217",
+        "A000578"
+      ],
+      "index_maps": {
+        "A000217": [
+          [
+            1,
+            0
+          ]
+        ],
+        "A000578": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000217",
+          23
+        ],
+        [
+          "A000578",
+          24
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 24,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "6ea6ea34b751cd4198d9cb3b6333d8624e7f4c0f93b739a83173a013c6af157c",
+      "output_sha256": "28aa7ac9f621f25a52119f95179f42b631c3405e3a22db40ad7af44b2d7eb86d",
+      "replay_term_hashes": [
+        "c76b405781134be1dab7fe45adfb8c32104805a01de7b863e1004b66d56edf9f",
+        "619b9764b0f5da3d20548bf11d493fb78b5a6790c625aae87e95f3dd1a15a289",
+        "28aa7ac9f621f25a52119f95179f42b631c3405e3a22db40ad7af44b2d7eb86d"
+      ]
+    },
+    {
+      "target": "A002417",
+      "requested_index": 37,
+      "inputs": [
+        "A000332"
+      ],
+      "index_maps": {
+        "A000332": [
+          [
+            1,
+            4
+          ],
+          [
+            1,
+            3
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000332",
+          40
+        ],
+        [
+          "A000332",
+          41
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 41,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "40bdf975bf82da330fc2f2a2e115b7b8ab01c7d20c607ea3b2130dd1d1b3530d",
+      "output_sha256": "baae2b479aa39bc78146f039e32cea726f609274b643369faf2ac0032227ef72",
+      "replay_term_hashes": [
+        "751f2b84844a3da6bc3d1688d2fb7a23ae6e8774673ea26904fec1b500e2977e",
+        "128c82f243af65561cdd08cecf7fe3c62d601db575adc20caa098e09c513d56a",
+        "baae2b479aa39bc78146f039e32cea726f609274b643369faf2ac0032227ef72"
+      ]
+    },
+    {
+      "target": "A003469",
+      "requested_index": 37,
+      "inputs": [
+        "A000295"
+      ],
+      "index_maps": {
+        "A000295": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000295",
+          39
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 39,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "b32695cbb206f6623384c098282c776ac8cdbff1082fb6f13941680397a1924e",
+      "output_sha256": "5cef885dbac233e66cb7cd9102991574ce5f39aa32b3d7b4dd28201ab6dde1b0",
+      "replay_term_hashes": [
+        "25e7ca69e3741b415ae878ca3a3b64620f54be8b1a0a00a09307e8607e5df7ce",
+        "5cef885dbac233e66cb7cd9102991574ce5f39aa32b3d7b4dd28201ab6dde1b0"
+      ]
+    },
+    {
+      "target": "A004255",
+      "requested_index": 37,
+      "inputs": [
+        "A062026"
+      ],
+      "index_maps": {
+        "A062026": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A062026",
+          38
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "7f760ec5999bf1814ee2495bb988bfbad869d273d27be35d400476644bfb6421",
+      "output_sha256": "e8d19fa1110510e2ce761cf9792ea2c83d5909930ab4b07eee293562066c8218",
+      "replay_term_hashes": [
+        "fb9365a5414721f05ba471a9e579fe71260f8d9308bb99b74236fe9119a9bc43",
+        "e8d19fa1110510e2ce761cf9792ea2c83d5909930ab4b07eee293562066c8218"
+      ]
+    },
+    {
+      "target": "A004282",
+      "requested_index": 23,
+      "inputs": [
+        "A000537",
+        "A004302"
+      ],
+      "index_maps": {
+        "A000537": [
+          [
+            1,
+            1
+          ]
+        ],
+        "A004302": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000537",
+          24
+        ],
+        [
+          "A004302",
+          24
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 24,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "a92e3081d4a3b4ca0f328792c9441043a4ce4c1d873c8649a5048d9b6138abf7",
+      "output_sha256": "dcac43c6d223b17998d10876edc0acd69128bb3fc90bf749dc942d440d74571c",
+      "replay_term_hashes": [
+        "ac911e4a8f2b48c071ce0fbb434c039c48e60e8d96dff768f69daa740af0c3bb",
+        "f0db633a9a6bceb9715620ca3f557a645f9b8d531d2e06a1d7e899dc06e63cbc",
+        "dcac43c6d223b17998d10876edc0acd69128bb3fc90bf749dc942d440d74571c"
+      ]
+    },
+    {
+      "target": "A004320",
+      "requested_index": 37,
+      "inputs": [
+        "A000332"
+      ],
+      "index_maps": {
+        "A000332": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            3
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000332",
+          39
+        ],
+        [
+          "A000332",
+          40
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 40,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "922b5ae368ce1b48fe0d74a3af61c55eba6501f27dd9301f0a2db065569116a8",
+      "output_sha256": "f598c8766820bbe52f8e1145eee07bd8e9c6bd5972556107b3dd518913a92b19",
+      "replay_term_hashes": [
+        "811981133e3215e386ace25359b2f590d168dc23287381d1409e8356e6c3ddd4",
+        "751f2b84844a3da6bc3d1688d2fb7a23ae6e8774673ea26904fec1b500e2977e",
+        "f598c8766820bbe52f8e1145eee07bd8e9c6bd5972556107b3dd518913a92b19"
+      ]
+    },
+    {
+      "target": "A004767",
+      "requested_index": 37,
+      "inputs": [
+        "A014105"
+      ],
+      "index_maps": {
+        "A014105": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A014105",
+          37
+        ],
+        [
+          "A014105",
+          38
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "fa53ba0891685707498af5b2d43dd40bcbb4d8f420a9c9f22b7a3e3f6a8d3887",
+      "output_sha256": "8e612bd1f5d132a339575b8dafb7842c64614e56bcf3d5ab65a0bc4b34329407",
+      "replay_term_hashes": [
+        "3da16474e33b330b71e5b562cfcf7939bde3c12a08b7465fc31382a355ab2878",
+        "f42af67553a06d18888dfabf654af703ccd8f8db7067937d44a8b05ee61adba8",
+        "8e612bd1f5d132a339575b8dafb7842c64614e56bcf3d5ab65a0bc4b34329407"
+      ]
+    },
+    {
+      "target": "A005408",
+      "requested_index": 23,
+      "inputs": [
+        "A000225",
+        "A005803"
+      ],
+      "index_maps": {
+        "A000225": [
+          [
+            1,
+            1
+          ]
+        ],
+        "A005803": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000225",
+          24
+        ],
+        [
+          "A005803",
+          24
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 24,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "b6823bfdcb9adca97e986f77b6387f2c475461a9883ba4fb811748284a3a08a7",
+      "output_sha256": "31489056e0916d59fe3add79e63f095af3ffb81604691f21cad442a85c7be617",
+      "replay_term_hashes": [
+        "671a7bbdc6c3ee7eb01b776fa376732db5a0ffa952a9356c006d319f6349889c",
+        "b089575434e93c0fba94e45848d477d62a35ab5a3bdbe31ae05c3ab1a931efc8",
+        "31489056e0916d59fe3add79e63f095af3ffb81604691f21cad442a85c7be617"
+      ]
+    },
+    {
+      "target": "A005448",
+      "requested_index": 37,
+      "inputs": [
+        "A000326"
+      ],
+      "index_maps": {
+        "A000326": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000326",
+          38
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "6c898432bb56c4b8da00f609fde92569bc3ef6fc8ce9577236267a9c5dddfb66",
+      "output_sha256": "17dc3303cd10e0824497a0874a4b86275e63c943e3fefba5f5760959dd525fc2",
+      "replay_term_hashes": [
+        "8ea8eb612f9362da9d2b8ae0a65daa6410c9c952a4944933a8ad17aee8f86939",
+        "17dc3303cd10e0824497a0874a4b86275e63c943e3fefba5f5760959dd525fc2"
+      ]
+    },
+    {
+      "target": "A005448",
+      "requested_index": 23,
+      "inputs": [
+        "A000217",
+        "A002061"
+      ],
+      "index_maps": {
+        "A000217": [
+          [
+            1,
+            0
+          ]
+        ],
+        "A002061": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000217",
+          23
+        ],
+        [
+          "A002061",
+          24
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 24,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "ebf040e09924d54bb68c25fbfda947849cd9bec1accb419aaca30cc3ef56acb2",
+      "output_sha256": "a807c0dc0a5b5ea4a70b12ba52ead3d30922e1eac15c396ccfdea715a2f15396",
+      "replay_term_hashes": [
+        "c76b405781134be1dab7fe45adfb8c32104805a01de7b863e1004b66d56edf9f",
+        "d40fbd13d527595c47eacbf0d7c87d256139d9d45261c25c2840d30a4756495b",
+        "a807c0dc0a5b5ea4a70b12ba52ead3d30922e1eac15c396ccfdea715a2f15396"
+      ]
+    },
+    {
+      "target": "A005449",
+      "requested_index": 37,
+      "inputs": [
+        "A000217"
+      ],
+      "index_maps": {
+        "A000217": [
+          [
+            2,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000217",
+          37
+        ],
+        [
+          "A000217",
+          74
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 74,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "0c48e6120388ba079796b77c3a4d194533dc0924ee47e343010e0d38e7de8639",
+      "output_sha256": "5fc81d2cb64968db6cae7122a7f003afa088268a703db44297e4ccf63848b023",
+      "replay_term_hashes": [
+        "769e881d85fc5d27cb4cbc8382200d95b179cfdeb56e0b439da737069eaf8a5a",
+        "3da16474e33b330b71e5b562cfcf7939bde3c12a08b7465fc31382a355ab2878",
+        "5fc81d2cb64968db6cae7122a7f003afa088268a703db44297e4ccf63848b023"
+      ]
+    },
+    {
+      "target": "A005570",
+      "requested_index": 37,
+      "inputs": [
+        "A000217"
+      ],
+      "index_maps": {
+        "A000217": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000217",
+          38
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "ff9f9525db9aa25b442fee6ba9731cb178f765b3aed3b47093705d82fdba45ac",
+      "output_sha256": "f24b5871aae4f3ad88c02a7c6676c2982c66d438c986f131429ae549be7c2359",
+      "replay_term_hashes": [
+        "75f7313c20144e39edcf57a14733d074aee0c482320d5178ee0ef2f2608c2996",
+        "f24b5871aae4f3ad88c02a7c6676c2982c66d438c986f131429ae549be7c2359"
+      ]
+    },
+    {
+      "target": "A005586",
+      "requested_index": 37,
+      "inputs": [
+        "A005581"
+      ],
+      "index_maps": {
+        "A005581": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A005581",
+          39
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 39,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "9efcd0343493d807b77c5cdf922f0875fc024f1e9da9626ee69ccbb8308e03d2",
+      "output_sha256": "f8a7ecdfa85fd8bada5c279a312e2901ad16da8da80fa4926edfc86769801758",
+      "replay_term_hashes": [
+        "8edb5e4cf929496c6fe37311ac0e1d3e418199c6ffd2207f3aa2d91af0458939",
+        "f8a7ecdfa85fd8bada5c279a312e2901ad16da8da80fa4926edfc86769801758"
+      ]
+    },
+    {
+      "target": "A006002",
+      "requested_index": 37,
+      "inputs": [
+        "A045991"
+      ],
+      "index_maps": {
+        "A045991": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A045991",
+          38
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "bf5177715fb5f5812d57e966d8ca169dc8cd802f32bdd47f4d38768952aea91e",
+      "output_sha256": "0d49ab179a6b77b96d5d0487b3a60e2b94b7c1e140edeeb40c79ac8f16d0070d",
+      "replay_term_hashes": [
+        "9956613c1d47f6f5869ec63f1d8dd25105fbc43590095bdd5d4dd157dd0cf611",
+        "0d49ab179a6b77b96d5d0487b3a60e2b94b7c1e140edeeb40c79ac8f16d0070d"
+      ]
+    },
+    {
+      "target": "A006043",
+      "requested_index": 23,
+      "inputs": [
+        "A000217",
+        "A000244"
+      ],
+      "index_maps": {
+        "A000217": [
+          [
+            1,
+            1
+          ]
+        ],
+        "A000244": [
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000217",
+          24
+        ],
+        [
+          "A000244",
+          23
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 24,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "04b5121964cb21b64ce2b76414a7316cc4274d232f8156e0c47233ec0b6ce0b3",
+      "output_sha256": "8b026a89b95152c9b1f7027a79236f6dc9662117c0d63b7bf2f953964d2b3b7a",
+      "replay_term_hashes": [
+        "983bd614bb5afece5ab3b6023f71147cd7b6bc2314f9d27af7422541c6558389",
+        "43ef47dda4d4117803bac21e39cc610253ec05981f8590a977fc79f7db038caf",
+        "8b026a89b95152c9b1f7027a79236f6dc9662117c0d63b7bf2f953964d2b3b7a"
+      ]
+    },
+    {
+      "target": "A006322",
+      "requested_index": 23,
+      "inputs": [
+        "A000332",
+        "A000537"
+      ],
+      "index_maps": {
+        "A000332": [
+          [
+            1,
+            3
+          ]
+        ],
+        "A000537": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000332",
+          26
+        ],
+        [
+          "A000537",
+          24
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 26,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "2a006f27695ba1515cd59dd491e27ef8af37d7637afcd07f159c08f35bb8434e",
+      "output_sha256": "66d4724eaa4250c7415e54eaa019ab10966fc813337573035e370e2298489923",
+      "replay_term_hashes": [
+        "4bd6fb30bbbaba340fb0267845a29e13ac60300746152fb9ce3fc7434586e207",
+        "ac911e4a8f2b48c071ce0fbb434c039c48e60e8d96dff768f69daa740af0c3bb",
+        "66d4724eaa4250c7415e54eaa019ab10966fc813337573035e370e2298489923"
+      ]
+    },
+    {
+      "target": "A006331",
+      "requested_index": 37,
+      "inputs": [
+        "A000332"
+      ],
+      "index_maps": {
+        "A000332": [
+          [
+            1,
+            3
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000332",
+          38
+        ],
+        [
+          "A000332",
+          40
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 40,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "2e092d1e584463bd0a81a10cfc3e6064c72838a157739173ecc3a8ed54213b3a",
+      "output_sha256": "25436b6135a1a579a1a60871f06310227285c674b8255325b9bf2d880e7a58c0",
+      "replay_term_hashes": [
+        "8caed0fc2d83a5d74e9bb19c0b115c531180652b86dceab955958125df482d77",
+        "751f2b84844a3da6bc3d1688d2fb7a23ae6e8774673ea26904fec1b500e2977e",
+        "25436b6135a1a579a1a60871f06310227285c674b8255325b9bf2d880e7a58c0"
+      ]
+    },
+    {
+      "target": "A006542",
+      "requested_index": 23,
+      "inputs": [
+        "A000332",
+        "A000579"
+      ],
+      "index_maps": {
+        "A000332": [
+          [
+            1,
+            4
+          ]
+        ],
+        "A000579": [
+          [
+            1,
+            5
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000332",
+          27
+        ],
+        [
+          "A000579",
+          28
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 28,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "fe5510e8c8f58dd1410d4c428e255fa49a92e88c7b8e4339a8f7c8a459e57fa2",
+      "output_sha256": "eaadcdf6f1cb75abeb998911051885db151b411bb18d59fed843516ecfdeead8",
+      "replay_term_hashes": [
+        "af3a9eb3274daf4ba197ecc9824a63e13de9dcac75e87300803053c25f6464b6",
+        "edd18aab0a2a0767c8bbebcdb2b07ed145078a6aceef4dc83e5180a2c5e9a07a",
+        "eaadcdf6f1cb75abeb998911051885db151b411bb18d59fed843516ecfdeead8"
+      ]
+    },
+    {
+      "target": "A006564",
+      "requested_index": 23,
+      "inputs": [
+        "A006566",
+        "A035006"
+      ],
+      "index_maps": {
+        "A006566": [
+          [
+            1,
+            1
+          ]
+        ],
+        "A035006": [
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A006566",
+          24
+        ],
+        [
+          "A035006",
+          23
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 24,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "fbcff5cff6fe2246de00efcf2c0f2b69737e893f05b11749f35ac975de9f4809",
+      "output_sha256": "5fc24a583bcebce5c1c7edf42efd645a164849d85b38a7d2e556b20a2b81d4dc",
+      "replay_term_hashes": [
+        "e79a32cad903b5fec9f0b975460911aca70d307cf9d9d92d2b63703125186551",
+        "e340223a13e51e62432a216bff5ac274cb4cd3f6d00faaf88ab531eb4c57d957",
+        "5fc24a583bcebce5c1c7edf42efd645a164849d85b38a7d2e556b20a2b81d4dc"
+      ]
+    },
+    {
+      "target": "A007283",
+      "requested_index": 37,
+      "inputs": [
+        "A000079"
+      ],
+      "index_maps": {
+        "A000079": [
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000079",
+          37
+        ],
+        [
+          "A000079",
+          38
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "6194a3f69f8ca67b121f672b9dffc97fa3400a106f8c55babd327adafb6ba0ad",
+      "output_sha256": "69d09dd9c4c4b8480f8b1d50f083d2c462dbf57dc845dc9eb019b674b07feb37",
+      "replay_term_hashes": [
+        "9f74e6443b603cfd68ce0c4b8d5f762688a06ed15aaa87fd70df78aba68ce623",
+        "5b2a98cb53474bfd990a4f9cad5f6a34d8e0f2a6c81956352e2edaf551658264",
+        "69d09dd9c4c4b8480f8b1d50f083d2c462dbf57dc845dc9eb019b674b07feb37"
+      ]
+    },
+    {
+      "target": "A008498",
+      "requested_index": 37,
+      "inputs": [
+        "A006522"
+      ],
+      "index_maps": {
+        "A006522": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A006522",
+          39
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 39,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "e938fa962f54c50ac84e37530265bd25c3e8e252683d019ced1e9cd36050cadb",
+      "output_sha256": "9360110b541dc1a1afcdf897f4d209e159d47202b2c9a1e6414357e1ffc1395c",
+      "replay_term_hashes": [
+        "2285739b6036f35ad380408212098ff1b813621bb644eee97801d9b9c7855293",
+        "9360110b541dc1a1afcdf897f4d209e159d47202b2c9a1e6414357e1ffc1395c"
+      ]
+    },
+    {
+      "target": "A008514",
+      "requested_index": 37,
+      "inputs": [
+        "A002061"
+      ],
+      "index_maps": {
+        "A002061": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A002061",
+          38
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "5fa0156fc3061cb1904dc10d16ff012c68d8574835ae5e3b4ce23f23ea7bd652",
+      "output_sha256": "67ecbb8f564030c37a0e17e215a88e083c83d5fc14da724121d1f98e17ad4da7",
+      "replay_term_hashes": [
+        "a3346b8b4c26feb607f8a40699c934ef426dee5ceebf51f9f7209aa79c08a0da",
+        "67ecbb8f564030c37a0e17e215a88e083c83d5fc14da724121d1f98e17ad4da7"
+      ]
+    },
+    {
+      "target": "A016269",
+      "requested_index": 23,
+      "inputs": [
+        "A001047",
+        "A006516"
+      ],
+      "index_maps": {
+        "A001047": [
+          [
+            1,
+            2
+          ]
+        ],
+        "A006516": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A001047",
+          25
+        ],
+        [
+          "A006516",
+          25
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 25,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "375b52c29def33478f451f9d355f2f21038d966b1310b2a23e35f7bc4c1001c4",
+      "output_sha256": "6021b1f8996a27bd786409d31178a618d035bfb5c330c1b01ea53eca5ede9338",
+      "replay_term_hashes": [
+        "7bc2d53f0c4e27dfd2b821281655ad85c319d1f9ecbac09bc6585e57f19406bd",
+        "72903e0abee85c5a734a88c93a44a06b67aed700b6c98ee3d15d29b883275c20",
+        "6021b1f8996a27bd786409d31178a618d035bfb5c330c1b01ea53eca5ede9338"
+      ]
+    },
+    {
+      "target": "A016754",
+      "requested_index": 23,
+      "inputs": [
+        "A000384",
+        "A014105"
+      ],
+      "index_maps": {
+        "A000384": [
+          [
+            1,
+            1
+          ]
+        ],
+        "A014105": [
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000384",
+          24
+        ],
+        [
+          "A014105",
+          23
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 24,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "f9b0c46a861c47d966396181e9ae338dcf6c54e6d41c067353079cef91e03f2b",
+      "output_sha256": "9e4067ac93c6febda554d724d453d78bf3e28a7742cdec57ee47c5c706fbe940",
+      "replay_term_hashes": [
+        "94c47d91f1bebd7b85fb5b4210cb24a8125beaf843e6e4a7a80698817c79ae64",
+        "e18037f42fd038fa9b51c6234fa4f332fa681c14653c9852fdf9a0a501bbac24",
+        "9e4067ac93c6febda554d724d453d78bf3e28a7742cdec57ee47c5c706fbe940"
+      ]
+    },
+    {
+      "target": "A016789",
+      "requested_index": 37,
+      "inputs": [
+        "A005449"
+      ],
+      "index_maps": {
+        "A005449": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A005449",
+          37
+        ],
+        [
+          "A005449",
+          38
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "0f27a1ba3971861b5e4761e0c74a7be71cc122298778007e730b8938bcaf9a04",
+      "output_sha256": "6c658ee83fb7e812482494f3e416a876f63f418a0b8a1f5e76d47ee4177035cb",
+      "replay_term_hashes": [
+        "5fc81d2cb64968db6cae7122a7f003afa088268a703db44297e4ccf63848b023",
+        "33743b03c28fc783b01119d8b8c6b2564108318d465a2fb4ff319010c4aa6493",
+        "6c658ee83fb7e812482494f3e416a876f63f418a0b8a1f5e76d47ee4177035cb"
+      ]
+    },
+    {
+      "target": "A016813",
+      "requested_index": 37,
+      "inputs": [
+        "A005408"
+      ],
+      "index_maps": {
+        "A005408": [
+          [
+            2,
+            0
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A005408",
+          74
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 74,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "d3a53a73db0861d71a20f6b802167879f05e2e6368a76029e4c9c8d3b4b761f8",
+      "output_sha256": "05ada863a4cf9660fd8c68e2295f1d35b2264815f5b605003d6625bd9e0492cf",
+      "replay_term_hashes": [
+        "05ada863a4cf9660fd8c68e2295f1d35b2264815f5b605003d6625bd9e0492cf",
+        "05ada863a4cf9660fd8c68e2295f1d35b2264815f5b605003d6625bd9e0492cf"
+      ]
+    },
+    {
+      "target": "A016970",
+      "requested_index": 37,
+      "inputs": [
+        "A033579"
+      ],
+      "index_maps": {
+        "A033579": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A033579",
+          38
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "3d550ed2b93d607abd58fbe8eee134adb267cf2b21f6c358c26c4484d21f86de",
+      "output_sha256": "228845f3b9f1d30569d643532483130a92ab9621185707b2e2e1e838dba80686",
+      "replay_term_hashes": [
+        "4e14f5a91eda2b2875eacbf3a7a973e71c9d29da2b4a50b009261fe2520f395f",
+        "228845f3b9f1d30569d643532483130a92ab9621185707b2e2e1e838dba80686"
+      ]
+    },
+    {
+      "target": "A016970",
+      "requested_index": 37,
+      "inputs": [
+        "A000326"
+      ],
+      "index_maps": {
+        "A000326": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000326",
+          38
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "74a08ec5e34b6d82ec144842846e47eb2fa14e579f2407f464a2ebd796491b3a",
+      "output_sha256": "228845f3b9f1d30569d643532483130a92ab9621185707b2e2e1e838dba80686",
+      "replay_term_hashes": [
+        "8ea8eb612f9362da9d2b8ae0a65daa6410c9c952a4944933a8ad17aee8f86939",
+        "228845f3b9f1d30569d643532483130a92ab9621185707b2e2e1e838dba80686"
+      ]
+    },
+    {
+      "target": "A017173",
+      "requested_index": 37,
+      "inputs": [
+        "A016777"
+      ],
+      "index_maps": {
+        "A016777": [
+          [
+            3,
+            0
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A016777",
+          111
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 111,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "f7074b8a683b98b6b0fd8c7c0cc51a43666ffaed4203639929374097c0bcce80",
+      "output_sha256": "058d5d43bf485bf78dda1ed4eaf8b78e3106f3c6364c625ead2cc3aeb1908237",
+      "replay_term_hashes": [
+        "058d5d43bf485bf78dda1ed4eaf8b78e3106f3c6364c625ead2cc3aeb1908237",
+        "058d5d43bf485bf78dda1ed4eaf8b78e3106f3c6364c625ead2cc3aeb1908237"
+      ]
+    },
+    {
+      "target": "A017305",
+      "requested_index": 37,
+      "inputs": [
+        "A016885"
+      ],
+      "index_maps": {
+        "A016885": [
+          [
+            2,
+            0
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A016885",
+          74
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 74,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "7a99276a29a346aa2f8e09d9ebb9419940083a0acf97374011d15eafbfabc06b",
+      "output_sha256": "e52d08747b9d7a6d04551bb86ee3f7ee6c49f7477c8cd66f77448378cc30b92b",
+      "replay_term_hashes": [
+        "e52d08747b9d7a6d04551bb86ee3f7ee6c49f7477c8cd66f77448378cc30b92b",
+        "e52d08747b9d7a6d04551bb86ee3f7ee6c49f7477c8cd66f77448378cc30b92b"
+      ]
+    },
+    {
+      "target": "A017341",
+      "requested_index": 37,
+      "inputs": [
+        "A016861"
+      ],
+      "index_maps": {
+        "A016861": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A016861",
+          37
+        ],
+        [
+          "A016861",
+          38
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "15faf261e34216d8ec5863c0691935f9319b35199b911b97bbbe2f4a7ff9190f",
+      "output_sha256": "12e2c8df501501b2bb531e941a737ffa7a2a491e849c5c5841e3b6132291bc35",
+      "replay_term_hashes": [
+        "2811745d7b8d8874f6e653d176cefdd19e05e920ce389b9b7e83e5b2dfa546c7",
+        "70260742c2952154c84e2ea9f68b1a7397f49b6d343da1ed284093c0bd72c742",
+        "12e2c8df501501b2bb531e941a737ffa7a2a491e849c5c5841e3b6132291bc35"
+      ]
+    },
+    {
+      "target": "A017509",
+      "requested_index": 23,
+      "inputs": [
+        "A005408",
+        "A008591"
+      ],
+      "index_maps": {
+        "A005408": [
+          [
+            1,
+            0
+          ]
+        ],
+        "A008591": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A005408",
+          23
+        ],
+        [
+          "A008591",
+          24
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 24,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "9d8183e96443d9b2e84e5055ebff0c2c459fee9d3a328aae99b16f4993394f30",
+      "output_sha256": "4be84111a613654b362415e563cb7607df7b203b5d303802a8a546061bbc7847",
+      "replay_term_hashes": [
+        "31489056e0916d59fe3add79e63f095af3ffb81604691f21cad442a85c7be617",
+        "0f4121d0ef1df4c86854c7ebb47ae1c93de8aec8f944035eeaa6495dd71a0678",
+        "4be84111a613654b362415e563cb7607df7b203b5d303802a8a546061bbc7847"
+      ]
+    },
+    {
+      "target": "A017605",
+      "requested_index": 37,
+      "inputs": [
+        "A016921"
+      ],
+      "index_maps": {
+        "A016921": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A016921",
+          37
+        ],
+        [
+          "A016921",
+          38
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "fcf7889822ce9c6043231c577ccedc8d14b861200ae5dfad6e26751142d0c91e",
+      "output_sha256": "caa1aedb2a6ce96b39b9fde1a49e1ebcb431b6da4586da0aef56df9b78221d60",
+      "replay_term_hashes": [
+        "56f4da26ed956730309fa1488611ee0f13b0ac95ebb1bc9b5d210e31ff70e79c",
+        "08490295488a1189099751ebeddb5992313dd2a831e07a92e66d196ddc261777",
+        "caa1aedb2a6ce96b39b9fde1a49e1ebcb431b6da4586da0aef56df9b78221d60"
+      ]
+    },
+    {
+      "target": "A020989",
+      "requested_index": 37,
+      "inputs": [
+        "A002450"
+      ],
+      "index_maps": {
+        "A002450": [
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A002450",
+          37
+        ],
+        [
+          "A002450",
+          38
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "9f81afdfbb9fd5ba59b229ef94527be79482b84d17815d6eccd4f2f3006e8dab",
+      "output_sha256": "851a2cdcc0d6f8c078d1ed6a26ae112630ed5b80bcc36edfe020b22c7d817868",
+      "replay_term_hashes": [
+        "c2f7cb7df8d043213a178a46de88351e3f724b7e05eb4f03625080a8fafe58f2",
+        "070ecc08273ea1e65f6b6f7fa4dda9327717d4ee9d11e4b12912ab194343e129",
+        "851a2cdcc0d6f8c078d1ed6a26ae112630ed5b80bcc36edfe020b22c7d817868"
+      ]
+    },
+    {
+      "target": "A024197",
+      "requested_index": 23,
+      "inputs": [
+        "A004320",
+        "A028387"
+      ],
+      "index_maps": {
+        "A004320": [
+          [
+            1,
+            1
+          ]
+        ],
+        "A028387": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A004320",
+          24
+        ],
+        [
+          "A028387",
+          24
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 24,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "f3f2e3bb3095c24ea6ad6a919617e0f90ea1fd29dde2e90994f1c55e0cedfc95",
+      "output_sha256": "c9ce6dca2d8096870e3355ded5c68eab9257b4aea8d7ebe948cf87d04a1129d3",
+      "replay_term_hashes": [
+        "d356d0368e700d909e64cd5db2b251d3710067676073326645a07d75ae0ada5f",
+        "5480ab857f30bc9abdc0d88179b66cb30b6a294029f8bed71e3b606a19941359",
+        "c9ce6dca2d8096870e3355ded5c68eab9257b4aea8d7ebe948cf87d04a1129d3"
+      ]
+    },
+    {
+      "target": "A027482",
+      "requested_index": 37,
+      "inputs": [
+        "A058895"
+      ],
+      "index_maps": {
+        "A058895": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A058895",
+          39
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 39,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "7ab30957fa1ccdc7eab7dd05ff37e3c252e5f7a67326f2256e06763643d34b32",
+      "output_sha256": "1b456fc0596722e088faca71a90f6671fb516ad9c70b8158ed05dfe1611586a2",
+      "replay_term_hashes": [
+        "4fb00b07bdb892047e90d4986249725692b3258a90c18166d85ba01576bda0ef",
+        "1b456fc0596722e088faca71a90f6671fb516ad9c70b8158ed05dfe1611586a2"
+      ]
+    },
+    {
+      "target": "A027540",
+      "requested_index": 37,
+      "inputs": [
+        "A000295"
+      ],
+      "index_maps": {
+        "A000295": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000295",
+          39
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 39,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "385fa3bbdf003d4cd5be89b0d3528061cfd8c2626dfcfdced515ad963f2f81d3",
+      "output_sha256": "685b8bdfb359e87ff4d1e4264f38e0f3d73e64f893fe5f69f7562380545b9ec4",
+      "replay_term_hashes": [
+        "25e7ca69e3741b415ae878ca3a3b64620f54be8b1a0a00a09307e8607e5df7ce",
+        "685b8bdfb359e87ff4d1e4264f38e0f3d73e64f893fe5f69f7562380545b9ec4"
+      ]
+    },
+    {
+      "target": "A027578",
+      "requested_index": 37,
+      "inputs": [
+        "A059100"
+      ],
+      "index_maps": {
+        "A059100": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A059100",
+          39
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 39,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "60b1e34320d9664774e9e2e752204125ee47308f4959c4ccc0c804ea2c89892f",
+      "output_sha256": "00fcb2d718c2116664250ce295b3d7d73ed9285609d6fef71233da70f637bd65",
+      "replay_term_hashes": [
+        "311ba2ed6a5b4105fbfdb0a8b745d22fe1b3ecc0efff5c6b9f7ce12351533558",
+        "00fcb2d718c2116664250ce295b3d7d73ed9285609d6fef71233da70f637bd65"
+      ]
+    },
+    {
+      "target": "A027602",
+      "requested_index": 37,
+      "inputs": [
+        "A006527"
+      ],
+      "index_maps": {
+        "A006527": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A006527",
+          38
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "58b50d4297aef04a3ebe0cfc904eeb2953a301ab09d03848bbc11414902a5db0",
+      "output_sha256": "069503a835c6474f13b39185a96cf96f13fdf013df9846ff944d15110bdd1cbf",
+      "replay_term_hashes": [
+        "78d57d7216347df0cf248be99f955a455e58a61b3c14cc1a7f75505e59915c0d",
+        "069503a835c6474f13b39185a96cf96f13fdf013df9846ff944d15110bdd1cbf"
+      ]
+    },
+    {
+      "target": "A027602",
+      "requested_index": 23,
+      "inputs": [
+        "A008585",
+        "A059100"
+      ],
+      "index_maps": {
+        "A008585": [
+          [
+            1,
+            1
+          ]
+        ],
+        "A059100": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A008585",
+          24
+        ],
+        [
+          "A059100",
+          24
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 24,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "b6803b279e35f828689cb425d54f54c5f1887f7ac1f8aab675cefb1a4040dedd",
+      "output_sha256": "1d7e33bfe0fdde97367b6ae7759364c92c1592b1d27187079bee63a511b15955",
+      "replay_term_hashes": [
+        "8722616204217eddb39e7df969e0698aed8e599ba62ed2de1ce49b03ade0fede",
+        "b2cc86ae48fd3b8775335b586b3549e53af3d749f07748a7343f893522ae63ea",
+        "1d7e33bfe0fdde97367b6ae7759364c92c1592b1d27187079bee63a511b15955"
+      ]
+    },
+    {
+      "target": "A027800",
+      "requested_index": 37,
+      "inputs": [
+        "A000332"
+      ],
+      "index_maps": {
+        "A000332": [
+          [
+            1,
+            4
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000332",
+          41
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 41,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "cef12982f88d3050738c51b33641560279165e9fb92d6c363ed09e20dec65a94",
+      "output_sha256": "89bb9b9613c644435a2c38351dc7c2a55433de3f961c47e44063de0f5d86b79d",
+      "replay_term_hashes": [
+        "128c82f243af65561cdd08cecf7fe3c62d601db575adc20caa098e09c513d56a",
+        "89bb9b9613c644435a2c38351dc7c2a55433de3f961c47e44063de0f5d86b79d"
+      ]
+    },
+    {
+      "target": "A027903",
+      "requested_index": 23,
+      "inputs": [
+        "A001477",
+        "A049451"
+      ],
+      "index_maps": {
+        "A001477": [
+          [
+            1,
+            1
+          ]
+        ],
+        "A049451": [
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A001477",
+          24
+        ],
+        [
+          "A049451",
+          23
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 24,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "cfbb42e96e84783be2d38988ba23fd828e35b6c0bdf48c027a1cb655b4399c85",
+      "output_sha256": "a6cae4034ce87976d8874047106de744a23df13d15fee1d91ababd328a48504b",
+      "replay_term_hashes": [
+        "c2356069e9d1e79ca924378153cfbbfb4d4416b1f99d41a2940bfdb66c5319db",
+        "31d8edb99534fd4800651db4d241d86e0380fa7376718b88590c2d772b41d5f4",
+        "a6cae4034ce87976d8874047106de744a23df13d15fee1d91ababd328a48504b"
+      ]
+    },
+    {
+      "target": "A027903",
+      "requested_index": 23,
+      "inputs": [
+        "A001477",
+        "A016777"
+      ],
+      "index_maps": {
+        "A001477": [
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "A016777": [
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A001477",
+          23
+        ],
+        [
+          "A001477",
+          24
+        ],
+        [
+          "A016777",
+          23
+        ]
+      ],
+      "computed_term_count": 4,
+      "full_source_prefix_horizon": 24,
+      "exact_match": true,
+      "cost_score": 20,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "efd3853c8db437c0a46db0f734965d5ff6888781e44712d0b6f0630962741f8e",
+      "output_sha256": "a6cae4034ce87976d8874047106de744a23df13d15fee1d91ababd328a48504b",
+      "replay_term_hashes": [
+        "535fa30d7e25dd8a49f1536779734ec8286108d115da5045d77f3b4185d8f790",
+        "c2356069e9d1e79ca924378153cfbbfb4d4416b1f99d41a2940bfdb66c5319db",
+        "ff5a1ae012afa5d4c889c50ad427aaf545d31a4fac04ffc1c4d03d403ba4250a",
+        "a6cae4034ce87976d8874047106de744a23df13d15fee1d91ababd328a48504b"
+      ]
+    },
+    {
+      "target": "A028872",
+      "requested_index": 37,
+      "inputs": [
+        "A000290"
+      ],
+      "index_maps": {
+        "A000290": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000290",
+          39
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 39,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "895959c2fc218130506ec3836d858050c3781204229cb9259acaa3b27d3645da",
+      "output_sha256": "1eb3da012cf952c58269bd949984611b7884583f20bac1322719580757161e98",
+      "replay_term_hashes": [
+        "9674b1f53ad3b01c8b4eeab981da48a47549f11f6ae31acc27099325c6beae32",
+        "1eb3da012cf952c58269bd949984611b7884583f20bac1322719580757161e98"
+      ]
+    },
+    {
+      "target": "A028878",
+      "requested_index": 37,
+      "inputs": [
+        "A000290"
+      ],
+      "index_maps": {
+        "A000290": [
+          [
+            1,
+            3
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000290",
+          40
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 40,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "4216ea6a130abd96b21facdc578945ef4863904a250d271cdf017e4cf8fe3cfc",
+      "output_sha256": "8698616a6419549cd9c035d5e250c81c6cefff11ff31c9602bf2ff5aa3e06b7f",
+      "replay_term_hashes": [
+        "b458944d9ec4322f9ff0de2885ce82d580341fcf0fd688422e9929b6e7ce3b2d",
+        "8698616a6419549cd9c035d5e250c81c6cefff11ff31c9602bf2ff5aa3e06b7f"
+      ]
+    },
+    {
+      "target": "A033547",
+      "requested_index": 37,
+      "inputs": [
+        "A046127"
+      ],
+      "index_maps": {
+        "A046127": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A046127",
+          38
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "c83dc68102b5faf9e0224b1c20aa27018c88448b04f976003fcc434cd9be8099",
+      "output_sha256": "0ee05bd8dcfbd0e3037bd894f8ece659eaa3e731b503fb99bc41bc8bc9bb3cb3",
+      "replay_term_hashes": [
+        "0f20d3c064e45a37462fe8df25cdaa03a2330e8917559ccf329bda475dc19989",
+        "0ee05bd8dcfbd0e3037bd894f8ece659eaa3e731b503fb99bc41bc8bc9bb3cb3"
+      ]
+    },
+    {
+      "target": "A033996",
+      "requested_index": 37,
+      "inputs": [
+        "A056220"
+      ],
+      "index_maps": {
+        "A056220": [
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A056220",
+          37
+        ],
+        [
+          "A056220",
+          38
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "5186bf02d9acc970702d85f09dcf42811f1f33dd02a9dc0ea413c1ea6f0eb706",
+      "output_sha256": "297ffbe239f4c696484aea660cf99955ce3632bbb3bcc40ca2e42bd28286b48f",
+      "replay_term_hashes": [
+        "aa32dcc196cd2d7ce409f55870f12d82ce96f50bc6583b77c10c5a5949ebd34e",
+        "f8c66e2fcefd475704ce0e253f5b5bdac34dcd28fb1de66838c8e67e9227e62b",
+        "297ffbe239f4c696484aea660cf99955ce3632bbb3bcc40ca2e42bd28286b48f"
+      ]
+    },
+    {
+      "target": "A034856",
+      "requested_index": 37,
+      "inputs": [
+        "A000217"
+      ],
+      "index_maps": {
+        "A000217": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000217",
+          39
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 39,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "b64b6176802cd94a0d0411ed2947e67b07f2d6431ad6c8a68d0ecb5531bf4e33",
+      "output_sha256": "93411f44e228b5004bdec50f32b6c646819eebd09ba3fa26511502b23781a617",
+      "replay_term_hashes": [
+        "0e78437805639c14d6413de94c031fd1babdb561b7728d31ae06bfc5ff1766d4",
+        "93411f44e228b5004bdec50f32b6c646819eebd09ba3fa26511502b23781a617"
+      ]
+    },
+    {
+      "target": "A035006",
+      "requested_index": 23,
+      "inputs": [
+        "A006564",
+        "A006566"
+      ],
+      "index_maps": {
+        "A006564": [
+          [
+            1,
+            0
+          ]
+        ],
+        "A006566": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A006564",
+          23
+        ],
+        [
+          "A006566",
+          24
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 24,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "36784d6b5bc916dcb207e7a0a3f65221b15647a476e6f5cdc71e7be5f167a2b4",
+      "output_sha256": "e340223a13e51e62432a216bff5ac274cb4cd3f6d00faaf88ab531eb4c57d957",
+      "replay_term_hashes": [
+        "5fc24a583bcebce5c1c7edf42efd645a164849d85b38a7d2e556b20a2b81d4dc",
+        "e79a32cad903b5fec9f0b975460911aca70d307cf9d9d92d2b63703125186551",
+        "e340223a13e51e62432a216bff5ac274cb4cd3f6d00faaf88ab531eb4c57d957"
+      ]
+    },
+    {
+      "target": "A035287",
+      "requested_index": 37,
+      "inputs": [
+        "A000290"
+      ],
+      "index_maps": {
+        "A000290": [
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000290",
+          37
+        ],
+        [
+          "A000290",
+          38
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "e3bb2b31c5d03010c520b4a0d060ec39c67a8d28a03d2a47c181a036c2499643",
+      "output_sha256": "1dbf5e5a855de4c6578d11b4a293feb958cd6efaafea5980c7420edc84352304",
+      "replay_term_hashes": [
+        "eed5fe88eedf687582e394a4afc70a7b8c6afbf20072c1a1d4a935ef5ef94640",
+        "2315bd64e75a346541681575e5b227059bc726907f5a5b893505b648a3062e77",
+        "1dbf5e5a855de4c6578d11b4a293feb958cd6efaafea5980c7420edc84352304"
+      ]
+    },
+    {
+      "target": "A039623",
+      "requested_index": 37,
+      "inputs": [
+        "A000217"
+      ],
+      "index_maps": {
+        "A000217": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000217",
+          37
+        ],
+        [
+          "A000217",
+          38
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "3b31e31fdbdca9489db5b21eafaaa3ad411f20cb17d494567c5c840d59f0cd97",
+      "output_sha256": "cdd87de8a4e7234ca7a56228cc55f94dd7cfc2e8b3986560c2d971131f62dde1",
+      "replay_term_hashes": [
+        "769e881d85fc5d27cb4cbc8382200d95b179cfdeb56e0b439da737069eaf8a5a",
+        "75f7313c20144e39edcf57a14733d074aee0c482320d5178ee0ef2f2608c2996",
+        "cdd87de8a4e7234ca7a56228cc55f94dd7cfc2e8b3986560c2d971131f62dde1"
+      ]
+    },
+    {
+      "target": "A040977",
+      "requested_index": 37,
+      "inputs": [
+        "A000579"
+      ],
+      "index_maps": {
+        "A000579": [
+          [
+            1,
+            5
+          ],
+          [
+            1,
+            6
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000579",
+          42
+        ],
+        [
+          "A000579",
+          43
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 43,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "18e09ba6dfc9529366ccef80d83216588684eb82b4c119877cb5128047c94b6e",
+      "output_sha256": "bff5d0f6e5144bf9c05f68d312e04c499e67b9fb4e4139ff472289e3593fc67c",
+      "replay_term_hashes": [
+        "f60179428e585f2612a66f100ce17bd8b4bb059e79c48258448cd4d9f942290e",
+        "ff2befa1b9f1c3ab7fdff9f380a4a3f8ddf9213f54fd86eecf8ffafd8cbe4371",
+        "bff5d0f6e5144bf9c05f68d312e04c499e67b9fb4e4139ff472289e3593fc67c"
+      ]
+    },
+    {
+      "target": "A046691",
+      "requested_index": 37,
+      "inputs": [
+        "A000217"
+      ],
+      "index_maps": {
+        "A000217": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000217",
+          39
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 39,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "83f7f96727b7b586726a2520bac7ff87bbfb0fa2e0716e278742f8f34fdeb8d0",
+      "output_sha256": "3daebbc6dfd81355f1cc9d9565ab4a4a53bda47f6117529409acc7acb55556bb",
+      "replay_term_hashes": [
+        "0e78437805639c14d6413de94c031fd1babdb561b7728d31ae06bfc5ff1766d4",
+        "3daebbc6dfd81355f1cc9d9565ab4a4a53bda47f6117529409acc7acb55556bb"
+      ]
+    },
+    {
+      "target": "A047732",
+      "requested_index": 37,
+      "inputs": [
+        "A000330"
+      ],
+      "index_maps": {
+        "A000330": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000330",
+          38
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "16662187c6e17702db65aaff196b1bc5782494a3bad5e1ec0c4d64a73db76d1f",
+      "output_sha256": "3a7deadb6be0019a047125695c69be3b267b9b6fdf94e09af567f4279ec9939a",
+      "replay_term_hashes": [
+        "a661bcd4600c8ac840e1863415b22a50f117d02a0bd4a2916d7f4c48727d9af2",
+        "3a7deadb6be0019a047125695c69be3b267b9b6fdf94e09af567f4279ec9939a"
+      ]
+    },
+    {
+      "target": "A047732",
+      "requested_index": 37,
+      "inputs": [
+        "A051925"
+      ],
+      "index_maps": {
+        "A051925": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A051925",
+          38
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "c965effcf83e702b9abc761210fa4fe929e2d4dda780fc2ead7894bc2610cfd8",
+      "output_sha256": "3a7deadb6be0019a047125695c69be3b267b9b6fdf94e09af567f4279ec9939a",
+      "replay_term_hashes": [
+        "1db3b695caf6c573769c254ab46c24002688afa622bf5591ba9c11a018f76e4f",
+        "3a7deadb6be0019a047125695c69be3b267b9b6fdf94e09af567f4279ec9939a"
+      ]
+    },
+    {
+      "target": "A048488",
+      "requested_index": 37,
+      "inputs": [
+        "A000225"
+      ],
+      "index_maps": {
+        "A000225": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000225",
+          37
+        ],
+        [
+          "A000225",
+          38
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "1e5ccb6f553c1b7c102d72e56758e43b0d2bfba09477d50612adce46e2747297",
+      "output_sha256": "c9b25548e0aea9d2ad8cb4503cfc2bff2d3ea07212a5385ee7d439c4542b0618",
+      "replay_term_hashes": [
+        "bbc335c582a13b8c23392cd2ae26c7a02c13bd27f918f6e0606c83e2f4d2bf17",
+        "b42db783fef81b0b5b2c6498a08daf1767aa1d69aac6592f2d9f70bf6b267e14",
+        "c9b25548e0aea9d2ad8cb4503cfc2bff2d3ea07212a5385ee7d439c4542b0618"
+      ]
+    },
+    {
+      "target": "A049451",
+      "requested_index": 23,
+      "inputs": [
+        "A002061",
+        "A056220"
+      ],
+      "index_maps": {
+        "A002061": [
+          [
+            1,
+            1
+          ]
+        ],
+        "A056220": [
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A002061",
+          24
+        ],
+        [
+          "A056220",
+          23
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 24,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "bd707182a3a3757c7ae944e40553d9459d7079e52ef8ed0a607798a011fa5341",
+      "output_sha256": "31d8edb99534fd4800651db4d241d86e0380fa7376718b88590c2d772b41d5f4",
+      "replay_term_hashes": [
+        "d40fbd13d527595c47eacbf0d7c87d256139d9d45261c25c2840d30a4756495b",
+        "b910260d6ccd1fedb9919e9974c4b1eacf7ff1e3a4643c05cf423de2f221c06a",
+        "31d8edb99534fd4800651db4d241d86e0380fa7376718b88590c2d772b41d5f4"
+      ]
+    },
+    {
+      "target": "A051662",
+      "requested_index": 23,
+      "inputs": [
+        "A000330",
+        "A000578"
+      ],
+      "index_maps": {
+        "A000330": [
+          [
+            1,
+            0
+          ]
+        ],
+        "A000578": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000330",
+          23
+        ],
+        [
+          "A000578",
+          24
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 24,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "880b77d07149826f37a842b54873895769f6f33ac643e6349e758ded0f3ad002",
+      "output_sha256": "923bdafb4c15991ac558a925be7150ad179136936889fe43649c159043053c0a",
+      "replay_term_hashes": [
+        "34847964b077f2b990d462d3c92caf3d6522012582e8f5ca03669204447bae8d",
+        "619b9764b0f5da3d20548bf11d493fb78b5a6790c625aae87e95f3dd1a15a289",
+        "923bdafb4c15991ac558a925be7150ad179136936889fe43649c159043053c0a"
+      ]
+    },
+    {
+      "target": "A051662",
+      "requested_index": 37,
+      "inputs": [
+        "A000330"
+      ],
+      "index_maps": {
+        "A000330": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000330",
+          37
+        ],
+        [
+          "A000330",
+          38
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "fc2716b208b640458ecf190970b76dde6496edccefbc06b313599ab0b1df4b30",
+      "output_sha256": "e09e4fbad69eb47402c3c4fc27d8751fd98257d35f54cf02617578446892fd42",
+      "replay_term_hashes": [
+        "fa57bd66cb6354a6d8af1e7b47b28589e586bf1303a9080652bf2cfe6b9bbab4",
+        "a661bcd4600c8ac840e1863415b22a50f117d02a0bd4a2916d7f4c48727d9af2",
+        "e09e4fbad69eb47402c3c4fc27d8751fd98257d35f54cf02617578446892fd42"
+      ]
+    },
+    {
+      "target": "A051946",
+      "requested_index": 37,
+      "inputs": [
+        "A034264"
+      ],
+      "index_maps": {
+        "A034264": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A034264",
+          38
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "de1482cf8795888faebf939c6277ea577f9c4c58678f2d20c7eeff6c6c2a8594",
+      "output_sha256": "7e15f6fd40c322e59022650f074e5068701495eaf6e636eace180c1532f50a3c",
+      "replay_term_hashes": [
+        "7e15f6fd40c322e59022650f074e5068701495eaf6e636eace180c1532f50a3c",
+        "7e15f6fd40c322e59022650f074e5068701495eaf6e636eace180c1532f50a3c"
+      ]
+    },
+    {
+      "target": "A052379",
+      "requested_index": 37,
+      "inputs": [
+        "A023001"
+      ],
+      "index_maps": {
+        "A023001": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A023001",
+          38
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "990fe2603639279b9994e67c77b83c7f4f4da7f5d5c31905ed677e396fbe75a7",
+      "output_sha256": "394b54efb3bb0a691b193d71c4fb7dba9ab9c190227871d025c40802ecae86f4",
+      "replay_term_hashes": [
+        "fe7beb1b127c3eadc741eba2d152c1486243a6abd4e9e62004af94cb9c174559",
+        "394b54efb3bb0a691b193d71c4fb7dba9ab9c190227871d025c40802ecae86f4"
+      ]
+    },
+    {
+      "target": "A054569",
+      "requested_index": 37,
+      "inputs": [
+        "A000384"
+      ],
+      "index_maps": {
+        "A000384": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000384",
+          37
+        ],
+        [
+          "A000384",
+          38
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "63288798fe26d636e3267b64c01eb4d72b57dfcbaa885527091283e26f036a06",
+      "output_sha256": "5e4e7b5040b933b5a0f0d2357ed27ebec432c749b9d63ad395f059639a880253",
+      "replay_term_hashes": [
+        "ce83293c66150ed42f52747cca6a91b85332c740cde625195b15f1abb4b90196",
+        "ada4f0b8bc65ecbaf7ad150371a2b9c288115181d0e560ab73dddbb2bfb9c1de",
+        "5e4e7b5040b933b5a0f0d2357ed27ebec432c749b9d63ad395f059639a880253"
+      ]
+    },
+    {
+      "target": "A056000",
+      "requested_index": 23,
+      "inputs": [
+        "A000217",
+        "A008585"
+      ],
+      "index_maps": {
+        "A000217": [
+          [
+            1,
+            1
+          ]
+        ],
+        "A008585": [
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000217",
+          24
+        ],
+        [
+          "A008585",
+          23
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 24,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "4cd59e4a3e76c3c86b6dfa978afb6e7cb91668bbe3cf5d7b9fc7f468a07bf9dc",
+      "output_sha256": "8e6aee9efac8086ebac545d45c63e0d0dfcddd0d77d53e45c04d05cafdd2a8a8",
+      "replay_term_hashes": [
+        "983bd614bb5afece5ab3b6023f71147cd7b6bc2314f9d27af7422541c6558389",
+        "c75cb66ae28d8ebc6eded002c28a8ba0d06d3a78c6b5cbf9b2ade051f0775ac4",
+        "8e6aee9efac8086ebac545d45c63e0d0dfcddd0d77d53e45c04d05cafdd2a8a8"
+      ]
+    },
+    {
+      "target": "A056000",
+      "requested_index": 37,
+      "inputs": [
+        "A000217"
+      ],
+      "index_maps": {
+        "A000217": [
+          [
+            1,
+            4
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000217",
+          41
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 41,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "84e4eebf2b920467014d23519e002ba6f990ca2524c6d0d196675c61f7f53cf3",
+      "output_sha256": "6ffbae9aaff664bd4739f51a6c7883a2c3ce74e9227a6aff728d0d57ad56f234",
+      "replay_term_hashes": [
+        "eb0c9cdc0862653468dacc6a876a0c40e9d642c50f798bae1162fe27f18d482c",
+        "6ffbae9aaff664bd4739f51a6c7883a2c3ce74e9227a6aff728d0d57ad56f234"
+      ]
+    },
+    {
+      "target": "A056106",
+      "requested_index": 37,
+      "inputs": [
+        "A002061"
+      ],
+      "index_maps": {
+        "A002061": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A002061",
+          37
+        ],
+        [
+          "A002061",
+          38
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "cb696a229a57113dff0d98c22ea8302adf9b735deefcc25c572343f3d7b267f1",
+      "output_sha256": "b55184dec351ac66077c7a41b0bab64e34b7619517ab46b3d93b6f4a9c981888",
+      "replay_term_hashes": [
+        "6fdd9b073bc00a5da50bbb71825e6461116845cf1fbb3c84cd22aed47a75fdc2",
+        "a3346b8b4c26feb607f8a40699c934ef426dee5ceebf51f9f7209aa79c08a0da",
+        "b55184dec351ac66077c7a41b0bab64e34b7619517ab46b3d93b6f4a9c981888"
+      ]
+    },
+    {
+      "target": "A058331",
+      "requested_index": 37,
+      "inputs": [
+        "A000384"
+      ],
+      "index_maps": {
+        "A000384": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000384",
+          38
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "cdbbc8fa4dbe39556b1b5d6f7dc20bb818d9fd105c24d2b8d7d864966c8f3143",
+      "output_sha256": "039a9883f6ec6cbb8f15a732f1da81752b9da5c18ad5de70d1243adb76c97e18",
+      "replay_term_hashes": [
+        "ada4f0b8bc65ecbaf7ad150371a2b9c288115181d0e560ab73dddbb2bfb9c1de",
+        "039a9883f6ec6cbb8f15a732f1da81752b9da5c18ad5de70d1243adb76c97e18"
+      ]
+    },
+    {
+      "target": "A059153",
+      "requested_index": 37,
+      "inputs": [
+        "A020522"
+      ],
+      "index_maps": {
+        "A020522": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A020522",
+          38
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "f91cbae0748530f0a62b6ff1c2e404dbc10174ea2bb6be2adf58df4bd5924bb4",
+      "output_sha256": "aeaeb98b3b0ef868200cde4fdcec91449e8a4805fb46305234222abd08ec3f4e",
+      "replay_term_hashes": [
+        "4046133cdd78bdaee67f1fabea8d1f58007631594bf680401ea7aa757505de87",
+        "aeaeb98b3b0ef868200cde4fdcec91449e8a4805fb46305234222abd08ec3f4e"
+      ]
+    },
+    {
+      "target": "A059270",
+      "requested_index": 23,
+      "inputs": [
+        "A000326",
+        "A000578"
+      ],
+      "index_maps": {
+        "A000326": [
+          [
+            1,
+            1
+          ]
+        ],
+        "A000578": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000326",
+          24
+        ],
+        [
+          "A000578",
+          24
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 24,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "87fe9a3dc1fef1e5fb1ecb1f9654618f0e5a501229748a875d4eb71c106eabe6",
+      "output_sha256": "2fa87a66a552805c7a8cd3c05b18ff16ea53f93e76d5df566b34df6047958d65",
+      "replay_term_hashes": [
+        "929f003731a97f915d11893c6652bbc7db0b36118eb4357cc721f7f68aeb25ff",
+        "619b9764b0f5da3d20548bf11d493fb78b5a6790c625aae87e95f3dd1a15a289",
+        "2fa87a66a552805c7a8cd3c05b18ff16ea53f93e76d5df566b34df6047958d65"
+      ]
+    },
+    {
+      "target": "A059977",
+      "requested_index": 37,
+      "inputs": [
+        "A000217"
+      ],
+      "index_maps": {
+        "A000217": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000217",
+          38
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "0df0621c4d693124ac5faa6299bfcfbd4644612a9fcfb264adae9df6ca2d0b09",
+      "output_sha256": "ede85a910b455a1d5a07dc0a25341eb70b092bfbf21620bb5230c36b05db1eeb",
+      "replay_term_hashes": [
+        "75f7313c20144e39edcf57a14733d074aee0c482320d5178ee0ef2f2608c2996",
+        "ede85a910b455a1d5a07dc0a25341eb70b092bfbf21620bb5230c36b05db1eeb"
+      ]
+    },
+    {
+      "target": "A060544",
+      "requested_index": 23,
+      "inputs": [
+        "A000567",
+        "A005449"
+      ],
+      "index_maps": {
+        "A000567": [
+          [
+            1,
+            1
+          ]
+        ],
+        "A005449": [
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000567",
+          24
+        ],
+        [
+          "A005449",
+          23
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 24,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "c60aff555abeca3278d8e693646ca62f5201e2a1c022404b2565ce77a5939080",
+      "output_sha256": "9d1ef11e7923e54aaac4adfed498ca04fca20de376fb2a9436b303e158f70676",
+      "replay_term_hashes": [
+        "0ebe0fb634f8e4aca93dcdea090d01120e73df4c7da22888c595b593da608c78",
+        "d1c78c9aa5dcb0991f46b25fbaaa359d7d5823ac7a2a94c4d4a31da42a26c24f",
+        "9d1ef11e7923e54aaac4adfed498ca04fca20de376fb2a9436b303e158f70676"
+      ]
+    },
+    {
+      "target": "A062346",
+      "requested_index": 37,
+      "inputs": [
+        "A014105"
+      ],
+      "index_maps": {
+        "A014105": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A014105",
+          38
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "0412522e2929304695d8f979f5fe3b39c3316212e18e4b0eb2fb9f27f60526ae",
+      "output_sha256": "e6bea390cba8632ceb7d4d4e0927257097950eb65566dd14497761515e1756ea",
+      "replay_term_hashes": [
+        "f42af67553a06d18888dfabf654af703ccd8f8db7067937d44a8b05ee61adba8",
+        "e6bea390cba8632ceb7d4d4e0927257097950eb65566dd14497761515e1756ea"
+      ]
+    },
+    {
+      "target": "A063258",
+      "requested_index": 37,
+      "inputs": [
+        "A000332"
+      ],
+      "index_maps": {
+        "A000332": [
+          [
+            1,
+            5
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000332",
+          42
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 42,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "4444f5a9f885d5a016b6749c5f85778b8faab00e4465f5b40450c235dd641100",
+      "output_sha256": "db9f3d8a9f949da6f9d6c04295ed7e2fae2142818478a55aa6315fbf42e38970",
+      "replay_term_hashes": [
+        "197c65d740caf1f0151edd2885e4efd999fc006bdacf83b8d3c3d6f49fe87210",
+        "db9f3d8a9f949da6f9d6c04295ed7e2fae2142818478a55aa6315fbf42e38970"
+      ]
+    },
+    {
+      "target": "A064751",
+      "requested_index": 37,
+      "inputs": [
+        "A036291"
+      ],
+      "index_maps": {
+        "A036291": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A036291",
+          38
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "c592c07d009ccffba0d005734b851510d6bccdf126029fd2bca03142a1dcecbb",
+      "output_sha256": "41ebb83980ba23523900ec4964683620544fd443f08eff055c79678558aaaa82",
+      "replay_term_hashes": [
+        "389f5b7790dbef676fd476e081ada2f7f9d7117199aded5a87480f407af20712",
+        "41ebb83980ba23523900ec4964683620544fd443f08eff055c79678558aaaa82"
+      ]
+    },
+    {
+      "target": "A064808",
+      "requested_index": 23,
+      "inputs": [
+        "A002378",
+        "A006003"
+      ],
+      "index_maps": {
+        "A002378": [
+          [
+            1,
+            0
+          ]
+        ],
+        "A006003": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A002378",
+          23
+        ],
+        [
+          "A006003",
+          24
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 24,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "3613bb654512fc5ecfc35779363bc5670aea9f13743fea0d9b3406a1016080a2",
+      "output_sha256": "ead17e13e806bfef4486f0502b376a94bb0694f125be95a0a3d03b1cb520c5ed",
+      "replay_term_hashes": [
+        "cc6bb91d4a9aec9fe2e20ae49fd18166f522a7918a2ff2ecd1c2c35b5d4649e1",
+        "ba740deaf5506829cfe4062ca6d7ea7da8f6ecc6bf9c1277f0aceaedf58eb8b9",
+        "ead17e13e806bfef4486f0502b376a94bb0694f125be95a0a3d03b1cb520c5ed"
+      ]
+    },
+    {
+      "target": "A068236",
+      "requested_index": 37,
+      "inputs": [
+        "A005900"
+      ],
+      "index_maps": {
+        "A005900": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A005900",
+          38
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "b548276f038b1a41ae12bd8e59aafe0d682b96de8960534b26a76581ab0dcd08",
+      "output_sha256": "c3f293c3f3c668049b2a0d959caeb8a352befaddd9cefd74a59668fb0aa6e085",
+      "replay_term_hashes": [
+        "ab71eea92abe4890132dac97c3edbb9cb7924f5792b72f857d84380c64ce0a92",
+        "c3f293c3f3c668049b2a0d959caeb8a352befaddd9cefd74a59668fb0aa6e085"
+      ]
+    },
+    {
+      "target": "A069894",
+      "requested_index": 37,
+      "inputs": [
+        "A001105"
+      ],
+      "index_maps": {
+        "A001105": [
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A001105",
+          37
+        ],
+        [
+          "A001105",
+          38
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "900dd0f808b230535702e94e346cd71b7b010152fde0d4610733ae4af59c5a2f",
+      "output_sha256": "e6955a2c59dc90833986fe0894cf6718dddaa7816bb51bc955cdd3eb4470e554",
+      "replay_term_hashes": [
+        "44ab142b5171cd63db89e3186367c9a7a2a28e5daee21305214ff6626d9fb842",
+        "5ca78d60306335e9cdf1efa886dd54cb3d06100d29c1099f11c1389e15ca0816",
+        "e6955a2c59dc90833986fe0894cf6718dddaa7816bb51bc955cdd3eb4470e554"
+      ]
+    },
+    {
+      "target": "A077265",
+      "requested_index": 23,
+      "inputs": [
+        "A000079",
+        "A002378"
+      ],
+      "index_maps": {
+        "A000079": [
+          [
+            1,
+            3
+          ]
+        ],
+        "A002378": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000079",
+          26
+        ],
+        [
+          "A002378",
+          25
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 26,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "2e7fb41a474d9af2d28f701aced2b77fdf6fbbd65830dd48116f30ed43e5cdd4",
+      "output_sha256": "823d659b61354b3875d2afb43424c4ea2cd36b62343b449859bf7f5629c665db",
+      "replay_term_hashes": [
+        "2b3c03c5ccada6653dbda9569697a6722493f214aca1faff12532bfe271ee240",
+        "2099a9b5f777e242d1f9e19d27e232cc71e2fa7964fc988a319fce5671ca7f73",
+        "823d659b61354b3875d2afb43424c4ea2cd36b62343b449859bf7f5629c665db"
+      ]
+    },
+    {
+      "target": "A077415",
+      "requested_index": 37,
+      "inputs": [
+        "A084990"
+      ],
+      "index_maps": {
+        "A084990": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A084990",
+          38
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "ec178dbb9246beafe0bfb901cd9af52d4769a940ce0cb6b823d0731cb08fe96e",
+      "output_sha256": "5a409370ccba2d86c40b3e11fe17689c6b3c7ab313eaea1cfb2377b0a98a7da8",
+      "replay_term_hashes": [
+        "26b81e9af4c81d595f05d594be7a5fdaf55709aac63ef79ec1853ecdaaccfd7a",
+        "5a409370ccba2d86c40b3e11fe17689c6b3c7ab313eaea1cfb2377b0a98a7da8"
+      ]
+    },
+    {
+      "target": "A079583",
+      "requested_index": 23,
+      "inputs": [
+        "A000225",
+        "A000325"
+      ],
+      "index_maps": {
+        "A000225": [
+          [
+            1,
+            0
+          ]
+        ],
+        "A000325": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000225",
+          23
+        ],
+        [
+          "A000325",
+          24
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 24,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "68cd81740f684991f9651fa1cd62b98ed3e3ce9ba83146a8c1dd49449d00a364",
+      "output_sha256": "c50fe3ca1803554aeb67900f36d904bb7af71c83f525c08a8d7a4a778ee7d144",
+      "replay_term_hashes": [
+        "028a50f0142a2cd3642e0010f07fa3c3e605cf8a89ba0496ab6d21c7dc36dae2",
+        "7a07cd8b4316431bc805711b0cc876fa87fe931aa5163000468933986848e96e",
+        "c50fe3ca1803554aeb67900f36d904bb7af71c83f525c08a8d7a4a778ee7d144"
+      ]
+    },
+    {
+      "target": "A080859",
+      "requested_index": 37,
+      "inputs": [
+        "A000384"
+      ],
+      "index_maps": {
+        "A000384": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000384",
+          37
+        ],
+        [
+          "A000384",
+          38
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "533fe8c3ba8eb83ef090215fc277a0c38055f9fd727896afaf40c80b645eb8a5",
+      "output_sha256": "c2c358e9dd15de84331652b848b7ad410ef3f0f8a06a312065349f6c58991966",
+      "replay_term_hashes": [
+        "ce83293c66150ed42f52747cca6a91b85332c740cde625195b15f1abb4b90196",
+        "ada4f0b8bc65ecbaf7ad150371a2b9c288115181d0e560ab73dddbb2bfb9c1de",
+        "c2c358e9dd15de84331652b848b7ad410ef3f0f8a06a312065349f6c58991966"
+      ]
+    },
+    {
+      "target": "A081267",
+      "requested_index": 37,
+      "inputs": [
+        "A000326"
+      ],
+      "index_maps": {
+        "A000326": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000326",
+          37
+        ],
+        [
+          "A000326",
+          38
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "11fa412e5c17b16684c00292cea5e513ced666467e4c52f92690ac1b4db1cfec",
+      "output_sha256": "36265dc2781259c70f62ae55bee17f7241e44f9cc862d36165ec729a3ac0e011",
+      "replay_term_hashes": [
+        "c7c1b4da9b9f745dff12aca04605cb7fb33baf4ba84c5b473b16ef1ed16f9c25",
+        "8ea8eb612f9362da9d2b8ae0a65daa6410c9c952a4944933a8ad17aee8f86939",
+        "36265dc2781259c70f62ae55bee17f7241e44f9cc862d36165ec729a3ac0e011"
+      ]
+    },
+    {
+      "target": "A082285",
+      "requested_index": 23,
+      "inputs": [
+        "A008594",
+        "A016813"
+      ],
+      "index_maps": {
+        "A008594": [
+          [
+            1,
+            1
+          ]
+        ],
+        "A016813": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A008594",
+          24
+        ],
+        [
+          "A016813",
+          24
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 24,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "bd0a144f056c9198e0824e8db55b0de1c9fda05e676ee2b141af55f9053fd816",
+      "output_sha256": "392a52e4f77c40bf3321dc2feac356fac2a906a80c961748170af4ce2bce1e6a",
+      "replay_term_hashes": [
+        "23c657f2efda7731a3c1990b25f318fa2eb1332208f97ab9cc2a7eac70ab5a76",
+        "d6d824abba4afde81129c71dea75b8100e96338da5f416d2f69088f1960cb091",
+        "392a52e4f77c40bf3321dc2feac356fac2a906a80c961748170af4ce2bce1e6a"
+      ]
+    },
+    {
+      "target": "A083374",
+      "requested_index": 37,
+      "inputs": [
+        "A000217"
+      ],
+      "index_maps": {
+        "A000217": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000217",
+          37
+        ],
+        [
+          "A000217",
+          38
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "6e1773007f61a4795eb8bd646b55474081f21b1fca9ae66c648c27d15d89e8ff",
+      "output_sha256": "e1d2d85ab9e4ea92f72062265b223a577f400a3ee24d044b493299c22e7b52c4",
+      "replay_term_hashes": [
+        "769e881d85fc5d27cb4cbc8382200d95b179cfdeb56e0b439da737069eaf8a5a",
+        "75f7313c20144e39edcf57a14733d074aee0c482320d5178ee0ef2f2608c2996",
+        "e1d2d85ab9e4ea92f72062265b223a577f400a3ee24d044b493299c22e7b52c4"
+      ]
+    },
+    {
+      "target": "A083420",
+      "requested_index": 37,
+      "inputs": [
+        "A001576"
+      ],
+      "index_maps": {
+        "A001576": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A001576",
+          37
+        ],
+        [
+          "A001576",
+          38
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "7c33faaede9f540aa643db8b4a40b8ac16fafd3399197dfe79afd483bc693f8e",
+      "output_sha256": "516726045fc54bafa1c2fada10035e127600d1bfdcf037b34de730c8621be207",
+      "replay_term_hashes": [
+        "ce2779e54292473ec925229d090b324e901beede6bb6357d8b9a8e76eaff1b3c",
+        "e882c5e3b137f74d3fa83eb92cec5a400fcc48416ed6f6f058cacb3aff82410a",
+        "516726045fc54bafa1c2fada10035e127600d1bfdcf037b34de730c8621be207"
+      ]
+    },
+    {
+      "target": "A085151",
+      "requested_index": 37,
+      "inputs": [
+        "A057721"
+      ],
+      "index_maps": {
+        "A057721": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A057721",
+          38
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "8c94a19117dedd0f6a011ddaa1d4d1abc64a391b84d46e36226b99707b918434",
+      "output_sha256": "2d17135962fcbd67696bdbbb9c3c0a040298c9627c28149e61d480587ed2f3d7",
+      "replay_term_hashes": [
+        "2d17135962fcbd67696bdbbb9c3c0a040298c9627c28149e61d480587ed2f3d7",
+        "2d17135962fcbd67696bdbbb9c3c0a040298c9627c28149e61d480587ed2f3d7"
+      ]
+    },
+    {
+      "target": "A085151",
+      "requested_index": 23,
+      "inputs": [
+        "A002522",
+        "A054602"
+      ],
+      "index_maps": {
+        "A002522": [
+          [
+            1,
+            1
+          ]
+        ],
+        "A054602": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A002522",
+          24
+        ],
+        [
+          "A054602",
+          24
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 24,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "d9af3edfcd5ba34066c68b05bd8ba75113b92887c88b7ce79dc1bceb93d20818",
+      "output_sha256": "e65bb7954ac8dbfc185fa6a4b30aac295ae0ce3c7181713da214250ddceb22cb",
+      "replay_term_hashes": [
+        "1086d35563c495c1cecbce12135cab3b945e01dd185ea2c1dc8ace5ad988977e",
+        "a10d51f895b5e63bee9ace859e5d8b3940e7c0236043379389a1a6f8a8085a51",
+        "e65bb7954ac8dbfc185fa6a4b30aac295ae0ce3c7181713da214250ddceb22cb"
+      ]
+    },
+    {
+      "target": "A085479",
+      "requested_index": 37,
+      "inputs": [
+        "A001015"
+      ],
+      "index_maps": {
+        "A001015": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A001015",
+          38
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "1b9acc814549435435189f16381bbdfb8d58fa89b82b4fd104897e97e6863b3c",
+      "output_sha256": "67ab75aef8ac1ddf6d3378d65d3eeb5c8fe8f4b80e7bbe77086f42767af95009",
+      "replay_term_hashes": [
+        "ed4dca12a143c3c529ba5f6c81d5a62046f6db5ad07a0b09a6ae9d7eff0ae357",
+        "67ab75aef8ac1ddf6d3378d65d3eeb5c8fe8f4b80e7bbe77086f42767af95009"
+      ]
+    },
+    {
+      "target": "A085786",
+      "requested_index": 37,
+      "inputs": [
+        "A000217"
+      ],
+      "index_maps": {
+        "A000217": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000217",
+          38
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "2d378164446b5afe45a530f85ed4656730d72b777337d4d03a21f15a59dc5994",
+      "output_sha256": "2b4dcf6d72b412dcaa4489fbd87b2cfd4aed8f6e1f967ecd51a02edb40e35b6c",
+      "replay_term_hashes": [
+        "75f7313c20144e39edcf57a14733d074aee0c482320d5178ee0ef2f2608c2996",
+        "2b4dcf6d72b412dcaa4489fbd87b2cfd4aed8f6e1f967ecd51a02edb40e35b6c"
+      ]
+    },
+    {
+      "target": "A086653",
+      "requested_index": 23,
+      "inputs": [
+        "A000079",
+        "A008585"
+      ],
+      "index_maps": {
+        "A000079": [
+          [
+            1,
+            1
+          ]
+        ],
+        "A008585": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000079",
+          24
+        ],
+        [
+          "A008585",
+          24
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 24,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "1617ab02a2019223f472453ad8f71ad23e69294cb22b3499d2e61c5c99414d38",
+      "output_sha256": "aed1a91206ab9cc690b26d5961f425800ad6f65627a2fd8b760ae586bcac68de",
+      "replay_term_hashes": [
+        "9641f70524a01757c47c6b10fe7f1c97c36f877ec9b8f7c73e010416540183da",
+        "8722616204217eddb39e7df969e0698aed8e599ba62ed2de1ce49b03ade0fede",
+        "aed1a91206ab9cc690b26d5961f425800ad6f65627a2fd8b760ae586bcac68de"
+      ]
+    },
+    {
+      "target": "A087289",
+      "requested_index": 37,
+      "inputs": [
+        "A099393"
+      ],
+      "index_maps": {
+        "A099393": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A099393",
+          37
+        ],
+        [
+          "A099393",
+          38
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "1fcce8975a333a5e831a0a7fe4d4a1c4f4f208d893de7020685c855846c933e0",
+      "output_sha256": "7768f0875ed9d561ce47503133845d3443192c5dae31b99cc4044fa38f4a24df",
+      "replay_term_hashes": [
+        "7dfbfd44d4f357b30a592d7293965014dbd59dca21732f6794b27a9e0376d41e",
+        "2267b8491eebef9e371f3bf01dc79c3101a0aa9904a52e84fcbe72426140d964",
+        "7768f0875ed9d561ce47503133845d3443192c5dae31b99cc4044fa38f4a24df"
+      ]
+    },
+    {
+      "target": "A087908",
+      "requested_index": 37,
+      "inputs": [
+        "A045991"
+      ],
+      "index_maps": {
+        "A045991": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A045991",
+          38
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "1fcd4604dffae823f4a790b70088bd2a5a5983cace212f5bb1dd20768b866f6d",
+      "output_sha256": "c5abd1e92243d84d1f0269fae7d10ecfcf0aad93d8c51a78443cf1d9070ef73b",
+      "replay_term_hashes": [
+        "9956613c1d47f6f5869ec63f1d8dd25105fbc43590095bdd5d4dd157dd0cf611",
+        "c5abd1e92243d84d1f0269fae7d10ecfcf0aad93d8c51a78443cf1d9070ef73b"
+      ]
+    },
+    {
+      "target": "A087908",
+      "requested_index": 37,
+      "inputs": [
+        "A064808"
+      ],
+      "index_maps": {
+        "A064808": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A064808",
+          37
+        ],
+        [
+          "A064808",
+          38
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "e1f724967cfe8ce9d475591ef4a921bc51eacd4e564da049e64f5a40520a6f8e",
+      "output_sha256": "c5abd1e92243d84d1f0269fae7d10ecfcf0aad93d8c51a78443cf1d9070ef73b",
+      "replay_term_hashes": [
+        "ec959533ad3b6e6bbeb5209a665c0fedff9e7c876529ea48389b3a71a24e2ed0",
+        "57997f8f4fae73d717e9bfd9bfa3a3a2ab6e342d4b18e8e2c93cddca2b6a31cb",
+        "c5abd1e92243d84d1f0269fae7d10ecfcf0aad93d8c51a78443cf1d9070ef73b"
+      ]
+    },
+    {
+      "target": "A089207",
+      "requested_index": 37,
+      "inputs": [
+        "A014105"
+      ],
+      "index_maps": {
+        "A014105": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A014105",
+          38
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "3efb8832e738c7e6f19f01a178e219d06621946a3aca5eb161b0b96b7f5ee7b2",
+      "output_sha256": "9551660f08a4c9f26ba97d624ea8dfd2cd47cbb716481bb91a370be32baf234b",
+      "replay_term_hashes": [
+        "f42af67553a06d18888dfabf654af703ccd8f8db7067937d44a8b05ee61adba8",
+        "9551660f08a4c9f26ba97d624ea8dfd2cd47cbb716481bb91a370be32baf234b"
+      ]
+    },
+    {
+      "target": "A089207",
+      "requested_index": 37,
+      "inputs": [
+        "A099721"
+      ],
+      "index_maps": {
+        "A099721": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A099721",
+          38
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "68b74a3efbebce39de877707570ef2edd2a8d72dffc43c52d6c42844cd6a58ef",
+      "output_sha256": "9551660f08a4c9f26ba97d624ea8dfd2cd47cbb716481bb91a370be32baf234b",
+      "replay_term_hashes": [
+        "93df921d7a5a3c31378dc74f899531584706d1d1dc1ee9432c6ebbac5fe63f25",
+        "9551660f08a4c9f26ba97d624ea8dfd2cd47cbb716481bb91a370be32baf234b"
+      ]
+    },
+    {
+      "target": "A089574",
+      "requested_index": 23,
+      "inputs": [
+        "A000330",
+        "A006011",
+        "A034263"
+      ],
+      "index_maps": {
+        "A000330": [
+          [
+            1,
+            1
+          ]
+        ],
+        "A006011": [
+          [
+            1,
+            2
+          ]
+        ],
+        "A034263": [
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000330",
+          24
+        ],
+        [
+          "A006011",
+          25
+        ],
+        [
+          "A034263",
+          23
+        ]
+      ],
+      "computed_term_count": 4,
+      "full_source_prefix_horizon": 25,
+      "exact_match": true,
+      "cost_score": 20,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "9cb32b25f3b9550612b85b7d3388cc7ad80d3ff23accbbe25852497651d3f1e6",
+      "output_sha256": "ff917f4322f3ad3b52ad5a5a276e804553196e2219c70170e4a45bac63c768f3",
+      "replay_term_hashes": [
+        "0ec89b31a9f42decb7bad3c678c0994266ae6382435ec44c7ed3144b0f3dae2a",
+        "35094809181732f9010b6957f1318e0c2b38c886dcf935c562fb1ad8e8deb7b4",
+        "8d3e1f4b3313d3a1f1efb2de44169be0b42f57d2cd47f350ba74bd56abf963e3",
+        "ff917f4322f3ad3b52ad5a5a276e804553196e2219c70170e4a45bac63c768f3"
+      ]
+    },
+    {
+      "target": "A091823",
+      "requested_index": 23,
+      "inputs": [
+        "A000217",
+        "A000290"
+      ],
+      "index_maps": {
+        "A000217": [
+          [
+            1,
+            1
+          ]
+        ],
+        "A000290": [
+          [
+            1,
+            2
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000217",
+          24
+        ],
+        [
+          "A000290",
+          25
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 25,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "418fcde5c04d4fab465ac285675029b76e5ab3253db1e443dc5d33d849568b85",
+      "output_sha256": "fa3cfb3f1bb823aa9501f88f1f95f732ee6fef2c3a48be7f1d38037b216a549f",
+      "replay_term_hashes": [
+        "983bd614bb5afece5ab3b6023f71147cd7b6bc2314f9d27af7422541c6558389",
+        "ad723f42c7aba316d944f19f340ce47d8e0c6fb354d212736ec4782314a6824a",
+        "fa3cfb3f1bb823aa9501f88f1f95f732ee6fef2c3a48be7f1d38037b216a549f"
+      ]
+    },
+    {
+      "target": "A097809",
+      "requested_index": 37,
+      "inputs": [
+        "A000295"
+      ],
+      "index_maps": {
+        "A000295": [
+          [
+            1,
+            2
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A000295",
+          37
+        ],
+        [
+          "A000295",
+          39
+        ]
+      ],
+      "computed_term_count": 3,
+      "full_source_prefix_horizon": 39,
+      "exact_match": true,
+      "cost_score": 14,
+      "chosen_methods": [
+        "direct",
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "b61b380d493da189af9aed5331ae155097bcb4f21572d125d4db6066d7c9af25",
+      "output_sha256": "d9563bf35a11fd4fb9b9611b9243beadf06ee87f2528fb6c2cef46c705928601",
+      "replay_term_hashes": [
+        "f06088076cfe4684fc60e92f29a507ef97e649d577fda72c2b0f71bf41ae2de4",
+        "25e7ca69e3741b415ae878ca3a3b64620f54be8b1a0a00a09307e8607e5df7ce",
+        "d9563bf35a11fd4fb9b9611b9243beadf06ee87f2528fb6c2cef46c705928601"
+      ]
+    },
+    {
+      "target": "A099048",
+      "requested_index": 37,
+      "inputs": [
+        "A017245"
+      ],
+      "index_maps": {
+        "A017245": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "source_indices": [
+        [
+          "A017245",
+          38
+        ]
+      ],
+      "computed_term_count": 2,
+      "full_source_prefix_horizon": 38,
+      "exact_match": true,
+      "cost_score": 8,
+      "chosen_methods": [
+        "direct",
+        "hyperedge"
+      ],
+      "certified_formula_id": "f8dc1796f96490fe8ba5ca3745c12a66d253b3883b16f55ed1bbcd5aa4f23450",
+      "output_sha256": "e4c6a9f38e8e4d127290cf104ac1f46d0649c7db6c89f4bc10be7447bf1f514c",
+      "replay_term_hashes": [
+        "72ba187b05e705de2dced5824d716a71872dedccf21f0c179bd2d5f2c7c974b1",
+        "e4c6a9f38e8e4d127290cf104ac1f46d0649c7db6c89f4bc10be7447bf1f514c"
+      ]
+    }
+  ]
+}
