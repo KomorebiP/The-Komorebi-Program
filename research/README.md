@@ -6,6 +6,10 @@ These programs bring together statements, arguments, calculations, and open ques
 
 Incomplete implementation entries are listed separately in the [incubator](../docs/INCUBATOR.md). This list focuses on works ready for readers. The complete source inventory is also available.
 
+## Precision-aware transfer research (November 23, 2026)
+
+[Directional ghosts, query fibers, and Frobenius quotients](directional-ghosts/README.md) develops exact multivariate information-loss formulas, an optimal first-order observation bound, a Smith-form treatment of linear questions on nonlinear observation fibers, and an integral polyphase quotient. The [full written note](../docs/DIRECTIONAL_GHOSTS.md) is published as a [reader page](https://KomorebiP.github.io/The-Komorebi-Program/collection/DIRECTIONAL_GHOSTS.html). The [finite Python tests](directional-ghosts/test_directional_ghosts.py) are not Lean certificates, and no historical novelty or OEIS sequence identification is asserted.
+
 ## Foundations and semantics
 
 | Work | Scope | Files |
