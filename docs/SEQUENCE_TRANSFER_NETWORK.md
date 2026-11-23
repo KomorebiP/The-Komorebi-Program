@@ -52,6 +52,12 @@ node --test tools/test_sequence_network_site.mjs
 
 The normal `sequence-library-checks.yml` workflow also builds the Sequence Library and checks browser functionality. Public pages are static. A full formula-execution/optimization service would require separate infrastructure and fresh authenticated source-bound certificates, not a claim that these indexed expressions can safely be evaluated in a GitHub Pages client.
 
+## Further work: precision-aware transfers
+
+The [directional ghost and Frobenius quotient research note](DIRECTIONAL_GHOSTS.md) develops exact prime-power ambiguity formulas, a multivariate optimality theorem, query-relative Smith image calculations, and a lossless contracting quotient. Its [source and finite regression entry](../research/directional-ghosts/README.md) is separate from the curated OEIS formula index. It does not add unverified OEIS identities or change the source-validation status of any indexed edge.
+
+The [public reading page](https://KomorebiP.github.io/The-Komorebi-Program/collection/DIRECTIONAL_GHOSTS.html) is linked from the Sequence Network. The current network remains read-only; precision-aware route optimization has not been deployed as a browser service.
+
 ## Lazy-loaded OEIS source formulas
 
 A separately versioned source-text index contains **8,853 original OEIS `%F` lines**
