@@ -52,6 +52,32 @@ class NetworkTests(unittest.TestCase):
             self.assertIn('finite',handoff['scope'].lower())
             self.assertIn('sequence-network.html?q=KSEQ-TEST',local_network_link(entries[0]))
             self.assertIn('sequence-network',network_section(meta))
+    def test_quadratic_channels_are_shifted_transfers(self):
+        quad=[e for e in self.fixture['edges'] if e['kind']=='quadratic']
+        self.assertEqual(len(quad),4)
+        for c,q,B,D in ((1,2,'A001333','A000129'),(2,3,'A001075','A001353')):
+            rows={x['target']:x for x in quad if x['proof_ref']==f'quadratic-channel:{c}:{q}'}
+            self.assertEqual(set(rows),{B,D})
+            self.assertEqual(rows[B]['inputs'],[D])
+            self.assertEqual(rows[D]['inputs'],[B])
+            self.assertEqual(rows[B]['index_maps'][D],[[1,0],[1,1]])
+            self.assertEqual(rows[D]['index_maps'][B],[[1,0],[1,1]])
+            bn,dn=1,0
+            for n in range(30):
+                next_b,next_d=c*bn+q*dn,bn+c*dn
+                self.assertEqual(bn,next_d-c*dn)
+                self.assertEqual(dn,(next_b-c*bn)//q)
+                bn,dn=next_b,next_d
+
+    def test_gauge_states_initial_normalization_and_domain(self):
+        gauges=[e for e in self.fixture['edges'] if e['kind']=='gauge']
+        self.assertEqual(len(gauges),975)
+        for e in gauges:
+            self.assertIn('L(t)/L(t0)',e['expression'])
+            self.assertIn('c^(t-t0)',e['expression'])
+            self.assertIn(f"t0={e['valid_from']}",e['expression'])
+            self.assertIn(f"n>={e['valid_from']}",e['domain'])
+
     def test_untrusted_local_id_escaped_or_rejected(self):
         with self.assertRaises(ValueError):local_network_link({'id':'KSEQ"<script>'})
 if __name__=='__main__':unittest.main()
