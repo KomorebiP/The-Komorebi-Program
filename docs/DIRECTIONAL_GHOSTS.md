@@ -50,6 +50,20 @@ The signature readings are **independently supplied observations** of the source
 
 A scalar map \(f\) is **1-Lipschitz in the congruence sense** when \(u\equiv v\pmod{p^j}\) implies \(f(u)\equiv f(v)\pmod{p^j}\) for each \(0\le j\le k\). The lower bounds below apply to supplementary channels satisfying this condition.
 
+
+### A small reconstruction example
+
+In one variable, take \(p=2\), \(k=2\), \(h=0\), \(D=4\), and observe \(\Gamma(A)=xA'(x)/A(x)\) modulo \(4\). The derivative multiplies the coefficient at \(x^n\) by \(n\), so Theorem 2.1 gives:
+
+| Degree \(n\) | \(v_2(n)\) | Remaining exponent \(e_n\) |
+| ---: | ---: | ---: |
+| 1 | 0 | 0 |
+| 2 | 1 | 1 |
+| 3 | 0 | 0 |
+| 4 | 2 | 2 |
+
+Thus there are \(2^{0+1+0+2}=8\) compatible source reductions modulo \(4\), with two blind indices (degrees \(2\) and \(4\)). If the *same* ghost is independently supplied modulo \(8\), then \(h=1\) and the fiber shrinks to \(2\) source reductions. Extra observation precision is useful, but it does not replace an unavailable measurement.
+
 ## 2. Exact multichannel directional-ghost fiber theorem
 
 ### Theorem 2.1. Exact directional-ghost fiber size
@@ -68,7 +82,7 @@ where
 
 The convention is that \(\min(k,+\infty)=k\). Every attainable signature collection has the same number of compatible coefficient reductions.
 
-**Proof.** For any two units `A_0` and `B`, write `B=A_0 C`. The Leibniz rule and commutativity give the group homomorphism law `Gamma_i(A_0 C)=Gamma_i(A_0)+Gamma_i(C)`. The signatures agree modulo `p^{k+h_i}` iff `delta_i(C)=0` modulo that modulus, since `C` is invertible. Writing `C=1+sum c_alpha x^alpha`, each coefficient constraint is `lambda_{i,alpha} c_alpha = 0 (mod p^{k+h_i})`. Its allowable reductions modulo \(p^k\) form exactly the ideal `p^{k-e_alpha}(Z/p^k)` with `p^{e_alpha}` elements. All monomial coefficients vary independently. Multiplication by `A_0` is a bijection of the unit group, so the total number of source reductions is the product of the independent counts. QED.
+**Proof.** For any two units \(A_0\) and \(B\), write \(B=A_0C\). The Leibniz rule gives \(\Gamma_i(A_0C)=\Gamma_i(A_0)+\Gamma_i(C)\). The signatures agree modulo \(p^{k+h_i}\) exactly when \(\delta_i(C)\equiv0\pmod{p^{k+h_i}}\), since \(C\) is invertible. Writing \(C=1+\sum_\alpha c_\alpha\mathbf{x}^\alpha\), the coefficient constraints are \(\lambda_{i,\alpha}c_\alpha\equiv0\pmod{p^{k+h_i}}\). The permissible reductions of \(c_\alpha\) modulo \(p^k\) form the ideal \(p^{k-e_\alpha}(\mathbb Z/p^k\mathbb Z)\), containing exactly \(p^{e_\alpha}\) elements. The monomial constraints are independent. Multiplication by \(A_0\) bijects the permissible \(C\) with permissible \(B\), so the total fiber size is \(p^{\sum_\alpha e_\alpha}\). \(\square\)
 
 ### Corollary 2.2. Minimum full-source rescue count
 
@@ -78,11 +92,11 @@ The convention is that \(\min(k,+\infty)=k\). Every attainable signature collect
 \boxed{b=\#\{\alpha:0<|\alpha|\le D,\ e_\alpha>0\}.}
 \]
 
-Knowledge modulo \(p^k\) of the named source coefficients `a_alpha` at these `b` monomials, together with all the signatures, determines every source coefficient modulo \(p^k\). Moreover, no fewer than `b` arbitrary *scalar 1-Lipschitz* supplementary channels to `Z/p^k` can guarantee full reconstruction uniformly.
+Knowledge modulo \(p^k\) of the source coefficients \(a_\alpha\) at these \(b\) blind monomials, together with the signatures, determines every coefficient modulo \(p^k\). Moreover, no fewer than \(b\) arbitrary **scalar 1-Lipschitz** supplementary channels with values in \(\mathbb Z/p^k\mathbb Z\) can guarantee full reconstruction uniformly.
 
-**Proof of sufficiency.** Proceed in increasing total degree. At every index with \(e_\alpha=0\), `c_alpha=0` follows already from the ghost signatures. At each remaining index, equality of the source coefficient `a_alpha` and the inductively known lower `c_beta` in `A_0 C` implies `c_alpha=0`. Therefore \(C=1\) modulo \(p^k\).
+**Proof of sufficiency.** Compare two compatible sources \(A_0\) and \(B=A_0C\), and proceed in increasing total degree. At an index with \(e_\alpha=0\), the signature constraints force \(c_\alpha=0\). At a blind index, equality of the observed source coefficient \(a_\alpha\), combined with equality at all lower indices, forces \(c_\alpha=0\). Thus \(C=1\pmod{p^k}\) and \(B=A_0\pmod{p^k}\).
 
-**Proof of lower bound.** For each of the `b` indices choose `c_alpha=p^{k-1}t_alpha`, `t_alpha in {0,...,p-1}`, all other `c_alpha=0`. Since \(e_\alpha>0\), every `lambda_{i,alpha}` is divisible by `p^{h_i+1}`, so all `p^b` resulting inputs share the same signatures. These inputs are mutually congruent modulo `p^{k-1}`. Any scalar 1-Lipschitz output modulo \(p^k\) takes at most `p` distinct values on this set. Thus `m` such outputs can distinguish at most `p^m` points, requiring `m>=b`. QED.
+**Proof of lower bound.** At each of the \(b\) blind indices, choose \(c_\alpha=p^{k-1}t_\alpha\) with \(t_\alpha\in\{0,\ldots,p-1\}\), and set all other \(c_\alpha=0\). Because \(e_\alpha>0\), each \(\lambda_{i,\alpha}\) is divisible by \(p^{h_i+1}\). All \(p^b\) resulting sources share the same signatures and are mutually congruent modulo \(p^{k-1}\). A scalar 1-Lipschitz channel modulo \(p^k\) takes at most \(p\) values on such a set. Consequently \(m\) channels distinguish at most \(p^m\) of these sources, forcing \(m\ge b\). \(\square\)
 
 **Important:** the lower bound concerns full-source rescue, not every possible query. Candidate channels must still be computable or independently available for practical use.
 
@@ -104,20 +118,20 @@ N_s(W,D)=\#\{\alpha\in\mathbb Z_{\ge0}^d:0<|\alpha|\le D,\ W\alpha\equiv0\pmod{p
 \boxed{E(W;p,k,h,D)=\sum_{s=h+1}^{h+k} N_s(W,D)}.
 \]
 
-**Proof.** For a fixed monomial `alpha`, the number `e_alpha` in Theorem 2.1 is exactly the number of integers `s` in `h+1,...,h+k` for which `W alpha` is zero modulo `p^s`. Interchange the finite sums. QED.
+**Proof.** For a fixed \(\alpha\), the exponent \(e_\alpha\) counts precisely those levels \(s\in\{h+1,\ldots,h+k\}\) for which \(W\alpha\equiv0\pmod{p^s}\). Interchanging the two finite sums yields the identity. \(\square\)
 
 ### Theorem 3.2. Optimality among weighted Euler derivatives
 
- For every integer `W`,
+For every integer matrix \(W\),
 
 \[
 \boxed{E(W;p,k,h,D)\ge
 \sum_{s=h+1}^{h+k}\left[\binom{\lfloor D/p^s\rfloor+d}{d}-1\right].}
 \]
 
-If `W` has full column rank modulo `p` (equivalently, some `d x d` minor is a p-adic unit), equality holds for **every** `D,k,h`. Thus `d` coordinate derivatives, or any `p`-adically left-invertible recombination of them, attain the smallest possible ambiguity among all collections of weighted Euler derivatives.
+If \(W\) has full column rank modulo \(p\), equivalently if some \(d\times d\) minor is a \(p\)-adic unit, equality holds for **every** \(D,k,h\). Thus \(d\) coordinate derivatives, or any \(p\)-adically left-invertible recombination of them, attain the minimum ambiguity among collections of weighted Euler derivatives.
 
-**Proof.** Every `alpha` divisible componentwise by `p^s` necessarily satisfies `W alpha=0 (mod p^s)`. The number of nonzero such monomials with total degree `<=D` is `binom(floor(D/p^s)+d,d)-1`, by stars and bars. This gives the lower bound term by term. If `W` is full column rank mod `p`, it has a left inverse over `Z_p`; hence `W alpha=0 (mod p^s)` iff `alpha=0 (mod p^s)`. Equality follows. QED.
+**Proof.** Every \(\alpha\) divisible componentwise by \(p^s\) satisfies \(W\alpha\equiv0\pmod{p^s}\). The number of nonzero such monomials with total degree at most \(D\) is \(\binom{\lfloor D/p^s\rfloor+d}{d}-1\), by stars and bars. This yields the lower bound level by level. If \(W\) has full column rank modulo \(p\), it admits a left inverse over \(\mathbb Z_p\). Therefore \(W\alpha\equiv0\pmod{p^s}\) if and only if \(\alpha\equiv0\pmod{p^s}\), proving equality. \(\square\)
 
 ### Corollary 3.3. Optimal scalar-channel budget
 
@@ -127,15 +141,19 @@ If `W` has full column rank modulo `p` (equivalently, some `d x d` minor is a p-
 \boxed{b_\mathrm{opt}=\binom{\lfloor D/p^{h+1}\rfloor+d}{d}-1.}
 \]
 
-The residual ambiguity consists precisely of the nested exponent classes divisible componentwise by `p`, `p^2`, etc. This is a *Frobenius filtration* of the exponent lattice. Within the weighted-first-derivative operator class these layers are unavoidable: multiplying exponents by `p^s` always increases every derivative eigenvalue's p-adic valuation by at least `s`.
+For a full-column-rank family, the residual ambiguity consists precisely of exponent vectors divisible componentwise by \(p,p^2,\ldots\). This **Frobenius filtration** is unavoidable within the weighted first-derivative operator class: multiplying an exponent vector by \(p^s\) increases every derivative eigenvalue's \(p\)-adic valuation by at least \(s\). Other kinds of observation are not covered by this optimality statement.
 
 **Numerical example:** \(d=2\), \(D=10\), \(p=2\), \(k=3\), \(h=0\).
 
-* Single total-degree derivative `w=(1,1)`: `E=58`, `b=35`.
-* Two coordinate derivatives \(W=I_2\): `E=27`, `b=20`.
-* Total-degree and difference derivatives `W=[[1,1],[1,-1]]`: `E=46`, `b=35`. Their determinant is `-2`, so they are not invertible modulo `2`; the deficiency is arithmetic, not linear independence over the rationals.
+| Weight observations | Ambiguity exponent \(E\) | Blind indices \(b\) |
+| --- | ---: | ---: |
+| Total-degree derivative, \(w=(1,1)\) | 58 | 35 |
+| Coordinate derivatives, \(W=I_2\) | 27 | 20 |
+| Total-degree and difference, \(W=\left(\begin{smallmatrix}1&1\\1&-1\end{smallmatrix}\right)\) | 46 | 35 |
 
-For \(W=I_2\), `E=(binom(7,2)-1)+(binom(4,2)-1)+(binom(3,2)-1)=20+5+2=27`.
+The last matrix has determinant \(-2\), which is not a unit modulo \(2\). Rational linear independence is insufficient for optimal reconstruction in the \(2\)-adic setting.
+
+For \(W=I_2\), the layer counts give \(E=\bigl[\binom72-1\bigr]+\bigl[\binom42-1\bigr]+\bigl[\binom32-1\bigr]=20+5+2=27\).
 
 ### Theorem 3.4. Smith-lattice density
 
@@ -146,7 +164,7 @@ For \(W=I_2\), `E=(binom(7,2)-1)+(binom(4,2)-1)+(binom(3,2)-1)=20+5+2=27`.
  p^{-\sum_{j=1}^{\rho}\max(0,t-s_j)}+O_{p,k,h,W,d}(D^{d-1}).}
 \]
 
-**Proof.** The homomorphism \(W:(\mathbb Z/p^t)^d\to(\mathbb Z/p^t)^m\) has image size \(p^{\sum_{j=1}^{\rho}\max(0,t-s_j)}\) by Smith normal form. Exactly the reciprocal fraction of residue classes modulo `p^t` lies in its kernel. The lattice points in a growing nonnegative simplex are asymptotically equidistributed among fixed residue classes, each class contributing `D^d/(d! p^{td}) + O(D^{d-1})`. Therefore `N_t(W,D)=(D^d/d!) / |im W_t|+O(D^{d-1})`. Sum over the finitely many `t`. QED.
+**Proof.** Smith normal form shows that the homomorphism \(W:(\mathbb Z/p^t\mathbb Z)^d\to(\mathbb Z/p^t\mathbb Z)^m\) has image size \(p^{\sum_{j=1}^{\rho}\max(0,t-s_j)}\). Its kernel therefore occupies the reciprocal fraction of residue classes modulo \(p^t\). For each fixed residue class, the lattice points in the nonnegative simplex \(0<|\alpha|\le D\) contribute \(D^d/(d!\,p^{td})+O(D^{d-1})\). Hence \(N_t(W,D)=D^d/(d!\,|\operatorname{im} W_t|)+O(D^{d-1})\). Summation over the fixed finite range of \(t\) completes the proof. \(\square\)
 
 This provides an exact leading-order prediction of the ambiguity *from Smith invariants of the derivative-direction matrix* before enumerating any monomials. It also exposes a precision-versus-observation tradeoff: adding directions that improve the rank modulo \(p\) can reduce ambiguity, but independent observations require additional computation or access to the source.
 
@@ -154,14 +172,14 @@ This provides an exact leading-order prediction of the ambiguity *from Smith inv
 
 Version 1.2 has a Smith-fiber formula for linear main observations. The new ghost theorem shows a different case: a nonlinear main observation can have a **linear/affine coefficient fiber**, and thus admits a Smith calculation for a linear query.
 
-Fix one input `A_0` in a measured ghost fiber and work modulo \(p^k\). Let the positive monomial indices be `S`, with `e_alpha` given by Theorem 2.1, and `r_alpha=k-e_alpha`. The compatible sources are precisely
+Fix a representative \(A_0\) of the measured ghost fiber and work modulo \(p^k\). Let \(\mathcal S\) be the set of positive monomial indices, with \(e_\alpha\) as in Theorem 2.1, and put \(r_\alpha=k-e_\alpha\). The compatible sources are exactly
 
 \[
 \mathcal F=A_0(1+\mathcal L),\quad
 \mathcal L=\bigoplus_{\alpha\in S}p^{r_\alpha}(\mathbb Z/p^k)\mathbf x^\alpha.
 \]
 
-Let `M_{A_0}` be the integral unitriangular convolution matrix representing multiplication of truncated series by `A_0`, and let `Q` be any integral linear query on the input coefficient vector. Define
+Let \(M_{A_0}\) be the integral unitriangular convolution matrix for multiplication of truncated series by \(A_0\), and let \(Q\) be an integral linear query on the input coefficient vector. Define
 
 \[
 H_Q=Q\,M_{A_0}\,\operatorname{diag}(p^{r_\alpha}).
@@ -169,13 +187,13 @@ H_Q=Q\,M_{A_0}\,\operatorname{diag}(p^{r_\alpha}).
 
 ### Theorem 4.1. Nonlinear observations and linear-query Smith formula
 
- If `s_1,...,s_u` are the Smith valuations of `H_Q` (with `s_j=+infinity` for zero pivots), the exact number of distinct values of `Q(A) (mod p^k)` consistent with the measured nonlinear ghost signatures is
+If \(s_1,\ldots,s_u\) are the \(p\)-adic valuations of the Smith invariant factors of \(H_Q\), including \(s_j=+\infty\) for zero pivots, then the exact number of distinct outputs \(Q(A)\pmod{p^k}\) consistent with the measured ghost signatures is
 
 \[
 \boxed{|Q(\mathcal F)|=p^{\sum_{j=1}^u\max(0,k-s_j)}.}
 \]
 
-**Proof.** The map from a coefficient vector `c` of `C-1` to the source difference `A_0 C-A_0` is the linear map `M_{A_0}c`, even though the signature map is nonlinear. Its permitted parameters form the diagonal module `L`. Thus the set of query differences is exactly the image modulo \(p^k\) of `H_Q`. Integer Smith diagonalization gives the claimed cardinality, including non-injective or rectangular matrices. QED.
+**Proof.** The map from the coefficient vector \(c\) of \(C-1\) to the source difference \(A_0C-A_0\) is \(c\mapsto M_{A_0}c\), even though the original observation map is nonlinear. The permitted \(c\) form the diagonal module \(\mathcal L\). The possible query differences are therefore the image of \(H_Q\) modulo \(p^k\). Integer Smith diagonalization gives the claimed cardinality, including for rectangular or non-injective matrices. \(\square\)
 
 For a single coordinate query \(a_\beta\), the formula specializes to
 
@@ -185,22 +203,22 @@ For a single coordinate query \(a_\beta\), the formula specializes to
 \big[r_\alpha+v_p((A_0)_{\beta-\alpha})\big]\right),
 \]
 
-where \(\alpha\le\beta\) is componentwise and \(v_p(0)=+\infty\). This shows why the ambiguity of a source coefficient cannot be inferred from its *own derivative eigenvalue alone*: lower unknown coefficients can propagate through convolution with the chosen base source `A_0`.
+Here \(\alpha\le\beta\) is componentwise, \(v_p(0)=+\infty\), and the minimum of an empty index set is \(+\infty\). Thus the ambiguity of a source coefficient cannot be inferred from its *own* derivative eigenvalue alone: lower unknown coefficients can propagate through convolution with the base series \(A_0\).
 
-**Example.** Set `p=2,k=2,D=4`, use both coordinate derivatives, and ask for the coefficient at `x^3 y`.
+**Worked example.** Let \(p=2\), \(k=2\), \(D=4\), and use both coordinate derivatives. The query is the coefficient of \(x^3y\).
 
-* In the ghost fiber containing `A_0=1`, this coefficient is uniquely determined modulo `4`.
-* In the ghost fiber containing `A_0=1+xy`, it has **two** possible values modulo `4`, because the ambiguous `x^2` coefficient of `C` contributes to `x^3y` after multiplication by `xy`.
+* In the ghost fiber containing \(A_0=1\), this coefficient is uniquely determined modulo \(4\).
+* In the ghost fiber containing \(A_0=1+xy\), the coefficient has **two** possible values modulo \(4\). The ambiguous \(x^2\) coefficient of \(C\) contributes to \(x^3y\) after multiplication by \(xy\).
 
 So two fibers for the same set of operators can have different *query* ambiguity, even though their *full source* fibers have the same cardinality.
 
 ### Theorem 4.2. Ideal linear query rescue
 
- For a fixed affine source fiber `A_0+K` over `Z/p^k` and a linear query `Q`, the minimum number of supplementary **linear scalar channels modulo p^k** needed to determine `Q` on that fiber, if arbitrary linear source measurements are permitted, is the minimal number of generators of `Q(K)`. Equivalently it is the number of nonzero modulo-`p^k` Smith pivots of a matrix generating `Q(K)`.
+For a fixed affine source fiber \(A_0+K\) over \(\mathbb Z/p^k\mathbb Z\) and a linear query \(Q\), the minimum number of supplementary **linear scalar channels modulo \(p^k\)** required to determine the query, when arbitrary linear source measurements are permitted, is the minimal number of generators of \(Q(K)\). Equivalently, it is the number of nonzero Smith pivots modulo \(p^k\) of a matrix generating \(Q(K)\).
 
-**Proof.** If `P:source -> (Z/p^k)^m` resolves the query then `Q(K)` is a quotient of `P(K)`; a submodule of the free rank-`m` module over the principal ideal ring `Z/p^k` has at most `m` generators, as does every quotient. Thus `m>=mu(Q(K))`. Conversely, by Smith normal form for the inclusion `Q(K) subset (Z/p^k)^t`, a unimodular change of target coordinates `U` sends `Q(K)` into the first `mu` coordinates. The `mu` measurements consisting of the first `mu` coordinates of `UQ` have no unresolved query ambiguity. QED.
+**Proof.** Suppose a linear measurement \(P\) with \(m\) scalar outputs resolves the query on the fiber. Then \(\ker(P|_K)\subseteq\ker(Q|_K)\), so \(Q(K)\) is a quotient of \(P(K)\). Every submodule of \((\mathbb Z/p^k\mathbb Z)^m\) has at most \(m\) generators, hence \(m\ge\mu(Q(K))\). Conversely, a unimodular change of coordinates in the query's target sends \(Q(K)\) into its first \(\mu(Q(K))\) coordinates. Measuring those coordinates of the transformed query suffices. \(\square\)
 
-**Restrictions:** This minimum is local to one known fiber, assumes that supplementary measurements derived from `Q` itself are permitted, and is not an algorithm for cheaply obtaining them. For unrestricted nonlinear Lipschitz channels, it is not a claimed minimum; p-adic digit packing can behave differently.
+**Restrictions.** This minimum is local to one known fiber and permits measurements derived from \(Q\) itself. It does **not** guarantee that such measurements are cheap or independently available. No comparable minimum is asserted for unrestricted nonlinear or non-1-Lipschitz channels.
 
 ## 5. A lossless Frobenius/polyphase quotient
 
