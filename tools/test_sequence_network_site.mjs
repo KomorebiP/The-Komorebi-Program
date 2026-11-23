@@ -77,7 +77,7 @@ test('formula and quadratic channels render without executing or altering the so
 });
 test('bounded arithmetic translator preserves fractions, powers, and rejects unexpected syntax',()=>{
   assert.equal(algebraLatex('A000108(n)/2'),'\\frac{\\mathrm{A000108}\\!\\left(n\\right)}{2}');
-  assert.match(algebraLatex('A000108(n)**2'),/\\^\\{2\\}/);
+  assert.ok(algebraLatex('A000108(n)**2').includes('^{2}'));
   assert.equal(algebraLatex('A000108(n); alert(1)'),null);
   assert.equal(algebraLatex('<script>'),null);
 });
