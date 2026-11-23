@@ -33,7 +33,7 @@ export function networkSearch(data, rawQuery, category='all', limit=MAX_RESULTS,
     const score=e=> e.target===exact?0:e.inputs.includes(exact)?1:e.kind==='hyperedge'?2:e.kind==='gauge'?3:4;
     return score(a)-score(b) || a.key.localeCompare(b.key);
   });
-  return {total:candidates.length,results:candidates.slice(0,Math.max(0,Math.min(limit,200))),localLeads,resolved:[...matching].sort()};
+  return {total:candidates.length,results:candidates.slice(0,Math.max(0,Math.min(limit,(data.edges || []).length))),localLeads,resolved:[...matching].sort()};
 }
 
 /** Retrieve the archived OEIS %F text, never a certified formula evaluator. */
@@ -204,21 +204,28 @@ async function mount() {
       }finally{if(version===sourceVersion)sourceButton.disabled=false;}
     });
     let current=null, shown=0;
-    const showNext=()=>{
+    const showNext=(focusAdded=false)=>{
       if(!current)return;
       const end=Math.min(current.results.length,shown+PAGE_SIZE);
-      for(const edge of current.results.slice(shown,end))results.append(explainEdge(edge,names));
+      const added=[];
+      for(const edge of current.results.slice(shown,end)){
+        const item=explainEdge(edge,names);
+        results.append(item);
+        added.push(item);
+      }
       shown=end;
       const remaining=current.results.length-shown;
       more.hidden=remaining===0;
       if(remaining)more.textContent='Show next '+Math.min(PAGE_SIZE,remaining)+' connections ('+remaining+' remaining)';
-      const suffix=current.total>MAX_RESULTS?' · limited to first '+MAX_RESULTS+' indexed results':'';
-      status.textContent=current.total.toLocaleString()+' archived connections found · showing '+shown+suffix+'.';
+      status.textContent=current.total.toLocaleString()+' archived connections found · showing '+shown+' of '+current.total.toLocaleString()+'.';
+      // When the button disappears after the final batch, retain a meaningful
+      // keyboard and screen-reader position at the newly revealed records.
+      if(focusAdded && added.length){added[0].tabIndex=-1;added[0].focus();}
       if(!current.total && shown===0){
         results.append(node('li','No archived transfer in this curated index. Search the main OEIS reference database for additional sequences or formulas.','sn-no-results'));
       }
     };
-    more.addEventListener('click',showNext);
+    more.addEventListener('click',()=>showNext(true));
     const rerender=()=>{
       const query=input.value.trim().slice(0,200);
       const requested=OEIS.test(query.toUpperCase())?query.toUpperCase():'';
@@ -237,7 +244,7 @@ async function mount() {
         handoffs.append(node('p','Examples: A000108 (Catalan), A000129 (Pell), A000217 (triangular).'));
         return;
       }
-      const selected=networkSearch(data,query,filter.value,MAX_RESULTS,handoffsData.matches);
+      const selected=networkSearch(data,query,filter.value,data.edges.length,handoffsData.matches);
       if(selected.localLeads.length){
         const aside=node('aside',undefined,'sn-handoff');
         aside.append(node('p','Local ID '+query+': finite OEIS matches, not all-index identifications. Open a reference to explore its formula network.'));
