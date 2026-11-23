@@ -1,0 +1,97 @@
+{
+  "schema": 1,
+  "oeis": {
+    "license": "CC-BY-SA-4.0"
+  },
+  "records": [
+    {
+      "id": "A000045",
+      "name": "Synthetic test fixture A000045"
+    },
+    {
+      "id": "A000032",
+      "name": "Synthetic test fixture A000032"
+    },
+    {
+      "id": "A000129",
+      "name": "Synthetic test fixture A000129"
+    },
+    {
+      "id": "A001333",
+      "name": "Synthetic test fixture A001333"
+    },
+    {
+      "id": "A000290",
+      "name": "Synthetic test fixture A000290"
+    },
+    {
+      "id": "A000217",
+      "name": "Synthetic test fixture A000217"
+    },
+    {
+      "id": "A000578",
+      "name": "Synthetic test fixture A000578"
+    },
+    {
+      "id": "A000330",
+      "name": "Synthetic test fixture A000330"
+    },
+    {
+      "id": "A000583",
+      "name": "Synthetic test fixture A000583"
+    },
+    {
+      "id": "A000537",
+      "name": "Synthetic test fixture A000537"
+    }
+  ],
+  "counts": {
+    "hyperedge": 4
+  },
+  "edges": [
+    {
+      "key": "test-edge-0",
+      "kind": "hyperedge",
+      "evidence": "all_index_formula_identity",
+      "target": "A000129",
+      "inputs": [
+        "A001333"
+      ],
+      "domain": "fixture only",
+      "expression": "test fixture relationship, not a published proof"
+    },
+    {
+      "key": "test-edge-1",
+      "kind": "hyperedge",
+      "evidence": "all_index_formula_identity",
+      "target": "A000290",
+      "inputs": [
+        "A000217"
+      ],
+      "domain": "fixture only",
+      "expression": "test fixture relationship, not a published proof"
+    },
+    {
+      "key": "test-edge-2",
+      "kind": "hyperedge",
+      "evidence": "all_index_formula_identity",
+      "target": "A000578",
+      "inputs": [
+        "A000330"
+      ],
+      "domain": "fixture only",
+      "expression": "test fixture relationship, not a published proof"
+    },
+    {
+      "key": "test-edge-3",
+      "kind": "hyperedge",
+      "evidence": "all_index_formula_identity",
+      "target": "A000583",
+      "inputs": [
+        "A000537"
+      ],
+      "domain": "fixture only",
+      "expression": "test fixture relationship, not a published proof"
+    }
+  ]
+}

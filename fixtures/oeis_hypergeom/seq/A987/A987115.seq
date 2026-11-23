@@ -1,0 +1,5 @@
+%I A987115
+%S A987115 1,1,2,6,24,120
+%N A987115 SYNTHETIC NEGATIVE unsupported second-order recurrence.
+%F A987115 a(n+2) = (n+2)*a(n+1) + a(n).
+%O A987115 0,1
