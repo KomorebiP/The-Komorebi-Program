@@ -36,6 +36,8 @@ jobs:
               'assets/sequence-network-ui.mjs',
               'assets/sequence-network-format.mjs',
               'assets/sequence-network.css',
+              'assets/reader.js',
+              'assets/reader.css',
           )
           expected = {
               paths[0]: (
@@ -67,6 +69,13 @@ jobs:
               paths[5]: (
                   '.sn-fields',
                   '.sn-more-wrap',
+              ),
+              paths[6]: (
+                  'span.arithmatex, div.arithmatex',
+                  'Display equation. Scroll horizontally if needed.',
+              ),
+              paths[7]: (
+                  'div.arithmatex.math-overflow:focus-visible',
               ),
           }
           latest_errors = []
