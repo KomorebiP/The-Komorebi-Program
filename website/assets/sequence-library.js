@@ -4,7 +4,7 @@ import {searchEntries} from './sequence-atlas-search.mjs';
 import {SEARCH_KEYS,RECORD_FILTERS,FAMILY_FILTERS,emptySearch,normalizeSearch,librarySearch,librarySearchCSV} from './sequence-library-search.mjs';
 import {createInspectionLink,readInspectionLink} from './sequence-inspection-links.mjs';
 
-import {referenceQuery} from './sequence-oeis-core.mjs';
+import {referenceQuery,referenceNetworkUrl} from './sequence-oeis-core.mjs';
 import {createReferenceClient} from './sequence-oeis-client.mjs';
 
 import {workbenchLink,localSource,referenceSource,customSource,familySource,WORKBENCH_DEFAULTS} from './sequence-workbench-core.mjs';
@@ -534,6 +534,13 @@ function setupReference(client){
       $('oeis-results').replaceChildren();for(const hit of data.results){
         const li=make('li'),link=make('a',hit.id+' · '+(hit.name||'Name not recorded'));link.href='https://oeis.org/'+hit.id;
         li.append(link,make('p',hit.position===null?'Terms from the exported excerpt; its mathematical offset is not included.':`Pattern at excerpt position ${hit.position}; ${hit.matched_terms} pattern positions (${hit.known_terms} known integers); ${hit.positions} matching position(s) in this excerpt.`));
+        const networkUrl=referenceNetworkUrl(hit.id);
+        if(networkUrl){
+          const network=make('a','Explore formula connections');
+          network.href=networkUrl;
+          network.title='Open the curated formula Network if this OEIS sequence is indexed';
+          li.append(network);
+        }
         const values=make('p',(hit.values||[]).join(', '));values.className='sar-formula';li.append(values);
         if(hit.values?.length){const compare=make('button','Add excerpt to comparison');compare.type='button';compare.setAttribute('aria-label','Compare '+hit.id+' excerpt');compare.addEventListener('click',()=>{if(workbench)workbench.addReference(hit);else comparisonHandoff([],root.dataset.oeisSnapshot||'').addReference(hit);});li.append(compare);}
         $('oeis-results').append(li);

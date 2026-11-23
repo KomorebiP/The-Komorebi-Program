@@ -22,6 +22,11 @@ async function main(){
     assert.ok(first>0,'Catalan must have archived formula relations');
     assert.ok((await page.locator('#sn-results').innerText()).includes('Formula identity')||
               (await page.locator('#sn-results').innerText()).includes('Gauge transfer'));
+    assert.equal(await page.locator('#sn-source-formulas').isVisible(),true);
+    await page.click('#sn-source-load');
+    await page.waitForFunction(()=>document.querySelectorAll('#sn-source-results li').length>0,null,{timeout:45000});
+    assert.match(await page.locator('#sn-source-status').innerText(),/unreviewed OEIS records/);
+    assert.match(await page.locator('#sn-source-results').innerText(),/binomial/);
     await page.selectOption('#sn-filter','gauge');
     assert.match(await page.locator('#sn-status').innerText(),/connections found/);
     await page.setViewportSize({width:390,height:844});

@@ -51,3 +51,21 @@ node --test tools/test_sequence_network_site.mjs
 ```
 
 The normal `sequence-library-checks.yml` workflow also builds the Sequence Library and checks browser functionality. Public pages are static. A full formula-execution/optimization service would require separate infrastructure and fresh authenticated source-bound certificates, not a claim that these indexed expressions can safely be evaluated in a GitHub Pages client.
+
+## Lazy-loaded OEIS source formulas
+
+A separately versioned source-text index contains **8,853 original OEIS `%F` lines**
+for **845 of the 916** OEIS IDs in the curated transfer graph. The other 71
+IDs have no `%F` field in the retained first-99,999-entry snapshot. The snapshot
+file SHA-256 is the same `a121d7a6…` value used to pin the graph evidence.
+The source text is **unreviewed**, not a mathematical proof or an executable
+formula. Source-program blocks are excluded. Every source entry links to OEIS
+and retains OEIS Foundation attribution under CC BY-SA 4.0.
+
+The browser fetches `assets/sequence-network-formulas.json` only when the
+reader requests source formulas for one exact OEIS A-number. It uses
+`textContent` for all formula text and displays at most 25 records at a time,
+with a further-results control. The generator
+`tools/export_sequence_network_formulas.py` checks the pinned SQLite database
+hash before producing the retained file. This source-text enhancement does not
+add any all-index OEIS identity claims.

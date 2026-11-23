@@ -65,12 +65,52 @@ def read_index(path):
     return data
 
 
+def read_formula_text(path, network):
+    """Validate source-only OEIS text before publishing the lazy asset."""
+    raw=Path(path).read_bytes()
+    if len(raw)>4_000_000:
+        raise ValueError('OEIS Network formula source exceeds reviewed limit')
+    data=json.loads(raw)
+    if (data.get('schema')!=1 or data.get('evidence')!='unreviewed_source_text'
+            or data.get('license')!='CC-BY-SA-4.0'
+            or data.get('snapshot_sha256')!=network['oeis']['snapshot_sha256']):
+        raise ValueError('OEIS source text provenance or evidence mismatch')
+    entries=data.get('entries')
+    if not isinstance(entries,dict):
+        raise ValueError('Invalid OEIS source-formula index')
+    known={row['id'] for row in network['records']}
+    if not set(entries)<=known:
+        raise ValueError('OEIS source formula references outside the Network')
+    lines=0
+    for identifier,item in entries.items():
+        if not ID.fullmatch(identifier) or item.get('source')!='https://oeis.org/'+identifier:
+            raise ValueError('Invalid OEIS source formula address')
+        formulas=item.get('formulas')
+        if not isinstance(formulas,list) or not formulas:
+            raise ValueError('Empty source formula list')
+        for formula in formulas:
+            if (not isinstance(formula,dict) or set(formula)!={'kind','text'}
+                    or not isinstance(formula['kind'],str) or len(formula['kind'])>120
+                    or not isinstance(formula['text'],str) or len(formula['text'])>5000):
+                raise ValueError('Invalid OEIS source formula text')
+        lines+=len(formulas)
+    if data.get('counts')!={'network_ids':len(known),'ids_with_formulas':len(entries),
+                            'formula_lines':lines}:
+        raise ValueError('OEIS source formula count mismatch')
+    return data
+
+
 def build_site_assets(site, entries):
     """Copy checked release data; create only finite-label local->OEIS handoffs."""
     manifest=site.root/'manifests/sequence-transfer-network.json'
     data=read_index(manifest)
     raw=json.dumps(data,ensure_ascii=False,separators=(',',':'))+'\n'
     site.write('assets/sequence-network-data.json',raw)
+    # Only the Network page requests this separate, pinned source-text asset.
+    # Do not ship the 99,999-sequence SQLite database to a visitor.
+    source_formulas=read_formula_text(site.root/'manifests/sequence-network-formula-text.json',data)
+    site.write('assets/sequence-network-formulas.json',
+               json.dumps(source_formulas,ensure_ascii=False,separators=(',',':'))+'\n')
     handoffs={}
     for entry in entries:
         identifier=entry.get('id')
@@ -109,6 +149,15 @@ and OEIS term finder remain available.</p>
 <option value="quadratic">Quadratic channels</option></select></form>
 <p id="sn-status" role="status" aria-live="polite">Loading the read-only transfer index...</p>
 <div id="sn-handoffs" aria-live="polite"></div><ol id="sn-results" class="sn-results" aria-label="Transfer connections"></ol>
+<section id="sn-source-formulas" class="sn-source" hidden aria-label="OEIS source formulas">
+<h3>OEIS source formulas</h3>
+<p>These are archived OEIS formula fields, not independently verified sequence identities.
+The text is displayed without execution, and source programs are not loaded.</p>
+<button type="button" id="sn-source-load">Load this sequence’s source formula text</button>
+<p id="sn-source-status" role="status" aria-live="polite"></p>
+<ol id="sn-source-results" class="sn-source-results"></ol>
+<button type="button" id="sn-source-more" hidden>Show more formulas</button>
+</section>
 <details class="sn-boundary"><summary>Evidence classes, limitations, and attribution</summary>
 <p><strong>Formula-level identity:</strong> an algebraic identity between extracted expressions under the recorded index domain.
 <strong>Conditional OGF identity:</strong> exact formal generating-function transport assuming the source and target OGF premises.

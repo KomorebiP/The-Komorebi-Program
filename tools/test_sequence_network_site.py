@@ -5,7 +5,7 @@ import shutil
 import tempfile
 import unittest
 from pathlib import Path
-from sequence_network_site import read_index, build_site_assets,local_network_link,network_section
+from sequence_network_site import read_index, read_formula_text, build_site_assets,local_network_link,network_section
 ROOT=Path(__file__).resolve().parents[1]
 
 class DummySite:
@@ -23,6 +23,25 @@ class NetworkTests(unittest.TestCase):
         self.assertEqual(len(index['edges']),1559)
         self.assertEqual(index['oeis']['license'],'CC-BY-SA-4.0')
         self.assertGreaterEqual(len(index['records']),900)
+    def test_pinned_formula_source_is_unreviewed_and_complete(self):
+        source=read_formula_text(ROOT/'manifests/sequence-network-formula-text.json',self.fixture)
+        self.assertEqual(source['counts'],{'network_ids':916,'ids_with_formulas':845,'formula_lines':8853})
+        self.assertEqual(source['evidence'],'unreviewed_source_text')
+        self.assertEqual(source['snapshot_sha256'],self.fixture['oeis']['snapshot_sha256'])
+        self.assertTrue(any('binomial' in row['text'].lower()
+                            for row in source['entries']['A000108']['formulas']))
+        with tempfile.TemporaryDirectory() as directory:
+            p=Path(directory)/'source.json'
+            for key,value in [('evidence','all_index_formula_identity'),('snapshot_sha256','forged')]:
+                corrupted=copy.deepcopy(source);corrupted[key]=value
+                p.write_text(json.dumps(corrupted),encoding='utf-8')
+                with self.subTest(field=key),self.assertRaises(ValueError):
+                    read_formula_text(p,self.fixture)
+            corrupted=copy.deepcopy(source)
+            corrupted['entries']['A000108']['source']='javascript:alert(1)'
+            p.write_text(json.dumps(corrupted),encoding='utf-8')
+            with self.assertRaises(ValueError):read_formula_text(p,self.fixture)
+
     def test_invalid_proof_status_rejected(self):
         with tempfile.TemporaryDirectory() as temporary:
             for alteration in ('evidence','key','counts','id'):
@@ -38,6 +57,7 @@ class NetworkTests(unittest.TestCase):
             r=Path(temporary)/'repo';o=Path(temporary)/'site';(r/'manifests').mkdir(parents=True)
             (r/'website/assets').mkdir(parents=True)
             shutil.copy(ROOT/'manifests/sequence-transfer-network.json',r/'manifests/sequence-transfer-network.json')
+            shutil.copy(ROOT/'manifests/sequence-network-formula-text.json',r/'manifests/sequence-network-formula-text.json')
             for name in ('sequence-network.css','sequence-network-ui.mjs'):
                 shutil.copy(ROOT/'website/assets'/name,r/'website/assets'/name)
             entries=[{'id':'KSEQ-TEST','oeis_checked':True,'matches':[{'id':'A000108','matched_terms':24},
@@ -45,6 +65,8 @@ class NetworkTests(unittest.TestCase):
                  'matches':[{'id':'A000129','matched_terms':30}]}]
             meta=build_site_assets(DummySite(r,o),entries)
             self.assertEqual(meta['edge_count'],1559)
+            formula_out=json.loads((o/'assets/sequence-network-formulas.json').read_text())
+            self.assertEqual(formula_out['counts']['formula_lines'],8853)
             self.assertEqual(meta['handoffs'],1)
             handoff=json.loads((o/'assets/sequence-network-handoffs.json').read_text())
             self.assertEqual(handoff['matches']['KSEQ-TEST'],[{'id':'A000108','terms':24}])
