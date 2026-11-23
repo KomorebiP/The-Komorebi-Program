@@ -68,6 +68,22 @@ def sign_certificate(polynomial: tuple[Q,...], base: int) -> dict|None:
             'shifted_coefficients':[ff(x) for x in v]}
 
 
+def raw_denominator_signs(tree,term_names,base,shift_index=0):
+    """Guard denominators in the written expression, before cancellations."""
+    guards=[]
+    for node in ast.walk(tree):
+        if not isinstance(node,ast.BinOp) or not isinstance(node.op,ast.Div):continue
+        if any(isinstance(v,ast.Name) and v.id in term_names for v in ast.walk(node.right)):
+            return None
+        try:r=parse_safe_rhs(ast.unparse(node.right))
+        except (ValueError,ZeroDivisionError,SyntaxError,OverflowError):return None
+        for p in (r.num,r.den):
+            g=sign_certificate(poly_shift(p,shift_index),base)
+            if g is None:return None
+            guards.append(g)
+    return guards
+
+
 def _ratio_ast_safe(source:str) -> Rational|None:
     """Extract the coefficient of one first-order a(n+shift) by syntax.
 
@@ -155,8 +171,11 @@ def parse_first_order(raw:str, *, offset:int) -> dict|None:
     if lhs==0:r=shift(r,1)
     cert=sign_certificate(r.den,base)
     if not cert:return None
+    tree=ast.parse(TERM.sub('__seq_term',tail).replace('^','**'),mode='eval')
+    original=raw_denominator_signs(tree,{'__seq_term'},base,1-lhs)
+    if original is None:return None
     return {'ratio':r,'base_index':base,'denominator_nonzero':cert,
-            'source_statement':text[:260], 'source_bound':bound,
+            'source_statement':text[:260], 'source_bound':bound, 'raw_denominator_nonzero':original,
             'guard':'n >= '+str(base)}
 
 
@@ -240,6 +259,7 @@ def profile(rec:OEISRecord) -> dict:
                       'initial':ff(Q(rec.terms[pos])),'base_index':b,
                       'matched_source_terms':len(calculated),
                       'denominator_nonzero':parsed['denominator_nonzero'],
+                      'raw_denominator_nonzero':parsed['raw_denominator_nonzero'],
                       'source_statement':parsed['source_statement'],
                       'premise_status':'external_oeis_formula_and_source_initial_are_assumed',
                       'proof_status':'conditional_all_index_recurrence_uniqueness',

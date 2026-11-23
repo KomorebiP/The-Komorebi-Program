@@ -8,11 +8,13 @@ on:
       - 'tools/oeis_identification_proofs.py'
       - 'tools/oeis_hypergeometric_gate.py'
       - 'tools/oeis_precursive_gate.py'
+      - 'tools/oeis_shift_operator_gate.py'
       - 'tools/test_oeis_gap_automation.py'
       - 'tools/test_oeis_cfinite_bridge.py'
       - 'tools/test_oeis_identification_proofs.py'
       - 'tools/test_oeis_hypergeometric_gate.py'
       - 'tools/test_oeis_precursive_gate.py'
+      - 'tools/test_oeis_shift_operator_gate.py'
       - 'fixtures/oeis_*/**'
       - '.github/workflows/oeis-hypergeom-certification.yml'
   pull_request:
@@ -22,11 +24,13 @@ on:
       - 'tools/oeis_identification_proofs.py'
       - 'tools/oeis_hypergeometric_gate.py'
       - 'tools/oeis_precursive_gate.py'
+      - 'tools/oeis_shift_operator_gate.py'
       - 'tools/test_oeis_gap_automation.py'
       - 'tools/test_oeis_cfinite_bridge.py'
       - 'tools/test_oeis_identification_proofs.py'
       - 'tools/test_oeis_hypergeometric_gate.py'
       - 'tools/test_oeis_precursive_gate.py'
+      - 'tools/test_oeis_shift_operator_gate.py'
       - 'fixtures/oeis_*/**'
       - '.github/workflows/oeis-hypergeom-certification.yml'
   workflow_dispatch:
@@ -48,14 +52,18 @@ jobs:
             /tools/oeis_identification_proofs.py
             /tools/oeis_hypergeometric_gate.py
             /tools/oeis_precursive_gate.py
+            /tools/oeis_shift_operator_gate.py
             /tools/test_oeis_gap_automation.py
             /tools/test_oeis_cfinite_bridge.py
             /tools/test_oeis_identification_proofs.py
             /tools/test_oeis_hypergeometric_gate.py
             /tools/test_oeis_precursive_gate.py
+            /tools/test_oeis_shift_operator_gate.py
             /fixtures/oeis_identification/
             /fixtures/oeis_hypergeom/
             /fixtures/oeis_precursive/
+            /fixtures/oeis_shift_operator/
+            /fixtures/oeis_shift_official_excerpts/
             /manifests/oeis-cfinite-recurrence-seeds.json
             /fixtures/existing_sequence_network_v15.json
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
@@ -63,13 +71,38 @@ jobs:
           python-version: '3.13'
       - name: Verify local sources, assertions, exact identities and rejections
         run: |
-          PYTHONPATH=tools python -B -m unittest test_oeis_gap_automation test_oeis_cfinite_bridge test_oeis_identification_proofs test_oeis_hypergeometric_gate test_oeis_precursive_gate -v
+          PYTHONPATH=tools python -B -m unittest test_oeis_gap_automation test_oeis_cfinite_bridge test_oeis_identification_proofs test_oeis_hypergeometric_gate test_oeis_precursive_gate test_oeis_shift_operator_gate -v
           python -B tools/oeis_identification_proofs.py --oeis-root fixtures/oeis_identification --output .certificates/identification
           python -B tools/oeis_identification_proofs.py --oeis-root fixtures/oeis_identification --output .certificates/identification --verify-report
           python -B tools/oeis_hypergeometric_gate.py --oeis-root fixtures/oeis_hypergeom --output .certificates/hypergeom
           python -B tools/oeis_hypergeometric_gate.py --oeis-root fixtures/oeis_hypergeom --output .certificates/hypergeom --verify-report
           python -B tools/oeis_precursive_gate.py --oeis-root fixtures/oeis_precursive --output .certificates/precursive
           python -B tools/oeis_precursive_gate.py --oeis-root fixtures/oeis_precursive --output .certificates/precursive --verify-report
+          for corpus in oeis_shift_operator oeis_shift_official_excerpts; do
+            python -B tools/oeis_shift_operator_gate.py --oeis-root fixtures/$corpus --plan fixtures/$corpus/plan.json --output .certificates/$corpus.json
+            python -B tools/oeis_shift_operator_gate.py --oeis-root fixtures/$corpus --plan fixtures/$corpus/plan.json --output .certificates/$corpus.json --verify-report
+          done
+      - name: Replay the seven full pinned official records
+        run: |
+          python - <<'PY'
+          import json, os, subprocess
+          from pathlib import Path
+          plan=json.loads(Path('fixtures/oeis_shift_official_excerpts/full_source_plan.json').read_text())
+          root=Path(os.environ['RUNNER_TEMP'])/'oeis-shift-pinned'
+          for row in plan['records']:
+              ident=row['id']; rel=f'seq/{ident[:4]}/{ident}.seq'
+              dest=root/rel;dest.parent.mkdir(parents=True,exist_ok=True)
+              url=f"https://raw.githubusercontent.com/oeis/oeisdata/{plan['origin']['commit']}/{rel}"
+              subprocess.run(['curl','--fail','--silent','--show-error','--retry','3','--max-time','60',url,'-o',str(dest)],check=True)
+          PY
+          python -B tools/oeis_shift_operator_gate.py --oeis-root "$RUNNER_TEMP/oeis-shift-pinned" --plan fixtures/oeis_shift_official_excerpts/full_source_plan.json --output .certificates/official-shifts.json
+          python -B tools/oeis_shift_operator_gate.py --oeis-root "$RUNNER_TEMP/oeis-shift-pinned" --plan fixtures/oeis_shift_official_excerpts/full_source_plan.json --output .certificates/official-shifts.json --verify-report
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          x=json.loads(Path('.certificates/official-shifts.json').read_text())['summary']
+          assert x['records']==7 and x['conditional_certificates']==24 and x['polyphase_certificates']==18
+          PY
       - name: Clone official OEIS source and preserve its revision
         env:
           GIT_LFS_SKIP_SMUDGE: '1'
