@@ -114,4 +114,7 @@ const fallback = p.formula(150, 400); p.flush();
 assert.equal(fallback.attrs.tabindex, '0', 'Initial layout and resize work without observer APIs');
 fallback.clientWidth = 450; p.events.resize(); p.flush();
 assert.equal(fallback.attrs.tabindex, undefined);
+const stylesheet = fs.readFileSync(path.join(__dirname, '../website/assets/reader.css'), 'utf8');
+assert.match(stylesheet, /div\\.arithmatex\\.math-overflow:focus-visible\\{/,
+  'Overflowing display equations have a visible keyboard focus ring');
 console.log('PASS: inline and display formula scrolling, resized text, delayed math, live results and accessible-name preservation');
