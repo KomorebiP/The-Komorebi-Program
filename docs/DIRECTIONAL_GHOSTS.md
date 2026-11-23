@@ -82,9 +82,24 @@ where
 \boxed{e_\alpha=\min_i\,\min\bigl(k,\max(0,v_p(\lambda_{i,\alpha})-h_i)\bigr).}
 \]
 
-The convention is that \(\min(k,+\infty)=k\). Every attainable signature collection has the same number of compatible coefficient reductions.
+The convention is \(\min(k,+\infty)=k\). The count concerns **distinct source reductions modulo \(p^k\)**, using the compatibility convention from Section 1. Every attainable signature collection has the same number of such reductions.
 
-**Proof.** For any two units \(A_0\) and \(B\), write \(B=A_0C\). The Leibniz rule gives \(\Gamma_i(A_0C)=\Gamma_i(A_0)+\Gamma_i(C)\). The signatures agree modulo \(p^{k+h_i}\) exactly when \(\delta_i(C)\equiv0\pmod{p^{k+h_i}}\), since \(C\) is invertible. Writing \(C=1+\sum_\alpha c_\alpha\mathbf{x}^\alpha\), the coefficient constraints are \(\lambda_{i,\alpha}c_\alpha\equiv0\pmod{p^{k+h_i}}\). The permissible reductions of \(c_\alpha\) modulo \(p^k\) form the ideal \(p^{k-e_\alpha}(\mathbb Z/p^k\mathbb Z)\), containing exactly \(p^{e_\alpha}\) elements. The monomial constraints are independent. Multiplication by \(A_0\) bijects the permissible \(C\) with permissible \(B\), so the total fiber size is \(p^{\sum_\alpha e_\alpha}\). \(\square\)
+**Proof.** Fix a full-precision representative \(A_0\) of the measured signatures. Every other compatible lift can be written as \(B=A_0C\) with \(C\in1+I\). The Leibniz rule gives
+
+\[
+\Gamma_i(A_0C)=\Gamma_i(A_0)+\Gamma_i(C).
+\]
+
+Because \(C\) is invertible, agreement of signatures modulo \(p^{k+h_i}\) is equivalent to \(\delta_i(C)\equiv0\pmod{p^{k+h_i}}\).
+
+Write \(C=1+\sum_\alpha c_\alpha\mathbf{x}^\alpha\). For each monomial \(\alpha\), the conditions are
+
+\[
+\lambda_{i,\alpha}c_\alpha\equiv0\pmod{p^{k+h_i}}
+\qquad\text{for every }i.
+\]
+
+The reductions of \(c_\alpha\) modulo \(p^k\) that admit such lifts form the ideal \(p^{k-e_\alpha}(\mathbb Z/p^k\mathbb Z)\), containing exactly \(p^{e_\alpha}\) elements. These conditions are coefficientwise independent. Multiplication by \(A_0\) is a bijection on source reductions, so the total fiber size is \(\prod_\alpha p^{e_\alpha}=p^E\). \(\square\)
 
 ### Corollary 2.2. Minimum full-source rescue count
 
@@ -151,9 +166,15 @@ For a full-column-rank family, the residual ambiguity consists precisely of expo
 | --- | ---: | ---: |
 | Total-degree derivative, \(w=(1,1)\) | 58 | 35 |
 | Coordinate derivatives, \(W=I_2\) | 27 | 20 |
-| Total-degree and difference, \(W=\left(\begin{smallmatrix}1&1\\1&-1\end{smallmatrix}\right)\) | 46 | 35 |
+| Total-degree and difference derivatives | 46 | 35 |
 
-The last matrix has determinant \(-2\), which is not a unit modulo \(2\). Rational linear independence is insufficient for optimal reconstruction in the \(2\)-adic setting.
+For the last row, the weight matrix is
+
+\[
+W=\begin{pmatrix}1&1\\1&-1\end{pmatrix}.
+\]
+
+Its determinant \(-2\) is not a unit modulo \(2\). Rational linear independence is insufficient for optimal reconstruction in the \(2\)-adic setting.
 
 For \(W=I_2\), the layer counts give \(E=\bigl[\binom72-1\bigr]+\bigl[\binom42-1\bigr]+\bigl[\binom32-1\bigr]=20+5+2=27\).
 
@@ -184,7 +205,7 @@ p^{r_\alpha}(\mathbb Z/p^k\mathbb Z)\mathbf x^\alpha.
 \end{aligned}
 \]
 
-Let \(M_{A_0}\) be the integral unitriangular convolution matrix for multiplication of truncated series by \(A_0\), and let \(Q\) be an integral linear query on the input coefficient vector. Define
+Let \(M_{A_0}\) be the unitriangular convolution matrix for multiplication of truncated series by \(A_0\), and let \(Q\) be an integral linear query on the input coefficient vector. Only entries modulo \(p^k\) are needed. To compute an integer Smith normal form, choose integer representatives for these residue classes and define
 
 \[
 H_Q=Q\,M_{A_0}\,\operatorname{diag}(p^{r_\alpha}).
@@ -192,7 +213,7 @@ H_Q=Q\,M_{A_0}\,\operatorname{diag}(p^{r_\alpha}).
 
 ### Theorem 4.1. Nonlinear observations and linear-query Smith formula
 
-If \(s_1,\ldots,s_u\) are the \(p\)-adic valuations of the Smith invariant factors of \(H_Q\), including \(s_j=+\infty\) for zero pivots, then the exact number of distinct outputs \(Q(A)\pmod{p^k}\) consistent with the measured ghost signatures is
+If \(s_1,\ldots,s_u\) are the \(p\)-adic valuations of the Smith invariant factors of an integer lift of \(H_Q\), with zero pivots contributing \(s_j=+\infty\), then the exact number of distinct outputs \(Q(A)\pmod{p^k}\) consistent with the measured ghost signatures is
 
 \[
 \boxed{|Q(\mathcal F)|=p^{\sum_{j=1}^u\max(0,k-s_j)}.}
