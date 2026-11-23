@@ -1,5 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {referenceQuery,referenceValues,referencePositions,referenceNameMatches} from '../website/assets/sequence-oeis-core.mjs';
+import {referenceQuery,referenceValues,referencePositions,referenceNameMatches,referenceNetworkUrl} from '../website/assets/sequence-oeis-core.mjs';
 import {searchEntries} from '../website/assets/sequence-atlas-search.mjs';
 import {PLOT_DEFAULTS,plotColors,plotTheme,validateAppearance,contrastRatio,appearanceLink,readAppearance} from '../website/assets/sequence-plot-options.mjs';
 import {emptySearch,normalizeSearch,librarySearch,librarySearchCSV} from '../website/assets/sequence-library-search.mjs';
@@ -7,6 +7,14 @@ test('bulk reference queries preserve exact large integers, signs, zero and wild
   assert.equal(referenceQuery('a108').id,'A000108');assert.throws(()=>referenceQuery('1,2'));assert.throws(()=>referenceQuery('?,?,?,?,?,?,?,?'));
   const q=referenceQuery('0,-1,9007199254740993,?,4,5,6,7'),row=referenceValues('A123456 ,99,0,-1,9007199254740993,3,4,5,6,7,');assert.equal(row.id,'A123456');assert.deepEqual(referencePositions(row.values,q),[1]);
   assert.equal(referenceNameMatches('A000108','Catalan numbers',referenceQuery('catalan numbers')),true);assert.equal(referenceNameMatches('A000108','Catalan numbers',referenceQuery('catalan Lucas')),false);
+});
+test('OEIS reference records link to the curated Network without claiming identity',()=>{
+  assert.equal(referenceNetworkUrl('A000108'),'sequence-network.html?q=A000108#sequence-network');
+  assert.equal(referenceNetworkUrl('a000045'),'sequence-network.html?q=A000045#sequence-network');
+  assert.equal(referenceNetworkUrl('A000108?x=1'),null);
+  assert.equal(referenceNetworkUrl('javascript:alert(1)'),null);
+  assert.equal(referenceNetworkUrl('A0123456'),null);
+  assert.equal(referenceNetworkUrl(undefined),null);
 });
 test('alternate formulas and parameter fields are searchable without changing terms',()=>{
   const entry={id:'KFOR-C-03-01-02-num',title:'Coefficient numerator',formula:'a(n)=num(q(n))',recurrence:'',formulas:[{kind:'hypergeometric',expression:'0F2( ; 1/3, 2/3 ; z)'}],tags:[],kind:'congruential numerator',collection:'formulas',N:3,j:1,power:2,offset:2,status:'Published',terms:['1','2','3']};
