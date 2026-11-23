@@ -11,26 +11,49 @@ const EVIDENCE = Object.freeze({
 });
 const KIND = Object.freeze({hyperedge:'Formula identity',gauge:'Gauge transfer',riordan:'Riordan transform',quadratic:'Quadratic channel'});
 
+/** Count direct incidences, not mentions in a different sequence's title. */
+export function networkProfile(data, rawId, category='all') {
+  const id=String(rawId??'').trim().toUpperCase();
+  if(!OEIS.test(id))return null;
+  const record=(data.records || []).find(r=>r.id===id) || null;
+  let total=0, target=0, input=0;
+  for(const edge of data.edges || []){
+    if(category!=='all' && edge.kind!==category)continue;
+    const isTarget=edge.target===id, isInput=edge.inputs.includes(id);
+    if(isTarget || isInput)total++;
+    if(isTarget)target++;
+    if(isInput)input++;
+  }
+  return {id,record,total,target,input};
+}
+
 export function networkSearch(data, rawQuery, category='all', limit=MAX_RESULTS, localMatches={}) {
   const q=String(rawQuery??'').trim().slice(0,200);
-  const key=q.toLocaleLowerCase();
+  const textMode=/^text:/i.test(q);
+  const term=textMode?q.slice(5).trim():q;
+  const key=term.toLocaleLowerCase();
   if (!key) return {total:0, results:[], localLeads:[], resolved:[]};
-  const localLeads=(localMatches[q] || localMatches[q.toUpperCase()] || []).filter(x=>OEIS.test(x.id));
+  const exact=term.toUpperCase();
+  const exactId=!textMode && OEIS.test(exact);
+  const leadValue=Object.hasOwn(localMatches,term)?localMatches[term]:
+    Object.hasOwn(localMatches,exact)?localMatches[exact]:[];
+  const localLeads=(!textMode&&!exactId&&Array.isArray(leadValue)?leadValue:[])
+    .filter(x=>x && OEIS.test(x.id));
   const matching=new Set(localLeads.map(x=>x.id));
-  for(const record of data.records || []) {
+  if(exactId){if((data.records || []).some(r=>r.id===exact))matching.add(exact);}
+  else for(const record of data.records || []) {
     if(record.id.toLowerCase()===key || record.name.toLocaleLowerCase().includes(key)) matching.add(record.id);
   }
   const candidates=[];
   for(const edge of data.edges || []) {
     if(category!=='all' && edge.kind!==category) continue;
     const incident=[edge.target,...edge.inputs];
-    // Combine name/ID matches with formula and relation-class matches.
-    // A named sequence must not hide another record whose expression matches.
-    if(incident.some(id=>matching.has(id)) ||
+    // Exact IDs mean incidence. The explicit text: mode also searches names
+    // and formulas, without turning a textual mention into a direct edge.
+    if(incident.some(id=>matching.has(id)) || (!exactId && (
        String(edge.expression).toLocaleLowerCase().includes(key) ||
-       String(edge.kind).toLocaleLowerCase().includes(key)) candidates.push(edge);
+       String(edge.kind).toLocaleLowerCase().includes(key)))) candidates.push(edge);
   }
-  const exact=q.toUpperCase();
   candidates.sort((a,b)=>{
     const score=e=> e.target===exact?0:e.inputs.includes(exact)?1:e.kind==='hyperedge'?2:e.kind==='gauge'?3:4;
     return score(a)-score(b) || a.key.localeCompare(b.key);
@@ -68,6 +91,12 @@ function officialLink(id, label) {
   a.href=OEIS.test(id)?'https://oeis.org/'+id:'sequence-library.html';
   return a;
 }
+function sequenceNetworkLink(id, label) {
+  const a=node('a',label || id);
+  a.href=networkLink(id);
+  a.setAttribute('aria-label',label || 'Explore '+id+' direct connections');
+  return a;
+}
 function siteSearchLink(id) {
   const a=node('a','Search '+id+' in the local Sequence Library');
   a.href='sequence-library.html?q='+encodeURIComponent('oeis:'+id)+'#library-search';
@@ -75,8 +104,8 @@ function siteSearchLink(id) {
 }
 function readableDomain(domain) {
   const text=String(domain||'');
-  if(text==='local n>=0 with nonsingular ratio denominator')
-    return 'Local indices n ≥ 0, where the required denominator is nonzero.';
+  const tail=/^local n>=(\d+) with nonsingular ratio denominator$/.exec(text);
+  if(tail)return 'Local indices n ≥ '+tail[1]+', where the required denominator is nonzero.';
   if(text==='all local n>=0')return 'All local indices n ≥ 0.';
   if(text==='all integer n>=0 for quadratic channel definition')
     return 'All integer indices n ≥ 0 under the quadratic-channel definition.';
@@ -94,8 +123,8 @@ function explainEdge(edge, names) {
   const li=node('li',undefined,'sn-result');
   li.setAttribute('aria-label','Archived transfer: '+edge.target+' from '+edge.inputs.join(', '));
   const kind=node('span',KIND[edge.kind] || 'Formula connection','sn-rel-kind');
-  const heading=node('h3');heading.append(kind,officialLink(edge.target),document.createTextNode(' ← '));
-  edge.inputs.forEach((input,i)=>{if(i)heading.append(document.createTextNode(', '));heading.append(officialLink(input));});
+  const heading=node('h3');heading.append(kind,sequenceNetworkLink(edge.target),document.createTextNode(' ← '));
+  edge.inputs.forEach((input,i)=>{if(i)heading.append(document.createTextNode(', '));heading.append(sequenceNetworkLink(input));});
   li.append(heading);
 
   const formatted=formatNetworkMath(edge);
@@ -127,8 +156,9 @@ function explainEdge(edge, names) {
   const detailList=node('dl',undefined,'sn-source-names');
   for(const id of [edge.target,...edge.inputs]){
     const item=node('div');
-    item.append(node('dt',id===edge.target?'Target '+id:'Input '+id),
-                node('dd',names.get(id) || 'OEIS sequence'));
+    const description=node('dd',names.get(id) || 'OEIS sequence');
+    description.append(document.createTextNode(' · '),officialLink(id,'View '+id+' on OEIS'));
+    item.append(node('dt',id===edge.target?'Target '+id:'Input '+id),description);
     detailList.append(item);
   }
   details.append(detailList);
@@ -196,6 +226,7 @@ async function mount() {
     sourceButton.addEventListener('click',async()=>{
       const requested=activeId, version=sourceVersion;
       if(!requested)return;
+      const focusWasOnButton=document.activeElement===sourceButton;
       sourceButton.disabled=true;sourceStatus.textContent='Loading pinned OEIS formula fields…';
       try{
         const archive=await sourceData();
@@ -205,9 +236,18 @@ async function mount() {
         sourceButton.hidden=true;renderSource();
         sourceStatus.textContent=sourceRows.length
           ? `${sourceRows.length} source formula lines. These are unreviewed OEIS records, not proven sequence identities.`
-          : 'No source formula fields were retained for this ID in the pinned 99,999-entry snapshot.';
+          : names.has(requested)
+            ? 'No source formula fields were retained for this curated ID in the pinned 99,999-entry snapshot.'
+            : 'This ID is outside the curated source-formula archive. Its full OEIS entry remains available.';
         const external=officialLink(requested,'Read the full source entry on OEIS');
         sourceStatus.append(document.createTextNode(' '),external);
+        // The load button disappears after success. Retain the reader's focus
+        // unless they have already moved elsewhere during the asynchronous load.
+        if(focusWasOnButton && (document.activeElement===sourceButton ||
+            document.activeElement===document.body || document.activeElement===document.documentElement)){
+          const destination=sourceResults.firstElementChild || sourceStatus;
+          destination.tabIndex=-1;destination.focus();
+        }
       }catch(error){
         if(version===sourceVersion)sourceStatus.textContent='Source formula text could not load. The original OEIS entry remains available.';
       }finally{if(version===sourceVersion)sourceButton.disabled=false;}
@@ -260,6 +300,25 @@ async function mount() {
         selected.localLeads.slice(0,8).forEach(hit=>{
           const a=node('a',hit.id+' ('+hit.terms+' matching terms)');a.href=networkLink(hit.id);aside.append(a);
         });handoffs.append(aside);
+      }
+      const profile=networkProfile(data,query,filter.value);
+      if(profile){
+        const panel=node('section',undefined,'sn-handoff sn-profile');
+        const heading=node('h3',profile.id+' · direct transfer connections');
+        heading.id='sn-profile-title';panel.setAttribute('aria-labelledby',heading.id);
+        panel.append(heading);
+        if(profile.record){
+          panel.append(node('p',profile.record.name));
+          panel.append(node('p',profile.total.toLocaleString()+' distinct direct records under the selected relation class · '+
+            profile.target.toLocaleString()+' as target · '+profile.input.toLocaleString()+' as input. A record can have both roles.'));
+        }else{
+          panel.append(node('p','This identifier is outside the curated transfer graph. The full OEIS entry remains available.'));
+        }
+        const links=node('div',undefined,'sn-quicklinks');
+        const archived=node('a','Jump to archived formula text');archived.href='#sn-source-formulas';
+        links.append(officialLink(profile.id,'View '+profile.id+' on OEIS'),archived,
+          sequenceNetworkLink('text:'+profile.id,'Search broader text mentions of '+profile.id));
+        panel.append(links);handoffs.append(panel);
       }
       current=selected;
       showNext();
