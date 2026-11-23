@@ -7,9 +7,19 @@
 
 The Sequence Library remains the single search entry point for local KSEQ, KFOR, and KOM records, mathematical formulas, OEIS terms, comparisons, and exact calculators. The **Network** tab provides a source-bound read-only collection of transfer relations, without replacing the existing finite-convolution **Transfer** workbench.
 
-Search results have a “Formula network” link. Local IDs hand off to at most eight finite OEIS comparison matches, **explicitly identified as finite matching leads**. An OEIS ID, such as `A000108`, opens the incident directed identities, hypergeometric gauges, Riordan transforms, and quadratic channels. Search by name and simple formula text is supported.
+Search results have a “Formula network” link. Local IDs hand off to at most eight finite OEIS comparison matches, **explicitly identified as finite matching leads**. An OEIS ID, such as `A000108`, opens the incident directed identities, hypergeometric gauges, Riordan transforms, and quadratic channels. Exact OEIS ID searches now include only records where the identifier is a target or input. The sequence profile reports the distinct direct total and role counts under the selected relation class. A sequence name containing another identifier does not establish graph incidence; use `text:A000108` to include broader textual references. Search by name and simple formula text is supported. Both sequence-name matches and matching archived formula expressions are included when the same query matches each category; neither result class suppresses the other.
 
 The browser loads the compact data only on `sequence-network.html`, not when visitors first open the Sequence Library search. It neither runs the v1.4 Python optimizer nor executes external OEIS code. The existing site still provides calculators, comparison, exact local formula text, and official OEIS reference lookup.
+
+## Reading a transfer result
+
+The target OEIS identifier appears **to the left of the arrow**. Select any participant ID in the result heading to explore its own direct transfer connections without leaving the Network. Official OEIS links remain available in each record's source disclosure. Identifiers to the right are the archived source formulas or sequence inputs. The network presents mathematical **formula relationships**, not independently checked identifications of every named OEIS sequence.
+
+Gauge records now show their ratio equation separately from the scale \(K\), base \(c\), starting index \(t_0\), and defining factor \(L\). The archived gauge strings sometimes use \(t\) for the input of \(L\) while writing \(n\) inside its product. For display only, the reader uses the neutral variable \(u\) in the definition \(L(u)\). This is a change of **dummy variable**, not a change to the stored formula. The complete original text, offsets, proof reference, and source receipt remain available under each record's disclosure.
+
+Formula and quadratic-channel records use mathematical typesetting where the archive grammar is supported. Riordan records display their stored parameters without inventing a full OGF equation that the index does not contain. Unsupported notation remains readable as original text. Nothing on this page executes source expressions.
+
+On narrow or zoomed screens, the search controls stack vertically. Results appear in batches of 12 so readers do not have to navigate a single very long list. Every matching record in the pinned index remains accessible, even when a search matches more than 60 relations. The **Show next connections** button moves keyboard focus to the first newly revealed record and keeps the result count explicit. The separately loaded source-formula list appends groups of 25 without remounting earlier lines, and its **Show more formulas** control likewise focuses the first newly revealed line. The site-wide **Math display** preference switches between typeset notation and plain source text. Wide equations have their own horizontal scroll area. Keyboard access and source-text fallbacks are retained.
 
 ## Retained mathematical material
 
@@ -26,7 +36,7 @@ A compact, pinned projection of the **Komorebi OEIS Sparse Transfer Compiler v1.
 
 The archived formulas and identities originated in the retained 99,999-entry OEIS source snapshot. The pinned SQLite SHA-256 is `a121d7a6a5b6aa78a5a333fe748b604f170511bf8250ca16533f58cbcfa9e9f5`. Manifest `sources` hashes bind the three archived ledgers. Source OEIS names and formula text are attributed to **The Online Encyclopedia of Integer Sequences, OEIS Foundation Inc.**, under **CC BY-SA 4.0**. This page provides an independent Komorebi search presentation.
 
-The site build checks the structural integrity of the projected transfer index and local-to-OEIS comparisons, but it does **not** rerun 539 full source-formula proofs or revalidate the entire 99,999-entry database. The archived proof receipt and proof scope stay visible. Neither finite OEIS matches nor formula-level proofs automatically establish an all-index OEIS sequence identification. Those distinctions are essential for the index and its interface labels.
+The site build checks the structural integrity of the projected transfer index and local-to-OEIS comparisons, but it does **not** rerun all 539 source-formula proof checks or revalidate the entire 99,999-entry database. The archived proof receipt and proof scope stay visible. Neither finite OEIS matches nor formula-level proofs automatically establish an all-index OEIS sequence identification. Those distinctions are essential for the index and its interface labels.
 
 ## Files and reproducibility
 
@@ -52,6 +62,12 @@ node --test tools/test_sequence_network_site.mjs
 
 The normal `sequence-library-checks.yml` workflow also builds the Sequence Library and checks browser functionality. Public pages are static. A full formula-execution/optimization service would require separate infrastructure and fresh authenticated source-bound certificates, not a claim that these indexed expressions can safely be evaluated in a GitHub Pages client.
 
+## Further work: precision-aware transfers
+
+The [directional ghost and Frobenius quotient research note](DIRECTIONAL_GHOSTS.md) develops exact prime-power ambiguity formulas, a multivariate optimality theorem, query-relative Smith image calculations, and a lossless contracting quotient. Its [source and finite regression entry](../research/directional-ghosts/README.md) is separate from the curated OEIS formula index. It does not add unverified OEIS identities or change the source-validation status of any indexed edge.
+
+The [public reading page](https://KomorebiP.github.io/The-Komorebi-Program/collection/DIRECTIONAL_GHOSTS.html) is linked from the Sequence Network. The current network remains read-only; precision-aware route optimization has not been deployed as a browser service.
+
 ## Lazy-loaded OEIS source formulas
 
 A separately versioned source-text index contains **8,853 original OEIS `%F` lines**
@@ -70,21 +86,13 @@ with a further-results control. The generator
 hash before producing the retained file. This source-text enhancement does not
 add any all-index OEIS identity claims.
 
-## Formula presentation update (23 November 2026)
+## Archived formula presentation
 
-This update improves the **display** layer without changing indexed identities, formula bytes, offsets, numerical results, or their review status.
-
-- Transfer cards now have a dedicated equation surface. Supported arithmetic expressions are compiled by `website/assets/sequence-network-math.mjs` into a strict subset of MathJax TeX, using only whitelisted identifiers, operators, and structural templates. The main site-wide Math display control still selects typeset math or the original text.
-- Original stored expressions and index conditions remain accessible in native disclosures and can be copied verbatim. The labels *all-index formula identity*, *identity on tail*, *conditional OGF*, and *quadratic algebra* remain distinct.
-- OEIS `%F` source text is fetched only after the visitor requests it. The results are grouped by source class, shown 25 at a time, and include expandable unmodified OEIS text. The source list is not converted into claims of verified OEIS identities.
-- Unsupported prose, nested sums, program listings, ambiguous notation, and unrecognized functions **are not interpreted**. They remain readable in the original notation, with no execution or markup insertion.
-- Equation blocks scroll independently on narrow screens. Styling inherits site colors and provides keyboard-accessible summaries, buttons, and controls.
-
-Reproduction and focused tests:
-
-```sh
-PYTHONPATH=tools python -m unittest discover -s tools -p 'test_sequence_network_site.py' -v
-node --test tools/test_sequence_network_site.mjs
-```
-
-This change is confined to the Network presentation and its asset exporter. It does not replace the full OEIS database with a browser-resident dataset and does not claim typesetting for every free-form OEIS source line.
+The current Network retains exact participant navigation and transfer-specific
+formatting. Archived source fields additionally support a bounded display-only
+arithmetic grammar and filtering by recorded formula class. Unsupported or
+ambiguous syntax is left unchanged, and every original source field remains
+available with a copy action. The source parser does not execute OEIS text,
+derive a new identity, change the pinned snapshot, or promote any evidence
+status. Pagination continues to append existing rows without recreating them;
+switching the formula class intentionally resets the displayed subset.

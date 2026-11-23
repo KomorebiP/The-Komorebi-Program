@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
-import {networkSearch,networkLink,sourceFormulaRows} from '../website/assets/sequence-network-ui.mjs';
+import {networkSearch,networkLink,networkProfile,sourceFormulaRows} from '../website/assets/sequence-network-ui.mjs';
+import {formatNetworkMath,algebraLatex} from '../website/assets/sequence-network-format.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const data=JSON.parse(readFileSync(path.join(root,'manifests/sequence-transfer-network.json'),'utf8'));
 
@@ -45,42 +46,118 @@ test('no raw source execution or unsafe HTML injection is introduced',()=>{
   assert.match(src,/textContent/);
 });
 
-import {exactFormulaLatex,sourceFormulaLatex,transferFormulaLatex} from '../website/assets/sequence-network-math.mjs';
-test('typeset simple exact OEIS formulas with proper structure and original identifiers',()=>{
-  const catalan=exactFormulaLatex('a(n) = binomial(2*n, n)/(n+1) = A000984(n)/(n+1).');
-  assert.match(catalan,/\\binom\{2\\cdot n\}\{n\}/);
-  assert.match(catalan,/\\frac/);
-  assert.match(catalan,/\\mathrm\{A000984\}/);
-  assert.match(sourceFormulaLatex('G.f.: x / (1 - x - x^2).'),/\\text\{OGF: \}/);
-  assert.match(sourceFormulaLatex('F(n) = ((1+sqrt(5))^n - (1-sqrt(5))^n)/(2^n*sqrt(5)).'),/\\sqrt\{5\}/);
-});
-test('original archived prose and suspicious formulas cannot be silently typeset',()=>{
-  const samples=['a(n) = arbitraryFunction(n)', 'a(n) = 4^n. - _A mathematician_, 2022',
-    'a(n)=eval(alert(1))','a(n) = \\write18{touch hacked}', 'a(n)=<script>alert(1)</script>',
-    'a(n) = Sum_{k=0..n} a(k)'];
-  for(const formula of samples)assert.equal(sourceFormulaLatex(formula),null,formula);
-});
-test('math presentation derives from actual stored transfer edges, not substitute theorems',()=>{
-  const selections=['hyperedge','gauge','riordan','quadratic'];
-  for(const kind of selections){
-    const edge=data.edges.find(e=>e.kind===kind);
-    const latex=transferFormulaLatex(edge);
-    assert.ok(latex,kind);
-    assert.equal(latex.includes('\\href'),false);
+test('all pinned gauge definitions use a typeset-safe grammar without changing archived strings',()=>{
+  const gauges=data.edges.filter(x=>x.kind==='gauge');
+  assert.equal(gauges.length,975);
+  for(const edge of gauges){
+    const old=edge.expression;
+    const view=formatNetworkMath(edge);
+    assert.ok(view.tex,edge.key+' ratio formula');
+    assert.ok(view.definition?.tex,edge.key+' defining factor '+old);
+    assert.equal(view.parameters.length,5);
+    assert.ok(view.help.includes('dummy variable'));
+    assert.equal(edge.expression,old,'formatter must not alter archived evidence');
   }
-  const malformed={kind:'hyperedge',target:'<script>',inputs:['A000108'],expression:'1'};
-  assert.equal(transferFormulaLatex(malformed),null);
-  assert.equal(exactFormulaLatex('a(n)=A000984(n)\\require{html}'),null);
 });
-test('typesetting is optional and original source remains on the Network page',()=>{
-  const ui=readFileSync(path.join(root,'website/assets/sequence-network-ui.mjs'),'utf8');
-  const css=readFileSync(path.join(root,'website/assets/sequence-network.css'),'utf8');
-  assert.match(ui,/dataset\.mathLatex=tex/);
-  assert.match(ui,/Original expression and index conditions/);
-  assert.match(ui,/Read exact original OEIS field/);
-  assert.match(ui,/sourceType\.addEventListener/);
-  assert.match(ui,/sourceResults\.replaceChildren/);
-  assert.doesNotMatch(ui,/\b(?:innerHTML|outerHTML|eval|Function)\b/);
-  assert.match(css,/overflow-x:auto/);
-  assert.match(css,/sn-source-options/);
+test('formula and quadratic channels render without executing or altering the source',()=>{
+  let formatted=0;
+  for(const edge of data.edges.filter(x=>x.kind==='hyperedge'||x.kind==='quadratic')){
+    const view=formatNetworkMath(edge);
+    if(view.tex)formatted++;
+    assert.equal(edge.expression,String(edge.expression));
+    assert.ok(view.plain);
+  }
+  assert.ok(formatted>=540,'most exact algebraic edges should typeset');
+  const gauge=data.edges.find(x=>x.kind==='gauge'&&x.expression.includes('961*n+962'));
+  const f=formatNetworkMath(gauge);
+  assert.match(f.definition.tex,/961/);
+  assert.match(f.definition.tex,/u/);
+  assert.equal(formatNetworkMath(data.edges.find(x=>x.kind==='riordan')).tex,null,
+    'a Riordan parameter record must not invent a missing OGF equation');
+});
+test('bounded arithmetic translator preserves fractions, powers, and rejects unexpected syntax',()=>{
+  assert.equal(algebraLatex('A000108(n)/2'),'\\frac{\\mathrm{A000108}\\!\\left(n\\right)}{2}');
+  assert.ok(algebraLatex('A000108(n)**2').includes('^{2}'));
+  assert.equal(algebraLatex('A000108(n); alert(1)'),null);
+  assert.equal(algebraLatex('<script>'),null);
+});
+
+test('large sequence-name searches expose every pinned edge instead of silently cutting off at sixty',()=>{
+  const limited=networkSearch(data,'binomial');
+  const complete=networkSearch(data,'binomial','all',data.edges.length);
+  assert.equal(complete.total,331);
+  assert.equal(limited.results.length,60,'compatibility default retains prior bounded API');
+  assert.equal(complete.results.length,331,'UI may paginate all known results');
+  assert.equal(new Set(complete.results.map(edge=>edge.key)).size,331);
+  assert.equal(networkSearch(data,'n','all',data.edges.length).results.length,data.edges.length,
+    'maximum-size search can be explored incrementally');
+});
+
+
+test('sequence-name matches do not mask independent formula-text matches',()=>{
+  const fixture={
+    records:[
+      {id:'A000001',name:'Numbers featuring 3'},
+      {id:'A000002',name:'Another sequence'},
+      {id:'A000003',name:'Third collection'}
+    ],
+    edges:[
+      {key:'named',target:'A000001',inputs:[],kind:'hyperedge',expression:'n+1'},
+      {key:'expression',target:'A000002',inputs:[],kind:'hyperedge',expression:'3*n'}
+    ]
+  };
+  const matched=networkSearch(fixture,'3','all',fixture.edges.length);
+  assert.equal(matched.total,2);
+  assert.deepEqual(new Set(matched.results.map(e=>e.key)),new Set(['named','expression']));
+  const q='3', named=new Set(data.records.filter(x=>
+    x.id.toLowerCase()===q || x.name.toLowerCase().includes(q)).map(x=>x.id));
+  const expected=data.edges.filter(e=>[e.target,...e.inputs].some(id=>named.has(id)) ||
+    String(e.expression).toLowerCase().includes(q) ||
+    String(e.kind).toLowerCase().includes(q));
+  assert.equal(networkSearch(data,q,'all',data.edges.length).total,expected.length,
+    'no formula-text matches are lost when a sequence name matches');
+  assert.equal(networkSearch(data,'binomial','all',data.edges.length).total,331,
+    'the previously verified binomial inventory is unchanged');
+});
+
+
+test('exact OEIS identifiers select direct graph incidences, not title references',()=>{
+  const catalan=networkProfile(data,'a000108');
+  assert.equal(catalan.record.id,'A000108');
+  assert.deepEqual([catalan.total,catalan.target,catalan.input],[9,0,9]);
+  assert.equal(networkSearch(data,'a000108','all',data.edges.length).total,9);
+  assert.equal(networkSearch(data,'text:A000108','all',data.edges.length).total,17);
+  assert.equal(networkSearch(data,'A000302','all',data.edges.length).total,17);
+  assert.equal(networkSearch(data,'text:A000302','all',data.edges.length).total,61);
+  assert.equal(networkSearch(data,'A000217','all',data.edges.length).total,59);
+  assert.equal(networkProfile(data,'A000931').record,null);
+  assert.equal(networkSearch(data,'A000931','all',data.edges.length).total,0);
+  assert.deepEqual(networkSearch(data,'constructor').localLeads,[]);
+  assert.deepEqual(networkSearch(data,'toString').localLeads,[]);
+  assert.equal(networkProfile(data,'not-an-id'),null);
+});
+
+test('every curated identifier has exact role counts and complete unique incident records',()=>{
+  for(const record of data.records){
+    const id=record.id;
+    const expected=data.edges.filter(e=>e.target===id || e.inputs.includes(id));
+    const profile=networkProfile(data,id);
+    const search=networkSearch(data,id,'all',data.edges.length);
+    assert.equal(profile.total,expected.length,id);
+    assert.equal(profile.target,expected.filter(e=>e.target===id).length,id);
+    assert.equal(profile.input,expected.filter(e=>e.inputs.includes(id)).length,id);
+    assert.equal(search.total,expected.length,id);
+    assert.deepEqual(new Set(search.results.map(e=>e.key)),new Set(expected.map(e=>e.key)),id);
+    for(const kind of ['hyperedge','gauge','riordan','quadratic']){
+      assert.equal(networkProfile(data,id,kind).total,expected.filter(e=>e.kind===kind).length,id+' '+kind);
+    }
+  }
+});
+
+import {sourceFormulaLatex} from '../website/assets/sequence-network-math.mjs';
+test('bounded source notation preserves binomial structure and rejects ambiguous or executable syntax',()=>{
+  const tex=sourceFormulaLatex('a(n) = binomial(2*n,n)/(n+1) = A000984(n)/(n+1).');
+  assert.ok(tex && tex.includes('\\binom{2\\cdot n}{n}') && tex.includes('\\frac') && tex.includes('\\mathrm{A000984}'));
+  assert.ok(sourceFormulaLatex('G.f.: x / (1 - x - x^2).').includes('\\text{OGF: }'));
+  for(const raw of ['a(n)=arbitraryFunction(n)','a(n)=<script>alert(1)</script>','a(n)=eval(alert(1))','a(n)=binom(n)','a(n)=n!!','a(n)=4^n. - _Contributor_, 2022','a(n)=Sum_{k=0..n} a(k)'])assert.equal(sourceFormulaLatex(raw),null,raw);
 });

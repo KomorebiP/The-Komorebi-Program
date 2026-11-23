@@ -488,60 +488,81 @@ A successful file-integrity check identifies exact source bytes. A separate repl
 
 [Reading guide](../docs/START_HERE.md) · [Core papers](../papers/README.md) · [Component index](../docs/COMPONENT_INDEX.md)
 ''')
-        page='docs/START_HERE.md'; w=lambda i,t=None:self.work(i,page,t)
+        page='docs/START_HERE.md'
         self.put(page,'''# Start here
 
 **Realization Calculus and Komorebi Space · Komorebi P.**
 
-The Komorebi Program studies how mathematical structure behaves when its description changes. Decomposing an object, changing coordinates, or forming an abstraction can make a problem easier to approach. The question is whether that description retains enough information for the task, and how to account for what is lost.
+The Komorebi Program investigates what survives a change of mathematical representation. Breaking an object into components, changing coordinates, or replacing it with a summary may simplify a calculation. But which operations remain valid after that change? Can the original object be recovered? If not, what information is missing?
 
-Realization Calculus develops decomposition, transfer, refinement, and reconstruction through packets, seeds, coordinates, and explicit residuals. Komorebi Space provides a setting for comparing realizations, their compatibility conditions, and the obstructions to moving between them.
+**Realization Calculus** studies decomposition, transfer, refinement, and reconstruction using packets, seeds, coordinates, and explicit residuals. **Komorebi Space** provides a framework for comparing representations (or *realizations*), checking when they are compatible, and identifying obstructions when they are not.
 
-The collection develops these questions across algebra, analysis, arithmetic, signals, computation, and models of interacting systems. The [project map](PROJECT_MAP.md) shows how the subjects connect. [Browse by work](BROWSE.md) to reach a particular paper or monograph and its source files.
+The collection investigates these questions in algebra, analysis, arithmetic, signal processing, computation, and models of interacting systems. Use the [project map](PROJECT_MAP.md) to see connections between subjects, or [browse by work](BROWSE.md) to find manuscripts and source files.
+
+## A quick way in
+
+**New to the project?** Begin with the [Euler-number case study](demonstrations/EULER_PACKETS.md). It follows one calculation through several representations and shows where reconstruction and residual correction enter.
+
+**Interested in the mathematical framework?** Read [Realization Calculus](works/realization-calculus-book.md) alongside [Komorebi Space](works/komorebi-space.md), using the [notation index](NOTATION_INDEX.md) as needed.
+
+**Looking for proofs or code?** Go directly to the [status catalogue](STATUS_CATALOG.md), [written proofs](browse/PROOFS.md), [Lean material](browse/LEAN.md), or [code index](browse/CODE.md). These are different kinds of evidence and should not be treated as interchangeable.
+
+You do not need to read the collection in order. The routes below give several independent starting points.
 
 ## What the project is trying to contribute
 
-The aim is a reusable mathematical language for resolving objects into parts, transferring operations, comparing descriptions, and exposing failures of compatibility. Recording the conditions for reconstruction and the residuals of a failed transfer makes those conditions part of the construction itself.
+The aim is a reusable language for decomposing objects, transporting operations between descriptions, and determining when reconstruction succeeds. When a transfer fails, the framework seeks to state the obstruction or residual explicitly rather than hide it in an approximation.
 
-Each work's contribution is expressed in its definitions, results, constructions, and proofs. A connection between subjects requires an argument showing that the relevant structures and hypotheses survive the transfer. The scope of that argument determines where the result applies.
+Each work must be judged by its stated definitions, hypotheses, constructions, and proofs. A similar pattern in two subjects is a motivation for investigation, not by itself a theorem connecting them. A valid transfer needs an argument that preserves the required structure and assumptions.
 
-For the introductory calculations, [sources and contributions](SOURCES_AND_CONTRIBUTIONS.md)
-identify the classical inputs and the role of the Euler, wavelet, and seed-generation walkthroughs.
+The [sources and contributions](SOURCES_AND_CONTRIBUTIONS.md) page distinguishes classical inputs from the constructions and explanations used in the introductory Euler, wavelet, and seed-generation examples.
 
 ## Start with an extended case study
 
-Follow one problem through several representations, including the operations and information retained at each step. A suggested route begins with Euler numbers, continues through signals, and then compares quantum measurement.
+An extended case study makes the abstract terminology concrete. Start with one subject and track the representations, valid operations, information retained, and information lost. The following three studies illustrate different settings; they are alternatives, not prerequisites for one another.
 
-| Route | Begin here | What to follow |
-|---|---|---|
-| Arithmetic and coordinates | [Euler numbers](demonstrations/EULER_PACKETS.md), then [factorial lanes](demonstrations/FACTORIAL_LANES.md) | Reciprocal series, changes of basis, prime-adic bounds, refinement, and residual repair. |
-| Signals and operations | [Wavelets and polyphase transfer](demonstrations/WAVELET_POLYPHASE.md) | Four Haar levels, filter transport, finite stability, and the exact error from omitted interactions. |
-| Quantum information | [Quantum phase and measurement](demonstrations/QUANTUM_PHASE_MEASUREMENT.md) | Recoverable measurements, discarded coherence, reversible records, and finite recovery. |
+### Arithmetic and coordinates
 
-The [extended case-study index](DEMONSTRATIONS.md#extended-case-studies) includes further counting and polynomial derivations. Each study provides hand calculations, failure controls, and exact executable checks. [Special Functions](SPECIAL_FUNCTIONS.md) offers a route into function constructions and their analytic questions.
+Start with [Euler numbers](demonstrations/EULER_PACKETS.md), then continue to [factorial lanes](demonstrations/FACTORIAL_LANES.md). Follow reciprocal series, changes of basis, prime-adic bounds, refinement, and residual repair.
+
+### Signals and operations
+
+Read [wavelets and polyphase transfer](demonstrations/WAVELET_POLYPHASE.md). Follow four Haar levels, filter transport, finite stability, and the exact error caused by omitted interactions.
+
+### Quantum information
+
+Read [quantum phase and measurement](demonstrations/QUANTUM_PHASE_MEASUREMENT.md). Examine which measurements are recoverable, what coherence is discarded, and when a reversible record permits finite recovery.
+
+The [extended case-study index](DEMONSTRATIONS.md#extended-case-studies) links to additional counting and polynomial examples. Consult each study for its stated calculations, controls, and verification scope. The [Special Functions guide](SPECIAL_FUNCTIONS.md) offers a separate entry into function constructions and analytic questions.
 
 ## Choose a reading route
 
-Start with the subject or kind of work that interests you. Each route leads to the relevant manuscripts, sources, and recorded evidence.
+Choose according to what you want to understand or verify. You can move from a worked example to the general theory, or begin with a manuscript and inspect its supporting material.
 
-For papers and books with a complete online manuscript and visual guide,
-[choose a guided reading path](https://KomorebiP.github.io/The-Komorebi-Program/read/start.html):
-begin with the visual introduction, study the work, or inspect its supporting evidence.
+For works with a complete online manuscript and visual guide, use the [guided reading paths](https://KomorebiP.github.io/The-Komorebi-Program/read/start.html). You can begin with the visual introduction, read the manuscript, or inspect supporting evidence.
 
-'''+table(['Goal','Begin with'],[
-            ('Understand the common language',w('realization-calculus-book','Realization Calculus')+' and '+w('komorebi-space','Komorebi Space')),
-            ('Study the individual developments','[Papers I–XII](../papers/README.md)'),
-            ('Understand limits of representation',w('realization-boundaries','Realization Boundaries')),
-            ('Follow a complete calculation','[Extended case studies](DEMONSTRATIONS.md#extended-case-studies), beginning with [Euler numbers](demonstrations/EULER_PACKETS.md)'),
-            ('Follow an application','[Monographs and companion volumes](../monographs/README.md)'),
-            ('Explore an open mathematical program','[Research programs and their scope](../research/README.md)'),
-            ('Work with executable mathematics','[Software guide](LIBRARIES.md) and [experimental laboratories](../experiments/README.md)'),
-            ('Study method and review',w('proof-path-theory','Proof Path Theory')+' and '+w('komorebi-methodology','Komorebi Methodology'))])+'''
+### Foundations and mathematical developments
+
+- **Common framework:** [Realization Calculus](works/realization-calculus-book.md) and [Komorebi Space](works/komorebi-space.md).
+- **Individual papers:** [Papers I–XII](../papers/README.md).
+- **Limits of representation:** [Realization Boundaries](works/realization-boundaries.md).
+
+### Examples and applications
+
+- **Complete calculations:** [Extended case studies](DEMONSTRATIONS.md#extended-case-studies), starting with [Euler numbers](demonstrations/EULER_PACKETS.md).
+- **Companion subjects:** [Monographs and companion volumes](../monographs/README.md).
+- **Open questions:** [Research programs and their scope](../research/README.md).
+
+### Verification and research method
+
+- **Executable mathematics:** [Software guide](LIBRARIES.md) and [experimental laboratories](../experiments/README.md).
+- **Discovery and review:** [Proof Path Theory](works/proof-path-theory.md) and [Komorebi Methodology](works/komorebi-methodology.md).
+
 ## Where the work stands
 
-The collection contains written mathematics, formal developments, conditional results, software, and experiments at different stages of completion and review. The [completion and confidence guide](COMPLETION_STATUS.md) explains the status labels. The [status catalogue](STATUS_CATALOG.md) and [dated records](RECORDS.md) give the assessments for individual works and revisions.
+The collection includes mathematical manuscripts, formal developments, conditional results, software, and experiments. Their completion and verification status varies. The [completion and confidence guide](COMPLETION_STATUS.md) explains the status labels. The [status catalogue](STATUS_CATALOG.md) and [dated records](RECORDS.md) give the assessments for individual works and revisions.
 
-The [finalization queue](FINALIZATION_QUEUE.md) lists the remaining work. Selected source connections are documented in the [project map](PROJECT_MAP.md#documented-connections); a complete theorem dependency audit remains open. A finished reading edition may still contain open questions, and a conditional result retains its assumptions.
+The [finalization queue](FINALIZATION_QUEUE.md) records outstanding work, while the [project map](PROJECT_MAP.md#documented-connections) documents selected connections between sources. A complete theorem-dependency audit remains open. A polished reading edition is not necessarily a fully proved or independently reviewed result.
 
 ## Four questions to carry through the collection
 
@@ -550,35 +571,27 @@ The [finalization queue](FINALIZATION_QUEUE.md) lists the remaining work. Select
 3. **How does the operation transfer?** Determine the blocks or compatibility laws relating representations.
 4. **What is reconstructed?** State the recovered object and any residual or obstruction.
 
-The [operator guide](OPERATOR_AUDIT.md) turns these questions into a reusable
-investigation. Follow a matrix operation through its packet blocks and a
-coordinate change, account for omitted interactions, then test what a summary
-can recover. Seven worked chapters include polynomial and difference operators.
-The [operator catalog](operators/catalog/README.md) supplies formulas,
-assumptions, and source links for 205 entries. The guide also includes
-interactive experiments and a worksheet for your own calculation.
+The [operator guide](OPERATOR_AUDIT.md) applies these questions to matrix operations, packet blocks, and coordinate changes. It examines omitted interactions and what a summary can recover, with worked chapters on polynomial and difference operators. The [operator catalogue](operators/catalog/README.md) lists formulas, assumptions, and source links. Interactive experiments and a worksheet support further investigation.
 
 <a id="start-with-a-complete-demonstration"></a>
 
 ## Worked calculations
 
-The [demonstrations](DEMONSTRATIONS.md) offer optional introductions through hand calculations and exact programs. Choose one if you want to see how the terminology is used before following a longer development.
+For a shorter introduction than the extended case studies, the [worked demonstrations](DEMONSTRATIONS.md) pair elementary calculations with small programs. Choose a question below and follow it from input to result.
 
-| Start from this question | Follow this route | Background |
-|---|---|---|
-| Can smaller operations reconstruct the whole operation? | [Reconstruct an operator from packet blocks](demonstrations/PACKETS.md) | Small matrix products |
-| What does a finer description preserve, and what does deletion lose? | [Refine a signal and account for a missing packet](demonstrations/REFINEMENT.md) | List indexing and sums |
-| Can a summary answer the question being asked? | [Test recovery from a summary](demonstrations/RECOVERY.md) | Addition and functions |
+- **Can smaller operations reconstruct the whole?** [Reconstruct an operator from packet blocks](demonstrations/PACKETS.md). Background: small matrix products.
+- **What survives refinement, and what is lost by deletion?** [Refine a signal and account for a missing packet](demonstrations/REFINEMENT.md). Background: list indexing and sums.
+- **Can a summary answer the original question?** [Test recovery from a summary](demonstrations/RECOVERY.md). Background: addition and functions.
 
-Each route includes a worked calculation, expected program output, and links to the relevant mathematical sources. You can read the calculations without installing software. The [program](DEMONSTRATIONS.md#run-without-installing-a-library) uses Python's standard library.
+These examples can be read without installing software. The accompanying [Python programs](DEMONSTRATIONS.md#run-without-installing-a-library) use the standard library, and their output is a check of the stated examples rather than a substitute for a general proof.
 
 <a id="a-concrete-arithmetic-example"></a>
 
 <a id="run-the-arithmetic-preview"></a>
 
-## Research preview: Euler numbers
+## Run the Euler-number example
 
-[Euler numbers through packets, polynomials, and residuals](demonstrations/EULER_PACKETS.md) follows one extended derivation through reciprocal series, polynomial coordinates, exact transfer matrices, and residual correction. The page includes hand calculations, failure controls, source references, and downloadable results.
+The [Euler-number case study](demonstrations/EULER_PACKETS.md), introduced above, traces reciprocal series, polynomial coordinates, exact transfer matrices, and residual correction. You can read the derivation alone or reproduce its finite checks.
 
 Read the derivation [on the website](https://komorebip.github.io/The-Komorebi-Program/collection/demonstrations/EULER_PACKETS.html), or run the exact checker from the collection root:
 
@@ -592,19 +605,18 @@ The example records its sources and tested ranges. The [workflow guide](WORKFLOW
 
 ## Interpret the evidence
 
-| Evidence | What to inspect |
-|---|---|
-| Written theorem | Exact conclusion, assumptions, and argument. |
-| Lean declaration | Formal statement, imports, axioms, environment, and compilation record. |
-| Exact finite calculation | Inputs, arithmetic model, computed property, and the argument connecting it to a broader result. |
-| Numerical experiment | Precision, tested range, reference calculation, error criteria, and retained outcomes. |
-| Software test | Exercised behavior, platform, dependencies, and source revision. |
-| File-integrity record | The exact bytes and source snapshot it identifies. |
+Evidence should be interpreted according to what it establishes:
 
-A proved implication remains a result when an application premise is open. Applying it requires that premise. Paper XI's Conjecture 66 and the remaining Physics and machine-model obligations retain that distinction.
+- **Written theorem:** Check the precise conclusion, assumptions, and argument.
+- **Lean declaration:** Check the statement, imports, axioms, environment, and compilation record.
+- **Exact finite calculation:** Check the inputs, arithmetic model, tested property, and any separate argument extending it beyond those inputs.
+- **Numerical experiment:** Check precision, range, reference result, error criteria, and retained outcomes.
+- **Software test:** Check the exercised behavior, platform, dependencies, and source revision.
+- **File-integrity record:** Check which exact bytes and source snapshot it identifies.
 
-All software is **beta and work in progress**. Follow the [citation guidance](../CITATION.md) for the specific work and revision you use.
+**Important distinction:** a proof of “if A, then B” does not establish B until A is verified. Likewise, successful finite computations do not alone prove a universal statement. Open obligations, including those identified for Paper XI, Physics, and machine models, must be assessed against the current [status catalogue](STATUS_CATALOG.md), rather than inferred from the existence of a manuscript or test.
 
+All software is **beta and work in progress**. For reproducibility, record the source revision, hypotheses, runtime, and test scope. Follow the [citation guidance](../CITATION.md) for the specific work and revision you use.
 
 The [public project and authorship statement](PROJECT_STATEMENT.md) explains the pseudonym, AI assistance, and publication circumstances. For installation and check commands, use the [verification guide](VERIFICATION.md).
 

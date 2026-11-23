@@ -123,14 +123,21 @@ def build_site_assets(site, entries):
     site.write('assets/sequence-network-handoffs.json',json.dumps(dict(schema=1,
       scope='Local-to-OEIS finite-prefix candidates only, not certified infinite identities',
       matches=handoffs),ensure_ascii=False,separators=(',',':'))+'\n')
-    for name in ['sequence-network.css','sequence-network-ui.mjs','sequence-network-math.mjs']:
+    for name in ['sequence-network.css','sequence-network-format.mjs','sequence-network-math.mjs']:
         source=site.root/'website/assets'/name
-        content=source.read_text(encoding='utf-8')
-        if name=='sequence-network-ui.mjs':
-            parser=site.root/'website/assets/sequence-network-math.mjs'
-            revision=hashlib.sha256(parser.read_bytes()).hexdigest()[:12]
-            content=content.replace("'./sequence-network-math.mjs'", "'./sequence-network-math.mjs?v="+revision+"'")
-        site.write('assets/'+name,content)
+        site.write('assets/'+name,source.read_text(encoding='utf-8'))
+    format_hash=hashlib.sha256((site.output/'assets/sequence-network-format.mjs').read_bytes()).hexdigest()[:12]
+    script=(site.root/'website/assets/sequence-network-ui.mjs').read_text(encoding='utf-8')
+    original="from './sequence-network-format.mjs'"
+    if script.count(original)!=1:
+        raise ValueError('Sequence Network math formatter import must appear exactly once')
+    script=script.replace(original, "from './sequence-network-format.mjs?v="+format_hash+"'")
+    source_hash=hashlib.sha256((site.output/'assets/sequence-network-math.mjs').read_bytes()).hexdigest()[:12]
+    source_import="from './sequence-network-math.mjs'"
+    if script.count(source_import)!=1:
+        raise ValueError('Sequence Network source formatter import must appear exactly once')
+    script=script.replace(source_import, "from './sequence-network-math.mjs?v="+source_hash+"'")
+    site.write('assets/sequence-network-ui.mjs',script)
     hashes={name:hashlib.sha256((site.output/'assets'/name).read_bytes()).hexdigest()[:12]
             for name in ['sequence-network.css','sequence-network-ui.mjs']}
     return {'edge_count':len(data['edges']), 'record_count':len(data['records']),
@@ -142,25 +149,44 @@ def network_section(metadata):
     """Progressively enhanced network page with complete no-script explanation."""
     return ('''<section id="sequence-network" class="sn-network" data-sequence-network>
 <h2>Formula connections and transfer operators</h2>
-<p>Search OEIS IDs or names to inspect archived formula-level identities, index shifts,
-Riordan maps and quadratic channels. The main Sequence Library search, exact calculators,
-and OEIS term finder remain available.</p>
-<form id="sn-form" role="search"><label for="sn-query">OEIS ID, local sequence ID, formula or name</label>
-<div class="sn-fields"><input id="sn-query" type="search" maxlength="200" placeholder="A000108, Catalan, KFOR..." autocomplete="off">
+<p>Find relationships between recorded sequences. Each card places the target to the left
+of the arrow and the source sequences to the right. Mathematical notation is typeset when
+available, with the exact archival expression preserved in a disclosure. Select a sequence
+identifier in a result to explore its direct connections in this Network; official OEIS links
+remain in the record and its provenance disclosure.</p>
+<details class="sn-reader-guide"><summary>How to read these transfer records</summary>
+<p>A gauge relates the ratio of two sequence formulas using a scale, an exponential factor,
+and a defining function L. Index offsets and the valid tail are essential. A Riordan record
+lists transform parameters rather than a full equation. Formula equality in the archived
+model does not independently establish equality of the named OEIS sequences.</p>
+<p>The site-wide Math display setting lets readers switch between typeset and plain notation.
+Long typeset equations can be scrolled horizontally without moving the whole page.</p>
+</details>
+<p><strong>New research: precision-aware transfers.</strong> Read the
+<a href="collection/DIRECTIONAL_GHOSTS.html">directional ghost and Frobenius quotient generalizations</a>
+for exact source-fiber counts, query-dependent reconstruction and proof boundaries.
+These results describe mathematical transfer contracts; they do not add unverified
+OEIS edges to the curated index.</p>
+<form id="sn-form" role="search" aria-label="Search archived formula connections">
+<label for="sn-query">OEIS ID, local sequence ID, formula or name</label>
+<div class="sn-fields"><input id="sn-query" type="search" maxlength="200" placeholder="A000108, Catalan, KFOR..." autocomplete="off" aria-describedby="sn-search-help">
 <button type="submit">Find connections</button></div>
+<p id="sn-search-help" class="sn-help">An exact OEIS ID finds only direct connections as a
+target or input. Use <code>text:A000108</code> to include references in sequence names and
+formula text. Results are archived formula relations, not live OEIS verification.</p>
 <label for="sn-filter">Relation class</label>
 <select id="sn-filter"><option value="all">All formula transfers</option><option value="hyperedge">Multi-input and algebraic identities</option>
 <option value="gauge">Hypergeometric gauges</option><option value="riordan">Riordan transforms</option>
 <option value="quadratic">Quadratic channels</option></select></form>
 <p id="sn-status" role="status" aria-live="polite">Loading the read-only transfer index...</p>
 <div id="sn-handoffs" aria-live="polite"></div><ol id="sn-results" class="sn-results" aria-label="Transfer connections"></ol>
+<div class="sn-more-wrap"><button type="button" id="sn-show-more" hidden>Show more connections</button></div>
 <section id="sn-source-formulas" class="sn-source" hidden aria-label="OEIS source formulas">
 <h3>OEIS source formulas</h3>
 <p>These are archived OEIS formula fields, not independently verified sequence identities.
-Recognized arithmetic may be typeset for readability. Unrecognized source prose remains unchanged, and original text is always available. Source programs are not loaded.</p>
+Recognized arithmetic may be typeset without execution. Exact original text remains available, and source programs are not loaded.</p>
 <button type="button" id="sn-source-load">Load this sequence’s source formula text</button>
-<div id="sn-source-options" class="sn-source-options" hidden><label for="sn-source-type">Formula class</label>
-<select id="sn-source-type"><option value="all">All formula classes</option></select></div>
+<div id="sn-source-options" hidden><label for="sn-source-type">Formula class</label> <select id="sn-source-type"><option value="all">All formula classes</option></select></div>
 <p id="sn-source-status" role="status" aria-live="polite"></p>
 <ol id="sn-source-results" class="sn-source-results"></ol>
 <button type="button" id="sn-source-more" hidden>Show more formulas</button>

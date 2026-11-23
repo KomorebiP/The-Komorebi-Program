@@ -62,6 +62,7 @@ Use these guides to find works, software, and project records. Each dated review
 | Future research priorities and site improvements | [Future Developments](FUTURE_DEVELOPMENTS.md) |
 | How the papers and books connect | [Project map and documented dependencies](PROJECT_MAP.md) |
 | A complete path from calculation to code and evidence | [Three demonstrations](DEMONSTRATIONS.md) |
+| New precision-aware reconstruction research | [Directional ghosts, query fibers, and Frobenius transfers](DIRECTIONAL_GHOSTS.md) · [Source and regression tests](../research/directional-ghosts/README.md) |
 | Operator concepts, worked examples, and a practical checklist | [Operator guide](OPERATOR_AUDIT.md) |
 | Operator formulas, assumptions, source links, and composition laws | [Operator catalog](operators/catalog/README.md) |
 | Introductory terminology and notation | [Glossary](GLOSSARY.md) |

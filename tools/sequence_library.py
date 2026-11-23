@@ -643,7 +643,9 @@ def build(site,atlas):
         '<h2 id="sl-network-title">Search formula connections</h2>'
         '<p>Explore formula-level OEIS identities, multi-input relations, gauges and Riordan transfers. '
         '<a href="sequence-network.html#sequence-network">Open the transfer network</a>. '
-        'Proofs of extracted formulas are distinguished from finite OEIS comparisons.</p></section>'
+        'Proofs of extracted formulas are distinguished from finite OEIS comparisons. '
+        '<a href="collection/DIRECTIONAL_GHOSTS.html">Precision-aware transfer research</a> '
+        'explains exact information loss, query fibers and Frobenius quotient coordinates.</p></section>'
     )
     site.page('sequence-library.html','Sequence Library · Search',
               wrap(closed_css+header+workflow_nav+network_gateway+controls+closed_calculator+research_hub+about+legacy,page_kind='search'))

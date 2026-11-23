@@ -3,9 +3,9 @@
  * Generated TeX contains only fixed control sequences and validated tokens.
  */
 const ID = /^A\d{6}$/;
-const IDENT = /^(?:[a-zA-Z]|phi|Phi|pi|Pi|Gamma|Theta|theta|omega|Omega)$/;
+const IDENT = /^(?:[a-zA-Z]|phi|Phi|pi|Gamma|Theta|theta|omega|Omega)$/;
 const FUNCTIONS = new Set(['binom','binomial','sqrt','exp','log','sin','cos','tan','sec','sinh','cosh','tanh','abs','floor','ceil','round']);
-const SYMBOL = Object.freeze({phi:'\\phi',Phi:'\\Phi',pi:'\\pi',Pi:'\\pi',Gamma:'\\Gamma',Theta:'\\Theta',theta:'\\theta',omega:'\\omega',Omega:'\\Omega'});
+const SYMBOL = Object.freeze({phi:'\\phi',Phi:'\\Phi',pi:'\\pi',Gamma:'\\Gamma',Theta:'\\Theta',theta:'\\theta',omega:'\\omega',Omega:'\\Omega'});
 const prec = Object.freeze({eq:0,add:1,mul:2,pow:3,atom:4});
 
 function tokenize(text){
@@ -57,7 +57,8 @@ export function exactFormulaLatex(source){
         if(t==='abs'&&args.length===1)return {s:'\\left|'+args[0].s+'\\right|',p:prec.atom};
         if(t==='floor'&&args.length===1)return {s:'\\lfloor '+args[0].s+'\\rfloor',p:prec.atom};
         if(t==='ceil'&&args.length===1)return {s:'\\lceil '+args[0].s+'\\rceil',p:prec.atom};
-        if(FUNCTIONS.has(t)&&!['binom','binomial','sqrt','abs','floor','ceil'].includes(t)){
+        if(['binom','binomial','sqrt','abs','floor','ceil'].includes(t))throw Error('arity');
+        if(FUNCTIONS.has(t)){
           if(args.length!==1)throw Error('arity');name=t==='round'?'\\operatorname{round}':'\\'+t;
         }
         else if(args.length!==1)throw Error('arity');
@@ -66,7 +67,7 @@ export function exactFormulaLatex(source){
       if(FUNCTIONS.has(t))throw Error('bare function');
       return {s:name,p:prec.atom};
     }
-    function power(){let lhs=atom();while(peek()==='!'){take();lhs={s:render(lhs,prec.atom)+'!',p:prec.atom};}
+    function power(){let lhs=atom();if(peek()==='!'){take();if(peek()==='!')throw Error('ambiguous factorial');lhs={s:render(lhs,prec.atom)+'!',p:prec.atom};}
       if(peek()==='^'){take();const rhs=unary();lhs={s:render(lhs,prec.atom)+'^{'+rhs.s+'}',p:prec.pow};}return lhs;}
     function unary(){if(peek()==='-'||peek()==='+'){const op=take(),v=unary();return {s:op+render(v,prec.pow),p:prec.pow};}return power();}
     function multiply(){let lhs=unary();while(['*','/'].includes(peek())){
@@ -83,27 +84,6 @@ export function exactFormulaLatex(source){
     const parsed=equality();if(at!==tokens.length)return null;
     return prefix+parsed.s;
   }catch{return null;}
-}
-
-/** Produce mathematical notation only from strictly verified template syntax. */
-export function transferFormulaLatex(edge){
-  if(!edge || typeof edge.expression!=='string'||!ID.test(edge.target)||!Array.isArray(edge.inputs)||edge.inputs.some(id=>!ID.test(id)))return null;
-  if(edge.kind==='hyperedge'){
-    const rhs=exactFormulaLatex(edge.expression);
-    return rhs?'\\mathrm{'+edge.target+'}\\!\\left(n\\right) = '+rhs:null;
-  }
-  if(edge.kind==='quadratic')return exactFormulaLatex(edge.expression);
-  if(edge.kind==='gauge'){
-    const m=/^b\(t\)\/a\(t\) = K\*c\^\(t-t0\)\*L\(t\)\/L\(t0\); K=(-?\d+), c=(-?\d+), t0=(\d+), L\(t\)=/.exec(edge.expression);
-    if(!m)return null;
-    return `\\frac{b(t)}{a(t)} = ${m[1]}\\cdot ${m[2]}^{t-${m[3]}}\\cdot\\frac{L(t)}{L(${m[3]})}`;
-  }
-  if(edge.kind==='riordan'){
-    const m=/^R\[c=(-?\d+),s=(-?\d+),r=(-?\d+),t=(-?\d+)\] OGF transform$/.exec(edge.expression);
-    if(!m)return null;
-    return `\\mathrm{OGF}\\!\\left(\\mathrm{${edge.inputs[0]}}\\right)\\;\\xrightarrow{\\mathcal{R}_{${m[1]},${m[2]},${m[3]},${m[4]}}}\\;\\mathrm{OGF}\\!\\left(\\mathrm{${edge.target}}\\right)`;
-  }
-  return null;
 }
 
 /** Conservative extraction of source-field mathematical fragments. */
