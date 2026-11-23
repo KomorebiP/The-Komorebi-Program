@@ -34,6 +34,19 @@ export function networkSearch(data, rawQuery, category='all', limit=MAX_RESULTS,
   return {total:candidates.length,results:candidates.slice(0,Math.max(0,Math.min(limit,200))),localLeads,resolved:[...matching].sort()};
 }
 
+/** Retrieve the archived OEIS %F text, never a certified formula evaluator. */
+export function sourceFormulaRows(data, oeisId, expectedSnapshot) {
+  if(data?.schema!==1 || data?.evidence!=='unreviewed_source_text' ||
+      data?.license!=='CC-BY-SA-4.0' || data?.snapshot_sha256!==expectedSnapshot)
+    throw Error('OEIS source formula provenance could not be verified.');
+  const identifier=String(oeisId??'').trim().toUpperCase();
+  if(!OEIS.test(identifier))return [];
+  const entry=data.entries?.[identifier];
+  if(entry && (entry.source!=='https://oeis.org/'+identifier || !Array.isArray(entry.formulas)))
+    throw Error('Invalid OEIS source formula entry.');
+  return entry?.formulas || [];
+}
+
 export function networkLink(value) {
   const id=String(value??'').trim();
   if(!/^[A-Za-z][A-Za-z0-9_:-]{0,100}$/.test(id)) return 'sequence-network.html';
@@ -81,8 +94,11 @@ async function mount() {
   if(!root) return;
   const input=root.querySelector('#sn-query'), filter=root.querySelector('#sn-filter'),
         status=root.querySelector('#sn-status'), results=root.querySelector('#sn-results'),
-        handoffs=root.querySelector('#sn-handoffs');
-  if(!input || !filter || !status || !results || !handoffs) return;
+        handoffs=root.querySelector('#sn-handoffs'), sourcePanel=root.querySelector('#sn-source-formulas'),
+        sourceButton=root.querySelector('#sn-source-load'), sourceStatus=root.querySelector('#sn-source-status'),
+        sourceResults=root.querySelector('#sn-source-results'), sourceMore=root.querySelector('#sn-source-more');
+  if(!input || !filter || !status || !results || !handoffs || !sourcePanel ||
+      !sourceButton || !sourceStatus || !sourceResults || !sourceMore) return;
   try {
     const sources=await Promise.all([
       fetch(new URL('./sequence-network-data.json',import.meta.url)),
@@ -92,8 +108,53 @@ async function mount() {
     const [data,handoffsData]=await Promise.all(sources.map(r=>r.json()));
     if(data.schema!==1 || handoffsData.schema!==1) throw Error('Unsupported network data revision.');
     const names=new Map(data.records.map(r=>[r.id,r.name]));
+    let sourcePromise=null, activeId='', sourceVersion=0, sourceRows=[], sourceShown=0;
+    const sourceData=()=>{
+      if(!sourcePromise) sourcePromise=fetch(new URL('./sequence-network-formulas.json',import.meta.url))
+        .then(response=>{if(!response.ok)throw Error('Source formula archive unavailable.');return response.json();})
+        .catch(error=>{sourcePromise=null;throw error;});
+      return sourcePromise;
+    };
+    const renderSource=()=>{
+      sourceResults.replaceChildren();
+      for(const item of sourceRows.slice(0,sourceShown)){
+        const li=node('li',undefined,'sn-source-line');
+        li.append(node('p',item.kind,'sn-source-kind'),node('pre',item.text,'sn-source-expression'));
+        sourceResults.append(li);
+      }
+      sourceMore.hidden=sourceShown>=sourceRows.length;
+      if(!sourceMore.hidden)sourceMore.textContent=`Show more formulas (${sourceRows.length-sourceShown} remaining)`;
+    };
+    sourceMore.addEventListener('click',()=>{sourceShown=Math.min(sourceRows.length,sourceShown+25);renderSource();});
+    sourceButton.addEventListener('click',async()=>{
+      const requested=activeId, version=sourceVersion;
+      if(!requested)return;
+      sourceButton.disabled=true;sourceStatus.textContent='Loading pinned OEIS formula fields…';
+      try{
+        const archive=await sourceData();
+        if(version!==sourceVersion)return;
+        sourceRows=sourceFormulaRows(archive,requested,data.oeis.snapshot_sha256);
+        sourceShown=Math.min(25,sourceRows.length);
+        sourceButton.hidden=true;renderSource();
+        sourceStatus.textContent=sourceRows.length
+          ? `${sourceRows.length} source formula lines. These are unreviewed OEIS records, not proven sequence identities.`
+          : 'No source formula fields were retained for this ID in the pinned 99,999-entry snapshot.';
+        const external=officialLink(requested,'Read the full source entry on OEIS');
+        sourceStatus.append(document.createTextNode(' '),external);
+      }catch(error){
+        if(version===sourceVersion)sourceStatus.textContent='Source formula text could not load. The original OEIS entry remains available.';
+      }finally{if(version===sourceVersion)sourceButton.disabled=false;}
+    });
     const rerender=()=>{
       const query=input.value.trim().slice(0,200);
+      const requested=OEIS.test(query.toUpperCase())?query.toUpperCase():'';
+      if(requested!==activeId){
+        activeId=requested;sourceVersion++;sourceRows=[];sourceShown=0;
+        sourceResults.replaceChildren();sourceMore.hidden=true;
+        sourceButton.hidden=false;sourceButton.disabled=false;
+        sourceStatus.textContent=requested?'Formula text loads only when requested.':'';
+      }
+      sourcePanel.hidden=!requested;
       const selected=networkSearch(data,query,filter.value,MAX_RESULTS,handoffsData.matches);
       results.replaceChildren();handoffs.replaceChildren();
       if(!query){

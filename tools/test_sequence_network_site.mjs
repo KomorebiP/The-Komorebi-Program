@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
-import {networkSearch,networkLink} from '../website/assets/sequence-network-ui.mjs';
+import {networkSearch,networkLink,sourceFormulaRows} from '../website/assets/sequence-network-ui.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const data=JSON.parse(readFileSync(path.join(root,'manifests/sequence-transfer-network.json'),'utf8'));
 
@@ -15,6 +15,18 @@ test('first-class searchable actual OEIS graph',()=>{
   assert.ok(r.results.some(x=>x.target==='A000108'||x.inputs.includes('A000108')));
   assert.ok(networkSearch(data,'Catalan').total>0);
   assert.ok(networkSearch(data,'A000108','riordan').total<=r.total);
+});
+test('archived source formulas have independent provenance and no proof promotion',()=>{
+  const source=JSON.parse(readFileSync(path.join(root,'manifests/sequence-network-formula-text.json'),'utf8'));
+  assert.equal(source.counts.network_ids,916);
+  assert.equal(source.counts.ids_with_formulas,845);
+  assert.equal(source.counts.formula_lines,8853);
+  const lines=sourceFormulaRows(source,'A000108',data.oeis.snapshot_sha256);
+  assert.ok(lines.length>0);
+  assert.ok(lines.some(x=>x.text.includes('binomial(2*n')));
+  assert.throws(()=>sourceFormulaRows({...source,evidence:'all_index_formula_identity'},'A000108',data.oeis.snapshot_sha256));
+  assert.throws(()=>sourceFormulaRows(source,'A000108','modified-snapshot'));
+  assert.deepEqual(sourceFormulaRows(source,'bogus',data.oeis.snapshot_sha256),[]);
 });
 test('local index comparison leads never imply proof',()=>{
   const leads={'KSEQ-01':[{id:'A000108',terms:24}]};
