@@ -118,7 +118,7 @@ Detailed exact computation remains in the existing <a href="sequence-library.htm
 <a href="sequence-transfers.html#transfers">Transfer workbench</a>.</p>
 <p>Reference data: <a href="https://oeis.org/">OEIS Foundation Inc.</a>,
 <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
-<a href="https://github.com/KomorebiP/The-Komorebi-Program/tree/main/research/oeis-formulas">Komorebi derivations and reproduction instructions</a>.
+<a href="https://github.com/KomorebiP/The-Komorebi-Program/blob/main/docs/SEQUENCE_TRANSFER_NETWORK.md">Komorebi transfer index and proof boundaries</a>.
 <a href="assets/sequence-network-data.json" download>Download this curated index (JSON)</a>.</p></details>
 <noscript><p>Network search requires JavaScript. The curated JSON and the original
 <a href="sequence-library.html">Sequence Library search</a> remain available directly.</p></noscript>
