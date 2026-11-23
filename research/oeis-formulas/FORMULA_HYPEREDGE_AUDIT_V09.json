@@ -1,0 +1,79 @@
+{
+  "audit_boundary": "Every claimed all-index formula identity is conditional on the exact extracted formula expressions; source OEIS correspondence is finite checked and not proved for all indices.",
+  "author": "Komorebi P.",
+  "basis_formula_summary": {
+    "basis_rank": 146,
+    "compression_source_count_per_basis": "3121/146",
+    "formulas_with_conflicts": [],
+    "independent_coordinate_axes": 176,
+    "projection_support_histogram": {
+      "1": 342,
+      "10": 75,
+      "11": 49,
+      "2": 708,
+      "3": 818,
+      "4": 472,
+      "5": 263,
+      "6": 128,
+      "7": 105,
+      "8": 74,
+      "9": 87
+    },
+    "proof": "Sparse rational Gaussian elimination with exact independent coordinate vectors n^j*lambda^n; every reported target linear combination was reconstructed identically in Q and checked at six additional indices",
+    "scope": "Conditional all-index formula identities, not global OEIS sequence equality or measured runtime improvement",
+    "source_count": 3121
+  },
+  "formula_dependencies": {
+    "finite_checked_lines": 4840,
+    "finite_checked_terms": 233726,
+    "high_value_status": "strict finite checks never establish global OEIS formula equality",
+    "lines": 45826,
+    "multi_input_lines": 16234,
+    "oeis_source_records": 99999,
+    "parsed_but_unverified": 3894,
+    "parsed_out_of_corpus": 1625,
+    "reference_occurrences": 75623,
+    "references_in_import": 56976,
+    "rejected_examples": 623,
+    "source_formula_lines": 45826,
+    "strict_ast_parsed": 10359,
+    "textual_only_lines": 35467,
+    "unique_references": 23131,
+    "unique_sources": 25507
+  },
+  "hyperedge_proofs": {
+    "all_index_oeis_identification_proved": 0,
+    "finitely_checked_candidates": 4840,
+    "input_formula_sequences_with_exact_models": 3121,
+    "missing_input_normal_form": 135,
+    "missing_target_normal_form": 4157,
+    "proved_formula_hyperedges": 539,
+    "proved_multi_input_hyperedges": 152,
+    "scope": "proof of formulas, not proof of OEIS sequence identity",
+    "status": "conditional_on_exact_extracted_formula_definitions",
+    "unsupported_exact_form": 9
+  },
+  "source": "OEIS Foundation Inc. CC BY-SA 4.0",
+  "source_build_run": "https://github.com/KomorebiP/The-Komorebi-Program/actions/runs/45085792944",
+  "source_commit": "12ede576d2f5b5c96c54d315a558be3ac56ee474",
+  "symbolic_formula_summary": {
+    "by_operator": {
+      "add_constant": 2872,
+      "adjacent_difference": 348,
+      "binomial_transform": 234,
+      "inverse_binomial_transform": 234,
+      "multiply_constant": 327,
+      "polyphase": 1963,
+      "prefix_sum": 205,
+      "shift": 536
+    },
+    "domain": "all n>=0 of supplied source and target formulas; OEIS infinite identification remains finite-checked",
+    "exact_formal_edges": 6719,
+    "formula_sequence_nodes": 3121,
+    "formula_source_conflicts": [],
+    "new_beyond_prefix_miner": 6719,
+    "previously_finite_mined": 0,
+    "sources_examined": 3121
+  },
+  "version": "0.9"
+}

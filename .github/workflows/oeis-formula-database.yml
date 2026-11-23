@@ -4,6 +4,8 @@ on:
     paths:
       - 'tools/oeis_formula_*'
       - 'tools/oeis_bulk_import.py'
+      - 'tools/sequence_oeis_*'
+      - 'tools/render_oeis_*'
       - 'tools/sequence_transfer_*'
       - 'tools/sequence_ratio_certificates.py'
       - 'tools/sequence_kernel_transfers.py'
@@ -30,6 +32,8 @@ on:
     paths:
       - 'tools/oeis_formula_*'
       - 'tools/oeis_bulk_import.py'
+      - 'tools/sequence_oeis_*'
+      - 'tools/render_oeis_*'
       - 'tools/sequence_transfer_*'
       - 'tools/sequence_ratio_certificates.py'
       - 'tools/sequence_kernel_transfers.py'
@@ -71,6 +75,18 @@ jobs:
           sparse-checkout: |
             /tools/oeis_formula_database.py
             /tools/test_oeis_transfer_v8.py
+            /tools/test_oeis_v08_atlas.py
+            /tools/render_oeis_v08_atlas.py
+            /tools/sequence_oeis_formula_dependencies.py
+            /tools/test_oeis_formula_dependencies.py
+            /tools/render_oeis_dependency_atlas.py
+            /tools/test_oeis_dependency_atlas.py
+            /tools/sequence_oeis_hyperedge_proofs.py
+            /tools/test_oeis_hyperedge_proofs.py
+            /tools/sequence_oeis_formula_dependencies.py
+            /tools/test_oeis_formula_dependencies.py
+            /tools/render_oeis_dependency_atlas.py
+            /tools/test_oeis_dependency_atlas.py
             /tools/sequence_oeis_basis.py
             /tools/sequence_oeis_symbolic_network.py
             /tools/sequence_oeis_proof_promotion.py
