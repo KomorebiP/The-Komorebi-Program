@@ -71,7 +71,8 @@ jobs:
           python -B -m unittest discover -s tools -p 'test_sequence_final_edition.py' -v 2>&1 | tee .sequence-checks/reports/final-edition.log
           node --test tools/test_sequence_hankel_orders.mjs 2>&1 | tee .sequence-checks/reports/interior-order-core.log
           python -B -m unittest discover -s tools -p 'test_sequence_families.py' -v 2>&1 | tee .sequence-checks/reports/family-tests.log
-          python -B -m unittest discover -s tools -p 'test_sequence_library.py' -v 2>&1 | tee .sequence-checks/reports/library-tests.log
+          python -B -m unittest discover -s tools -p 'test_sequence_library.py' -v
+          python -B -m unittest discover -s tools -p 'test_sequence_network_site.py' -v 2>&1 | tee .sequence-checks/reports/library-tests.log
           python -B -m unittest discover -s tools -p 'test_sequence_closed_forms.py' -v 2>&1 | tee .sequence-checks/reports/closed-forms-tests.log
           python -B -m unittest discover -s tools -p 'test_sequence_closed_forms_extended.py' -v 2>&1 | tee .sequence-checks/reports/closed-forms-extended-tests.log
           python -B -m unittest discover -s tools -p 'test_sequence_closed_forms_central.py' -v 2>&1 | tee .sequence-checks/reports/closed-forms-central-tests.log
@@ -82,7 +83,7 @@ jobs:
           python -B -m unittest discover -s tools -p 'test_sequence_math_reading.py' -v 2>&1 | tee .sequence-checks/reports/math-reading-tests.log
           node --test tools/test_sequence_closed_forms_core.mjs 2>&1 | tee .sequence-checks/reports/closed-forms-core-tests.log
           python -B -m unittest discover -s tools -p 'test_sequence_closed_form_handoffs.py' -v 2>&1 | tee .sequence-checks/reports/closed-forms-bridge-tests.log
-          node --test tools/test_sequence_library.mjs tools/test_sequence_inspection_links.mjs tools/test_sequence_plot_options.mjs tools/test_sequence_math.mjs tools/test_sequence_research.mjs tools/test_sequence_workbench.mjs tools/test_sequence_comparison_certificate.mjs tools/test_sequence_transfer.mjs 2>&1 | tee .sequence-checks/reports/node-tests.log
+          node --test tools/test_sequence_network_site.mjs tools/test_sequence_library.mjs tools/test_sequence_inspection_links.mjs tools/test_sequence_plot_options.mjs tools/test_sequence_math.mjs tools/test_sequence_research.mjs tools/test_sequence_workbench.mjs tools/test_sequence_comparison_certificate.mjs tools/test_sequence_transfer.mjs 2>&1 | tee .sequence-checks/reports/node-tests.log
           python -B tools/audit_sequence_archive.py --output .sequence-checks/reports/archive-audit.json
       - name: Install the pinned browser test runtime
         run: |

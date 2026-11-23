@@ -373,7 +373,7 @@ function render(){
     }
     li.append(links);
     const more=make('details'),moreSummary=make('summary',entry.match_count?`More actions · ${entry.match_count.toLocaleString()} OEIS match${entry.match_count===1?'':'es'}`:'More actions'),secondary=make('div');
-    more.className='sl-result-more';more.open=results.length<=3;secondary.className='sp-actions';secondary.append(formulas);
+    more.className='sl-result-more';more.open=results.length<=3;secondary.className='sp-actions';secondary.append(formulas);const network=make('a','Formula network');network.href='sequence-network.html?q='+encodeURIComponent(entry.id)+'#sequence-network';secondary.append(network);
     if(entry.closed_form_collection){
       const proof=make('a','Research definitions and proofs');
       proof.href='sequence-closed-forms.html#closed-theorems';
