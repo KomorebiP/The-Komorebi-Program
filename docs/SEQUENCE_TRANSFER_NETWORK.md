@@ -19,7 +19,7 @@ Gauge records now show their ratio equation separately from the scale \(K\), bas
 
 Formula and quadratic-channel records use mathematical typesetting where the archive grammar is supported. Riordan records display their stored parameters without inventing a full OGF equation that the index does not contain. Unsupported notation remains readable as original text. Nothing on this page executes source expressions.
 
-On narrow or zoomed screens, the search controls stack vertically. Results appear in batches of 12 so readers do not have to navigate a single very long list. The site-wide **Math display** preference switches between typeset notation and plain source text. Wide equations have their own horizontal scroll area. Keyboard access and source-text fallbacks are retained.
+On narrow or zoomed screens, the search controls stack vertically. Results appear in batches of 12 so readers do not have to navigate a single very long list. Every matching record in the pinned index remains accessible, even when a search matches more than 60 relations. The **Show next connections** button moves keyboard focus to the first newly revealed record and keeps the result count explicit. The site-wide **Math display** preference switches between typeset notation and plain source text. Wide equations have their own horizontal scroll area. Keyboard access and source-text fallbacks are retained.
 
 ## Retained mathematical material
 
