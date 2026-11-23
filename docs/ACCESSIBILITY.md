@@ -302,6 +302,18 @@ table navigation can associate values with their labels. These aids and the
 glossary supplement the original definitions. They do not establish that
 every mathematical expression or diagram has an adequate spoken description.
 
+## Sequence Library and Transfer Network
+
+The [Sequence Library](https://KomorebiP.github.io/The-Komorebi-Program/sequence-library.html) searches local formulas, records, and exact stored terms. The separate [Transfer Network](https://KomorebiP.github.io/The-Komorebi-Program/sequence-network.html) searches a curated set of archived OEIS formula relationships. It is **not** a live OEIS search or a proof that every sequence identification is valid.
+
+In the Transfer Network, use the **Find connections** search button or press **Enter** in the search field. The **Relation class** selector narrows the results without changing the underlying archive. Results are displayed in groups of 12; use **Show next connections** to see further results. All matches in the pinned index remain reachable, including searches with more than 60 results. When you activate the show-more button, keyboard focus moves to the first newly displayed result, so you can continue reading from that point. The result count announces the number displayed and the total.
+
+Each result has an archive-defined target and source sequence links, a readable mathematical expression where the notation is supported, and an expandable **Original archive expression, sequence titles, and provenance** section. This disclosure preserves source offsets, original expressions, proof references, and receipts. Gauge records display the transfer equation and the defining factor separately. A Riordan record does not invent an equation absent from the archived source. The site-wide **Math display** control provides typeset and plain-text alternatives. Very wide rendered equations scroll within their individual region rather than extending the page.
+
+Source OEIS formula fields load only when you request them for an individual OEIS ID. They are **unreviewed source text** and are never executed in the browser. The archived index remains usable as a downloadable JSON file if JavaScript is unavailable, although the interactive Network search needs JavaScript.
+
+The current automated tests cover desktop and narrow-screen reflow, keyboard activation of pagination, expression rendering, original-source preservation, and basic loading failures. These tests do not constitute a manual screen-reader audit or a claim of full WCAG conformance.
+
 ## Recovery Laboratory
 
 The [Recovery Laboratory](https://KomorebiP.github.io/The-Komorebi-Program/recovery-lab.html)

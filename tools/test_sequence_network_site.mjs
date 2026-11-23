@@ -81,3 +81,14 @@ test('bounded arithmetic translator preserves fractions, powers, and rejects une
   assert.equal(algebraLatex('A000108(n); alert(1)'),null);
   assert.equal(algebraLatex('<script>'),null);
 });
+
+test('large sequence-name searches expose every pinned edge instead of silently cutting off at sixty',()=>{
+  const limited=networkSearch(data,'binomial');
+  const complete=networkSearch(data,'binomial','all',data.edges.length);
+  assert.equal(complete.total,331);
+  assert.equal(limited.results.length,60,'compatibility default retains prior bounded API');
+  assert.equal(complete.results.length,331,'UI may paginate all known results');
+  assert.equal(new Set(complete.results.map(edge=>edge.key)).size,331);
+  assert.equal(networkSearch(data,'n','all',data.edges.length).results.length,data.edges.length,
+    'maximum-size search can be explored incrementally');
+});
