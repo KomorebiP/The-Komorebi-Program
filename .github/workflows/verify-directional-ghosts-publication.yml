@@ -36,13 +36,18 @@ jobs:
               'assets/sequence-network-ui.mjs',
               'assets/sequence-network-format.mjs',
               'assets/sequence-network.css',
+              'assets/reader.js',
+              'assets/reader.css',
           )
           expected = {
               paths[0]: (
                   'Directional ghosts',
                   'Frobenius',
                   '2026-11-23',
-                  'Query',
+                  'A small reconstruction example',
+                  'Notation for implementation',
+                  'Alternative minimal rescue coordinates',
+                  'mathjax/tex-svg-full.js',
               ),
               paths[1]: (
                   'collection/DIRECTIONAL_GHOSTS.html',
@@ -64,6 +69,13 @@ jobs:
               paths[5]: (
                   '.sn-fields',
                   '.sn-more-wrap',
+              ),
+              paths[6]: (
+                  'span.arithmatex, div.arithmatex',
+                  'Display equation. Scroll horizontally if needed.',
+              ),
+              paths[7]: (
+                  'div.arithmatex.math-overflow:focus-visible',
               ),
           }
           latest_errors = []

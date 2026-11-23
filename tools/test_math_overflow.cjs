@@ -9,7 +9,7 @@ function fixture(withObservers = true) {
   let resized, mutated;
   const body = {};
   const document = {body, querySelector: () => null,
-    querySelectorAll: selector => selector === 'span.arithmatex' ? formulas.filter(f => f.isConnected) : [],
+    querySelectorAll: selector => selector === 'span.arithmatex, div.arithmatex' ? formulas.filter(f => f.isConnected) : [],
     addEventListener() {}};
   const window = {addEventListener: (name, callback) => { events[name] = callback; }};
   const context = {document, window, requestAnimationFrame: callback => tasks.push(callback)};
@@ -24,11 +24,12 @@ function fixture(withObservers = true) {
       observe() {}
     };
   }
-  function formula(width, contentWidth, attrs = {}) {
+  function formula(width, contentWidth, attrs = {}, type = 'span') {
     const classes = new Set();
     const result = {clientWidth: width, scrollWidth: contentWidth, isConnected: true,
-      nodeType: 1, matches: selector => selector === 'span.arithmatex', querySelector: () => null,
-      closest: selector => selector === 'span.arithmatex' ? result : null,
+      nodeType: 1, matches: selector => selector.split(',').some(name => name.trim() === type + '.arithmatex'),
+      querySelector: () => null,
+      closest: selector => result.matches(selector) ? result : null,
       classList: {add: value => classes.add(value), remove: value => classes.delete(value)},
       hasAttribute: name => name in attrs, getAttribute: name => attrs[name],
       setAttribute: (name, value) => { attrs[name] = value; },
@@ -50,6 +51,25 @@ assert.equal(wide.attrs.tabindex, '0');
 assert.equal(wide.attrs.role, 'group');
 assert.match(wide.attrs['aria-label'], /Scroll horizontally/);
 assert.equal(wide.classes.has('math-overflow'), true);
+const wideDisplay = p.formula(120, 300, {}, 'div');
+p.events.resize(); p.flush();
+assert.equal(wideDisplay.attrs.tabindex, '0', 'Overflowing display math is keyboard-focusable');
+assert.equal(wideDisplay.attrs.role, 'region', 'Display equations have region semantics');
+assert.match(wideDisplay.attrs['aria-label'], /Display equation/);
+wideDisplay.clientWidth = 380; p.resize(); p.flush();
+assert.deepEqual(wideDisplay.attrs, {}, 'Display math removes temporary scroll controls when it fits');
+
+const labeledDisplay = p.formula(90, 250,
+  {role: 'math', 'aria-label': 'Original display description'}, 'div');
+p.events.resize(); p.flush();
+assert.equal(labeledDisplay.attrs.role, 'math', 'Author-supplied roles are preserved');
+assert.equal(labeledDisplay.attrs['aria-label'], 'Original display description');
+assert.equal(labeledDisplay.attrs.tabindex, '0');
+labeledDisplay.clientWidth = 350; p.resize(); p.flush();
+assert.deepEqual(labeledDisplay.attrs,
+  {role: 'math', 'aria-label': 'Original display description'},
+  'Author-supplied block-math attributes survive cleanup');
+
 const overhang = p.formula(100, 110);
 overhang.querySelector = () => ({getBoundingClientRect: () => ({width: 98})});
 p.events.resize(); p.flush();
@@ -94,4 +114,7 @@ const fallback = p.formula(150, 400); p.flush();
 assert.equal(fallback.attrs.tabindex, '0', 'Initial layout and resize work without observer APIs');
 fallback.clientWidth = 450; p.events.resize(); p.flush();
 assert.equal(fallback.attrs.tabindex, undefined);
-console.log('PASS: inline formula scrolling, resized text, delayed math, live results and accessible-name preservation');
+const stylesheet = fs.readFileSync(path.join(__dirname, '../website/assets/reader.css'), 'utf8');
+assert.ok(stylesheet.includes('div.arithmatex.math-overflow:focus-visible{'),
+  'Overflowing display equations have a visible keyboard focus ring');
+console.log('PASS: inline and display formula scrolling, resized text, delayed math, live results and accessible-name preservation');

@@ -141,11 +141,67 @@ class ExactRegression(unittest.TestCase):
                 bounded = multiply(bounded, factor, modulus)
             self.assertEqual(left, bounded)
 
+    def test_exact_univariate_ghost_fibers_and_rescue_coordinates(self):
+        # Exhaust every unit series of degree <=4 modulo 4, not just one example.
+        from collections import defaultdict
+        fibers = defaultdict(list)
+        for coeffs in itertools.product(range(4), repeat=4):
+            a = [1, *coeffs]
+            fibers[tuple(ghost(a, 4))].append(a)
+        self.assertEqual(len(fibers), 32)
+        self.assertEqual({len(fiber) for fiber in fibers.values()}, {8})
+
+        # Blind coefficients at degrees 2 and 4 in the invertible
+        # Frobenius/polyphase quotient provide genuinely separating coordinates.
+        for fiber in fibers.values():
+            rescue_values = [
+                tuple(frobenius_quotient(a, 2, 4)[n] for n in (2, 4))
+                for a in fiber
+            ]
+            self.assertEqual(len(set(rescue_values)), len(fiber))
+
+        # Observe the same ghost at higher precision and count projected
+        # source reductions modulo 4, as in the worked example.
+        raised_precision = defaultdict(set)
+        for coeffs in itertools.product(range(8), repeat=4):
+            a = [1, *coeffs]
+            raised_precision[tuple(ghost(a, 8))].add(
+                tuple(value % 4 for value in a))
+        self.assertEqual({len(fiber) for fiber in
+                          raised_precision.values()}, {2})
+
     def test_query_fiber_dependence_on_base_source(self):
-        # For C=1+2x^2 over Z/4, both coordinate ghosts vanish.
-        # At A0=1+xy, x^3 y acquires coefficient 2; at A0=1 it does not.
-        self.assertEqual((2 * 2) % 4, 0)
-        self.assertNotEqual((2 * 1) % 4, 0)
+        # Enumerate the entire kernel of both coordinate Euler derivatives
+        # over Z/4 through total degree 4 (rather than one illustrative value).
+        p, k, D = 2, 2, 4
+        modulus = p ** k
+        blind = []
+        for alpha in monomials(2, D):
+            e = min(k, max(0, min(valuation(n, p) for n in alpha)))
+            if e > 0:
+                blind.append((alpha, e))
+        self.assertEqual(len(blind), 5)
+        choices = [range(0, modulus, p ** (k - e)) for _, e in blind]
+        queried_unit = set()
+        queried_mixed = set()
+        count = 0
+        for values in itertools.product(*choices):
+            C = {(0, 0): 1}
+            C.update({alpha: value for (alpha, _), value
+                      in zip(blind, values)})
+            # Vanishing coordinate derivatives certify that these C
+            # have the same two ghost observations.
+            for alpha, value in C.items():
+                self.assertEqual(alpha[0] * value % modulus, 0)
+                self.assertEqual(alpha[1] * value % modulus, 0)
+            queried_unit.add(C.get((3, 1), 0) % modulus)
+            # Multiplication by A0=1+xy adds the shifted x^2 coefficient.
+            queried_mixed.add((C.get((3, 1), 0)
+                               + C.get((2, 0), 0)) % modulus)
+            count += 1
+        self.assertEqual(count, 128)
+        self.assertEqual(queried_unit, {0})
+        self.assertEqual(queried_mixed, {0, 2})
 
 
 if __name__ == "__main__":
