@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
-      - name: Verify public research page and network cross-links
+      - name: Verify live research pages, full-result navigator, and responsive assets
         env:
           BASE_URL: https://komorebip.github.io/The-Komorebi-Program/
         run: |
@@ -33,6 +33,9 @@ jobs:
               'collection/DIRECTIONAL_GHOSTS.html',
               'sequence-network.html',
               'sequence-library.html',
+              'assets/sequence-network-ui.mjs',
+              'assets/sequence-network-format.mjs',
+              'assets/sequence-network.css',
           )
           expected = {
               paths[0]: (
@@ -48,6 +51,19 @@ jobs:
               paths[2]: (
                   'collection/DIRECTIONAL_GHOSTS.html',
                   'Precision-aware transfer research',
+              ),
+              paths[3]: (
+                  'data.edges.length',
+                  'focusAdded',
+                  'sequence-network-format.mjs',
+              ),
+              paths[4]: (
+                  'formatNetworkMath',
+                  'algebraLatex',
+              ),
+              paths[5]: (
+                  '.sn-fields',
+                  '.sn-more-wrap',
               ),
           }
           latest_errors = []
@@ -75,7 +91,7 @@ jobs:
                   report = (
                       '## Live Komorebi publication verified\n\n'
                       'The public GitHub Pages server responded with HTTP 200 and the '
-                      'expected research text and cross-links:\n\n' +
+                      'expected research text, transfer navigation, and responsive assets:\n\n' +
                       ''.join(f'- {base + path}\n' for path in paths)
                   )
                   print(report)
