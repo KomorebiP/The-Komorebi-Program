@@ -27,7 +27,9 @@ The central question is how much information about a truncated generating functi
 | Rescue channel | An independently available supplementary measurement. It cannot be synthesized from the same information already lost. |
 | \(\Phi_q\) | A lossless change of series coordinates defined by \(A(\mathbf{x})/A(\mathbf{x}^q)\). |
 
-**Reading route:** Sections 2–3 quantify the remaining source ambiguity. Section 4 asks what is needed for a particular query. Section 5 gives a lossless transformation that may offer more useful coordinates, without creating new information. Section 6 separates the established results from unresolved research objectives.
+**Jump to a section:** [Setup](#1-setup) · [Exact fibers](#2-exact-multichannel-directional-ghost-fiber-theorem) · [Prime-power lattices](#3-an-exact-prime-power-lattice-formula) · [Query recovery](#4-query-specific-reconstruction-from-nonlinear-ghost-observations) · [Lossless polyphase transfers](#5-a-lossless-frobeniuspolyphase-quotient) · [Research status](#6-what-these-generalizations-do-and-do-not-establish) · [Compiler integration](#7-proposed-compiler-integration).
+
+**Suggested reading route:** Sections 2–3 quantify source ambiguity. Section 4 focuses on recovering only a requested query. Section 5 supplies lossless coordinates but not new measurements. Section 6 identifies what remains unproved or unverified.
 
 ## 1. Setup
 
@@ -148,8 +150,11 @@ N_s(W,D)=\#\{\alpha\in\mathbb Z_{\ge0}^d:0<|\alpha|\le D,\ W\alpha\equiv0\pmod{p
 For every integer matrix \(W\),
 
 \[
-\boxed{E(W;p,k,h,D)\ge
-\sum_{s=h+1}^{h+k}\left[\binom{\lfloor D/p^s\rfloor+d}{d}-1\right].}
+\boxed{\begin{aligned}
+E(W;p,k,h,D)\ge{}&
+\sum_{s=h+1}^{h+k}
+\left[\binom{\lfloor D/p^s\rfloor+d}{d}-1\right].
+\end{aligned}}
 \]
 
 If \(W\) has full column rank modulo \(p\), equivalently if some \(d\times d\) minor is a \(p\)-adic unit, equality holds for **every** \(D,k,h\). Thus \(d\) coordinate derivatives, or any \(p\)-adically left-invertible recombination of them, attain the minimum ambiguity among collections of weighted Euler derivatives.
@@ -158,7 +163,7 @@ If \(W\) has full column rank modulo \(p\), equivalently if some \(d\times d\) m
 
 ### Corollary 3.3. Optimal scalar-channel budget
 
- With a full-column-rank weight family, the exact minimum number of supplementary scalar 1-Lipschitz channels for full input reconstruction is
+With a full-column-rank weight family, the exact minimum number of supplementary scalar 1-Lipschitz channels for full input reconstruction is
 
 \[
 \boxed{b_\mathrm{opt}=\binom{\lfloor D/p^{h+1}\rfloor+d}{d}-1.}
@@ -186,11 +191,15 @@ For \(W=I_2\), the layer counts give \(E=\bigl[\binom72-1\bigr]+\bigl[\binom42-1
 
 ### Theorem 3.4. Smith-lattice density
 
- Fix \(p,k,h,W,d\). Let \(\rho\) be the rank of \(W\), and let \(s_1,\ldots,s_\rho\) denote the valuations of its nonzero Smith invariant factors, **including factors with valuation zero**. Then, as \(D\to\infty\),
+Fix \(p,k,h,W,d\). Let \(\rho\) be the rank of \(W\), and let \(s_1,\ldots,s_\rho\) denote the valuations of its nonzero Smith invariant factors, **including factors with valuation zero**. Then, as \(D\to\infty\),
 
 \[
-\boxed{E(W;p,k,h,D)=\frac{D^d}{d!}\sum_{t=h+1}^{h+k}
- p^{-\sum_{j=1}^{\rho}\max(0,t-s_j)}+O_{p,k,h,W,d}(D^{d-1}).}
+\boxed{\begin{aligned}
+E(W;p,k,h,D)={}&
+\frac{D^d}{d!}\sum_{t=h+1}^{h+k}
+p^{-\sum_{j=1}^{\rho}\max(0,t-s_j)}\\
+&+O_{p,k,h,W,d}(D^{d-1}).
+\end{aligned}}
 \]
 
 **Proof.** Smith normal form shows that the homomorphism \(W:(\mathbb Z/p^t\mathbb Z)^d\to(\mathbb Z/p^t\mathbb Z)^m\) has image size \(p^{\sum_{j=1}^{\rho}\max(0,t-s_j)}\). Its kernel therefore occupies the reciprocal fraction of residue classes modulo \(p^t\). For each fixed residue class, the lattice points in the nonnegative simplex \(0<|\alpha|\le D\) contribute \(D^d/(d!\,p^{td})+O(D^{d-1})\). Hence \(N_t(W,D)=D^d/(d!\,|\operatorname{im} W_t|)+O(D^{d-1})\). Summation over the fixed finite range of \(t\) completes the proof. \(\square\)
@@ -258,7 +267,7 @@ The preceding theorem proves that first-order weighted derivatives cannot remove
 
 ### Theorem 5.1. Contracting coboundary theorem
 
-Let \(R\) be a complete, separated commutative ring with an ideal \(I\), and let \(S:R\to R\) be a unital, continuous ring endomorphism satisfying \(S(I^n)\subseteq I^{2n}\) for all \(n\ge1\). Then
+Let \(R\) be an \(I\)-adically complete and separated commutative ring with ideal \(I\), and let \(S:R\to R\) be a unital, \(I\)-adically continuous ring endomorphism satisfying \(S(I^n)\subseteq I^{2n}\) for all \(n\ge1\). Then
 
 \[
 \boxed{\Phi_S(A)=A/S(A)}
@@ -277,15 +286,17 @@ The product converges in the \(I\)-adic topology. The conclusion concerns the mu
 For an integer \(q\ge2\), take the substitution endomorphism \(S_q(A)(x_1,\ldots,x_d)=A(x_1^q,\ldots,x_d^q)\). Then
 
 \[
-\boxed{\Phi_q(A)(\mathbf x)=\frac{A(\mathbf x)}{A(\mathbf x^q)},\quad
-A(\mathbf x)=\prod_{j\ge0}\Phi_q(A)(\mathbf x^{q^j}).}
+\boxed{\begin{aligned}
+\Phi_q(A)(\mathbf x)&=\frac{A(\mathbf x)}{A(\mathbf x^q)},\\
+A(\mathbf x)&=\prod_{j\ge0}\Phi_q(A)(\mathbf x^{q^j}).
+\end{aligned}}
 \]
 
 The substitution, multiplication, and inversion of unit formal series are defined by integral coefficient formulas. Consequently, this coordinate change remains bijective modulo **every** \(p^k\), with coefficientwise congruence preservation in both directions. It is a lossless change of representation, **not an independent observation**: it cannot reconstruct information lost in an earlier ghost measurement.
 
 ### Theorem 5.2. Intertwining with directional ghosts
 
- For each weighted Euler derivation,
+For each weighted Euler derivation,
 
 \[
 \boxed{\Gamma_i(\Phi_q A)(\mathbf x)=\Gamma_i(A)(\mathbf x)-q\,\Gamma_i(A)(\mathbf x^q).}
@@ -311,14 +322,14 @@ For the ordinary partition generating function
 P(x)=\prod_{n\ge1}(1-x^n)^{-1},
 \]
 
-we obtain for **every integer q>=2**:
+we obtain for **every integer \(q\ge2\)**:
 
 \[
-\boxed{
+\boxed{\begin{aligned}
 \frac{P(x)}{P(x^q)}
-=\prod_{n\ge1}(1+x^n+\cdots+x^{(q-1)n})
-=\prod_{\substack{n\ge1\\q\nmid n}}(1-x^n)^{-1}.
-}
+&=\prod_{n\ge1}(1+x^n+\cdots+x^{(q-1)n})\\
+&=\prod_{\substack{n\ge1\\q\nmid n}}(1-x^n)^{-1}.
+\end{aligned}}
 \]
 
 This is the classical identity between partitions with each part occurring at most \(q-1\) times and partitions whose parts are not divisible by \(q\). At \(q=2\), it becomes the distinct-part/odd-part identity. These are exact candidate edges for the transfer network, **not historically new partition identities**.
