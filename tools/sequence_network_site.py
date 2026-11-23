@@ -140,6 +140,11 @@ def network_section(metadata):
 <p>Search OEIS IDs or names to inspect archived formula-level identities, index shifts,
 Riordan maps and quadratic channels. The main Sequence Library search, exact calculators,
 and OEIS term finder remain available.</p>
+<p><strong>New research: precision-aware transfers.</strong> Read the
+<a href="collection/DIRECTIONAL_GHOSTS.html">directional ghost and Frobenius quotient generalizations</a>
+for exact source-fiber counts, query-dependent reconstruction and proof boundaries.
+These results describe mathematical transfer contracts; they do not add unverified
+OEIS edges to the curated index.</p>
 <form id="sn-form" role="search"><label for="sn-query">OEIS ID, local sequence ID, formula or name</label>
 <div class="sn-fields"><input id="sn-query" type="search" maxlength="200" placeholder="A000108, Catalan, KFOR..." autocomplete="off">
 <button type="submit">Find connections</button></div>
