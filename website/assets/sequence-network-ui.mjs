@@ -67,7 +67,7 @@ function officialLink(id, label) {
   return a;
 }
 function siteSearchLink(id) {
-  const a=node('a','Search the local Sequence Library');
+  const a=node('a','Search '+id+' in the local Sequence Library');
   a.href='sequence-library.html?q='+encodeURIComponent('oeis:'+id)+'#library-search';
   return a;
 }
@@ -93,7 +93,7 @@ function explainEdge(edge, names) {
   li.setAttribute('aria-label','Archived transfer: '+edge.target+' from '+edge.inputs.join(', '));
   const kind=node('span',KIND[edge.kind] || 'Formula connection','sn-rel-kind');
   const heading=node('h3');heading.append(kind,officialLink(edge.target),document.createTextNode(' ← '));
-  edge.inputs.forEach((input,i)=>{if(i)heading.append(document.createTextNode(' + '));heading.append(officialLink(input));});
+  edge.inputs.forEach((input,i)=>{if(i)heading.append(document.createTextNode(', '));heading.append(officialLink(input));});
   li.append(heading);
 
   const formatted=formatNetworkMath(edge);
@@ -142,7 +142,7 @@ function explainEdge(edge, names) {
   li.append(details);
 
   const controls=node('div',undefined,'sn-actions');
-  controls.append(officialLink(edge.target,'View target on OEIS'),siteSearchLink(edge.target));
+  controls.append(officialLink(edge.target,'View '+edge.target+' on OEIS'),siteSearchLink(edge.target));
   li.append(controls);
   return li;
 }
