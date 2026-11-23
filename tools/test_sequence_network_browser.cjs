@@ -19,6 +19,32 @@ async function main(){
     assert.equal(response.status(),200,'Generated Network page missing');
     await page.waitForFunction(()=>/connections found/.test(document.querySelector('#sn-status')?.textContent||''),null,{timeout:45000});
     const first=await page.locator('.sn-result').count();
+    assert.equal(first,12,'Initial results are paginated to reduce mobile reading load');
+    assert.equal(await page.locator('#sn-show-more').isVisible(),true);
+    await page.locator('#sn-show-more').focus();
+    await page.keyboard.press('Enter');
+    assert.ok(await page.locator('.sn-result').count()>12,'Keyboard users can reveal more results');
+    assert.ok(await page.locator('.sn-result [data-math-latex]').count()>0,
+      'At least one transfer must have a readable, accessible mathematical rendering');
+    await page.waitForFunction(
+      ()=>Boolean(document.querySelector('.sn-result .math-pair mjx-container')),null,{timeout:45000});
+    const inspect=async width=>{
+      await page.setViewportSize({width,height:844});
+      const layout=await page.evaluate(()=>{
+        const viewport=document.documentElement.clientWidth;
+        const ids=['#sn-query','#sn-form button[type=submit]','#sn-filter','.sn-result'];
+        return {viewport,boxes:ids.map(selector=>{
+          const box=document.querySelector(selector)?.getBoundingClientRect();
+          return {selector,left:box?.left,right:box?.right};
+        })};
+      });
+      for(const box of layout.boxes){
+        assert.ok(box.left>=-1 && box.right<=layout.viewport+1,
+          'Reflow failed at '+width+'px for '+box.selector+': '+JSON.stringify(layout));
+      }
+    };
+    for(const width of [320,390,768])await inspect(width);
+    await page.setViewportSize({width:390,height:844});
     assert.ok(first>0,'Catalan must have archived formula relations');
     assert.ok((await page.locator('#sn-results').innerText()).includes('Formula identity')||
               (await page.locator('#sn-results').innerText()).includes('Gauge transfer'));
@@ -28,6 +54,13 @@ async function main(){
     assert.match(await page.locator('#sn-source-status').innerText(),/unreviewed OEIS records/);
     assert.match(await page.locator('#sn-source-results').innerText(),/binomial/);
     await page.selectOption('#sn-filter','gauge');
+    await page.waitForFunction(()=>Boolean(document.querySelector('.sn-result .sn-definition')));
+    const gauge=page.locator('.sn-result').first();
+    await gauge.locator('.sn-record-details summary').click();
+    assert.match(await gauge.locator('.sn-original').innerText(),/b\(t\)\/a\(t\)/,
+      'The original unmodified archival specification remains available');
+    assert.ok(await gauge.locator('.sn-parameters dd').count()>=5,
+      'The gauge constants and offsets have accessible labels');
     assert.match(await page.locator('#sn-status').innerText(),/connections found/);
     await page.setViewportSize({width:390,height:844});
     await page.screenshot({path:path.join(output,'network-mobile.png')});
