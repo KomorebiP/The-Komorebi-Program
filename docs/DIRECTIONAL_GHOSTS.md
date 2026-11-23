@@ -143,7 +143,7 @@ If \(W\) has full column rank modulo \(p\), equivalently if some \(d\times d\) m
 
 For a full-column-rank family, the residual ambiguity consists precisely of exponent vectors divisible componentwise by \(p,p^2,\ldots\). This **Frobenius filtration** is unavoidable within the weighted first-derivative operator class: multiplying an exponent vector by \(p^s\) increases every derivative eigenvalue's \(p\)-adic valuation by at least \(s\). Other kinds of observation are not covered by this optimality statement.
 
-**Numerical example:** \(d=2\), \(D=10\), \(p=2\), \(k=3\), \(h=0\).
+**Worked comparison:** \(d=2\), \(D=10\), \(p=2\), \(k=3\), \(h=0\).
 
 | Weight observations | Ambiguity exponent \(E\) | Blind indices \(b\) |
 | --- | ---: | ---: |
@@ -175,8 +175,11 @@ Version 1.2 has a Smith-fiber formula for linear main observations. The new ghos
 Fix a representative \(A_0\) of the measured ghost fiber and work modulo \(p^k\). Let \(\mathcal S\) be the set of positive monomial indices, with \(e_\alpha\) as in Theorem 2.1, and put \(r_\alpha=k-e_\alpha\). The compatible sources are exactly
 
 \[
-\mathcal F=A_0(1+\mathcal L),\quad
-\mathcal L=\bigoplus_{\alpha\in S}p^{r_\alpha}(\mathbb Z/p^k)\mathbf x^\alpha.
+\begin{aligned}
+\mathcal F&=A_0(1+\mathcal L),\\
+\mathcal L&=\bigoplus_{\alpha\in\mathcal S}
+p^{r_\alpha}(\mathbb Z/p^k\mathbb Z)\mathbf x^\alpha.
+\end{aligned}
 \]
 
 Let \(M_{A_0}\) be the integral unitriangular convolution matrix for multiplication of truncated series by \(A_0\), and let \(Q\) be an integral linear query on the input coefficient vector. Define
@@ -226,30 +229,30 @@ The preceding theorem proves that first-order weighted derivatives cannot remove
 
 ### Theorem 5.1. Contracting coboundary theorem
 
- Let `R` be a complete separated commutative ring with ideal `I`, and let `S:R->R` be a unital continuous ring endomorphism such that `S(I^n) subset I^{2n}` for all `n>=1`. Then
+Let \(R\) be a complete, separated commutative ring with an ideal \(I\), and let \(S:R\to R\) be a unital, continuous ring endomorphism satisfying \(S(I^n)\subseteq I^{2n}\) for all \(n\ge1\). Then
 
 \[
 \boxed{\Phi_S(A)=A/S(A)}
 \]
 
-is a multiplicative-group automorphism of `1+I`, with explicit inverse
+is an automorphism of the multiplicative group \(1+I\), with explicit inverse
 
 \[
 \boxed{\Phi_S^{-1}(B)=\prod_{j\ge0}S^j(B).}
 \]
 
-The product converges in the `I`-adic topology.
+The product converges in the \(I\)-adic topology. The conclusion concerns the multiplicative group \(1+I\), not an automorphism of the underlying additive ring.
 
-**Proof.** The map is multiplicative. For `B in 1+I`, the factors `S^j(B)` approach `1` to arbitrarily high `I`-adic order, so the product exists. If `A` is this product then `S(A)` is the same product without its first factor; consequently `A/S(A)=B`. Conversely `A/S(A)=1` implies `A=S(A)=S^n(A)`, and `S^n(A)->1`, forcing `A=1`. QED.
+**Proof.** The map is multiplicative because \(S\) is a ring endomorphism. For \(B\in1+I\), the terms \(S^j(B)\) tend to \(1\) at arbitrarily high \(I\)-adic order, so \(\prod_{j\ge0}S^j(B)\) converges. Calling this product \(A\), the product \(S(A)\) omits its first factor, hence \(A/S(A)=B\). Conversely, \(A/S(A)=1\) implies \(A=S(A)=S^n(A)\) for every \(n\). Contraction forces \(S^n(A)\to1\), hence \(A=1\). \(\square\)
 
-Take `S_q(A)(x_1,...,x_d)=A(x_1^q,...,x_d^q)` for integer `q>=2`. Then
+For an integer \(q\ge2\), take the substitution endomorphism \(S_q(A)(x_1,\ldots,x_d)=A(x_1^q,\ldots,x_d^q)\). Then
 
 \[
 \boxed{\Phi_q(A)(\mathbf x)=\frac{A(\mathbf x)}{A(\mathbf x^q)},\quad
 A(\mathbf x)=\prod_{j\ge0}\Phi_q(A)(\mathbf x^{q^j}).}
 \]
 
-Every operation uses integral formal-series multiplication/inversion, so the transformation is bijective modulo *every* `p^k`. The forward and inverse operations are coefficientwise congruence-preserving; in particular no p-adic digits are lost. This is a normal form, **not an independent observation and not a way to create missing information from a logarithmic derivative alone**.
+The substitution, multiplication, and inversion of unit formal series are defined by integral coefficient formulas. Consequently, this coordinate change remains bijective modulo **every** \(p^k\), with coefficientwise congruence preservation in both directions. It is a lossless change of representation, **not an independent observation**: it cannot reconstruct information lost in an earlier ghost measurement.
 
 ### Theorem 5.2. Intertwining with directional ghosts
 
@@ -259,15 +262,15 @@ Every operation uses integral formal-series multiplication/inversion, so the tra
 \boxed{\Gamma_i(\Phi_q A)(\mathbf x)=\Gamma_i(A)(\mathbf x)-q\,\Gamma_i(A)(\mathbf x^q).}
 \]
 
-**Proof.** The logarithmic derivative is additive across products and quotients. The chain rule gives `delta_i(S_q A)=q S_q(delta_i A)`, hence `Gamma_i(S_q A)=q S_q(Gamma_i A)`. Subtract. QED.
+**Proof.** The logarithmic derivative is additive for products and subtractive for quotients. The chain rule gives \(\delta_i(S_qA)=q\,S_q(\delta_iA)\), hence \(\Gamma_i(S_qA)=q\,S_q(\Gamma_iA)\). Applying this to \(A/S_q(A)\) gives the identity. \(\square\)
 
 The intertwining relation means the derivative signature of the transformed series carries no information beyond the old derivative signature, though the transformed **series coefficients** can provide independent supplementary information when externally available.
 
 ### Theorem 5.3. Alternative minimal rescue coordinates
 
- Let `S` be the blind index set of Theorem 2.1: `S={alpha:e_alpha>0}`. In place of observing the original source coefficients `a_alpha` for `alpha in S`, one may observe the `|S|` coefficients of `Phi_q(A)` at precisely those indices, modulo \(p^k\), for **any integer `q>=2`**. Together with the original directional signatures, these observations also determine the full source modulo \(p^k\), and the number of channels is again minimal among scalar 1-Lipschitz schemes that must work uniformly.
+Let \(\mathcal B=\{\alpha:e_\alpha>0\}\) be the blind index set of Theorem 2.1. Instead of independently observing the source coefficients \(a_\alpha\) for \(\alpha\in\mathcal B\), one may independently observe the corresponding \(|\mathcal B|\) coefficients of \(\Phi_q(A)\) modulo \(p^k\), for **any integer \(q\ge2\)**. Together with the primitive directional signatures, these observations determine the full source modulo \(p^k\). The channel count remains minimal among uniformly valid scalar 1-Lipschitz schemes.
 
-**Proof.** The coefficient of `x^alpha` in `Phi_q(A)=A/S_q(A)` is `a_alpha` plus an integral polynomial in coefficients of `A` of strictly smaller positive total degree; this follows because `S_q(A)-1` starts in degree at least `q>=2`. The same is true for every triangular coordinate change with unit diagonal. Take any two source series in one ghost fiber with the same stated `Phi_q` coefficients. Induct on degree. At an index not in `S`, the ghost conditions already force the two source coefficients to agree once all earlier differences have vanished. At an index in `S`, equality of the observed `Phi_q` coefficients and previously established lower source coefficients forces equality of the original source coefficient. This completes the induction. The 1-Lipschitz lower bound `|S|` was proved in Corollary 2.2 and still applies to these observations. QED.
+**Proof.** The coefficient of \(\mathbf{x}^\alpha\) in \(\Phi_q(A)=A/S_q(A)\) equals \(a_\alpha\) plus an integral polynomial in source coefficients of strictly smaller positive total degree, because \(S_q(A)-1\) starts in degree at least \(q\ge2\). Compare two sources with identical primitive ghosts and the specified \(\Phi_q\) coefficients, and induct on total degree. At \(\alpha\notin\mathcal B\), the ghost constraints force agreement. At \(\alpha\in\mathcal B\), the observed transformed coefficient and agreement at all lower degrees force agreement of \(a_\alpha\). All source coefficients therefore agree modulo \(p^k\). The lower bound is Corollary 2.2. \(\square\)
 
 This gives a genuinely different, integral **choice of rescue coordinates**; it does not make them free or infer them from the primitive ghosts. For partition-like series, they may be accessible via independently known Euler-product or polyphase descriptions.
 
@@ -289,22 +292,28 @@ we obtain for **every integer q>=2**:
 }
 \]
 
-This is the classical bounded-multiplicity versus q-indivisible-parts partition identity, including the `q=2` correspondence between distinct-part and odd-part partitions. It is a concrete, infinite family of exact edges for the sequence-transfer graph, not a claimed historically new theorem.
+This is the classical identity between partitions with each part occurring at most \(q-1\) times and partitions whose parts are not divisible by \(q\). At \(q=2\), it becomes the distinct-part/odd-part identity. These are exact candidate edges for the transfer network, **not historically new partition identities**.
 
-Since `Gamma(P)=sum_{n>=1} sigma_1(n)x^n`, we also obtain
+Since \(\Gamma(P)=\sum_{n\ge1}\sigma_1(n)x^n\), we also obtain
 
 \[
 \boxed{\Gamma(\Phi_q P)(x)
 =\sum_{n\ge1}[\sigma_1(n)-q\,\mathbf 1_{q\mid n}\sigma_1(n/q)]x^n.}
 \]
 
-For the shifted-Fibonacci generating function `F(x)=1/(1-x-x^2)`,
+For the shifted-Fibonacci ordinary generating function \(F(x)=1/(1-x-x^2)\),
 
 \[
 \boxed{\Phi_q F(x)=\frac{1-x^q-x^{2q}}{1-x-x^2}},
 \]
 
-and the corresponding Lucas ghost coefficients transform by `L_n -> L_n - q 1_{q|n} L_{n/q}`.
+The corresponding Lucas ghost coefficients transform by \(L_n\mapsto L_n-q\mathbf 1_{q\mid n}L_{n/q}\), with the term involving \(n/q\) present only when \(q\mid n\).
+
+### Notation for implementation
+
+In Section 4, \(A_0\) is any chosen representative of the measured fiber. The full fiber size is independent of that representative, but the ambiguity of a specified linear coefficient query can depend on the observed fiber. A Smith certificate must record both the query and the representative used to construct \(M_{A_0}\).
+
+In Section 5, the quotient \(\Phi_q(A)\) and its inverse are transformations of **available source data**. Their coefficients may serve as rescue measurements only when independently known or computable from information beyond the original ghost signatures.
 
 ## 6. What these generalizations do and do not establish
 
@@ -321,8 +330,8 @@ For a sequence/transfer object, register the tuple
 
 1. Normalize operator compositions, including contracting quotients and integral shears, *before* evaluating information loss.
 2. For directional ghost families, compute lattice layer counts and the exact exponent-by-exponent remaining freedom.
-3. For a requested query, use `H_Q=Q*M_A*diag(p^(k-e_alpha))`, calculate the Smith image, and retain a certificate of its query-specific ambiguity.
+3. For a requested query \(Q\), form \(H_Q=QM_{A_0}\operatorname{diag}(p^{k-e_\alpha})\), compute its Smith image modulo \(p^k\), and retain a certificate of the resulting query-specific ambiguity.
 4. If missing information remains, request admissible independent channels; do not pretend a transformation of the same data provides them.
 5. Test the resulting route against source-validated full-index identities and measured computational cost before upgrading any public proof label.
 
-A useful first research benchmark is to supply bivariate series with several independently available decompositions, hide a subset of coefficients, and compare query reconstruction under one versus two directional signatures. A second is to add the `Phi_q` family to the existing partition and rational-OGF transfer graph, with original source definitions and exact series certificates.
+A useful first research benchmark is to supply bivariate series with several independently available decompositions, hide a subset of coefficients, and compare query reconstruction under one versus two directional signatures. A second is to add the \(\Phi_q\) family to the existing partition and rational-OGF transfer graph, retaining source definitions and exact series certificates.
