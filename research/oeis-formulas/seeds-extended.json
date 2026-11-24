@@ -1,0 +1,1307 @@
+{
+  "schema": 1,
+  "license": "CC-BY-SA-4.0",
+  "attribution": "The Online Encyclopedia of Integer Sequences, OEIS Foundation Inc. https://oeis.org/",
+  "source": "https://github.com/oeis/oeisdata",
+  "reference_retrieved": "2026-11-22",
+  "non_claims": [
+    "Finite exact-value checks do not prove formula identities for all n",
+    "Derived formulas do not claim historical novelty",
+    "Reference terms were transcribed from OEIS .seq files"
+  ],
+  "sequences": [
+    {
+      "oeis_id": "A000007",
+      "name": "Unit impulse",
+      "offset": 0,
+      "terms": [
+        "1",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=0^n",
+          "evaluator": {
+            "op": "pow",
+            "base": 0,
+            "exp": {
+              "op": "n"
+            }
+          },
+          "kind": "term_formula",
+          "source_url": "https://oeis.org/A000007",
+          "proof_status": "classical_reference",
+          "complexity": "Exact integer computation; complexity depends on n and formula type"
+        },
+        {
+          "expression": "a(n)=1 if n<=0, else 0",
+          "evaluator": {
+            "op": "if_le",
+            "left": {
+              "op": "n"
+            },
+            "right": 0,
+            "yes": 1,
+            "no": 0
+          },
+          "kind": "finite_sum",
+          "source_url": "https://oeis.org/A000007",
+          "proof_status": "classical_reference",
+          "complexity": "Exact integer computation"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000035",
+      "name": "Parity of n",
+      "offset": 0,
+      "terms": [
+        "0",
+        "1",
+        "0",
+        "1",
+        "0",
+        "1",
+        "0",
+        "1",
+        "0",
+        "1",
+        "0",
+        "1",
+        "0",
+        "1",
+        "0",
+        "1",
+        "0",
+        "1"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=n mod 2",
+          "evaluator": {
+            "op": "mod",
+            "args": [
+              {
+                "op": "n"
+              },
+              2
+            ]
+          },
+          "kind": "term_formula",
+          "source_url": "https://oeis.org/A000035",
+          "proof_status": "classical_reference",
+          "complexity": "Exact integer computation; complexity depends on n and formula type"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000073",
+      "name": "Tribonacci numbers",
+      "offset": 0,
+      "terms": [
+        "0",
+        "0",
+        "1",
+        "1",
+        "2",
+        "4",
+        "7",
+        "13",
+        "24",
+        "44",
+        "81",
+        "149",
+        "274",
+        "504",
+        "927",
+        "1705",
+        "3136",
+        "5768"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=a(n-1)+a(n-2)+a(n-3), a(0)=a(1)=0, a(2)=1",
+          "evaluator": {
+            "op": "linear_recurrence",
+            "initial": [
+              0,
+              0,
+              1
+            ],
+            "coefficients": [
+              1,
+              1,
+              1
+            ]
+          },
+          "kind": "exact_recurrence",
+          "source_url": "https://oeis.org/A000073",
+          "proof_status": "classical_reference",
+          "complexity": "Exact integer computation; complexity depends on n and formula type"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000078",
+      "name": "Tetranacci numbers",
+      "offset": 0,
+      "terms": [
+        "0",
+        "0",
+        "0",
+        "1",
+        "1",
+        "2",
+        "4",
+        "8",
+        "15",
+        "29",
+        "56",
+        "108",
+        "208",
+        "401",
+        "773",
+        "1490",
+        "2872",
+        "5536"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=sum(a(n-j),j=1..4), a(0)=a(1)=a(2)=0, a(3)=1",
+          "evaluator": {
+            "op": "linear_recurrence",
+            "initial": [
+              0,
+              0,
+              0,
+              1
+            ],
+            "coefficients": [
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "kind": "exact_recurrence",
+          "source_url": "https://oeis.org/A000078",
+          "proof_status": "classical_reference",
+          "complexity": "Exact integer computation; complexity depends on n and formula type"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000124",
+      "name": "Central polygonal numbers",
+      "offset": 0,
+      "terms": [
+        "1",
+        "2",
+        "4",
+        "7",
+        "11",
+        "16",
+        "22",
+        "29",
+        "37",
+        "46",
+        "56",
+        "67",
+        "79",
+        "92",
+        "106",
+        "121",
+        "137",
+        "154"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=1+n(n+1)/2",
+          "evaluator": {
+            "op": "add",
+            "args": [
+              1,
+              {
+                "op": "exact_div",
+                "num": {
+                  "op": "mul",
+                  "args": [
+                    {
+                      "op": "n"
+                    },
+                    {
+                      "op": "add",
+                      "args": [
+                        {
+                          "op": "n"
+                        },
+                        1
+                      ]
+                    }
+                  ]
+                },
+                "den": 2
+              }
+            ]
+          },
+          "kind": "term_formula",
+          "source_url": "https://oeis.org/A000124",
+          "proof_status": "classical_reference",
+          "complexity": "Exact integer computation; complexity depends on n and formula type"
+        },
+        {
+          "expression": "a(n)=1+binom(n+1,2)",
+          "evaluator": {
+            "op": "add",
+            "args": [
+              1,
+              {
+                "op": "binomial",
+                "n": {
+                  "op": "add",
+                  "args": [
+                    {
+                      "op": "n"
+                    },
+                    1
+                  ]
+                },
+                "k": 2
+              }
+            ]
+          },
+          "kind": "finite_sum",
+          "source_url": "https://oeis.org/A000124",
+          "proof_status": "classical_reference",
+          "complexity": "Exact integer computation"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000125",
+      "name": "Cake numbers",
+      "offset": 0,
+      "terms": [
+        "1",
+        "2",
+        "4",
+        "8",
+        "15",
+        "26",
+        "42",
+        "64",
+        "93",
+        "130",
+        "176",
+        "232",
+        "299",
+        "378",
+        "470",
+        "576",
+        "697",
+        "834"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=1+binom(n,1)+binom(n,2)+binom(n,3)",
+          "evaluator": {
+            "op": "add",
+            "args": [
+              1,
+              {
+                "op": "binomial",
+                "n": {
+                  "op": "n"
+                },
+                "k": 1
+              },
+              {
+                "op": "binomial",
+                "n": {
+                  "op": "n"
+                },
+                "k": 2
+              },
+              {
+                "op": "binomial",
+                "n": {
+                  "op": "n"
+                },
+                "k": 3
+              }
+            ]
+          },
+          "kind": "term_formula",
+          "source_url": "https://oeis.org/A000125",
+          "proof_status": "classical_reference",
+          "complexity": "Exact integer computation; complexity depends on n and formula type"
+        },
+        {
+          "expression": "a(n)=n+1+binom(n+1,3)",
+          "evaluator": {
+            "op": "add",
+            "args": [
+              {
+                "op": "n"
+              },
+              1,
+              {
+                "op": "binomial",
+                "n": {
+                  "op": "add",
+                  "args": [
+                    {
+                      "op": "n"
+                    },
+                    1
+                  ]
+                },
+                "k": 3
+              }
+            ]
+          },
+          "kind": "finite_sum",
+          "source_url": "https://oeis.org/A000125",
+          "proof_status": "classical_reference",
+          "complexity": "Exact integer computation"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000326",
+      "name": "Pentagonal numbers",
+      "offset": 0,
+      "terms": [
+        "0",
+        "1",
+        "5",
+        "12",
+        "22",
+        "35",
+        "51",
+        "70",
+        "92",
+        "117",
+        "145",
+        "176",
+        "210",
+        "247",
+        "287",
+        "330",
+        "376",
+        "425"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=n(3n-1)/2",
+          "evaluator": {
+            "op": "exact_div",
+            "num": {
+              "op": "mul",
+              "args": [
+                {
+                  "op": "n"
+                },
+                {
+                  "op": "sub",
+                  "args": [
+                    {
+                      "op": "mul",
+                      "args": [
+                        3,
+                        {
+                          "op": "n"
+                        }
+                      ]
+                    },
+                    1
+                  ]
+                }
+              ]
+            },
+            "den": 2
+          },
+          "kind": "term_formula",
+          "source_url": "https://oeis.org/A000326",
+          "proof_status": "classical_reference",
+          "complexity": "Exact integer computation; complexity depends on n and formula type"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000384",
+      "name": "Hexagonal numbers",
+      "offset": 0,
+      "terms": [
+        "0",
+        "1",
+        "6",
+        "15",
+        "28",
+        "45",
+        "66",
+        "91",
+        "120",
+        "153",
+        "190",
+        "231",
+        "276",
+        "325",
+        "378",
+        "435",
+        "496",
+        "561"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=n(2n-1)",
+          "evaluator": {
+            "op": "mul",
+            "args": [
+              {
+                "op": "n"
+              },
+              {
+                "op": "sub",
+                "args": [
+                  {
+                    "op": "mul",
+                    "args": [
+                      2,
+                      {
+                        "op": "n"
+                      }
+                    ]
+                  },
+                  1
+                ]
+              }
+            ]
+          },
+          "kind": "term_formula",
+          "source_url": "https://oeis.org/A000384",
+          "proof_status": "classical_reference",
+          "complexity": "Exact integer computation; complexity depends on n and formula type"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000567",
+      "name": "Octagonal numbers",
+      "offset": 0,
+      "terms": [
+        "0",
+        "1",
+        "8",
+        "21",
+        "40",
+        "65",
+        "96",
+        "133",
+        "176",
+        "225",
+        "280",
+        "341",
+        "408",
+        "481",
+        "560",
+        "645",
+        "736",
+        "833"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=n(3n-2)",
+          "evaluator": {
+            "op": "mul",
+            "args": [
+              {
+                "op": "n"
+              },
+              {
+                "op": "sub",
+                "args": [
+                  {
+                    "op": "mul",
+                    "args": [
+                      3,
+                      {
+                        "op": "n"
+                      }
+                    ]
+                  },
+                  2
+                ]
+              }
+            ]
+          },
+          "kind": "term_formula",
+          "source_url": "https://oeis.org/A000567",
+          "proof_status": "classical_reference",
+          "complexity": "Exact integer computation; complexity depends on n and formula type"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000312",
+      "name": "Endofunctions, n^n",
+      "offset": 0,
+      "terms": [
+        "1",
+        "1",
+        "4",
+        "27",
+        "256",
+        "3125",
+        "46656",
+        "823543",
+        "16777216",
+        "387420489",
+        "10000000000",
+        "285311670611",
+        "8916100448256",
+        "302875106592253",
+        "11112006825558016",
+        "437893890380859375",
+        "18446744073709551616",
+        "827240261886336764177"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=n^n, 0^0=1",
+          "evaluator": {
+            "op": "pow",
+            "base": {
+              "op": "n"
+            },
+            "exp": {
+              "op": "n"
+            }
+          },
+          "kind": "term_formula",
+          "source_url": "https://oeis.org/A000312",
+          "proof_status": "classical_reference",
+          "complexity": "Exact integer computation; complexity depends on n and formula type"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000120",
+      "name": "Binary digit weight",
+      "offset": 0,
+      "terms": [
+        "0",
+        "1",
+        "1",
+        "2",
+        "1",
+        "2",
+        "2",
+        "3",
+        "1",
+        "2",
+        "2",
+        "3",
+        "2",
+        "3",
+        "3",
+        "4",
+        "1",
+        "2"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=number of 1-bits of n",
+          "evaluator": {
+            "op": "popcount",
+            "arg": {
+              "op": "n"
+            }
+          },
+          "kind": "term_formula",
+          "source_url": "https://oeis.org/A000120",
+          "proof_status": "classical_reference",
+          "complexity": "Exact integer computation; complexity depends on n and formula type"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000272",
+      "name": "Labeled unrooted trees",
+      "offset": 0,
+      "terms": [
+        "1",
+        "1",
+        "1",
+        "3",
+        "16",
+        "125",
+        "1296",
+        "16807",
+        "262144",
+        "4782969",
+        "100000000",
+        "2357947691",
+        "61917364224",
+        "1792160394037",
+        "56693912375296",
+        "1946195068359375",
+        "72057594037927936",
+        "2862423051509815793"
+      ],
+      "formulas": [
+        {
+          "expression": "a(0)=a(1)=1; a(n)=n^(n-2) for n>=2",
+          "evaluator": {
+            "op": "if_le",
+            "left": {
+              "op": "n"
+            },
+            "right": 1,
+            "yes": 1,
+            "no": {
+              "op": "pow",
+              "base": {
+                "op": "n"
+              },
+              "exp": {
+                "op": "sub",
+                "args": [
+                  {
+                    "op": "n"
+                  },
+                  2
+                ]
+              }
+            }
+          },
+          "kind": "term_formula",
+          "source_url": "https://oeis.org/A000272",
+          "proof_status": "classical_reference",
+          "complexity": "Exact integer computation; complexity depends on n and formula type"
+        },
+        {
+          "expression": "a(n)=sum_{k=0}^{n-2} binom(n-2,k)(n-1)^k for n>=2; a(0)=a(1)=1",
+          "evaluator": {
+            "op": "if_le",
+            "left": {
+              "op": "n"
+            },
+            "right": 1,
+            "yes": 1,
+            "no": {
+              "op": "sum",
+              "from": 0,
+              "to": {
+                "op": "sub",
+                "args": [
+                  {
+                    "op": "n"
+                  },
+                  2
+                ]
+              },
+              "var": "k",
+              "body": {
+                "op": "mul",
+                "args": [
+                  {
+                    "op": "binomial",
+                    "n": {
+                      "op": "sub",
+                      "args": [
+                        {
+                          "op": "n"
+                        },
+                        2
+                      ]
+                    },
+                    "k": {
+                      "op": "var",
+                      "name": "k"
+                    }
+                  },
+                  {
+                    "op": "pow",
+                    "base": {
+                      "op": "sub",
+                      "args": [
+                        {
+                          "op": "n"
+                        },
+                        1
+                      ]
+                    },
+                    "exp": {
+                      "op": "var",
+                      "name": "k"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "kind": "finite_sum",
+          "source_url": "https://oeis.org/A000272",
+          "proof_status": "classical_reference",
+          "complexity": "Exact integer computation"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000579",
+      "name": "Binomial coefficients binom(n,6)",
+      "offset": 0,
+      "terms": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "1",
+        "7",
+        "28",
+        "84",
+        "210",
+        "462",
+        "924",
+        "1716",
+        "3003",
+        "5005",
+        "8008",
+        "12376"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=binom(n,6)",
+          "evaluator": {
+            "op": "binomial",
+            "n": {
+              "op": "n"
+            },
+            "k": 6
+          },
+          "kind": "term_formula",
+          "source_url": "https://oeis.org/A000579",
+          "proof_status": "classical_reference",
+          "complexity": "Exact integer computation; complexity depends on n and formula type"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000583",
+      "name": "Fourth powers",
+      "offset": 0,
+      "terms": [
+        "0",
+        "1",
+        "16",
+        "81",
+        "256",
+        "625",
+        "1296",
+        "2401",
+        "4096",
+        "6561",
+        "10000",
+        "14641",
+        "20736",
+        "28561",
+        "38416",
+        "50625",
+        "65536",
+        "83521"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=n^4",
+          "evaluator": {
+            "op": "pow",
+            "base": {
+              "op": "n"
+            },
+            "exp": 4
+          },
+          "kind": "term_formula",
+          "source_url": "https://oeis.org/A000583",
+          "proof_status": "classical_reference",
+          "complexity": "Exact integer computation; complexity depends on n and formula type"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A004526",
+      "name": "Nonnegative integers repeated twice",
+      "offset": 0,
+      "terms": [
+        "0",
+        "0",
+        "1",
+        "1",
+        "2",
+        "2",
+        "3",
+        "3",
+        "4",
+        "4",
+        "5",
+        "5",
+        "6",
+        "6",
+        "7",
+        "7",
+        "8",
+        "8"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=floor(n/2)",
+          "evaluator": {
+            "op": "floor_div",
+            "args": [
+              {
+                "op": "n"
+              },
+              2
+            ]
+          },
+          "kind": "term_formula",
+          "source_url": "https://oeis.org/A004526",
+          "proof_status": "classical_reference",
+          "complexity": "Exact integer computation; complexity depends on n and formula type"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000040",
+      "name": "Prime numbers",
+      "offset": 1,
+      "terms": [
+        "2",
+        "3",
+        "5",
+        "7",
+        "11",
+        "13",
+        "17",
+        "19",
+        "23",
+        "29",
+        "31",
+        "37",
+        "41",
+        "43",
+        "47",
+        "53",
+        "59",
+        "61"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=n-th prime, n>=1",
+          "evaluator": {
+            "op": "nth_prime"
+          },
+          "kind": "term_formula",
+          "source_url": "https://oeis.org/A000040",
+          "proof_status": "classical_reference",
+          "complexity": "Exact integer computation; complexity depends on n and formula type"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000720",
+      "name": "Prime counting function",
+      "offset": 1,
+      "terms": [
+        "0",
+        "1",
+        "2",
+        "2",
+        "3",
+        "3",
+        "4",
+        "4",
+        "4",
+        "4",
+        "5",
+        "5",
+        "6",
+        "6",
+        "6",
+        "6",
+        "7",
+        "7"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=pi(n), count primes <=n",
+          "evaluator": {
+            "op": "prime_pi"
+          },
+          "kind": "term_formula",
+          "source_url": "https://oeis.org/A000720",
+          "proof_status": "classical_reference",
+          "complexity": "Exact integer computation; complexity depends on n and formula type"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A001223",
+      "name": "Prime gaps",
+      "offset": 1,
+      "terms": [
+        "1",
+        "2",
+        "2",
+        "4",
+        "2",
+        "4",
+        "2",
+        "4",
+        "6",
+        "2",
+        "6",
+        "4",
+        "2",
+        "4",
+        "6",
+        "6",
+        "2",
+        "6"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=p_(n+1)-p_n",
+          "evaluator": {
+            "op": "prime_gap"
+          },
+          "kind": "term_formula",
+          "source_url": "https://oeis.org/A001223",
+          "proof_status": "classical_reference",
+          "complexity": "Exact integer computation; complexity depends on n and formula type"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000172",
+      "name": "Franel numbers",
+      "offset": 0,
+      "terms": [
+        "1",
+        "2",
+        "10",
+        "56",
+        "346",
+        "2252",
+        "15184",
+        "104960",
+        "739162",
+        "5280932",
+        "38165260",
+        "278415920",
+        "2046924400",
+        "15148345760",
+        "112738423360",
+        "843126957056",
+        "6332299624282",
+        "47737325577620"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=sum_{k=0}^n binom(n,k)^3",
+          "evaluator": {
+            "op": "sum",
+            "from": 0,
+            "to": {
+              "op": "n"
+            },
+            "var": "k",
+            "body": {
+              "op": "pow",
+              "base": {
+                "op": "binomial",
+                "n": {
+                  "op": "n"
+                },
+                "k": {
+                  "op": "var",
+                  "name": "k"
+                }
+              },
+              "exp": 3
+            }
+          },
+          "kind": "term_formula",
+          "source_url": "https://oeis.org/A000172",
+          "proof_status": "classical_reference",
+          "complexity": "Exact integer computation; complexity depends on n and formula type"
+        },
+        {
+          "expression": "a(n)=sum_{k=0}^n binom(n,k) binom(n,k)^2",
+          "evaluator": {
+            "op": "sum",
+            "from": 0,
+            "to": {
+              "op": "n"
+            },
+            "var": "k",
+            "body": {
+              "op": "mul",
+              "args": [
+                {
+                  "op": "binomial",
+                  "n": {
+                    "op": "n"
+                  },
+                  "k": {
+                    "op": "var",
+                    "name": "k"
+                  }
+                },
+                {
+                  "op": "pow",
+                  "base": {
+                    "op": "binomial",
+                    "n": {
+                      "op": "n"
+                    },
+                    "k": {
+                      "op": "var",
+                      "name": "k"
+                    }
+                  },
+                  "exp": 2
+                }
+              ]
+            }
+          },
+          "kind": "finite_sum",
+          "source_url": "https://oeis.org/A000172",
+          "proof_status": "classical_reference",
+          "complexity": "Exact integer computation"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000009",
+      "name": "Partitions into distinct parts",
+      "offset": 0,
+      "terms": [
+        "1",
+        "1",
+        "1",
+        "2",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "8",
+        "10",
+        "12",
+        "15",
+        "18",
+        "22",
+        "27",
+        "32",
+        "38"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=[x^n]prod_{j>=1}(1+x^j)",
+          "evaluator": {
+            "op": "distinct_partitions"
+          },
+          "kind": "exact_recurrence",
+          "source_url": "https://oeis.org/A000009",
+          "proof_status": "classical_reference",
+          "complexity": "Exact integer computation; complexity depends on n and formula type"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000111",
+      "name": "Euler up/down numbers",
+      "offset": 0,
+      "terms": [
+        "1",
+        "1",
+        "1",
+        "2",
+        "5",
+        "16",
+        "61",
+        "272",
+        "1385",
+        "7936",
+        "50521",
+        "353792",
+        "2702765",
+        "22368256",
+        "199360981",
+        "1903757312",
+        "19391512145",
+        "209865342976"
+      ],
+      "formulas": [
+        {
+          "expression": "sum a(n)x^n/n!=sec(x)+tan(x)",
+          "evaluator": {
+            "op": "euler_zigzag"
+          },
+          "kind": "exact_recurrence",
+          "source_url": "https://oeis.org/A000111",
+          "proof_status": "classical_reference",
+          "complexity": "Exact integer computation; complexity depends on n and formula type"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000364",
+      "name": "Euler secant numbers",
+      "offset": 0,
+      "terms": [
+        "1",
+        "1",
+        "5",
+        "61",
+        "1385",
+        "50521",
+        "2702765",
+        "199360981",
+        "19391512145",
+        "2404879675441",
+        "370371188237525",
+        "69348874393137901",
+        "15514534163557086905",
+        "4087072509293123892361",
+        "1252259641403629865468285",
+        "441543893249023104553682821",
+        "177519391579539289436664789665",
+        "80723299235887898062168247453281"
+      ],
+      "formulas": [
+        {
+          "expression": "sum a(n)x^(2n)/(2n)!=sec(x)",
+          "evaluator": {
+            "op": "secant"
+          },
+          "kind": "exact_recurrence",
+          "source_url": "https://oeis.org/A000364",
+          "proof_status": "classical_reference",
+          "complexity": "Exact integer computation; complexity depends on n and formula type"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000931",
+      "name": "Padovan numbers",
+      "offset": 0,
+      "terms": [
+        "1",
+        "0",
+        "0",
+        "1",
+        "0",
+        "1",
+        "1",
+        "1",
+        "2",
+        "2",
+        "3",
+        "4",
+        "5",
+        "7",
+        "9",
+        "12",
+        "16",
+        "21"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=a(n-2)+a(n-3), a(0)=1,a(1)=a(2)=0",
+          "evaluator": {
+            "op": "linear_recurrence",
+            "initial": [
+              1,
+              0,
+              0
+            ],
+            "coefficients": [
+              0,
+              1,
+              1
+            ]
+          },
+          "kind": "exact_recurrence",
+          "source_url": "https://oeis.org/A000931",
+          "proof_status": "classical_reference",
+          "complexity": "Exact integer computation; complexity depends on n and formula type"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A001333",
+      "name": "Pell-Lucas numerator sequence",
+      "offset": 0,
+      "terms": [
+        "1",
+        "1",
+        "3",
+        "7",
+        "17",
+        "41",
+        "99",
+        "239",
+        "577",
+        "1393",
+        "3363",
+        "8119",
+        "19601",
+        "47321",
+        "114243",
+        "275807",
+        "665857",
+        "1607521"
+      ],
+      "formulas": [
+        {
+          "expression": "a(0)=a(1)=1; a(n)=2a(n-1)+a(n-2)",
+          "evaluator": {
+            "op": "linear_recurrence",
+            "initial": [
+              1,
+              1
+            ],
+            "coefficients": [
+              2,
+              1
+            ]
+          },
+          "kind": "exact_recurrence",
+          "source_url": "https://oeis.org/A001333",
+          "proof_status": "classical_reference",
+          "complexity": "Exact integer computation; complexity depends on n and formula type"
+        }
+      ]
+    }
+  ]
+}

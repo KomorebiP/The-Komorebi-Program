@@ -1,0 +1,85 @@
+name: OEIS sparse index and archived Riordan compiler
+on:
+  push:
+    paths:
+      - 'tools/sequence_sparse_*'
+      - 'tools/test_sequence_sparse_*'
+      - 'tools/sequence_archive_v08_*'
+      - 'tools/sequence_archive_rational_operators.py'
+      - 'tools/test_sequence_archive_riordan.py'
+      - 'tools/audit_sequence_sparse_index.py'
+      - 'tools/benchmark_sequence_sparse_v14.py'
+      - 'tools/render_sequence_sparse_atlas_v14.py'
+      - 'research/oeis-formulas/v14-receipts/**'
+      - 'research/oeis-formulas/archive-v08/**'
+      - 'research/oeis-formulas/SPARSE_AND_RIORDAN_V14.md'
+      - 'research/oeis-formulas/sparse-atlas-v14.html'
+      - '.github/workflows/oeis-sparse-index.yml'
+  pull_request:
+    paths:
+      - 'tools/sequence_sparse_*'
+      - 'tools/test_sequence_sparse_*'
+      - 'tools/sequence_archive_v08_*'
+      - 'tools/sequence_archive_rational_operators.py'
+      - 'tools/test_sequence_archive_riordan.py'
+      - 'tools/audit_sequence_sparse_index.py'
+      - 'tools/benchmark_sequence_sparse_v14.py'
+      - 'tools/render_sequence_sparse_atlas_v14.py'
+      - 'research/oeis-formulas/v14-receipts/**'
+      - 'research/oeis-formulas/archive-v08/**'
+      - 'research/oeis-formulas/SPARSE_AND_RIORDAN_V14.md'
+      - 'research/oeis-formulas/sparse-atlas-v14.html'
+      - '.github/workflows/oeis-sparse-index.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  sparse-operators:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /tools/
+            /research/oeis-formulas/seeds.json
+            /research/oeis-formulas/seeds-extended.json
+            /research/oeis-formulas/v14-receipts/
+            /research/oeis-formulas/sparse-atlas-v14.html
+            /research/oeis-formulas/archive-v08/
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+      - name: Sparse index, C-finite packet and Riordan proof tests
+        run: |
+          python -B -m unittest discover -s tools -p 'test_sequence_sparse_index.py' -v
+          python -B -m unittest discover -s tools -p 'test_sequence_sparse_packets.py' -v
+          python -B -m unittest discover -s tools -p 'test_sequence_archive_riordan.py' -v
+      - name: Backward compatibility and exact archive test fixtures
+        run: |
+          python -B -m unittest discover -s tools -p 'test_sequence_recurrence_packets.py' -v
+          python -B -m unittest discover -s tools -p 'test_sequence_sparse_lifts.py' -v
+      - name: Verify offline atlas source receipts and JavaScript
+        run: |
+          python -B tools/render_sequence_sparse_atlas_v14.py \
+            --sparse research/oeis-formulas/v14-receipts/oeis-sparse-real-audit.json \
+            --archive research/oeis-formulas/v14-receipts/archive-v08-cross-version-replay.json \
+            --output sequence-sparse-transfer-atlas-v1.4.html
+          node tools/test_sequence_sparse_browser.cjs
+          python -B tools/benchmark_sequence_sparse_v14.py --output /tmp/benchmark-sparse.json --runs 3
+          python -B - <<'PY'
+          import json
+          from pathlib import Path
+          a=json.loads(Path('research/oeis-formulas/v14-receipts/archive-v08-cross-version-replay.json').read_text())
+          b=json.loads(Path('research/oeis-formulas/v14-receipts/oeis-sparse-real-audit.json').read_text())
+          assert a['exact_rational_identities']==41
+          assert a['cross_snapshot_riordan_output_comparisons']==1025
+          assert b['indexed_sample_replayed']==110
+          assert b['source_certificates_recertified']==539
+          PY

@@ -1,0 +1,47 @@
+name: OEIS directed hypergraph workload checks
+on:
+  push:
+    paths:
+      - 'tools/sequence_hypergraph_workload.py'
+      - 'tools/test_sequence_hypergraph_workload.py'
+      - 'tools/benchmark_sequence_hypergraph_workload.py'
+      - 'tools/render_sequence_hypergraph_atlas.py'
+      - 'research/oeis-formulas/DIRECTED_HYPERGRAPH_V12.md'
+      - '.github/workflows/oeis-hypergraph-workload.yml'
+  pull_request:
+    paths:
+      - 'tools/sequence_hypergraph_workload.py'
+      - 'tools/test_sequence_hypergraph_workload.py'
+      - 'tools/benchmark_sequence_hypergraph_workload.py'
+      - 'tools/render_sequence_hypergraph_atlas.py'
+      - 'research/oeis-formulas/DIRECTED_HYPERGRAPH_V12.md'
+      - '.github/workflows/oeis-hypergraph-workload.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  certified-hypergraph:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /tools/
+            /research/oeis-formulas/DIRECTED_HYPERGRAPH_V12.md
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+      - name: Directed exact DAG, indexed horizons and malicious-source tests
+        run: python -B -m unittest discover -s tools -p test_sequence_hypergraph_workload.py -v
+      - name: Existing gauge, holonomic and path compiler regression tests
+        run: |
+          python -B -m unittest discover -s tools -p test_sequence_workload_planner.py -v
+          python -B -m unittest discover -s tools -p test_sequence_gauge_atlas.py -v
+          python -B -m unittest discover -s tools -p test_sequence_holonomic_v10.py -v
+          python -B -m unittest discover -s tools -p test_sequence_p_recursive_polyphase.py -v
+          python -B -m unittest discover -s tools -p test_sequence_v10_path_compiler.py -v
+          python -B -m unittest discover -s tools -p test_oeis_hyperedge_proofs.py -v

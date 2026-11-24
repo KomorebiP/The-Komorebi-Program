@@ -1,0 +1,228 @@
+name: OEIS formula database and transfer compiler
+on:
+  push:
+    paths:
+      - 'tools/oeis_formula_*'
+      - 'tools/oeis_bulk_import.py'
+      - 'tools/sequence_oeis_*'
+      - 'tools/render_oeis_*'
+      - 'tools/sequence_transfer_*'
+      - 'tools/sequence_ratio_certificates.py'
+      - 'tools/sequence_kernel_transfers.py'
+      - 'tools/sequence_recurrence_transfers.py'
+      - 'tools/sequence_recurrence_packets.py'
+      - 'tools/sequence_exponential_polynomial.py'
+      - 'tools/sequence_sparse_lifts.py'
+      - 'tools/benchmark_sequence_transfer_closure.py'
+      - 'tools/render_sequence_closure_atlas.py'
+      - 'tools/render_oeis_real_transfer_atlas.py'
+      - 'tools/test_real_oeis_transfer_atlas.py'
+      - 'tools/sequence_packet_atlas.py'
+      - 'tools/sequence_padic_lifts.py'
+      - 'tools/sequence_formula_retrieval.py'
+      - 'tools/sequence_linear_identity_compiler.py'
+      - 'tools/render_sequence_packet_atlas.py'
+      - 'tools/benchmark_sequence_packets.py'
+      - 'tools/test_oeis_*'
+      - 'tools/test_sequence_*'
+      - 'tools/render_sequence_transfer_atlas.py'
+      - 'research/oeis-formulas/**'
+      - '.github/workflows/oeis-formula-database.yml'
+  pull_request:
+    paths:
+      - 'tools/oeis_formula_*'
+      - 'tools/oeis_bulk_import.py'
+      - 'tools/sequence_oeis_*'
+      - 'tools/render_oeis_*'
+      - 'tools/sequence_transfer_*'
+      - 'tools/sequence_ratio_certificates.py'
+      - 'tools/sequence_kernel_transfers.py'
+      - 'tools/sequence_recurrence_transfers.py'
+      - 'tools/sequence_recurrence_packets.py'
+      - 'tools/sequence_exponential_polynomial.py'
+      - 'tools/sequence_sparse_lifts.py'
+      - 'tools/benchmark_sequence_transfer_closure.py'
+      - 'tools/render_sequence_closure_atlas.py'
+      - 'tools/render_oeis_real_transfer_atlas.py'
+      - 'tools/test_real_oeis_transfer_atlas.py'
+      - 'tools/sequence_packet_atlas.py'
+      - 'tools/sequence_padic_lifts.py'
+      - 'tools/sequence_formula_retrieval.py'
+      - 'tools/sequence_linear_identity_compiler.py'
+      - 'tools/render_sequence_packet_atlas.py'
+      - 'tools/benchmark_sequence_packets.py'
+      - 'tools/test_oeis_*'
+      - 'tools/test_sequence_*'
+      - 'tools/render_sequence_transfer_atlas.py'
+      - 'research/oeis-formulas/**'
+      - '.github/workflows/oeis-formula-database.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: oeis-formulas-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  exact-formulas:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /tools/oeis_formula_database.py
+            /tools/test_oeis_transfer_v8.py
+            /tools/test_oeis_v08_atlas.py
+            /tools/render_oeis_v08_atlas.py
+            /tools/sequence_oeis_formula_dependencies.py
+            /tools/test_oeis_formula_dependencies.py
+            /tools/render_oeis_dependency_atlas.py
+            /tools/test_oeis_dependency_atlas.py
+            /tools/sequence_oeis_hyperedge_proofs.py
+            /tools/test_oeis_hyperedge_proofs.py
+            /tools/sequence_oeis_formula_dependencies.py
+            /tools/test_oeis_formula_dependencies.py
+            /tools/render_oeis_dependency_atlas.py
+            /tools/test_oeis_dependency_atlas.py
+            /tools/sequence_oeis_basis.py
+            /tools/sequence_oeis_symbolic_network.py
+            /tools/sequence_oeis_proof_promotion.py
+            /tools/oeis_formula_discovery.py
+            /tools/oeis_formula_polyphase.py
+            /tools/oeis_bulk_import.py
+            /tools/sequence_transfer_graph.py
+            /tools/sequence_transfer_miner.py
+            /tools/sequence_transfer_index.py
+            /tools/sequence_ratio_certificates.py
+            /tools/sequence_kernel_transfers.py
+            /tools/sequence_recurrence_transfers.py
+            /tools/sequence_recurrence_packets.py
+            /tools/sequence_exponential_polynomial.py
+            /tools/sequence_sparse_lifts.py
+            /tools/sequence_transfer_closure.py
+            /tools/benchmark_sequence_transfer_closure.py
+            /tools/test_sequence_transfer_closure.py
+            /tools/test_sequence_sparse_lifts.py
+            /tools/render_sequence_closure_atlas.py
+            /tools/render_oeis_real_transfer_atlas.py
+            /tools/test_real_oeis_transfer_atlas.py
+            /tools/test_sequence_closure_atlas.py
+            /tools/sequence_packet_atlas.py
+            /tools/sequence_padic_lifts.py
+            /tools/sequence_formula_retrieval.py
+            /tools/sequence_linear_identity_compiler.py
+            /tools/benchmark_sequence_packets.py
+            /tools/render_sequence_transfer_atlas.py
+            /tools/export_formula_browser.py
+            /tools/test_oeis_formula_database.py
+            /tools/test_oeis_formula_discovery.py
+            /tools/test_oeis_formula_extended.py
+            /tools/test_oeis_bulk_import.py
+            /tools/test_sequence_transfer_graph.py
+            /tools/test_sequence_transfer_miner.py
+            /tools/test_sequence_transfer_index.py
+            /tools/test_sequence_symbolic_proofs.py
+            /tools/test_sequence_transfer_atlas.py
+            /tools/test_sequence_recurrence_packets.py
+            /tools/test_sequence_packet_atlas.py
+            /tools/test_sequence_padic_lifts.py
+            /tools/test_sequence_formula_retrieval.py
+            /tools/test_sequence_linear_identity_compiler.py
+            /tools/test_sequence_packet_browser.py
+            /tools/render_sequence_packet_atlas.py
+            /research/oeis-formulas/
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+      - name: Run full database and proof compiler regression suite
+        run: python -B -m unittest discover -s tools -p 'test_*.py' -v
+      - name: Rebuild transfer candidates and algebraic certificates
+        run: |
+          python -B tools/oeis_formula_database.py --db /tmp/oeis-v5.sqlite3 ingest-seeds --path research/oeis-formulas/seeds.json
+          python -B tools/oeis_formula_database.py --db /tmp/oeis-v5.sqlite3 ingest-seeds --path research/oeis-formulas/seeds-extended.json
+          python -B tools/sequence_transfer_miner.py --db /tmp/oeis-v5.sqlite3 mine --export /tmp/candidate-transfers.jsonl
+          python -B tools/sequence_transfer_index.py --db /tmp/oeis-v5.sqlite3 index
+          python -B tools/sequence_transfer_index.py --db /tmp/oeis-v5.sqlite3 mine --no-rebuild --reset-unary
+          python -B tools/sequence_ratio_certificates.py --db /tmp/oeis-v5.sqlite3 --export /tmp/certified-ratios.jsonl
+          python -B tools/sequence_kernel_transfers.py --db /tmp/oeis-v5.sqlite3 --export /tmp/kernel-transfers.jsonl
+          python -B tools/sequence_recurrence_transfers.py --db /tmp/oeis-v5.sqlite3
+          python -B tools/sequence_transfer_graph.py --db /tmp/oeis-v5.sqlite3 build --export /tmp/transfer-graph.jsonl
+          python -B tools/render_sequence_transfer_atlas.py --db /tmp/oeis-v5.sqlite3 --output /tmp/transfer-atlas.html
+          python -B tools/oeis_formula_polyphase.py --db /tmp/oeis-v5.sqlite3 export --output /tmp/polyphase.jsonl
+          python -B tools/oeis_formula_database.py --db /tmp/oeis-v5.sqlite3 export-jsonl --path /tmp/verified.jsonl
+          python -B tools/export_formula_browser.py --db /tmp/oeis-v5.sqlite3 --output /tmp/oeis-formulas.html
+          python -B - <<'PY'
+          import pathlib,sqlite3
+          with sqlite3.connect('/tmp/oeis-v5.sqlite3') as db:
+              assert db.execute('PRAGMA integrity_check').fetchone()[0] == 'ok'
+              n=lambda t:db.execute('SELECT count(*) FROM '+t).fetchone()[0]
+              assert n('sequences')==56
+              assert n('formulas')==61
+              assert n('transfer_candidates')==52
+              assert n('rational_ratio_candidates')==18
+              assert n('certified_formula_ratios')==21
+              assert n('certified_formula_transfers')==14
+              assert n('certified_recurrence_ogfs')==8
+              assert n('certified_recurrence_projections')==4
+              assert n('transfer_nodes')==191
+              assert n('transfer_edges')==229
+              statuses=dict(db.execute('SELECT status,count(*) FROM transfer_edges GROUP BY status'))
+              assert statuses==dict(algebraic_identity=17,finite_candidate=112,formula_algebra=39,recorded_representation=61)
+              assert db.execute("SELECT sum(checked_terms) FROM formulas WHERE verification='finite_checked'").fetchone()[0]==1098
+          assert len(pathlib.Path('/tmp/candidate-transfers.jsonl').read_text().splitlines()) == 70
+          assert len(pathlib.Path('/tmp/certified-ratios.jsonl').read_text().splitlines()) == 21
+          assert len(pathlib.Path('/tmp/kernel-transfers.jsonl').read_text().splitlines()) == 14
+          assert 'formula_algebra' in pathlib.Path('/tmp/transfer-atlas.html').read_text()
+          PY
+      - name: Rebuild exact packet and expression-transfer certificates
+        run: |
+          python -B tools/sequence_recurrence_packets.py --db /tmp/oeis-v5.sqlite3 compile --max-modulus 8
+          python -B tools/sequence_packet_atlas.py --db /tmp/oeis-v5.sqlite3 --formulas /tmp/phase-formulas.jsonl --index /tmp/packet-atlas-index.json
+          python -B tools/sequence_formula_retrieval.py --db /tmp/oeis-v5.sqlite3 index
+          python -B tools/sequence_linear_identity_compiler.py --db /tmp/oeis-v5.sqlite3 --export /tmp/exact-linear-identities.jsonl --basis-export /tmp/exact-basis.json
+          mkdir -p /tmp/oeis-atlas/research/oeis-formulas
+          cp /tmp/phase-formulas.jsonl /tmp/oeis-atlas/research/oeis-formulas/phase-formulas.jsonl
+          cp /tmp/exact-linear-identities.jsonl /tmp/oeis-atlas/research/oeis-formulas/exact-linear-identities.jsonl
+          cp /tmp/exact-basis.json /tmp/oeis-atlas/research/oeis-formulas/EXACT_BASIS.json
+          cp /tmp/packet-atlas-index.json /tmp/oeis-atlas/research/oeis-formulas/packet-atlas-index.json
+          python -B tools/render_sequence_packet_atlas.py --root /tmp/oeis-atlas --output /tmp/packet-atlas.html
+          python -B - <<'PY'
+          import sqlite3,json,pathlib
+          with sqlite3.connect('/tmp/oeis-v5.sqlite3') as db:
+              count=lambda table:db.execute('SELECT COUNT(*) FROM '+table).fetchone()[0]
+              assert count('recurrence_packet_sources')==33
+              assert count('recurrence_packet_kernels')==19
+              assert count('recurrence_packet_phases')==1155
+              assert count('formula_text_receipts')==61
+          assert len(pathlib.Path('/tmp/phase-formulas.jsonl').read_text().splitlines())==1155
+          assert len(pathlib.Path('/tmp/exact-linear-identities.jsonl').read_text().splitlines())==58
+          assert json.loads(pathlib.Path('/tmp/exact-basis.json').read_text())['basis_size']==9
+          assert 'Exact Sequence Transfer Atlas' in pathlib.Path('/tmp/packet-atlas.html').read_text()
+          PY
+      - name: Certify all-index binomial, product and sparse-quotient lifts
+        run: |
+          python -B tools/sequence_transfer_closure.py --db /tmp/oeis-v5.sqlite3 --export /tmp/closure-operators.jsonl --max-pairs 170
+          python -B tools/sequence_sparse_lifts.py --db /tmp/oeis-v5.sqlite3 --export /tmp/sparse-lifts.jsonl --max-modulus 12 --max-support 3 --max-coefficient 20
+          python -B tools/render_sequence_closure_atlas.py --db /tmp/oeis-v5.sqlite3 --closure /tmp/closure-operators.jsonl --sparse /tmp/sparse-lifts.jsonl --output /tmp/closure-atlas.html
+          python -B - <<'PY'
+          import pathlib,json,sqlite3
+          operators=[json.loads(row) for row in pathlib.Path('/tmp/closure-operators.jsonl').read_text().splitlines()]
+          sparse=[json.loads(row) for row in pathlib.Path('/tmp/sparse-lifts.jsonl').read_text().splitlines()]
+          assert len(operators)==406
+          assert len(sparse)==138
+          assert 'Exact sequence transfer compiler' in pathlib.Path('/tmp/closure-atlas.html').read_text()
+          assert sum(row['lift']['support']<=2 for row in sparse)==107
+          def match(src,op,target,m,r):
+              return any(row['inputs']==[src] and row['operator']==op and
+                  {'oeis_id':target,'modulus':m,'residue':r} in row['matches'] for row in operators)
+          assert match('A000045','binomial','A000045',2,0)
+          assert match('A000931','binomial','A000931',3,0)
+          assert match('A000012','binomial','A000079',1,0)
+          assert match('A000079','binomial','A000244',1,0)
+          assert any(x['source_oeis_id']=='A000129' and x['lift']['polynomial']==[1,2] and x['lift']['modulus']==2 for x in sparse)
+          with sqlite3.connect('/tmp/oeis-v5.sqlite3') as db:
+              assert db.execute('PRAGMA integrity_check').fetchone()[0]=='ok'
+          PY

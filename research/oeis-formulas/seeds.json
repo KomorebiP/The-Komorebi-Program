@@ -1,0 +1,1387 @@
+{
+  "schema": 1,
+  "license": "CC-BY-SA-4.0",
+  "attribution": "The Online Encyclopedia of Integer Sequences, OEIS Foundation Inc. https://oeis.org/",
+  "source": "https://github.com/oeis/oeisdata",
+  "non_claims": [
+    "Exact prefix checking is not proof of infinite identity",
+    "OEIS formula text is not executed",
+    "These are classical formula examples, not claims of novelty"
+  ],
+  "sequences": [
+    {
+      "oeis_id": "A000004",
+      "name": "Zero sequence",
+      "offset": 0,
+      "terms": [
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0",
+        "0"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=0",
+          "evaluator": 0,
+          "kind": "term_formula",
+          "complexity": "O(1)",
+          "source_url": "https://oeis.org/A000004",
+          "proof_status": "classical_reference"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000012",
+      "name": "All ones",
+      "offset": 0,
+      "terms": [
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=1",
+          "evaluator": 1,
+          "kind": "term_formula",
+          "complexity": "O(1)",
+          "source_url": "https://oeis.org/A000012",
+          "proof_status": "classical_reference"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000027",
+      "name": "Positive integers",
+      "offset": 1,
+      "terms": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=n",
+          "evaluator": {
+            "op": "n"
+          },
+          "kind": "term_formula",
+          "complexity": "O(1)",
+          "source_url": "https://oeis.org/A000027",
+          "proof_status": "classical_reference"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A001477",
+      "name": "Nonnegative integers",
+      "offset": 0,
+      "terms": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=n",
+          "evaluator": {
+            "op": "n"
+          },
+          "kind": "term_formula",
+          "complexity": "O(1)",
+          "source_url": "https://oeis.org/A001477",
+          "proof_status": "classical_reference"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000290",
+      "name": "Squares",
+      "offset": 0,
+      "terms": [
+        "0",
+        "1",
+        "4",
+        "9",
+        "16",
+        "25",
+        "36",
+        "49",
+        "64",
+        "81",
+        "100",
+        "121",
+        "144",
+        "169",
+        "196",
+        "225",
+        "256",
+        "289"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=n^2",
+          "evaluator": {
+            "op": "pow",
+            "base": {
+              "op": "n"
+            },
+            "exp": 2
+          },
+          "kind": "term_formula",
+          "complexity": "O(log n) bit arithmetic",
+          "source_url": "https://oeis.org/A000290",
+          "proof_status": "classical_reference"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000578",
+      "name": "Cubes",
+      "offset": 0,
+      "terms": [
+        "0",
+        "1",
+        "8",
+        "27",
+        "64",
+        "125",
+        "216",
+        "343",
+        "512",
+        "729",
+        "1000",
+        "1331",
+        "1728",
+        "2197",
+        "2744",
+        "3375",
+        "4096",
+        "4913"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=n^3",
+          "evaluator": {
+            "op": "pow",
+            "base": {
+              "op": "n"
+            },
+            "exp": 3
+          },
+          "kind": "term_formula",
+          "complexity": "O(log n) bit arithmetic",
+          "source_url": "https://oeis.org/A000578",
+          "proof_status": "classical_reference"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000079",
+      "name": "Powers of 2",
+      "offset": 0,
+      "terms": [
+        "1",
+        "2",
+        "4",
+        "8",
+        "16",
+        "32",
+        "64",
+        "128",
+        "256",
+        "512",
+        "1024",
+        "2048",
+        "4096",
+        "8192",
+        "16384",
+        "32768",
+        "65536",
+        "131072"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=2^n",
+          "evaluator": {
+            "op": "pow",
+            "base": 2,
+            "exp": {
+              "op": "n"
+            }
+          },
+          "kind": "term_formula",
+          "complexity": "binary exponentiation",
+          "source_url": "https://oeis.org/A000079",
+          "proof_status": "classical_reference"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000244",
+      "name": "Powers of 3",
+      "offset": 0,
+      "terms": [
+        "1",
+        "3",
+        "9",
+        "27",
+        "81",
+        "243",
+        "729",
+        "2187",
+        "6561",
+        "19683",
+        "59049",
+        "177147",
+        "531441",
+        "1594323",
+        "4782969",
+        "14348907",
+        "43046721",
+        "129140163"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=3^n",
+          "evaluator": {
+            "op": "pow",
+            "base": 3,
+            "exp": {
+              "op": "n"
+            }
+          },
+          "kind": "term_formula",
+          "complexity": "binary exponentiation",
+          "source_url": "https://oeis.org/A000244",
+          "proof_status": "classical_reference"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000302",
+      "name": "Powers of 4",
+      "offset": 0,
+      "terms": [
+        "1",
+        "4",
+        "16",
+        "64",
+        "256",
+        "1024",
+        "4096",
+        "16384",
+        "65536",
+        "262144",
+        "1048576",
+        "4194304",
+        "16777216",
+        "67108864",
+        "268435456",
+        "1073741824",
+        "4294967296",
+        "17179869184"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=4^n",
+          "evaluator": {
+            "op": "pow",
+            "base": 4,
+            "exp": {
+              "op": "n"
+            }
+          },
+          "kind": "term_formula",
+          "complexity": "binary exponentiation",
+          "source_url": "https://oeis.org/A000302",
+          "proof_status": "classical_reference"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000225",
+      "name": "Mersenne numbers 2^n-1",
+      "offset": 0,
+      "terms": [
+        "0",
+        "1",
+        "3",
+        "7",
+        "15",
+        "31",
+        "63",
+        "127",
+        "255",
+        "511",
+        "1023",
+        "2047",
+        "4095",
+        "8191",
+        "16383",
+        "32767",
+        "65535",
+        "131071"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=2^n-1",
+          "evaluator": {
+            "op": "sub",
+            "args": [
+              {
+                "op": "pow",
+                "base": 2,
+                "exp": {
+                  "op": "n"
+                }
+              },
+              1
+            ]
+          },
+          "kind": "term_formula",
+          "complexity": "binary exponentiation",
+          "source_url": "https://oeis.org/A000225",
+          "proof_status": "classical_reference"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A005843",
+      "name": "Nonnegative even integers",
+      "offset": 0,
+      "terms": [
+        "0",
+        "2",
+        "4",
+        "6",
+        "8",
+        "10",
+        "12",
+        "14",
+        "16",
+        "18",
+        "20",
+        "22",
+        "24",
+        "26",
+        "28",
+        "30",
+        "32",
+        "34"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=2n",
+          "evaluator": {
+            "op": "mul",
+            "args": [
+              2,
+              {
+                "op": "n"
+              }
+            ]
+          },
+          "kind": "term_formula",
+          "complexity": "O(1)",
+          "source_url": "https://oeis.org/A005843",
+          "proof_status": "classical_reference"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A005408",
+      "name": "Positive odd integers",
+      "offset": 0,
+      "terms": [
+        "1",
+        "3",
+        "5",
+        "7",
+        "9",
+        "11",
+        "13",
+        "15",
+        "17",
+        "19",
+        "21",
+        "23",
+        "25",
+        "27",
+        "29",
+        "31",
+        "33",
+        "35"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=2n+1",
+          "evaluator": {
+            "op": "add",
+            "args": [
+              {
+                "op": "mul",
+                "args": [
+                  2,
+                  {
+                    "op": "n"
+                  }
+                ]
+              },
+              1
+            ]
+          },
+          "kind": "term_formula",
+          "complexity": "O(1)",
+          "source_url": "https://oeis.org/A005408",
+          "proof_status": "classical_reference"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000045",
+      "name": "Fibonacci numbers",
+      "offset": 0,
+      "terms": [
+        "0",
+        "1",
+        "1",
+        "2",
+        "3",
+        "5",
+        "8",
+        "13",
+        "21",
+        "34",
+        "55",
+        "89",
+        "144",
+        "233",
+        "377",
+        "610",
+        "987",
+        "1597"
+      ],
+      "formulas": [
+        {
+          "expression": "a(0)=0, a(1)=1, a(n)=a(n-1)+a(n-2)",
+          "evaluator": {
+            "op": "linear_recurrence",
+            "initial": [
+              0,
+              1
+            ],
+            "coefficients": [
+              1,
+              1
+            ]
+          },
+          "kind": "recurrence",
+          "complexity": "O(n) integer additions",
+          "source_url": "https://oeis.org/A000045",
+          "proof_status": "classical_reference"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000032",
+      "name": "Lucas numbers",
+      "offset": 0,
+      "terms": [
+        "2",
+        "1",
+        "3",
+        "4",
+        "7",
+        "11",
+        "18",
+        "29",
+        "47",
+        "76",
+        "123",
+        "199",
+        "322",
+        "521",
+        "843",
+        "1364",
+        "2207",
+        "3571"
+      ],
+      "formulas": [
+        {
+          "expression": "a(0)=2, a(1)=1, a(n)=a(n-1)+a(n-2)",
+          "evaluator": {
+            "op": "linear_recurrence",
+            "initial": [
+              2,
+              1
+            ],
+            "coefficients": [
+              1,
+              1
+            ]
+          },
+          "kind": "recurrence",
+          "complexity": "O(n) integer additions",
+          "source_url": "https://oeis.org/A000032",
+          "proof_status": "classical_reference"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000129",
+      "name": "Pell numbers",
+      "offset": 0,
+      "terms": [
+        "0",
+        "1",
+        "2",
+        "5",
+        "12",
+        "29",
+        "70",
+        "169",
+        "408",
+        "985",
+        "2378",
+        "5741",
+        "13860",
+        "33461",
+        "80782",
+        "195025",
+        "470832",
+        "1136689"
+      ],
+      "formulas": [
+        {
+          "expression": "a(0)=0, a(1)=1, a(n)=2a(n-1)+a(n-2)",
+          "evaluator": {
+            "op": "linear_recurrence",
+            "initial": [
+              0,
+              1
+            ],
+            "coefficients": [
+              2,
+              1
+            ]
+          },
+          "kind": "recurrence",
+          "complexity": "O(n) integer additions",
+          "source_url": "https://oeis.org/A000129",
+          "proof_status": "classical_reference"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A001045",
+      "name": "Jacobsthal numbers",
+      "offset": 0,
+      "terms": [
+        "0",
+        "1",
+        "1",
+        "3",
+        "5",
+        "11",
+        "21",
+        "43",
+        "85",
+        "171",
+        "341",
+        "683",
+        "1365",
+        "2731",
+        "5461",
+        "10923",
+        "21845",
+        "43691"
+      ],
+      "formulas": [
+        {
+          "expression": "a(0)=0, a(1)=1, a(n)=a(n-1)+2a(n-2)",
+          "evaluator": {
+            "op": "linear_recurrence",
+            "initial": [
+              0,
+              1
+            ],
+            "coefficients": [
+              1,
+              2
+            ]
+          },
+          "kind": "recurrence",
+          "complexity": "O(n) integer additions",
+          "source_url": "https://oeis.org/A001045",
+          "proof_status": "classical_reference"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000142",
+      "name": "Factorials",
+      "offset": 0,
+      "terms": [
+        "1",
+        "1",
+        "2",
+        "6",
+        "24",
+        "120",
+        "720",
+        "5040",
+        "40320",
+        "362880",
+        "3628800",
+        "39916800",
+        "479001600",
+        "6227020800",
+        "87178291200",
+        "1307674368000",
+        "20922789888000",
+        "355687428096000"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=n!",
+          "evaluator": {
+            "op": "factorial",
+            "arg": {
+              "op": "n"
+            }
+          },
+          "kind": "term_formula",
+          "complexity": "exact factorial",
+          "source_url": "https://oeis.org/A000142",
+          "proof_status": "classical_reference"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000108",
+      "name": "Catalan numbers",
+      "offset": 0,
+      "terms": [
+        "1",
+        "1",
+        "2",
+        "5",
+        "14",
+        "42",
+        "132",
+        "429",
+        "1430",
+        "4862",
+        "16796",
+        "58786",
+        "208012",
+        "742900",
+        "2674440",
+        "9694845",
+        "35357670",
+        "129644790"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=binom(2n,n)/(n+1)",
+          "evaluator": {
+            "op": "exact_div",
+            "num": {
+              "op": "binomial",
+              "n": {
+                "op": "mul",
+                "args": [
+                  2,
+                  {
+                    "op": "n"
+                  }
+                ]
+              },
+              "k": {
+                "op": "n"
+              }
+            },
+            "den": {
+              "op": "add",
+              "args": [
+                {
+                  "op": "n"
+                },
+                1
+              ]
+            }
+          },
+          "kind": "term_formula",
+          "complexity": "exact binomial coefficient",
+          "source_url": "https://oeis.org/A000108",
+          "proof_status": "classical_reference"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000984",
+      "name": "Central binomial coefficients",
+      "offset": 0,
+      "terms": [
+        "1",
+        "2",
+        "6",
+        "20",
+        "70",
+        "252",
+        "924",
+        "3432",
+        "12870",
+        "48620",
+        "184756",
+        "705432",
+        "2704156",
+        "10400600",
+        "40116600",
+        "155117520",
+        "601080390",
+        "2333606220"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=binom(2n,n)",
+          "evaluator": {
+            "op": "binomial",
+            "n": {
+              "op": "mul",
+              "args": [
+                2,
+                {
+                  "op": "n"
+                }
+              ]
+            },
+            "k": {
+              "op": "n"
+            }
+          },
+          "kind": "term_formula",
+          "complexity": "exact binomial coefficient",
+          "source_url": "https://oeis.org/A000984",
+          "proof_status": "classical_reference"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000217",
+      "name": "Triangular numbers",
+      "offset": 0,
+      "terms": [
+        "0",
+        "1",
+        "3",
+        "6",
+        "10",
+        "15",
+        "21",
+        "28",
+        "36",
+        "45",
+        "55",
+        "66",
+        "78",
+        "91",
+        "105",
+        "120",
+        "136",
+        "153"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=n(n+1)/2",
+          "evaluator": {
+            "op": "exact_div",
+            "num": {
+              "op": "mul",
+              "args": [
+                {
+                  "op": "n"
+                },
+                {
+                  "op": "add",
+                  "args": [
+                    {
+                      "op": "n"
+                    },
+                    1
+                  ]
+                }
+              ]
+            },
+            "den": 2
+          },
+          "kind": "term_formula",
+          "complexity": "O(1) integer operations",
+          "source_url": "https://oeis.org/A000217",
+          "proof_status": "classical_reference"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000292",
+      "name": "Tetrahedral numbers",
+      "offset": 0,
+      "terms": [
+        "0",
+        "1",
+        "4",
+        "10",
+        "20",
+        "35",
+        "56",
+        "84",
+        "120",
+        "165",
+        "220",
+        "286",
+        "364",
+        "455",
+        "560",
+        "680",
+        "816",
+        "969"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=binom(n+2,3)",
+          "evaluator": {
+            "op": "binomial",
+            "n": {
+              "op": "add",
+              "args": [
+                {
+                  "op": "n"
+                },
+                2
+              ]
+            },
+            "k": 3
+          },
+          "kind": "term_formula",
+          "complexity": "exact binomial coefficient",
+          "source_url": "https://oeis.org/A000292",
+          "proof_status": "classical_reference"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000330",
+      "name": "Square pyramidal numbers",
+      "offset": 0,
+      "terms": [
+        "0",
+        "1",
+        "5",
+        "14",
+        "30",
+        "55",
+        "91",
+        "140",
+        "204",
+        "285",
+        "385",
+        "506",
+        "650",
+        "819",
+        "1015",
+        "1240",
+        "1496",
+        "1785"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=n(n+1)(2n+1)/6",
+          "evaluator": {
+            "op": "exact_div",
+            "num": {
+              "op": "mul",
+              "args": [
+                {
+                  "op": "n"
+                },
+                {
+                  "op": "add",
+                  "args": [
+                    {
+                      "op": "n"
+                    },
+                    1
+                  ]
+                },
+                {
+                  "op": "add",
+                  "args": [
+                    {
+                      "op": "mul",
+                      "args": [
+                        2,
+                        {
+                          "op": "n"
+                        }
+                      ]
+                    },
+                    1
+                  ]
+                }
+              ]
+            },
+            "den": 6
+          },
+          "kind": "term_formula",
+          "complexity": "O(1) integer operations",
+          "source_url": "https://oeis.org/A000330",
+          "proof_status": "classical_reference"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000166",
+      "name": "Derangements",
+      "offset": 0,
+      "terms": [
+        "1",
+        "0",
+        "1",
+        "2",
+        "9",
+        "44",
+        "265",
+        "1854",
+        "14833",
+        "133496",
+        "1334961",
+        "14684570",
+        "176214841",
+        "2290792932",
+        "32071101049",
+        "481066515734",
+        "7697064251745",
+        "130850092279664"
+      ],
+      "formulas": [
+        {
+          "expression": "a(0)=1, a(1)=0, a(n)=(n-1)(a(n-1)+a(n-2))",
+          "evaluator": {
+            "op": "derangements"
+          },
+          "kind": "recurrence",
+          "complexity": "O(n) integer arithmetic",
+          "source_url": "https://oeis.org/A000166",
+          "proof_status": "classical_reference"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000169",
+      "name": "Labeled rooted trees",
+      "offset": 1,
+      "terms": [
+        "1",
+        "2",
+        "9",
+        "64",
+        "625",
+        "7776",
+        "117649",
+        "2097152",
+        "43046721",
+        "1000000000",
+        "25937424601",
+        "743008370688",
+        "23298085122481",
+        "793714773254144",
+        "29192926025390625",
+        "1152921504606846976",
+        "48661191875666868481",
+        "2185911559738696531968"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=n^(n-1), n>=1",
+          "evaluator": {
+            "op": "pow",
+            "base": {
+              "op": "n"
+            },
+            "exp": {
+              "op": "sub",
+              "args": [
+                {
+                  "op": "n"
+                },
+                1
+              ]
+            }
+          },
+          "kind": "term_formula",
+          "complexity": "binary exponentiation",
+          "source_url": "https://oeis.org/A000169",
+          "proof_status": "classical_reference"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000110",
+      "name": "Bell numbers",
+      "offset": 0,
+      "terms": [
+        "1",
+        "1",
+        "2",
+        "5",
+        "15",
+        "52",
+        "203",
+        "877",
+        "4140",
+        "21147",
+        "115975",
+        "678570",
+        "4213597",
+        "27644437",
+        "190899322",
+        "1382958545",
+        "10480142147",
+        "82864869804"
+      ],
+      "formulas": [
+        {
+          "expression": "B(0)=1; B(n)=sum_{k=0}^{n-1} binom(n-1,k) B(k)",
+          "evaluator": {
+            "op": "bell"
+          },
+          "kind": "recurrence",
+          "complexity": "O(n^2) integer operations",
+          "source_url": "https://oeis.org/A000110",
+          "proof_status": "classical_reference"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000670",
+      "name": "Fubini / ordered Bell numbers",
+      "offset": 0,
+      "terms": [
+        "1",
+        "1",
+        "3",
+        "13",
+        "75",
+        "541",
+        "4683",
+        "47293",
+        "545835",
+        "7087261",
+        "102247563",
+        "1622632573",
+        "28091567595",
+        "526858348381",
+        "10641342970443",
+        "230283190977853",
+        "5315654681981355",
+        "130370767029135901"
+      ],
+      "formulas": [
+        {
+          "expression": "a(0)=1; a(n)=sum_{k=1}^n binom(n,k) a(n-k)",
+          "evaluator": {
+            "op": "fubini"
+          },
+          "kind": "recurrence",
+          "complexity": "O(n^2) integer operations",
+          "source_url": "https://oeis.org/A000670",
+          "proof_status": "classical_reference"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000005",
+      "name": "Number of divisors",
+      "offset": 1,
+      "terms": [
+        "1",
+        "2",
+        "2",
+        "3",
+        "2",
+        "4",
+        "2",
+        "4",
+        "3",
+        "4",
+        "2",
+        "6",
+        "2",
+        "4",
+        "4",
+        "5",
+        "2",
+        "6"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=sum_{d|n} 1",
+          "evaluator": {
+            "op": "divisor_sum",
+            "power": 0
+          },
+          "kind": "finite_sum",
+          "complexity": "O(sqrt(n))",
+          "source_url": "https://oeis.org/A000005",
+          "proof_status": "classical_reference"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000203",
+      "name": "Sum of divisors",
+      "offset": 1,
+      "terms": [
+        "1",
+        "3",
+        "4",
+        "7",
+        "6",
+        "12",
+        "8",
+        "15",
+        "13",
+        "18",
+        "12",
+        "28",
+        "14",
+        "24",
+        "24",
+        "31",
+        "18",
+        "39"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=sum_{d|n} d",
+          "evaluator": {
+            "op": "divisor_sum",
+            "power": 1
+          },
+          "kind": "finite_sum",
+          "complexity": "O(sqrt(n))",
+          "source_url": "https://oeis.org/A000203",
+          "proof_status": "classical_reference"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000010",
+      "name": "Euler totient function",
+      "offset": 1,
+      "terms": [
+        "1",
+        "1",
+        "2",
+        "2",
+        "4",
+        "2",
+        "6",
+        "4",
+        "6",
+        "4",
+        "10",
+        "4",
+        "12",
+        "6",
+        "8",
+        "8",
+        "16",
+        "6"
+      ],
+      "formulas": [
+        {
+          "expression": "a(n)=sum_{1<=k<=n} [gcd(k,n)=1]",
+          "evaluator": {
+            "op": "totient"
+          },
+          "kind": "finite_sum",
+          "complexity": "O(n log n) elementary gcd",
+          "source_url": "https://oeis.org/A000010",
+          "proof_status": "classical_reference"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000041",
+      "name": "Partition numbers",
+      "offset": 0,
+      "terms": [
+        "1",
+        "1",
+        "2",
+        "3",
+        "5",
+        "7",
+        "11",
+        "15",
+        "22",
+        "30",
+        "42",
+        "56",
+        "77",
+        "101",
+        "135",
+        "176",
+        "231",
+        "297"
+      ],
+      "formulas": [
+        {
+          "expression": "Euler pentagonal recurrence for partitions p(n)",
+          "evaluator": {
+            "op": "partitions"
+          },
+          "kind": "recurrence",
+          "complexity": "O(n sqrt(n)) integer operations",
+          "source_url": "https://oeis.org/A000041",
+          "proof_status": "classical_reference"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A000085",
+      "name": "Involution numbers",
+      "offset": 0,
+      "terms": [
+        "1",
+        "1",
+        "2",
+        "4",
+        "10",
+        "26",
+        "76",
+        "232",
+        "764",
+        "2620",
+        "9496",
+        "35696",
+        "140152",
+        "568504",
+        "2390480",
+        "10349536",
+        "46206736",
+        "211799312"
+      ],
+      "formulas": [
+        {
+          "expression": "a(0)=a(1)=1; a(n)=a(n-1)+(n-1)a(n-2)",
+          "evaluator": {
+            "op": "involutions"
+          },
+          "kind": "recurrence",
+          "complexity": "O(n) integer operations",
+          "source_url": "https://oeis.org/A000085",
+          "proof_status": "classical_reference"
+        }
+      ]
+    },
+    {
+      "oeis_id": "A001006",
+      "name": "Motzkin numbers",
+      "offset": 0,
+      "terms": [
+        "1",
+        "1",
+        "2",
+        "4",
+        "9",
+        "21",
+        "51",
+        "127",
+        "323",
+        "835",
+        "2188",
+        "5798",
+        "15511",
+        "41835",
+        "113634",
+        "310572",
+        "853467",
+        "2356779"
+      ],
+      "formulas": [
+        {
+          "expression": "M(0)=M(1)=1; (n+2)M(n)=(2n+1)M(n-1)+3(n-1)M(n-2)",
+          "evaluator": {
+            "op": "motzkin"
+          },
+          "kind": "recurrence",
+          "complexity": "O(n) integer operations",
+          "source_url": "https://oeis.org/A001006",
+          "proof_status": "classical_reference"
+        }
+      ]
+    }
+  ]
+}

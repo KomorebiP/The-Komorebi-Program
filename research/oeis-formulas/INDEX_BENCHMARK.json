@@ -1,0 +1,11 @@
+{
+  "synthetic_only": true,
+  "input_sequence_count": 3000,
+  "source_rows_mined": 300,
+  "index_rows": 3000,
+  "index_seconds": 0.08,
+  "partial_scan_seconds": 0.111,
+  "generated_candidates": 0,
+  "machine_dependent": true,
+  "disclaimer": "Synthetic throughput check, not a proof of full OEIS corpus ingestion or bounded worst-case time"
+}

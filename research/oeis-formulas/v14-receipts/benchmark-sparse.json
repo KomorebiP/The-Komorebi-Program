@@ -1,0 +1,106 @@
+{
+  "schema": 1,
+  "author": "Komorebi P.",
+  "runs": 7,
+  "quadratic": {
+    "parameters": {
+      "c": 1,
+      "q": 2,
+      "n": 900
+    },
+    "independent_two_binomial_sums": {
+      "median_seconds": 0.011051293000491569,
+      "seconds": [
+        0.010799633000715403,
+        0.01078402900020592,
+        0.010787385000185168,
+        0.011051293000491569,
+        0.011311165000734036,
+        0.011291136000181723,
+        0.011293799999293697
+      ]
+    },
+    "paired_quadratic_jump": {
+      "median_seconds": 1.2788999811164103e-05,
+      "seconds": [
+        2.8111999199609272e-05,
+        1.673499991738936e-05,
+        1.3941000361228362e-05,
+        1.2788999811164103e-05,
+        1.215799966303166e-05,
+        1.2368000170681626e-05,
+        1.1687000551319215e-05
+      ]
+    },
+    "direct_over_jump_ratio": 864.124885735348,
+    "exact_output_hashes": [
+      "e38c1d5f34db0426be42dab4bc2abd18f0676717ac724ff86b20e683cf9602d6",
+      "6c65bcf6b4caf306d9c3c1722f224c4c76fb0c18e68a02d428a51f04e179438d"
+    ],
+    "comparison_scope": "naive exact binomial sums vs archived quadratic binary powering, not optimal Pell software"
+  },
+  "shared_packets": {
+    "sequences": [
+      "Fibonacci",
+      "Lucas"
+    ],
+    "requested_indices": [
+      3000,
+      3001,
+      3002,
+      3003,
+      3004,
+      3100,
+      3101,
+      5000,
+      5001,
+      5002
+    ],
+    "independent_recursion_packets": {
+      "median_seconds": 0.0008793180004431633,
+      "seconds": [
+        0.0008883319997039507,
+        0.0008793180004431633,
+        0.0008620219996373635,
+        0.0009878729997581104,
+        0.0008829029993648874,
+        0.0008665089999340125,
+        0.0008436340003754594
+      ]
+    },
+    "shared_packet_bank": {
+      "median_seconds": 0.00013569500060839346,
+      "seconds": [
+        0.00018208499932370614,
+        0.00014714200005983002,
+        0.00013822900018567452,
+        0.00013569500060839346,
+        0.00013393199969868874,
+        0.00013292099993122974,
+        0.0001319800003329874
+      ]
+    },
+    "independent_over_shared_ratio": 6.480106094555505,
+    "terms_checked": 20,
+    "packet_bank": {
+      "reused_recurrence_kernels": 1,
+      "output_term_count": 20,
+      "banks": {
+        "1,1": {
+          "order": 2,
+          "distinct_exponents": 11,
+          "powers_of_two_cached": 13,
+          "ring_multiplications": 41,
+          "pow2_squarings": 12,
+          "shift_reuses": 8
+        }
+      }
+    },
+    "comparison_scope": "same Python exact recurrence kernel; shared binary powers across sequences/indices"
+  },
+  "nonclaims": [
+    "No benchmark guarantees on another machine",
+    "Proof checking is excluded from kernel timing",
+    "Source OEIS identification remains finitely checked"
+  ]
+}
