@@ -20,12 +20,16 @@ The central question is how much information about a truncated generating functi
 | --- | --- |
 | Source \(A\) | A truncated formal series with constant coefficient \(1\). |
 | Directional ghost \(\Gamma_i(A)\) | The logarithmic derivative \(\delta_i A/A\) along a specified weighted direction. |
-| Precision \(p^k\) | Coefficients are determined modulo the stated prime power. |
-| Fiber | All coefficient arrays compatible with the observed signatures. |
+| Precision \(p^k\) | The modulus of the source coefficients being reconstructed; observations may use higher precision. |
+| Fiber | Source reductions modulo \(p^k\) for which at least one full-precision lift matches the supplied signatures. |
+| \(e_\alpha\) | The number of undetermined base-\(p\) digits at coefficient index \(\alpha\). |
+| \(E\) and \(b\) | Total ambiguity exponent and number of blind coefficient indices, respectively. |
 | Rescue channel | An independently available supplementary measurement. It cannot be synthesized from the same information already lost. |
 | \(\Phi_q\) | A lossless change of series coordinates defined by \(A(\mathbf{x})/A(\mathbf{x}^q)\). |
 
-**Reading route:** Sections 2–3 quantify the remaining source ambiguity. Section 4 asks what is needed for a particular query. Section 5 gives a lossless transformation that may offer more useful coordinates, without creating new information. Section 6 separates the established results from unresolved research objectives.
+**Jump to a section:** [Setup](#1-setup) · [Exact fibers](#2-exact-multichannel-directional-ghost-fiber-theorem) · [Prime-power lattices](#3-an-exact-prime-power-lattice-formula) · [Query recovery](#4-query-specific-reconstruction-from-nonlinear-ghost-observations) · [Lossless polyphase transfers](#5-a-lossless-frobeniuspolyphase-quotient) · [Research status](#6-what-these-generalizations-do-and-do-not-establish) · [Compiler integration](#7-proposed-compiler-integration).
+
+**Suggested reading route:** Sections 2–3 quantify source ambiguity. Section 4 focuses on recovering only a requested query. Section 5 supplies lossless coordinates but not new measurements. Section 6 identifies what remains unproved or unverified.
 
 ## 1. Setup
 
@@ -35,7 +39,7 @@ Fix a prime \(p\), integers \(k,D,d\geq1\), and the truncated formal-series ring
 R_D=\mathbb Z_p[x_1,\ldots,x_d]/(x_1,\ldots,x_d)^{D+1},\qquad I=(x_1,\ldots,x_d).
 \]
 
-Write \(A=1+\sum_{0<|\alpha|\le D}a_\alpha\mathbf{x}^\alpha\), so \(A\) belongs to the multiplicative group \(1+I\).
+Write \(A=1+\sum_{0<|\alpha|\le D}a_\alpha\mathbf{x}^\alpha\), where \(\alpha\in\mathbb Z_{\ge0}^d\), \(|\alpha|=\sum_j\alpha_j\), and \(\mathbf{x}^\alpha=\prod_j x_j^{\alpha_j}\). Here \(\mathbb Z_p\) denotes the \(p\)-adic integers. The series \(A\) belongs to the multiplicative group \(1+I\).
 
 For integer weight vectors \(w_i=(w_{i1},\ldots,w_{id})\), define the commuting Euler derivations
 
@@ -44,16 +48,16 @@ For integer weight vectors \(w_i=(w_{i1},\ldots,w_{id})\), define the commuting 
 \Gamma_i(A)=\frac{\delta_i A}{A}.
 \]
 
-Suppose the \(i\)th signature is observed modulo \(p^{k+h_i}\), where \(h_i\ge0\). The goal is to reconstruct the input modulo \(p^k\). Define \(v_p(0)=+\infty\) and \(\lambda_{i,\alpha}=w_i\cdot\alpha\).
+Suppose the \(i\)th signature is independently observed modulo \(p^{k+h_i}\), where \(h_i\ge0\). The goal is to recover source coefficients modulo \(p^k\). A source reduction is called **compatible** if it admits a lift to \(R_D\) whose signatures match all supplied measurements at their stated precisions. This matters because a signature modulo \(p^{k+h_i}\) need not be determined by source coefficients modulo \(p^k\) alone. Put \(v_p(0)=+\infty\) and \(\lambda_{i,\alpha}=w_i\cdot\alpha\).
 
 The signature readings are **independently supplied observations** of the source, potentially at different precisions. They need not be statistically independent. Deterministic postprocessing of an existing signature does not count as a new measurement.
 
-A scalar map \(f\) is **1-Lipschitz in the congruence sense** when \(u\equiv v\pmod{p^j}\) implies \(f(u)\equiv f(v)\pmod{p^j}\) for each \(0\le j\le k\). The lower bounds below apply to supplementary channels satisfying this condition.
+A scalar measurement \(f\) on source coefficient arrays is **1-Lipschitz in the congruence sense** when coordinatewise congruence \(u\equiv v\pmod{p^j}\) implies \(f(u)\equiv f(v)\pmod{p^j}\) for every \(0\le j\le k\). This includes coefficient projections and integral-polynomial measurements. The channel lower bounds below are **not** claims about arbitrary discontinuous or non-congruence-preserving encodings.
 
 
 ### A small reconstruction example
 
-In one variable, take \(p=2\), \(k=2\), \(h=0\), \(D=4\), and observe \(\Gamma(A)=xA'(x)/A(x)\) modulo \(4\). The derivative multiplies the coefficient at \(x^n\) by \(n\), so Theorem 2.1 gives:
+In one variable, take \(p=2\), \(k=2\), \(h=0\), \(D=4\), and observe \(\Gamma(A)=xA'(x)/A(x)\) modulo \(4\). The **Euler derivative** \(x\partial_x\) multiplies the coefficient of \(x^n\) by \(n\). Taking a quotient of two source series reduces equality of their nonlinear ghosts to these linear coefficient conditions. Theorem 2.1 gives:
 
 | Degree \(n\) | \(v_2(n)\) | Remaining exponent \(e_n\) |
 | ---: | ---: | ---: |
@@ -62,7 +66,13 @@ In one variable, take \(p=2\), \(k=2\), \(h=0\), \(D=4\), and observe \(\Gamma(A
 | 3 | 0 | 0 |
 | 4 | 2 | 2 |
 
-Thus there are \(2^{0+1+0+2}=8\) compatible source reductions modulo \(4\), with two blind indices (degrees \(2\) and \(4\)). If the *same* ghost is independently supplied modulo \(8\), then \(h=1\) and the fiber shrinks to \(2\) source reductions. Extra observation precision is useful, but it does not replace an unavailable measurement.
+Thus there are \(2^{0+1+0+2}=8\) compatible source reductions modulo \(4\), with two blind indices (degrees \(2\) and \(4\)). For the zero ghost, they are exactly \(A=1+c_2x^2+c_4x^4\), where \(c_2\in\{0,2\}\) and \(c_4\in\{0,1,2,3\}\) modulo \(4\). If the **ghost** is independently supplied modulo \(8\), then \(h=1\), and each attainable set of measurements admits just \(2\) source reductions modulo \(4\). Extra observation precision is useful, but it does not replace an unavailable measurement.
+
+### Unequal measurement precision
+
+Extra precision may differ by direction. For \(d=2\), \(D=2\), \(p=2\), and \(k=2\), observe the \(x\)-coordinate ghost modulo \(4\) and the \(y\)-coordinate ghost modulo \(8\), so \(h_x=0\) and \(h_y=1\). The only blind monomial is \(x^2\), with \(e_{(2,0)}=1\). All other positive monomials have \(e_\alpha=0\). Consequently **each attainable measured fiber contains exactly two distinct source reductions modulo \(4\)**.
+
+This count allows the source reductions to have different lifts modulo \(8\). It cannot be obtained by evaluating the higher-precision \(y\) observation directly on a source represented only modulo \(4\). An exhaustive regression enumerates all \(8^5=32{,}768\) source lifts and all \(2{,}048\) attainable nonlinear signature pairs, each with exactly two source reductions modulo \(4\).
 
 ## 2. Exact multichannel directional-ghost fiber theorem
 
@@ -80,9 +90,24 @@ where
 \boxed{e_\alpha=\min_i\,\min\bigl(k,\max(0,v_p(\lambda_{i,\alpha})-h_i)\bigr).}
 \]
 
-The convention is that \(\min(k,+\infty)=k\). Every attainable signature collection has the same number of compatible coefficient reductions.
+The convention is \(\min(k,+\infty)=k\). The count concerns **distinct source reductions modulo \(p^k\)**, using the compatibility convention from Section 1. Every attainable signature collection has the same number of such reductions.
 
-**Proof.** For any two units \(A_0\) and \(B\), write \(B=A_0C\). The Leibniz rule gives \(\Gamma_i(A_0C)=\Gamma_i(A_0)+\Gamma_i(C)\). The signatures agree modulo \(p^{k+h_i}\) exactly when \(\delta_i(C)\equiv0\pmod{p^{k+h_i}}\), since \(C\) is invertible. Writing \(C=1+\sum_\alpha c_\alpha\mathbf{x}^\alpha\), the coefficient constraints are \(\lambda_{i,\alpha}c_\alpha\equiv0\pmod{p^{k+h_i}}\). The permissible reductions of \(c_\alpha\) modulo \(p^k\) form the ideal \(p^{k-e_\alpha}(\mathbb Z/p^k\mathbb Z)\), containing exactly \(p^{e_\alpha}\) elements. The monomial constraints are independent. Multiplication by \(A_0\) bijects the permissible \(C\) with permissible \(B\), so the total fiber size is \(p^{\sum_\alpha e_\alpha}\). \(\square\)
+**Proof.** Fix a full-precision representative \(A_0\) of the measured signatures. Every other compatible lift can be written as \(B=A_0C\) with \(C\in1+I\). The Leibniz rule gives
+
+\[
+\Gamma_i(A_0C)=\Gamma_i(A_0)+\Gamma_i(C).
+\]
+
+Because \(C\) is invertible, agreement of signatures modulo \(p^{k+h_i}\) is equivalent to \(\delta_i(C)\equiv0\pmod{p^{k+h_i}}\).
+
+Write \(C=1+\sum_\alpha c_\alpha\mathbf{x}^\alpha\). For each monomial \(\alpha\), the conditions are
+
+\[
+\lambda_{i,\alpha}c_\alpha\equiv0\pmod{p^{k+h_i}}
+\qquad\text{for every }i.
+\]
+
+The reductions of \(c_\alpha\) modulo \(p^k\) that admit such lifts form the ideal \(p^{k-e_\alpha}(\mathbb Z/p^k\mathbb Z)\), containing exactly \(p^{e_\alpha}\) elements. These conditions are coefficientwise independent. Multiplication by \(A_0\) is a bijection on source reductions, so the total fiber size is \(\prod_\alpha p^{e_\alpha}=p^E\). \(\square\)
 
 ### Corollary 2.2. Minimum full-source rescue count
 
@@ -125,8 +150,11 @@ N_s(W,D)=\#\{\alpha\in\mathbb Z_{\ge0}^d:0<|\alpha|\le D,\ W\alpha\equiv0\pmod{p
 For every integer matrix \(W\),
 
 \[
-\boxed{E(W;p,k,h,D)\ge
-\sum_{s=h+1}^{h+k}\left[\binom{\lfloor D/p^s\rfloor+d}{d}-1\right].}
+\boxed{\begin{aligned}
+E(W;p,k,h,D)\ge{}&
+\sum_{s=h+1}^{h+k}
+\left[\binom{\lfloor D/p^s\rfloor+d}{d}-1\right].
+\end{aligned}}
 \]
 
 If \(W\) has full column rank modulo \(p\), equivalently if some \(d\times d\) minor is a \(p\)-adic unit, equality holds for **every** \(D,k,h\). Thus \(d\) coordinate derivatives, or any \(p\)-adically left-invertible recombination of them, attain the minimum ambiguity among collections of weighted Euler derivatives.
@@ -135,7 +163,7 @@ If \(W\) has full column rank modulo \(p\), equivalently if some \(d\times d\) m
 
 ### Corollary 3.3. Optimal scalar-channel budget
 
- With a full-column-rank weight family, the exact minimum number of supplementary scalar 1-Lipschitz channels for full input reconstruction is
+With a full-column-rank weight family, the exact minimum number of supplementary scalar 1-Lipschitz channels for full input reconstruction is
 
 \[
 \boxed{b_\mathrm{opt}=\binom{\lfloor D/p^{h+1}\rfloor+d}{d}-1.}
@@ -149,19 +177,29 @@ For a full-column-rank family, the residual ambiguity consists precisely of expo
 | --- | ---: | ---: |
 | Total-degree derivative, \(w=(1,1)\) | 58 | 35 |
 | Coordinate derivatives, \(W=I_2\) | 27 | 20 |
-| Total-degree and difference, \(W=\left(\begin{smallmatrix}1&1\\1&-1\end{smallmatrix}\right)\) | 46 | 35 |
+| Total-degree and difference derivatives | 46 | 35 |
 
-The last matrix has determinant \(-2\), which is not a unit modulo \(2\). Rational linear independence is insufficient for optimal reconstruction in the \(2\)-adic setting.
+For the last row, the weight matrix is
+
+\[
+W=\begin{pmatrix}1&1\\1&-1\end{pmatrix}.
+\]
+
+Its determinant \(-2\) is not a unit modulo \(2\). Rational linear independence is insufficient for optimal reconstruction in the \(2\)-adic setting.
 
 For \(W=I_2\), the layer counts give \(E=\bigl[\binom72-1\bigr]+\bigl[\binom42-1\bigr]+\bigl[\binom32-1\bigr]=20+5+2=27\).
 
 ### Theorem 3.4. Smith-lattice density
 
- Fix \(p,k,h,W,d\). Let \(\rho\) be the rank of \(W\), and let \(s_1,\ldots,s_\rho\) denote the valuations of its nonzero Smith invariant factors, **including factors with valuation zero**. Then, as \(D\to\infty\),
+Fix \(p,k,h,W,d\). Let \(\rho\) be the rank of \(W\), and let \(s_1,\ldots,s_\rho\) denote the valuations of its nonzero Smith invariant factors, **including factors with valuation zero**. Then, as \(D\to\infty\),
 
 \[
-\boxed{E(W;p,k,h,D)=\frac{D^d}{d!}\sum_{t=h+1}^{h+k}
- p^{-\sum_{j=1}^{\rho}\max(0,t-s_j)}+O_{p,k,h,W,d}(D^{d-1}).}
+\boxed{\begin{aligned}
+E(W;p,k,h,D)={}&
+\frac{D^d}{d!}\sum_{t=h+1}^{h+k}
+p^{-\sum_{j=1}^{\rho}\max(0,t-s_j)}\\
+&+O_{p,k,h,W,d}(D^{d-1}).
+\end{aligned}}
 \]
 
 **Proof.** Smith normal form shows that the homomorphism \(W:(\mathbb Z/p^t\mathbb Z)^d\to(\mathbb Z/p^t\mathbb Z)^m\) has image size \(p^{\sum_{j=1}^{\rho}\max(0,t-s_j)}\). Its kernel therefore occupies the reciprocal fraction of residue classes modulo \(p^t\). For each fixed residue class, the lattice points in the nonnegative simplex \(0<|\alpha|\le D\) contribute \(D^d/(d!\,p^{td})+O(D^{d-1})\). Hence \(N_t(W,D)=D^d/(d!\,|\operatorname{im} W_t|)+O(D^{d-1})\). Summation over the fixed finite range of \(t\) completes the proof. \(\square\)
@@ -182,7 +220,7 @@ p^{r_\alpha}(\mathbb Z/p^k\mathbb Z)\mathbf x^\alpha.
 \end{aligned}
 \]
 
-Let \(M_{A_0}\) be the integral unitriangular convolution matrix for multiplication of truncated series by \(A_0\), and let \(Q\) be an integral linear query on the input coefficient vector. Define
+Let \(M_{A_0}\) be the unitriangular convolution matrix for multiplication of truncated series by \(A_0\), and let \(Q\) be an integral linear query on the input coefficient vector. Only entries modulo \(p^k\) are needed. To compute an integer Smith normal form, choose integer representatives for these residue classes and define
 
 \[
 H_Q=Q\,M_{A_0}\,\operatorname{diag}(p^{r_\alpha}).
@@ -190,7 +228,7 @@ H_Q=Q\,M_{A_0}\,\operatorname{diag}(p^{r_\alpha}).
 
 ### Theorem 4.1. Nonlinear observations and linear-query Smith formula
 
-If \(s_1,\ldots,s_u\) are the \(p\)-adic valuations of the Smith invariant factors of \(H_Q\), including \(s_j=+\infty\) for zero pivots, then the exact number of distinct outputs \(Q(A)\pmod{p^k}\) consistent with the measured ghost signatures is
+If \(s_1,\ldots,s_u\) are the \(p\)-adic valuations of the Smith invariant factors of an integer lift of \(H_Q\), with zero pivots contributing \(s_j=+\infty\), then the exact number of distinct outputs \(Q(A)\pmod{p^k}\) consistent with the measured ghost signatures is
 
 \[
 \boxed{|Q(\mathcal F)|=p^{\sum_{j=1}^u\max(0,k-s_j)}.}
@@ -229,7 +267,7 @@ The preceding theorem proves that first-order weighted derivatives cannot remove
 
 ### Theorem 5.1. Contracting coboundary theorem
 
-Let \(R\) be a complete, separated commutative ring with an ideal \(I\), and let \(S:R\to R\) be a unital, continuous ring endomorphism satisfying \(S(I^n)\subseteq I^{2n}\) for all \(n\ge1\). Then
+Let \(R\) be an \(I\)-adically complete and separated commutative ring with ideal \(I\), and let \(S:R\to R\) be a unital, \(I\)-adically continuous ring endomorphism satisfying \(S(I^n)\subseteq I^{2n}\) for all \(n\ge1\). Then
 
 \[
 \boxed{\Phi_S(A)=A/S(A)}
@@ -248,15 +286,17 @@ The product converges in the \(I\)-adic topology. The conclusion concerns the mu
 For an integer \(q\ge2\), take the substitution endomorphism \(S_q(A)(x_1,\ldots,x_d)=A(x_1^q,\ldots,x_d^q)\). Then
 
 \[
-\boxed{\Phi_q(A)(\mathbf x)=\frac{A(\mathbf x)}{A(\mathbf x^q)},\quad
-A(\mathbf x)=\prod_{j\ge0}\Phi_q(A)(\mathbf x^{q^j}).}
+\boxed{\begin{aligned}
+\Phi_q(A)(\mathbf x)&=\frac{A(\mathbf x)}{A(\mathbf x^q)},\\
+A(\mathbf x)&=\prod_{j\ge0}\Phi_q(A)(\mathbf x^{q^j}).
+\end{aligned}}
 \]
 
 The substitution, multiplication, and inversion of unit formal series are defined by integral coefficient formulas. Consequently, this coordinate change remains bijective modulo **every** \(p^k\), with coefficientwise congruence preservation in both directions. It is a lossless change of representation, **not an independent observation**: it cannot reconstruct information lost in an earlier ghost measurement.
 
 ### Theorem 5.2. Intertwining with directional ghosts
 
- For each weighted Euler derivation,
+For each weighted Euler derivation,
 
 \[
 \boxed{\Gamma_i(\Phi_q A)(\mathbf x)=\Gamma_i(A)(\mathbf x)-q\,\Gamma_i(A)(\mathbf x^q).}
@@ -282,14 +322,14 @@ For the ordinary partition generating function
 P(x)=\prod_{n\ge1}(1-x^n)^{-1},
 \]
 
-we obtain for **every integer q>=2**:
+we obtain for **every integer \(q\ge2\)**:
 
 \[
-\boxed{
+\boxed{\begin{aligned}
 \frac{P(x)}{P(x^q)}
-=\prod_{n\ge1}(1+x^n+\cdots+x^{(q-1)n})
-=\prod_{\substack{n\ge1\\q\nmid n}}(1-x^n)^{-1}.
-}
+&=\prod_{n\ge1}(1+x^n+\cdots+x^{(q-1)n})\\
+&=\prod_{\substack{n\ge1\\q\nmid n}}(1-x^n)^{-1}.
+\end{aligned}}
 \]
 
 This is the classical identity between partitions with each part occurring at most \(q-1\) times and partitions whose parts are not divisible by \(q\). At \(q=2\), it becomes the distinct-part/odd-part identity. These are exact candidate edges for the transfer network, **not historically new partition identities**.

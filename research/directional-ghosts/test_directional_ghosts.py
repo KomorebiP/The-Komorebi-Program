@@ -99,6 +99,65 @@ class ExactRegression(unittest.TestCase):
         self.assertEqual(ambiguity([[1, 1], [1, -1]], p, k, h, D)[:2],
                          (46, 35))
 
+    def test_mixed_observation_precisions_and_source_lifts(self):
+        # Source precision is 4; the x derivative is observed mod 4,
+        # while the y derivative is independently observed mod 8.
+        # Candidate source reductions must admit a compatible mod-8 lift.
+        p, k, D = 2, 2, 2
+        weights = ((1, 0), (0, 1))
+        extra = (0, 1)
+        indices = tuple(monomials(2, D))
+        matching_reductions = set()
+        lifts = 0
+        for values in itertools.product(range(8), repeat=len(indices)):
+            coefficients = dict(zip(indices, values))
+            compatible = all(
+                (sum(w[j] * a[j] for j in range(2)) * value)
+                % (p ** (k + h)) == 0
+                for w, h in zip(weights, extra)
+                for a, value in coefficients.items()
+            )
+            if compatible:
+                lifts += 1
+                matching_reductions.add(tuple(x % (p ** k)
+                                              for x in values))
+
+        self.assertEqual(lifts, 16)
+        self.assertEqual(len(matching_reductions), 2)
+        self.assertEqual({
+            tuple(x for x in reduction if x != 0)
+            for reduction in matching_reductions}, {(), (2,)})
+        # The only blind index is (2,0). Without the higher-precision
+        # y measurement, (0,2) would also remain blind.
+        def valuation_excess(alpha):
+            return min(k, max(0, min(
+                valuation(sum(w[j] * alpha[j] for j in range(2)), p) - h
+                for w, h in zip(weights, extra)
+            )))
+        self.assertEqual({a: valuation_excess(a) for a in indices},
+                         {a: (1 if a == (2, 0) else 0) for a in indices})
+
+    def test_nonuniform_precision_nonlinear_ghost_fibers(self):
+        # Compare ALL source reductions against their actual nonlinear
+        # directional logarithmic derivatives, not just against kernel tests.
+        # A = 1 + a01*y + a02*y^2 + a10*x + a11*x*y + a20*x^2.
+        # The x-ghost is read modulo 4 and the y-ghost modulo 8.
+        from collections import defaultdict
+        fibers = defaultdict(set)
+        for a01, a02, a10, a11, a20 in itertools.product(
+                range(8), repeat=5):
+            x_ghost = (a10 % 4,
+                       (a11 - a10*a01) % 4,
+                       (2*a20 - a10*a10) % 4)
+            y_ghost = (a01 % 8,
+                       (a11 - a01*a10) % 8,
+                       (2*a02 - a01*a01) % 8)
+            source_reduction = (a01 % 4, a02 % 4, a10 % 4,
+                                a11 % 4, a20 % 4)
+            fibers[(x_ghost, y_ghost)].add(source_reduction)
+        self.assertEqual(len(fibers), 2048)
+        self.assertEqual({len(fiber) for fiber in fibers.values()}, {2})
+
     def test_full_rank_optimal_bound(self):
         for p in (2, 3, 5):
             for D in range(1, 15):
