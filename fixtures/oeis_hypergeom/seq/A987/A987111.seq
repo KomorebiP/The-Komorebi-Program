@@ -1,0 +1,5 @@
+%I A987111
+%S A987111 1,3,12,60,360,2520,20160
+%N A987111 SYNTHETIC TEST SEQUENCE (n+1)*n! but altered after 2 terms deliberately.
+%F A987111 a(n+1)=(n+2)*a(n).
+%O A987111 0,1

@@ -1,0 +1,80 @@
+name: OEIS pinned identification proof checks
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/oeis_identification_proofs.py'
+      - 'tools/oeis_gap_automation.py'
+      - 'tools/oeis_cfinite_bridge.py'
+      - 'tools/test_oeis_identification_proofs.py'
+      - 'fixtures/oeis_identification/**'
+      - '.github/workflows/oeis-identification-proofs.yml'
+  pull_request:
+    paths:
+      - 'tools/oeis_identification_proofs.py'
+      - 'tools/oeis_gap_automation.py'
+      - 'tools/oeis_cfinite_bridge.py'
+      - 'tools/test_oeis_identification_proofs.py'
+      - 'fixtures/oeis_identification/**'
+      - '.github/workflows/oeis-identification-proofs.yml'
+  workflow_dispatch:
+  # Scheduled source clones are intentionally disabled pending resource review.
+permissions:
+  contents: read
+jobs:
+  pinned-identification-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Checkout proof tools and controls
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          lfs: false
+          sparse-checkout: |
+            tools/oeis_identification_proofs.py
+            tools/oeis_gap_automation.py
+            tools/oeis_cfinite_bridge.py
+            tools/test_oeis_identification_proofs.py
+            fixtures/oeis_identification
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Replay local adversarial source and certificate controls
+        run: |
+          PYTHONPATH=tools python -B -m unittest discover -s tools -p test_oeis_identification_proofs.py -v
+          python -B tools/oeis_identification_proofs.py --oeis-root fixtures/oeis_identification --output .oeis-identification/fixture
+          python -B tools/oeis_identification_proofs.py --oeis-root fixtures/oeis_identification --output .oeis-identification/fixture --verify-report
+      - name: Clone OEIS as sparse source snapshot with no LFS support files
+        env:
+          GIT_LFS_SKIP_SMUDGE: '1'
+        run: |
+          git clone --single-branch --depth=1 --filter=blob:none --sparse \
+            https://github.com/oeis/oeisdata.git "$RUNNER_TEMP/oeisdata"
+          git -C "$RUNNER_TEMP/oeisdata" sparse-checkout set seq/A000
+          git -C "$RUNNER_TEMP/oeisdata" rev-parse HEAD > .oeis-identification/oeis-source-commit.txt
+      - name: Prove the four pinned, explicitly defined sequence cases
+        run: |
+          python -B tools/oeis_identification_proofs.py \
+            --oeis-root "$RUNNER_TEMP/oeisdata" \
+            --ids A000032,A000045,A000217,A000290 \
+            --output .oeis-identification/source-checked
+          python -B tools/oeis_identification_proofs.py \
+            --oeis-root "$RUNNER_TEMP/oeisdata" \
+            --ids A000032,A000045,A000217,A000290 --output .oeis-identification/source-checked --verify-report
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('.oeis-identification/source-checked/identification_report.json')
+          data=json.loads(p.read_text())
+          if data['records_parsed']!=4 or data['proof_gated_conditional_edges'] < 2:
+              raise SystemExit('Source-bound verification did not establish the expected bridge')
+          PY
+      - name: Save attributed proof receipts without automatic graph promotion
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: oeis-identification-conditional-receipts
+          path: .oeis-identification/
+          retention-days: 30

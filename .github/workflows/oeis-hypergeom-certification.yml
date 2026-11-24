@@ -1,0 +1,96 @@
+name: OEIS conditional P-recursive certification
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/oeis_gap_automation.py'
+      - 'tools/oeis_cfinite_bridge.py'
+      - 'tools/oeis_identification_proofs.py'
+      - 'tools/oeis_hypergeometric_gate.py'
+      - 'tools/oeis_precursive_gate.py'
+      - 'tools/test_oeis_gap_automation.py'
+      - 'tools/test_oeis_cfinite_bridge.py'
+      - 'tools/test_oeis_identification_proofs.py'
+      - 'tools/test_oeis_hypergeometric_gate.py'
+      - 'tools/test_oeis_precursive_gate.py'
+      - 'fixtures/oeis_*/**'
+      - '.github/workflows/oeis-hypergeom-certification.yml'
+  pull_request:
+    paths:
+      - 'tools/oeis_gap_automation.py'
+      - 'tools/oeis_cfinite_bridge.py'
+      - 'tools/oeis_identification_proofs.py'
+      - 'tools/oeis_hypergeometric_gate.py'
+      - 'tools/oeis_precursive_gate.py'
+      - 'tools/test_oeis_gap_automation.py'
+      - 'tools/test_oeis_cfinite_bridge.py'
+      - 'tools/test_oeis_identification_proofs.py'
+      - 'tools/test_oeis_hypergeometric_gate.py'
+      - 'tools/test_oeis_precursive_gate.py'
+      - 'fixtures/oeis_*/**'
+      - '.github/workflows/oeis-hypergeom-certification.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-bound-conditional-gauges:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /tools/oeis_gap_automation.py
+            /tools/oeis_cfinite_bridge.py
+            /tools/oeis_identification_proofs.py
+            /tools/oeis_hypergeometric_gate.py
+            /tools/oeis_precursive_gate.py
+            /tools/test_oeis_gap_automation.py
+            /tools/test_oeis_cfinite_bridge.py
+            /tools/test_oeis_identification_proofs.py
+            /tools/test_oeis_hypergeometric_gate.py
+            /tools/test_oeis_precursive_gate.py
+            /fixtures/oeis_identification/
+            /fixtures/oeis_hypergeom/
+            /fixtures/oeis_precursive/
+            /manifests/oeis-cfinite-recurrence-seeds.json
+            /fixtures/existing_sequence_network_v15.json
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.13'
+      - name: Verify local sources, assertions, exact identities and rejections
+        run: |
+          PYTHONPATH=tools python -B -m unittest test_oeis_gap_automation test_oeis_cfinite_bridge test_oeis_identification_proofs test_oeis_hypergeometric_gate test_oeis_precursive_gate -v
+          python -B tools/oeis_identification_proofs.py --oeis-root fixtures/oeis_identification --output .certificates/identification
+          python -B tools/oeis_identification_proofs.py --oeis-root fixtures/oeis_identification --output .certificates/identification --verify-report
+          python -B tools/oeis_hypergeometric_gate.py --oeis-root fixtures/oeis_hypergeom --output .certificates/hypergeom
+          python -B tools/oeis_hypergeometric_gate.py --oeis-root fixtures/oeis_hypergeom --output .certificates/hypergeom --verify-report
+          python -B tools/oeis_precursive_gate.py --oeis-root fixtures/oeis_precursive --output .certificates/precursive
+          python -B tools/oeis_precursive_gate.py --oeis-root fixtures/oeis_precursive --output .certificates/precursive --verify-report
+      - name: Clone official OEIS source and preserve its revision
+        env:
+          GIT_LFS_SKIP_SMUDGE: '1'
+        run: |
+          git clone --depth 1 --filter=blob:none --sparse \
+            https://github.com/oeis/oeisdata.git "$RUNNER_TEMP/oeisdata"
+          git -C "$RUNNER_TEMP/oeisdata" sparse-checkout set seq/A000
+          git -C "$RUNNER_TEMP/oeisdata" rev-parse HEAD > .certificates/official-oeis-commit.txt
+      - name: Run bounded official conditional hypergeometric audit
+        run: |
+          python -B tools/oeis_hypergeometric_gate.py \
+            --oeis-root "$RUNNER_TEMP/oeisdata" --ids A000108,A000142,A000984 \
+            --output .certificates/official-hypergeom
+          python -B tools/oeis_hypergeometric_gate.py \
+            --oeis-root "$RUNNER_TEMP/oeisdata" --ids A000108,A000142,A000984 \
+            --output .certificates/official-hypergeom --verify-report
+      - name: Preserve source-bound receipts; never auto-promote
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: oeis-conditional-P-recursive-receipts
+          path: .certificates/
+          if-no-files-found: warn
+          retention-days: 30

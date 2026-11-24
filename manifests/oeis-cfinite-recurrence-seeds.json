@@ -1,0 +1,171 @@
+{
+  "schema": 1,
+  "author": "Komorebi P.",
+  "scope": "OEIS-stated or elementary derived constant-coefficient recurrence premises (including finite differences for polynomial families). Independent identification still required.",
+  "sequences": [
+    {
+      "id": "A000045",
+      "offset": 0,
+      "initial": [
+        0,
+        1
+      ],
+      "recurrence": [
+        1,
+        1
+      ],
+      "evidence": "asserted_oeis_definition",
+      "source": "https://oeis.org/A000045"
+    },
+    {
+      "id": "A000032",
+      "offset": 0,
+      "initial": [
+        2,
+        1
+      ],
+      "recurrence": [
+        1,
+        1
+      ],
+      "evidence": "asserted_oeis_definition",
+      "source": "https://oeis.org/A000032"
+    },
+    {
+      "id": "A000129",
+      "offset": 0,
+      "initial": [
+        0,
+        1
+      ],
+      "recurrence": [
+        2,
+        1
+      ],
+      "evidence": "asserted_oeis_definition",
+      "source": "https://oeis.org/A000129"
+    },
+    {
+      "id": "A001333",
+      "offset": 0,
+      "initial": [
+        1,
+        1
+      ],
+      "recurrence": [
+        2,
+        1
+      ],
+      "evidence": "asserted_oeis_definition",
+      "source": "https://oeis.org/A001333"
+    },
+    {
+      "id": "A000290",
+      "offset": 0,
+      "initial": [
+        0,
+        1,
+        4
+      ],
+      "recurrence": [
+        3,
+        -3,
+        1
+      ],
+      "evidence": "asserted_oeis_definition",
+      "source": "https://oeis.org/A000290"
+    },
+    {
+      "id": "A000217",
+      "offset": 0,
+      "initial": [
+        0,
+        1,
+        3
+      ],
+      "recurrence": [
+        3,
+        -3,
+        1
+      ],
+      "evidence": "asserted_oeis_definition",
+      "source": "https://oeis.org/A000217"
+    },
+    {
+      "id": "A000578",
+      "offset": 0,
+      "initial": [
+        0,
+        1,
+        8,
+        27
+      ],
+      "recurrence": [
+        4,
+        -6,
+        4,
+        -1
+      ],
+      "evidence": "asserted_oeis_definition",
+      "source": "https://oeis.org/A000578"
+    },
+    {
+      "id": "A000330",
+      "offset": 0,
+      "initial": [
+        0,
+        1,
+        5,
+        14
+      ],
+      "recurrence": [
+        4,
+        -6,
+        4,
+        -1
+      ],
+      "evidence": "asserted_oeis_definition",
+      "source": "https://oeis.org/A000330"
+    },
+    {
+      "id": "A000583",
+      "offset": 0,
+      "initial": [
+        0,
+        1,
+        16,
+        81,
+        256
+      ],
+      "recurrence": [
+        5,
+        -10,
+        10,
+        -5,
+        1
+      ],
+      "evidence": "asserted_oeis_definition",
+      "source": "https://oeis.org/A000583"
+    },
+    {
+      "id": "A000537",
+      "offset": 0,
+      "initial": [
+        0,
+        1,
+        9,
+        36,
+        100
+      ],
+      "recurrence": [
+        5,
+        -10,
+        10,
+        -5,
+        1
+      ],
+      "evidence": "asserted_oeis_definition",
+      "source": "https://oeis.org/A000537"
+    }
+  ]
+}

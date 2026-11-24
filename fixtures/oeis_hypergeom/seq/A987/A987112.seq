@@ -1,0 +1,5 @@
+%I A987112
+%S A987112 0,1,2,3,4,5
+%N A987112 SYNTHETIC NEGATIVE nonpositive denominator on tail.
+%F A987112 a(n+1)=a(n)/(n-3).
+%O A987112 0,1

@@ -1,0 +1,119 @@
+name: OEIS source-bound gap discovery
+
+on:
+  workflow_dispatch:
+    inputs:
+      full_oeis_harvest:
+        description: "Clone OEIS's full Git snapshot and build an isolated source-text audit (large, manual only)"
+        type: boolean
+        required: false
+        default: false
+  pull_request:
+    paths:
+      - 'tools/oeis_gap_automation.py'
+      - 'tools/oeis_cfinite_bridge.py'
+      - 'tools/test_oeis_cfinite_bridge.py'
+      - 'manifests/oeis-cfinite-recurrence-seeds.json'
+      - 'tools/test_oeis_gap_automation.py'
+      - 'manifests/sequence-transfer-network.json'
+      - 'manifests/sequence-network-formula-text.json'
+      - '.github/workflows/oeis-gap-discovery.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'tools/oeis_gap_automation.py'
+      - 'tools/oeis_cfinite_bridge.py'
+      - 'tools/test_oeis_cfinite_bridge.py'
+      - 'manifests/oeis-cfinite-recurrence-seeds.json'
+      - 'tools/test_oeis_gap_automation.py'
+      - 'manifests/sequence-transfer-network.json'
+      - 'manifests/sequence-network-formula-text.json'
+      - '.github/workflows/oeis-gap-discovery.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  curated-gap-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          lfs: false
+          sparse-checkout: |
+            tools/oeis_gap_automation.py
+            tools/oeis_cfinite_bridge.py
+            manifests/oeis-cfinite-recurrence-seeds.json
+            tools/test_oeis_gap_automation.py
+            tools/test_oeis_cfinite_bridge.py
+            manifests/sequence-transfer-network.json
+            manifests/sequence-network-formula-text.json
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Exact source parser and adversarial safety controls
+        run: PYTHONPATH=tools python -B -m unittest test_oeis_gap_automation test_oeis_cfinite_bridge -v
+      - name: Produce pinned transfer gap report
+        run: |
+          python -B tools/oeis_gap_automation.py audit \
+            --network manifests/sequence-transfer-network.json \
+            --formulas manifests/sequence-network-formula-text.json \
+            --recurrence-seeds manifests/oeis-cfinite-recurrence-seeds.json \
+            --out verification/oeis-gap-discovery/curated
+      - name: Retain deterministic review queues, never promote matches
+        uses: actions/upload-artifact@v4
+        with:
+          name: oeis-curated-gap-review
+          path: verification/oeis-gap-discovery/curated/
+          retention-days: 30
+
+  full-corpus-harvest:
+    # A GitHub Actions manual dispatch is required for the much larger OEIS clone.
+    if: github.event_name == 'workflow_dispatch' && inputs.full_oeis_harvest == true
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          lfs: false
+          sparse-checkout: |
+            tools/oeis_gap_automation.py
+            tools/oeis_cfinite_bridge.py
+            manifests/oeis-cfinite-recurrence-seeds.json
+            manifests/sequence-transfer-network.json
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Clone public OEIS content without Git LFS support-file blobs
+        env:
+          GIT_LFS_SKIP_SMUDGE: '1'
+        run: |
+          git clone --single-branch --depth=1 --filter=blob:none --sparse \
+            https://github.com/oeis/oeisdata.git "$RUNNER_TEMP/oeisdata"
+          git -C "$RUNNER_TEMP/oeisdata" sparse-checkout set seq
+          git -C "$RUNNER_TEMP/oeisdata" rev-parse HEAD | tee "$RUNNER_TEMP/oeis-revision.txt"
+      - name: Import full source text with SHA provenance, no evaluation
+        run: |
+          python -B tools/oeis_gap_automation.py ingest \
+            --oeis-dir "$RUNNER_TEMP/oeisdata" \
+            --db "$RUNNER_TEMP/oeis-source.sqlite3" \
+            --revision "$(cat "$RUNNER_TEMP/oeis-revision.txt")"
+      - name: Generate full-corpus frontier and cross-component leads
+        run: |
+          python -B tools/oeis_gap_automation.py audit \
+            --network manifests/sequence-transfer-network.json \
+            --source-db "$RUNNER_TEMP/oeis-source.sqlite3" \
+            --recurrence-seeds manifests/oeis-cfinite-recurrence-seeds.json \
+            --out verification/oeis-gap-discovery/full
+          cp "$RUNNER_TEMP/oeis-revision.txt" verification/oeis-gap-discovery/full/oeis-git-revision.txt
+      - name: Retain source scan report only (not full OEIS copy)
+        uses: actions/upload-artifact@v4
+        with:
+          name: oeis-full-corpus-gap-review
+          path: verification/oeis-gap-discovery/full/
+          retention-days: 30

@@ -1,0 +1,5 @@
+%I A987114
+%S A987114 1,1,2,6,24,120
+%N A987114 SYNTHETIC NEGATIVE code injection in formula.
+%F A987114 a(n+1)=__import__("os").system("echo hi")*a(n).
+%O A987114 0,1

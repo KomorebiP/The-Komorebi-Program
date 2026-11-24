@@ -1,0 +1,5 @@
+%I A987008
+%S A987008 1,4,9,16,25,36,49,64
+%N A987008 SYNTHETIC positive nonzero-offset polynomial: a(n)=n^2.
+%F A987008 a(n)=n^2.
+%O A987008 1,1

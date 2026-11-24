@@ -1,0 +1,5 @@
+%I A987003
+%S A987003 0,1,1,2,3,5,8
+%O A987003 0,3
+%F A987003 a(n) = a(n-1) + a(n-2), n>=2.
+%F A987003 a(n) = __import__('os').system('echo attacked').

@@ -1,0 +1,5 @@
+%I A987113
+%S A987113 1,1,2,6,24,120
+%N A987113 SYNTHETIC NEGATIVE nonlinear recurrence.
+%F A987113 a(n+1)=a(n)*a(n).
+%O A987113 0,1
