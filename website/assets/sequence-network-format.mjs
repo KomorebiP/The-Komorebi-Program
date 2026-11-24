@@ -128,7 +128,7 @@ function specializedGauge(edge,match=GAUGE.exec(String(edge?.expression||''))){
     if(num===0n||baseN===0n)return null;
     const factors=[];
     if(product!=='1'){
-      const pieces=product.split(/(?<=\^\-?\d+)\*(?=\()/);
+      const pieces=product.split(/\*(?=\()/);
       if(pieces.length>8)return null;
       for(const piece of pieces){
         const f=/^\((-?\d{1,18})\*n([+-]\d{1,18})\)\^(-?\d{1,2})$/.exec(piece);
@@ -166,7 +166,7 @@ function specializedGauge(edge,match=GAUGE.exec(String(edge?.expression||''))){
     const topTex=top.join('\\,')||'1',bottomTex=bottom.join('\\,');
     const rhs=sign+(bottomTex?'\\frac{'+topTex+'}{'+bottomTex+'}':topTex);
     const pTop=plainTop.join(' × ')||'1',pBottom=plainBottom.join(' × ');
-    const pRhs=sign+(pBottom?'('+pTop+')/('+pBottom+')':pTop);
+    const pRhs=sign+(pBottom?(plainTop.length>1?'('+pTop+')':pTop)+'/'+(plainBottom.length>1?'('+pBottom+')':pBottom):pTop);
     const lhs='\\frac{\\mathrm{'+edge.target+'}('+gaugeIndex(ob)+')}{\\mathrm{'+edge.inputs[0]+'}('+gaugeIndex(oa)+')}';
     const pLhs=edge.target+'('+gaugeIndex(ob)+') / '+edge.inputs[0]+'('+gaugeIndex(oa)+')';
     return {tex:lhs+'='+rhs,plain:pLhs+' = '+pRhs,
