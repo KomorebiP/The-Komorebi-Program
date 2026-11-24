@@ -156,7 +156,8 @@ identifier in a result to explore its direct connections in this Network; offici
 remain in the record and its provenance disclosure.</p>
 <details class="sn-reader-guide"><summary>How to read these transfer records</summary>
 <p>A gauge relates the ratio of two sequence formulas using a scale, an exponential factor,
-and a defining function L. Index offsets and the valid tail are essential. A Riordan record
+and a defining function L. Supported gauges display the specialized ratio with named
+sequence arguments and recorded offsets. Open Gauge parameters and normalization for the general equation and constants. Index offsets and the valid tail are essential. A Riordan record
 lists transform parameters rather than a full equation. Formula equality in the archived
 model does not independently establish equality of the named OEIS sequences.</p>
 <p>The site-wide Math display setting lets readers switch between typeset and plain notation.
