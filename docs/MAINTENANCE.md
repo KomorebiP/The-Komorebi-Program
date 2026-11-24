@@ -2,6 +2,12 @@
 
 Current priority: navigation, record consistency, reproducibility instructions, and collection tooling. Further proof reviews are deferred. Existing findings and completion gates remain in the [finalization queue](FINALIZATION_QUEUE.md).
 
+## Public reading and archival provenance
+
+Public reading pages use stable mathematical subject titles. State definitions, theorems, proofs, examples, applications and limitations directly rather than narrating implementation stages or referring readers to unexplained development versions. Use publication dates and stable subject links in the reading interface. Reserve exact version identifiers, checkpoint names, file hashes and historical comparisons for source, verification and reproducibility records, where they identify the evidence precisely.
+
+Do not remove genuine mathematical assumptions, open questions, conditional claims, incomplete formalization or software qualification limits to make a page appear finished. Editorial completion and scientific completion are different. When an archived source is hash-bound, make a narrowly scoped and tested presentation change, or publish a separately identified revised edition with its own provenance. Do not silently rewrite archived proofs, downloads or source receipts. Preserve existing URLs and anchors when possible.
+
 ## Choose the right tool
 
 Run commands from the collection root. The [verification guide](VERIFICATION.md) gives the routine check sequence and checkout requirements. Navigation and record tools use Python's standard library and Git where they inspect source history. Package build and qualification tools document their additional requirements.
