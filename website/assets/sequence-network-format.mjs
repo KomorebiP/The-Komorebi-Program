@@ -88,6 +88,93 @@ function rationalLatex(value){
   return m[2]?'\\frac{'+m[1]+'}{'+m[2]+'}':m[1];
 }
 
+function gaugeGcd(a,b){
+  a=a<0n?-a:a;b=b<0n?-b:b;
+  while(b!==0n){const r=a%b;a=b;b=r;}return a;
+}
+
+function gaugeFraction(n,d){
+  if(d===0n)throw Error('Zero gauge denominator');
+  if(d<0n){n=-n;d=-d;}
+  const g=gaugeGcd(n,d);return [n/g,d/g];
+}
+
+function gaugeRational(text){
+  if(!/^-?\d{1,18}(?:\/\d{1,18})?$/.test(text))throw Error('Unsupported gauge rational');
+  const [n,d='1']=text.split('/');return gaugeFraction(BigInt(n),BigInt(d));
+}
+
+function gaugeLinear(a,b){
+  const t=a===0n?'':a===1n?'t':a===-1n?'-t':String(a)+'t';
+  return t?(t+(b===0n?'':b>0n?'+'+b:String(b))):String(b);
+}
+
+function gaugeIndex(offset){
+  return 't'+(offset===0n?'':offset>0n?'+'+offset:String(offset));
+}
+
+function specializedGauge(edge,match=GAUGE.exec(String(edge?.expression||''))){
+  try{
+    if(!match || !/^A\d{6}$/.test(edge.target)||edge.inputs?.length!==1||
+       !/^A\d{6}$/.test(edge.inputs[0]))return null;
+    const maps=edge.index_maps?.[edge.inputs[0]];
+    if(JSON.stringify(maps)!=='[[1,0]]')return null;
+    const [,k,c,start,product,sourceOffset,targetOffset]=match;
+    if(!/^\d{1,5}$/.test(start)||!/^[-+]?\d{1,12}$/.test(sourceOffset)||
+       !/^[-+]?\d{1,12}$/.test(targetOffset)||Number(start)!==edge.valid_from)return null;
+    const t0=BigInt(start),oa=BigInt(sourceOffset),ob=BigInt(targetOffset);
+    let [num,den]=gaugeRational(k);
+    const [baseN,baseD]=gaugeRational(c);
+    if(num===0n||baseN===0n)return null;
+    const factors=[];
+    if(product!=='1'){
+      const pieces=product.split(/(?<=\^\-?\d+)\*(?=\()/);
+      if(pieces.length>8)return null;
+      for(const piece of pieces){
+        const f=/^\((-?\d{1,18})\*n([+-]\d{1,18})\)\^(-?\d{1,2})$/.exec(piece);
+        if(!f)return null;
+        const a=BigInt(f[1]),b=BigInt(f[2]),power=Number(f[3]);
+        if(a===0n||power===0||Math.abs(power)>12)return null;
+        const value=a*t0+b;
+        if(value===0n)return null;
+        const v=value**BigInt(Math.abs(power));
+        [num,den]=power>0?gaugeFraction(num,den*v):gaugeFraction(num*v,den);
+        factors.push({a:String(a),b:String(b),power});
+      }
+    }
+    const top=[],bottom=[],plainTop=[],plainBottom=[];
+    const sign=num<0n?'-':'';
+    const absNum=num<0n?-num:num;
+    if(absNum!==1n){top.push(String(absNum));plainTop.push(String(absNum));}
+    if(den!==1n){bottom.push(String(den));plainBottom.push(String(den));}
+    if(baseN!==baseD){
+      const base=baseD===1n?String(baseN):'\\frac{'+baseN+'}{'+baseD+'}';
+      const wrapped=baseN<0n||baseD!==1n?'\\left('+base+'\\right)':base;
+      const exp=t0===0n?'t':'t-'+t0;
+      top.push(wrapped+'^{'+exp+'}');
+      const pbase=baseD===1n&&baseN>0n?String(baseN):'('+baseN+(baseD!==1n?'/'+baseD:'')+')';
+      plainTop.push(pbase+'^('+exp+')');
+    }
+    for(const f of factors){
+      const linear=gaugeLinear(BigInt(f.a),BigInt(f.b));
+      const power=Math.abs(f.power);
+      const grouped=linear==='t'?'t':'\\left('+linear+'\\right)';
+      const plainGrouped=linear==='t'?'t':'('+linear+')';
+      (f.power>0?top:bottom).push(grouped+(power===1?'':'^{'+power+'}'));
+      (f.power>0?plainTop:plainBottom).push(plainGrouped+(power===1?'':'^'+power));
+    }
+    const topTex=top.join('\\,')||'1',bottomTex=bottom.join('\\,');
+    const rhs=sign+(bottomTex?'\\frac{'+topTex+'}{'+bottomTex+'}':topTex);
+    const pTop=plainTop.join(' × ')||'1',pBottom=plainBottom.join(' × ');
+    const pRhs=sign+(pBottom?'('+pTop+')/('+pBottom+')':pTop);
+    const lhs='\\frac{\\mathrm{'+edge.target+'}('+gaugeIndex(ob)+')}{\\mathrm{'+edge.inputs[0]+'}('+gaugeIndex(oa)+')}';
+    const pLhs=edge.target+'('+gaugeIndex(ob)+') / '+edge.inputs[0]+'('+gaugeIndex(oa)+')';
+    return {tex:lhs+'='+rhs,plain:pLhs+' = '+pRhs,
+      scale:[String(num),String(den)],base:[String(baseN),String(baseD)],
+      start:String(t0),sourceOffset:String(oa),targetOffset:String(ob),factors};
+  }catch{return null;}
+}
+
 /**
  * The archived gauge field literally uses L(t) on its left and n inside
  * the defining product. Here the dummy variable is consistently renamed u.
@@ -104,6 +191,7 @@ export function formatNetworkMath(edge) {
     return {
       plain:'b(t)/a(t) = K × c^(t−t₀) × L(t)/L(t₀)',
       tex:'\\frac{b(t)}{a(t)}=K\\,c^{t-t_0}\\,\\frac{L(t)}{L(t_0)}',
+      specialized:specializedGauge(edge,m),
       definition:{plain:'L(u) = '+friendly(factor),tex:definitionTex?'L(u)='+definitionTex:null},
       parameters:[['K (scale)',m[1]],['c (base)',m[2]],['t₀ (starting index)',m[3]],['a offset',m[5]],['b offset',m[6]]],
       help:'The expression uses the archived ratio notation b(t)/a(t). In the displayed definition of L, u is the same dummy variable called n in the original record. Index offsets are retained below.',
