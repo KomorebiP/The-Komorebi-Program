@@ -60,15 +60,20 @@ jobs:
               paths[3]: (
                   'data.edges.length',
                   'focusAdded',
+                  'sn-specialized-gauge',
+                  'Gauge parameters and normalization',
                   'sequence-network-format.mjs',
               ),
               paths[4]: (
                   'formatNetworkMath',
                   'algebraLatex',
+                  'specializedGauge',
+                  'gaugeFraction',
               ),
               paths[5]: (
                   '.sn-fields',
                   '.sn-more-wrap',
+                  '.sn-gauge-normalization',
               ),
               paths[6]: (
                   'span.arithmatex, div.arithmatex',

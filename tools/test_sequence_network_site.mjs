@@ -161,3 +161,53 @@ test('bounded source notation preserves binomial structure and rejects ambiguous
   assert.ok(sourceFormulaLatex('G.f.: x / (1 - x - x^2).').includes('\\text{OGF: }'));
   for(const raw of ['a(n)=arbitraryFunction(n)','a(n)=<script>alert(1)</script>','a(n)=eval(alert(1))','a(n)=binom(n)','a(n)=n!!','a(n)=4^n. - _Contributor_, 2022','a(n)=Sum_{k=0..n} a(k)'])assert.equal(sourceFormulaLatex(raw),null,raw);
 });
+
+test('specialized gauge displays preserve all 975 rational certificates and index offsets',()=>{
+  const pattern=/^b\(t\)\/a\(t\) = K\*c\^\(t-t0\)\*L\(t\)\/L\(t0\); K=([^,]+), c=([^,]+), t0=(\d+), L\(t\)=(.*); offsets a=([-+]?\d+), b=([-+]?\d+)$/;
+  const pow=(a,k)=>a**BigInt(k);
+  let checked=0,offsets=0;
+  for(const edge of data.edges.filter(e=>e.kind==='gauge')){
+    const m=pattern.exec(edge.expression);
+    assert.ok(m,edge.key);
+    const g=formatNetworkMath(edge).specialized;
+    assert.ok(g,edge.key+' must have concrete ratio');
+    assert.equal(g.start,String(BigInt(m[3])));
+    assert.equal(g.sourceOffset,String(BigInt(m[5])));
+    assert.equal(g.targetOffset,String(BigInt(m[6])));
+    if(g.sourceOffset!=='0'||g.targetOffset!=='0')offsets++;
+    const index=o=>'t'+(o==='0'?'':o.startsWith('-')?o:'+'+o);
+    assert.ok(g.plain.startsWith(edge.target+'('+index(g.targetOffset)+') / '+edge.inputs[0]+'('+index(g.sourceOffset)+') = '));
+    const K=m[1].split('/').map(BigInt), C=m[2].split('/').map(BigInt);
+    const t0=BigInt(m[3]);
+    const factors=[...m[4].matchAll(/\((-?\d+)\*n([+-]\d+)\)\^(-?\d+)/g)]
+      .map(x=>[BigInt(x[1]),BigInt(x[2]),Number(x[3])]);
+    for(let j=0;j<6;j++){
+      const t=t0+BigInt(j);
+      let n=K[0]*pow(C[0],j),q=(K[1]||1n)*pow(C[1]||1n,j);
+      let u=BigInt(g.scale[0])*pow(BigInt(g.base[0]),j),v=BigInt(g.scale[1])*pow(BigInt(g.base[1]),j);
+      for(const [a,b,p] of factors){
+        const x=pow(a*t+b,Math.abs(p)),y=pow(a*t0+b,Math.abs(p));
+        if(p>0){n*=x;q*=y;}else{n*=y;q*=x;}
+      }
+      for(const p of g.factors){
+        const z=pow(BigInt(p.a)*t+BigInt(p.b),Math.abs(p.power));
+        if(p.power>0)u*=z;else v*=z;
+      }
+      assert.notEqual(q,0n,edge.key+' archived denominator');
+      assert.notEqual(v,0n,edge.key+' specialized denominator');
+      assert.equal(n*v,u*q,edge.key+' index '+t);
+      checked++;
+    }
+  }
+  assert.equal(checked,5850);
+  assert.equal(offsets,221);
+  const example=data.edges.find(e=>e.kind==='gauge'&&e.target==='A038629'&&e.inputs[0]==='A000108');
+  assert.equal(formatNetworkMath(example).specialized.tex,'\\frac{\\mathrm{A038629}(t)}{\\mathrm{A000108}(t)}=\\frac{6\\,\\left(t+1\\right)}{\\left(t+2\\right)}');
+  const shifted=data.edges.find(e=>e.kind==='gauge'&&e.target==='A006632'&&e.inputs[0]==='A000260');
+  assert.match(formatNetworkMath(shifted).specialized.plain,/A006632\(t\+1\) \/ A000260\(t\)/);
+  assert.equal(formatNetworkMath({...example,index_maps:{A000108:[[2,0]]}}).specialized,null);
+  const singular={...example,expression:example.expression.replace('(1*n+1)^1','(1*n+0)^1')};
+  assert.equal(formatNetworkMath(singular).specialized,null,'reject a zero normalization factor');
+  const unsupported={...example,expression:example.expression.replace('K=3','K=1/0')};
+  assert.equal(formatNetworkMath(unsupported).specialized,null,'reject zero denominator');
+});

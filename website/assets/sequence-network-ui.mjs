@@ -142,11 +142,23 @@ function explainEdge(edge, names) {
 
   const formatted=formatNetworkMath(edge);
   const block=node('section',undefined,'sn-formula-block');
-  block.append(node('h4',edge.kind==='riordan'?'Recorded transform':'Transfer formula','sn-formula-label'));
-  block.append(equation(formatted.plain,formatted.tex,'Transfer formula'));
+  block.append(node('h4',edge.kind==='riordan'?'Recorded transform':formatted.specialized?'Recorded formula ratio':'Transfer formula','sn-formula-label'));
+  let certificate=block;
+  if(formatted.specialized){
+    block.append(equation(formatted.specialized.plain,formatted.specialized.tex,
+      'Specialized archived formula ratio','sn-statement sn-specialized-gauge'));
+    block.append(node('p','Local index t; the sequence arguments include the recorded offsets. Valid only under the archived formula and domain assumptions.','sn-help'));
+    certificate=node('details',undefined,'sn-gauge-normalization');
+    certificate.append(node('summary','Gauge parameters and normalization'));
+    block.append(certificate);
+    certificate.append(node('p','General ratio used in the certificate','sn-formula-label'));
+    certificate.append(equation(formatted.plain,formatted.tex,'General archived ratio','sn-definition sn-general-gauge'));
+  }else{
+    block.append(equation(formatted.plain,formatted.tex,'Transfer formula'));
+  }
   if(formatted.definition){
-    block.append(node('p','Defining factor','sn-formula-label'));
-    block.append(equation(formatted.definition.plain,formatted.definition.tex,'Definition of L','sn-definition'));
+    certificate.append(node('p','Defining factor','sn-formula-label'));
+    certificate.append(equation(formatted.definition.plain,formatted.definition.tex,'Definition of L','sn-definition'));
   }
   if(formatted.parameters?.length){
     const parameters=node('dl',undefined,'sn-parameters');
@@ -154,9 +166,9 @@ function explainEdge(edge, names) {
       const item=node('div',undefined,'sn-parameter');
       item.append(node('dt',name),node('dd',value));parameters.append(item);
     }
-    block.append(parameters);
+    certificate.append(parameters);
   }
-  if(formatted.help)block.append(node('p',formatted.help,'sn-help'));
+  if(formatted.help)certificate.append(node('p',formatted.help,'sn-help'));
   li.append(block);
 
   const evidence=node('p',undefined,'sn-evidence');

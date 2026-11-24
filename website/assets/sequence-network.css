@@ -88,3 +88,9 @@
 #sn-source-type{max-width:100%;min-width:0}
 .sn-copy-controls{display:flex;align-items:baseline;flex-wrap:wrap;gap:.4rem;margin:.25rem 0}
 .sn-copy-status{font-size:.9rem;overflow-wrap:anywhere}
+
+/* Optional general gauge certificate, below the concrete ratio. */
+.sn-gauge-normalization{margin:.8rem 0 .25rem;padding:.35rem 0 0;border-top:1px solid var(--line,#aaa);min-width:0;max-width:100%}
+.sn-gauge-normalization summary{cursor:pointer;font-weight:600;min-height:44px;padding:.5rem .1rem;overflow-wrap:anywhere}
+.sn-gauge-normalization summary:focus-visible{outline:3px solid var(--focus,#93682c);outline-offset:3px}
+.sn-gauge-normalization[open]>.sn-formula-label{margin-top:.65rem}
