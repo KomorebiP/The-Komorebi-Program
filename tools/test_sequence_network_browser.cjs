@@ -77,6 +77,19 @@ async function main(){
     await page.selectOption('#sn-filter','gauge');
     await page.waitForFunction(()=>Boolean(document.querySelector('.sn-result .sn-definition')));
     const gauge=page.locator('.sn-result').first();
+    const ratio=gauge.locator('.sn-specialized-gauge');
+    assert.equal(await ratio.count(),1,'A concrete named gauge ratio must lead the record');
+    const ratioName=await ratio.getAttribute('aria-label');
+    assert.match(ratioName,/A\d{6}\(t(?:[+-]\d+)?\) \/ A\d{6}\(t(?:[+-]\d+)?\) = /);
+    assert.equal(await gauge.locator('.sn-gauge-normalization').getAttribute('open'),null,
+      'Generic constants and normalization remain collapsed by default');
+    await gauge.locator('.sn-gauge-normalization summary').focus();
+    await page.keyboard.press('Enter');
+    assert.notEqual(await gauge.locator('.sn-gauge-normalization').getAttribute('open'),null);
+    assert.ok(await gauge.locator('.sn-parameters').isVisible());
+    await gauge.locator('.sn-gauge-normalization summary').focus();
+    await page.keyboard.press('Enter');
+    assert.equal(await gauge.locator('.sn-gauge-normalization').getAttribute('open'),null);
     await gauge.locator('.sn-record-details summary').click();
     assert.match(await gauge.locator('.sn-original').innerText(),/b\(t\)\/a\(t\)/,
       'The original unmodified archival specification remains available');
