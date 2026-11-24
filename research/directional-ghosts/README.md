@@ -4,7 +4,11 @@
 **Checkpoint:** 2026-11-23  
 **Status:** Written mathematical proofs and finite computational checks. No Lean formalization or historical novelty audit.
 
-This continues the Ambient Field of Realization and Precision-Aware Transfer Bridge v1.2. It gives multivariate precision-fiber formulas for weighted Euler derivatives; a sharp first-order operator bound; Smith-lattice density estimates; query-specific Smith image calculations on affine fibers of nonlinear observations; and a lossless Frobenius/polyphase quotient.
+This article develops multivariate precision-fiber formulas for weighted Euler derivatives, a sharp first-order operator bound, Smith-lattice density estimates, query-specific Smith image calculations on affine fibers of nonlinear observations, and a lossless Frobenius/polyphase quotient.
+
+## Source lineage
+
+The preserved research inputs are `Komorebi_Ambient_Realization_All_Progress_2026-11-23.zip` and `Komorebi_Precision_Aware_Transfer_Bridge_v1_2_2026-11-23.zip`. These identifiers record the archival lineage; the public article is organized by mathematical subject rather than development version.
 
 ## Read
 

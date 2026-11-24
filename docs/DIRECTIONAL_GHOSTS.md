@@ -1,14 +1,14 @@
 # Directional ghosts, Frobenius obstructions, query fibers, and contractive transfers
 
-**Research status:** Written algebraic proofs supported by finite computational checks. No Lean formalization, independent peer review, or historical novelty assessment has been completed. Here, *new* means new within this research continuation.
+**Evidence:** Written algebraic proofs and finite computational checks. Lean formalization, independent peer review, and historical novelty assessment remain outstanding.
 
-[Sequence transfer network](SEQUENCE_TRANSFER_NETWORK.md) · [Sequence Library](https://KomorebiP.github.io/The-Komorebi-Program/sequence-network.html) · [Research sources and reproducibility](../research/directional-ghosts/README.md)
+[Sequence transfer network](SEQUENCE_TRANSFER_NETWORK.md) · [Sequence Library](https://KomorebiP.github.io/The-Komorebi-Program/sequence-library.html) · [Research sources and reproducibility](../research/directional-ghosts/README.md)
 
 **Author: Komorebi P.**  
-**Research checkpoint: 2026-11-23.**  
-**Inputs:** `Komorebi_Ambient_Realization_All_Progress_2026-11-23.zip` and `Komorebi_Precision_Aware_Transfer_Bridge_v1_2_2026-11-23.zip`.
+**Publication date: 2026-11-23.**  
+[Source lineage and reproducibility](../research/directional-ghosts/README.md#source-lineage).
 
-**Scope of this note.** The results below extend the earlier one-variable logarithmic-derivative and finite-module reconstruction work to multivariate directional observations, prime-power lattice counts, nonlinear-observation query fibers, and contracting transfer operators. The written proofs and finite tests support the statements under their stated assumptions; they do not establish historical priority, independent source verification, or Lean certification.
+**Scope.** This article develops a reconstruction theory for multivariate directional logarithmic derivatives at finite prime-power precision. It establishes exact ambiguity counts, optimal directional and supplementary measurements, Smith formulas for linear queries on nonlinear observation fibers, and invertible contracting transfer operators. Each theorem states the assumptions under which its conclusions hold.
 
 ## Reader's guide
 
@@ -208,7 +208,7 @@ This provides an exact leading-order prediction of the ambiguity *from Smith inv
 
 ## 4. Query-specific reconstruction from nonlinear ghost observations
 
-Version 1.2 has a Smith-fiber formula for linear main observations. The new ghost theorem shows a different case: a nonlinear main observation can have a **linear/affine coefficient fiber**, and thus admits a Smith calculation for a linear query.
+Smith normal form counts fibers of linear observations over finite prime-power rings. Directional ghosts are nonlinear observations, yet their attainable fibers are affine in the source coefficients by Theorem 2.1. This affine structure permits an exact Smith calculation for any linear query.
 
 Fix a representative \(A_0\) of the measured ghost fiber and work modulo \(p^k\). Let \(\mathcal S\) be the set of positive monomial indices, with \(e_\alpha\) as in Theorem 2.1, and put \(r_\alpha=k-e_\alpha\). The compatible sources are exactly
 
@@ -374,4 +374,4 @@ For a sequence/transfer object, register the tuple
 4. If missing information remains, request admissible independent channels; do not pretend a transformation of the same data provides them.
 5. Test the resulting route against source-validated full-index identities and measured computational cost before upgrading any public proof label.
 
-A useful first research benchmark is to supply bivariate series with several independently available decompositions, hide a subset of coefficients, and compare query reconstruction under one versus two directional signatures. A second is to add the \(\Phi_q\) family to the existing partition and rational-OGF transfer graph, retaining source definitions and exact series certificates.
+Two implementation objectives follow: benchmark query reconstruction under one and two directional signatures on bivariate series with independently available decompositions, and integrate the \(\Phi_q\) family into the partition and rational-OGF transfer graph with source definitions and exact series certificates. These objectives are distinct from the established mathematical results.

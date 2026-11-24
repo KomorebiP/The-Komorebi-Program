@@ -16,6 +16,20 @@ from readable_chapters import Chapter, expand_math, plain_math, readable_url, or
 
 
 
+class PublicResearchCopyTests(unittest.TestCase):
+    def test_directional_ghosts_is_a_standalone_reading_article(self):
+        root = Path(__file__).resolve().parents[1]
+        source = (root/'docs/DIRECTIONAL_GHOSTS.md').read_text(encoding='utf-8')
+        self.assertNotIn('Version 1.2', source)
+        self.assertNotIn('v1_2', source)
+        self.assertIn('Publication date: 2026-11-23', source)
+        self.assertIn('Lean formalization', source)
+        self.assertIn('Smith normal form counts fibers of linear observations', source)
+        self.assertIn('## 7. Proposed compiler integration', source)
+        lineage = (root/'research/directional-ghosts/README.md').read_text(encoding='utf-8')
+        self.assertIn('Komorebi_Precision_Aware_Transfer_Bridge_v1_2_2026-11-23.zip', lineage)
+
+
 class ClaimDirectoryPageTests(unittest.TestCase):
     def test_twelve_paper_pages_and_legacy_claim_links(self):
         import posixpath
