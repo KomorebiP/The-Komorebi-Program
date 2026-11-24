@@ -20,7 +20,7 @@ import re
 
 from oeis_gap_automation import Rational, parse_safe_rhs, trim, write_json
 from oeis_identification_proofs import OEISRecord, parse_record, ff, poly_shift
-from oeis_hypergeometric_gate import evaluate, sign_certificate, shift, ratio_evaluate, _rref_nullspace
+from oeis_hypergeometric_gate import evaluate, sign_certificate, shift, ratio_evaluate, _rref_nullspace, raw_denominator_signs
 
 TERM=re.compile(r'\ba\(\s*n\s*(?P<delta>[+-]\s*\d+)?\s*\)', re.I)
 LHS=re.compile(r'\ba\(\s*n\s*\+\s*(?P<order>\d+)\s*\)\s*=',re.I)
@@ -101,8 +101,10 @@ def parse_operator(text:str,*,offset:int)->dict|None:
         if all(_is_zero(c) for c in coeff):return None
         guards=[sign_certificate(c.den,base) for c in coeff]
         if any(g is None for g in guards):return None
+        original=raw_denominator_signs(parsed,vars,base)
+        if original is None:return None
         return {'order':d,'base_index':base,'coefficients':coeff,
-            'denominator_nonzero':guards,'source_statement':s[:260]}
+            'denominator_nonzero':guards,'raw_denominator_nonzero':original,'source_statement':s[:260]}
     except (SyntaxError,ValueError,OverflowError,ZeroDivisionError):return None
 
 
@@ -150,6 +152,7 @@ def profile(rec:OEISRecord)->dict:
              'order':d,'base_index':base,'initial':[ff(x) for x in init],
              'coefficients':[encode_rat(c) for c in op['coefficients']],
              'denominator_nonzero':op['denominator_nonzero'],
+             'raw_denominator_nonzero':op['raw_denominator_nonzero'],
              'matched_source_terms':len(calculated),'source_statement':op['source_statement'],
              'premise_status':'OEIS_formula_and_initial_terms_not_independently_proved'})
     if out['quarantine']:
