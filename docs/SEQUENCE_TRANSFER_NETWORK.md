@@ -7,9 +7,9 @@
 
 The Sequence Library remains the single search entry point for local KSEQ, KFOR, and KOM records, mathematical formulas, OEIS terms, comparisons, and exact calculators. The **Network** tab provides a source-bound read-only collection of transfer relations, without replacing the existing finite-convolution **Transfer** workbench.
 
-Search results have a “Formula network” link. Local IDs hand off to at most eight finite OEIS comparison matches, **explicitly identified as finite matching leads**. An OEIS ID, such as `A000108`, opens the incident directed identities, hypergeometric gauges, Riordan transforms, and quadratic channels. Exact OEIS ID searches now include only records where the identifier is a target or input. The sequence profile reports the distinct direct total and role counts under the selected relation class. A sequence name containing another identifier does not establish graph incidence; use `text:A000108` to include broader textual references. Search by name and simple formula text is supported. Both sequence-name matches and matching archived formula expressions are included when the same query matches each category; neither result class suppresses the other.
+Search results have a “Formula network” link. Local IDs hand off to at most eight finite OEIS comparison matches, **explicitly identified as finite matching leads**. An OEIS ID, such as `A000108`, opens the incident directed identities, hypergeometric gauges, Riordan transforms, and quadratic channels. Exact OEIS ID searches include only records where the identifier is a target or input. The sequence profile reports the distinct direct total and role counts under the selected relation class. A sequence name containing another identifier does not establish graph incidence; use `text:A000108` to include broader textual references. Search by name and simple formula text is supported. Both sequence-name matches and matching archived formula expressions are included when the same query matches each category; neither result class suppresses the other.
 
-The browser loads the compact data only on `sequence-network.html`, not when visitors first open the Sequence Library search. It neither runs the v1.4 Python optimizer nor executes external OEIS code. The existing site still provides calculators, comparison, exact local formula text, and official OEIS reference lookup.
+The browser loads the compact data only on `sequence-network.html`, not when visitors first open the Sequence Library search. It neither runs the offline Python optimizer nor executes external OEIS code. The Sequence Library also provides calculators, comparison, exact local formula text, and official OEIS reference lookup.
 
 ## Reading a transfer result
 
@@ -25,7 +25,7 @@ On narrow or zoomed screens, the search controls stack vertically. Results appea
 
 ## Retained mathematical material
 
-A compact, pinned projection of the **Komorebi OEIS Sparse Transfer Compiler v1.4** contributes:
+The network presents a compact, pinned projection of the **Komorebi OEIS Sparse Transfer Compiler**:
 
 | Relationship | Records | Mathematical status |
 | --- | ---: | --- |
@@ -44,7 +44,7 @@ The site build checks the structural integrity of the projected transfer index a
 
 The site generation entry point is `tools/sequence_library.py`. It calls `tools/sequence_network_site.py`, which validates `manifests/sequence-transfer-network.json`, copies `website/assets/sequence-network-ui.mjs` and `.css` to output, writes an OEIS finite-comparison handoff index, and builds the Network page. The retained `manifests/sequence-transfer-network.json` is committed as a versioned, text-based source index, not generated from a moving web endpoint during the site build.
 
-To regenerate after a reviewed update (requires the pinned SQLite snapshot and v1.4 ledger files):
+To regenerate the index, use the pinned SQLite snapshot and the corresponding archived compiler ledgers:
 
 ```sh
 python tools/create_site_transfer_snapshot.py \
@@ -85,14 +85,13 @@ reader requests source formulas for one exact OEIS A-number. It uses
 `textContent` for all formula text and displays at most 25 records at a time,
 with a further-results control. The generator
 `tools/export_sequence_network_formulas.py` checks the pinned SQLite database
-hash before producing the retained file. This source-text enhancement does not
-add any all-index OEIS identity claims.
+hash before producing the retained file. The source-text index does not add any all-index OEIS identity claims.
 
 ## Archived formula presentation
 
-The current Network retains exact participant navigation and transfer-specific
-formatting. Archived source fields additionally support a bounded display-only
-arithmetic grammar and filtering by recorded formula class. Unsupported or
+The Network provides exact participant navigation and transfer-specific
+formatting. Archived source fields support a bounded display-only arithmetic
+grammar and filtering by recorded formula class. Unsupported or
 ambiguous syntax is left unchanged, and every original source field remains
 available with a copy action. The source parser does not execute OEIS text,
 derive a new identity, change the pinned snapshot, or promote any evidence

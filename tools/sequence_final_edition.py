@@ -169,8 +169,15 @@ def verify_artifacts(root):
     assert artifacts['math_expressions'] == 638 and artifacts['math_errors'] == 0
     return artifacts
 
+def public_paper_fragment(root):
+    """Present the canonical online article without changing frozen artifacts."""
+    content, assembly = paper_fragment(root)
+    byline = 'Komorebi P. Final edition 1.0. 21 November 2026.'
+    assert content.count(byline) == 1, 'Frozen paper byline changed'
+    return content.replace(byline, 'Komorebi P. · 21 November 2026.', 1), assembly
+
 def build(site):
-    content, assembly = paper_fragment(site.root)
+    content, assembly = public_paper_fragment(site.root)
     folder = site.root/EDITION
     artifacts = verify_artifacts(site.root)
     names = {'PAPER.pdf': 'weighted-central-binomial-hankel-v1.0.pdf',
@@ -184,16 +191,16 @@ def build(site):
     site.write('assets/weighted-central-binomial-hankel-v1.0.json', json.dumps(artifacts,indent=2)+'\n')
     css = 'assets/sequence-final-edition.css?v='+digest((site.root/'website/assets/sequence-final-edition.css').read_bytes())[:12]
     body = ('<link rel="stylesheet" href="'+css+'"><article class="sf-paper" id="final-edition">'
-            '<p><a href="sequence-library.html#sequence-proof-path">Sequence Library</a> / Final paper</p>'
+            '<p><a href="sequence-library.html#sequence-proof-path">Sequence Library</a> / Research paper</p>'
             '<h1>Weighted central-binomial Hankel determinants</h1>'
-            '<nav class="sf-downloads" aria-label="Final edition downloads">'
+            '<nav class="sf-downloads" aria-label="Paper downloads">'
             '<a href="assets/weighted-central-binomial-hankel-v1.0.pdf">Read PDF</a>'
             '<a href="assets/weighted-central-binomial-hankel-v1.0.html" download>Standalone HTML</a>'
             '<a href="assets/sequence-formula-source.zip" download>Reproducible sources</a>'
             '<a href="sequence-hankel-compression.html#interior-order-calculator">Exact order explorer</a></nav>'
             +content+'</article>')
-    site.page('sequence-hankel-final.html', 'Weighted central-binomial Hankel determinants - Final edition 1.0', body)
-    site.search.append(dict(title='Final edition: weighted central-binomial Hankel determinants',group='Collection',
+    site.page('sequence-hankel-final.html', 'Weighted central-binomial Hankel determinants', body)
+    site.search.append(dict(title='Weighted central-binomial Hankel determinants',group='Collection',
                             url='sequence-hankel-final.html', kind='Mathematical derivations',work_ids=[],
                             text='final paper PDF Theorems K L M N uniform bounds 63 112 complete mixed linear minimal recurrence orders'))
     return {'edition': '1.0', 'paper_sha256': assembly['paper_sha256'], 'pdf_sha256': artifacts['files']['PAPER.pdf']}

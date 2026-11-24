@@ -1,7 +1,7 @@
 # OEIS affine-lane recurrence transfer gate
 
 **Author: Komorebi P.**
-**Checkpoint: 23 November 2026.**
+**Published: 23 November 2026.**
 **Scope:** exact conditional algebra over rational functions. No automatic publication of sequence identities, full-corpus coverage, Lean proof, novelty or runtime improvement is claimed.
 
 ## General transfer obligation
@@ -35,7 +35,7 @@ For fixed stride, offset, source order, target order and maximum polynomial degr
 
 The strict parser supports homogeneous linear equations of orders 1–4, backward or forward integer shifts, and explicit lower bounds. It retains denominators of the original written expression **before cancellation**, including denominators inside nested quotients, and the leading recurrence coefficient. A normalized equation does not justify passing through an original pole. For example, `(n-1)/(n-1)` and a leading factor `n-1` both exclude the index n=1. A safe integer tail is proved by a shifted coefficient sign or Cauchy's root bound with exact finite enumeration of integer roots; a large bound is rejected. Earlier nonsingular reported recurrence instances are checked too. No relation is claimed for an omitted prefix.
 
-Rational ordinary generating functions at offset zero yield monic recurrences by coefficient extraction. A nonzero offset with an unspecified OGF convention is not guessed. The selected `%F` statements and initial values remain external mathematical premises, and other formulas in an entry are not all certified. Unselected records with multiple inequivalent normalized operators require a reviewed premise selector. Earlier Stage 3 parsers now also reject original-denominator poles that would disappear under cancellation.
+Rational ordinary generating functions at offset zero yield monic recurrences by coefficient extraction. A nonzero offset with an unspecified OGF convention is not guessed. The selected `%F` statements and initial values remain external mathematical premises, and other formulas in an entry are not all certified. Unselected records with multiple inequivalent normalized operators require a reviewed premise selector. The hypergeometric and higher-order recurrence parsers also reject original-denominator poles that would disappear under cancellation.
 
 ## Exact state recovery and local precision
 
@@ -67,6 +67,6 @@ python -B tools/oeis_shift_operator_gate.py --oeis-root /path/to/pinned/oeisdata
 
 Missing source files are acquisition gaps, not failed identities. The generated plan and actual source hashes are retained. Cross-component leads receive priority; both directions are tested. Unsupported or ambiguous recurrences are not promoted. To replay, reuse the saved plan with `--plan` and `--verify-report`.
 
-The local official-excerpt audit yields 24 directed conditional certificates (18 stride>1), from 252 lane/pair candidates, using 7 records. The synthetic audit yields 10 certificates, including 2 automatically derived rational inverse directions. These are transfer directions and may represent redundant formulations of known identities, not counts of new theorems. All local tests pass (74 at this checkpoint). The full official record replay is configured for GitHub CI but is a separate execution from local excerpts.
+The local official-excerpt audit yields 24 directed conditional certificates (18 stride>1), from 252 lane/pair candidates, using 7 records. The synthetic audit yields 10 certificates, including 2 automatically derived rational inverse directions. These are transfer directions and may represent redundant formulations of known identities, not counts of new theorems. The integrated [recurrence certification workflow](https://github.com/KomorebiP/The-Komorebi-Program/actions/runs/45325359220/job/138213522864) passed all 74 tests and replayed the seven full pinned official source records, independently reproducing 24 conditional directions, including 18 with stride greater than one. These full-record receipts are distinct from the excerpt receipts.
 
 Remaining frontier: algebraic generating functions with explicit formal branch selection, general D-finite closure and creative telescoping, joint/multi-source operator ansatz, uniform singularity and valuation analysis, higher-order and higher-stride budgets, cost/precision-aware path search, independent OEIS identification and formal Lean certificates. No production network or website changes are part of this gate.

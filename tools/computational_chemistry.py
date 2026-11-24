@@ -26,7 +26,7 @@ PAGES={
     'reading-edition/model-error.md':('model-error.html','A conditional full-model error bound'),
     'chemistry_stage14/PROOF_AUDIT.md':('review.html','Proof self-review and its scope'),
     'chemistry_stage14/LITERATURE.md':('literature.html','Sources and unresolved priority'),
-    'README.md':('reproduce.html','Replay the fixed-spin chemistry checkpoint'),
+    'README.md':('reproduce.html','Replay the fixed-spin recovery results'),
 }
 
 
@@ -94,6 +94,12 @@ def caption_tables(rendered, captions):
 
 def overview_rendering(site, rendered):
     rendered=caption_tables(rendered,load_edition(site.root)['overview']['table_captions'])
+    # The reviewed source and its manifest remain byte-identical. This exact
+    # presentation change removes a development label from the online byline.
+    byline='Komorebi P. · Research checkpoint · 13 November 2026'
+    if rendered.count(byline)!=1:
+        raise ValueError('Chemistry overview byline differs from the reviewed source')
+    rendered=rendered.replace(byline,'Komorebi P. · 13 November 2026',1)
     return re.sub(r'(</h1>)',lambda match:match[1]+'<p class="chemistry-lab-launch"><a href="../chemistry-lab.html">Explore the three-query chemistry laboratory</a> · Reveal the probes, vary the error bounds, and inspect an exact experiment certificate. <a href="../chemistry-responses.html">Then compare reusable full-model response scans</a>.</p>',rendered,count=1)
 
 
@@ -175,11 +181,11 @@ def publish(site):
         rendered=caption_tables(math_fences(rendered),page_record['table_captions'])
         rewritten=Rewriter(resolve);rewritten.feed(rendered);body=''.join(rewritten.out)
         contents=page_contents(body);body=re.sub(r'(</h1>)',lambda match:match[1]+contents,body,count=1)
-        nav='<p class="chemistry-lab-launch"><a href="'+site.rel('chemistry-lab.html',path)+'">Try the three-query chemistry laboratory</a> · <a href="'+site.rel('chemistry-responses.html',path)+'">Explore full-model response scans</a></p><details class="chemistry-reading-nav"><summary>Explore the chemistry notes</summary><nav aria-label="Chemistry checkpoint"><ul><li><a href="'+site.rel(OVERVIEW,path)+'">Research overview</a></li>'
+        nav='<p class="chemistry-lab-launch"><a href="'+site.rel('chemistry-lab.html',path)+'">Try the three-query chemistry laboratory</a> · <a href="'+site.rel('chemistry-responses.html',path)+'">Explore full-model response scans</a></p><details class="chemistry-reading-nav"><summary>Explore the chemistry notes</summary><nav aria-label="Computational chemistry reading routes"><ul><li><a href="'+site.rel(OVERVIEW,path)+'">Research overview</a></li>'
         for _,(target,label) in PAGES.items():nav+='<li><a href="'+target+'"'+(' aria-current="page"' if target==name else '')+'>'+html.escape(label)+'</a></li>'
         nav+='</ul></nav></details>'
-        provenance='<details class="chemistry-provenance"><summary>Source identity and downloads</summary><p>This is a reviewed reading edition with corrected prose, explicit derivations, and source correspondence. It is distinct from the retained original checkpoint.</p><p><a href="'+site.rel(READING_ASSETS+source_name,path)+'">Read the current Markdown source</a> · <a href="'+site.rel(READING_ASSETS+'manifest.json',path)+'">Edition correspondence and hashes</a> · <a href="'+site.rel(VALIDATION_ASSETS+'Stage14_Validated_Replay.zip',path)+'">Download the validated replay bundle</a></p>'
-        if page_record.get('original_member'):provenance+='<p><a href="'+site.rel(ASSETS+page_record['original_member'],path)+'">Read the original checkpoint member</a>. Its bytes remain unchanged.</p>'
+        provenance='<details class="chemistry-provenance"><summary>Source identity and downloads</summary><p>The reading text is bound to its reviewed source, explicit derivations and original research archive. The edition correspondence and hashes identify both records.</p><p><a href="'+site.rel(READING_ASSETS+source_name,path)+'">Read the Markdown source</a> · <a href="'+site.rel(READING_ASSETS+'manifest.json',path)+'">Edition correspondence and hashes</a> · <a href="'+site.rel(VALIDATION_ASSETS+'Stage14_Validated_Replay.zip',path)+'">Download the validated replay bundle</a></p>'
+        if page_record.get('original_member'):provenance+='<p><a href="'+site.rel(ASSETS+page_record['original_member'],path)+'">Read the archived source</a>. Its bytes remain unchanged.</p>'
         provenance+='<pre tabindex="0" role="group" aria-label="Current source SHA256; scroll horizontally if needed"><code>'+page_record['sha256']+'</code></pre></details>'
         index=order.index(source);pagination='<nav class="chemistry-pagination" aria-label="Previous and next chemistry notes">'
         if index:target,label=PAGES[order[index-1]];pagination+='<a rel="prev" href="'+target+'">Previous: '+html.escape(label)+'</a>'

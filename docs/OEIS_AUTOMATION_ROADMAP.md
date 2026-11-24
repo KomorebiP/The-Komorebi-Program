@@ -86,7 +86,7 @@ Here `P=A000129` and `C=A001333` are the stated Pell and companion sequences. Th
 | P1 | Transfer grammar | Extend the restricted parser to factorial lanes, Pochhammer ratios, polynomial exponentials, hypergeometric shifts, and holonomic linear operators | Exact all-index symbolic identities; singular indices and parameters checked |
 | P1 | Nontrivial bridge search | Candidate generation from cross-references, canonical OGF signatures, recurrence/operator normal forms, and characteristic polynomials | Independently replayed operator proof plus OEIS premises |
 | P1 | Graph route optimization | Directed hypergraph dynamic programming with target-index sets, precision contracts, and shared source DAGs | A reproducible, certified lower cost than the baseline on named queries |
-| P1 | Precision-aware transfer | Connect v1.7 regular atlas and Hensel-branch tools through a typed contract interface | Query-specific exact residue/Smith certificate; no unsupported singular extension |
+| P1 | Precision-aware transfer | Connect the regular precision atlas and Hensel-branch tools through a typed contract interface | Query-specific exact residue/Smith certificate; no unsupported singular extension |
 | P2 | Automatic singular handling | Stratify zero-Jacobian sets; use Newton/Hensel regularity where available; record unresolved strata | Proof that the branch atlas covers the requested admissible domain |
 | P2 | Independent proof replay | Generate proof objects for polynomial/rational identities and a small Lean checker, before adding wider algebra | Lean kernel replay without admitted placeholders |
 | P2 | Resource-aware discovery | Measure symbolic bit complexity, parsing rejections, and wall-clock costs; prioritize high-impact bridge candidates | Holdout benchmarks and exact result checks |
@@ -98,9 +98,9 @@ Here `P=A000129` and `C=A001333` are the stated Pell and companion sequences. Th
 - Formula syntax that happens to resemble Python code is only parsed into a restricted AST; neither source imports nor arbitrary function calls can run.
 - A citation in an OEIS formula can point to an unrelated object; cross-reference scores are strictly review heuristics.
 - An undirected connected component can contain irreversible transformations; the component size is not a measure of bidirectional computability.
-- The full OEIS clone was not downloaded in this local checkpoint, and full-corpus candidate counts are therefore not reported as verified output.
+- The bounded source audits do not establish full-corpus coverage. Full-corpus candidate counts require a separately verified complete ingest.
 - Source text is OEIS Foundation material under CC BY-SA 4.0; preserve authorship and attribution when distributing derived indices. License compatibility for larger repackaged corpora should be reviewed.
-- v1.7 precision-aware branch and gluing research exists as a separate archived implementation. It is not secretly imported as production code by this script.
+- Precision-aware branch and gluing research is preserved as a separate archived implementation. The gap scanner does not import it as production code.
 
 ## Release rule
 

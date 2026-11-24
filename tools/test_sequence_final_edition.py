@@ -5,7 +5,7 @@ import sys
 import unittest
 import json
 sys.path.insert(0,str(Path(__file__).resolve().parent))
-from sequence_final_edition import assemble,paper_fragment,verify_artifacts,EDITION
+from sequence_final_edition import assemble,paper_fragment,public_paper_fragment,verify_artifacts,EDITION
 from sequence_math_reading import mathematical_reading_fragment
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -21,6 +21,16 @@ class PaperTests(unittest.TestCase):
         self.assertIn('**Certificate lemma.**',paper)
         for name in ['K','L','M','N']:
             self.assertIn('**Theorem '+name+'.**',paper)
+
+    def test_public_article_has_canonical_byline_without_changing_frozen_paper(self):
+        frozen, receipt = paper_fragment(ROOT)
+        public, public_receipt = public_paper_fragment(ROOT)
+        self.assertIn('Komorebi P. Final edition 1.0. 21 November 2026.', frozen)
+        self.assertNotIn('Final edition 1.0', public)
+        self.assertIn('Komorebi P. · 21 November 2026.', public)
+        self.assertEqual(public.replace('Komorebi P. · 21 November 2026.',
+                         'Komorebi P. Final edition 1.0. 21 November 2026.', 1), frozen)
+        self.assertEqual(receipt, public_receipt)
 
     def test_final_reader_internal_cross_references_resolve(self):
         class Links(HTMLParser):
