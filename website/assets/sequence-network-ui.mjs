@@ -143,7 +143,17 @@ function explainEdge(edge, names) {
   const formatted=formatNetworkMath(edge);
   const block=node('section',undefined,'sn-formula-block');
   block.append(node('h4',edge.kind==='riordan'?'Recorded transform':'Transfer formula','sn-formula-label'));
-  block.append(equation(formatted.plain,formatted.tex,'Transfer formula'));
+  if(formatted.specialized){
+    block.append(equation(formatted.specialized.plain,formatted.specialized.tex,
+      'Specialized archived formula ratio','sn-statement sn-specialized-gauge'));
+    block.append(node('p','Here t is the local index. The arguments of the named sequence formulas include their recorded mathematical offsets. This is the archived ratio on its stated valid domain, not an independent OEIS identification.','sn-help'));
+  }else{
+    block.append(equation(formatted.plain,formatted.tex,'Transfer formula'));
+  }
+  if(formatted.specialized){
+    block.append(node('p','General ratio used in the certificate','sn-formula-label'));
+    block.append(equation(formatted.plain,formatted.tex,'General archived ratio','sn-definition sn-general-gauge'));
+  }
   if(formatted.definition){
     block.append(node('p','Defining factor','sn-formula-label'));
     block.append(equation(formatted.definition.plain,formatted.definition.tex,'Definition of L','sn-definition'));
