@@ -1,8 +1,8 @@
 # OEIS sequence identification proof gate
 
 **Author: Komorebi P.**
-**Checkpoint: 23 November 2026.**
-**Status: locally implemented and tested; no site publication or full OEIS scan claimed.**
+**Published: 23 November 2026.**
+**Evidence:** Exact conditional source-definition and transfer checks on bounded fixtures and selected complete official records. No unconditional OEIS identification or full-corpus coverage is claimed.
 
 ## The missing logical edge
 
@@ -82,6 +82,7 @@ python -B tools/oeis_identification_proofs.py \
   --output /path/to/proof-output
 python -B tools/oeis_identification_proofs.py \
   --oeis-root /path/to/oeisdata \
+  --ids A000032,A000045,A000217,A000290 \
   --output /path/to/proof-output --verify-report
 ```
 
@@ -99,13 +100,13 @@ The 9-entry local demonstration fixture contains four positive source-name and O
 - 58/58 tests passed across the recovered gap engine and the first- and higher-order proof-gated stages.
 - 0 unconditional OEIS identifications or mathematical novelty claims.
 
-The two fixture lines for Fibonacci, Lucas, triangular and square source statements are illustrative, abbreviated OEIS excerpts rather than full official `.seq` files. Test files `A987...` are *invented adversarial fixtures*, **not verified OEIS entries**. The genuine four-record OEIS job is configured but has not been executed as part of this offline test.
+The two fixture lines for Fibonacci, Lucas, triangular and square source statements are illustrative, abbreviated OEIS excerpts rather than full official `.seq` files. Test files `A987...` are *invented adversarial fixtures*, **not verified OEIS entries**. The separate [official-source verification](https://github.com/KomorebiP/The-Komorebi-Program/actions/runs/45289459477/job/138094189919) passed for four complete OEIS records, re-establishing four explicit name-definition equivalences and four conditional transfer directions. The workflow reported zero unconditional OEIS identifications. The local excerpts remain distinct from those full source records.
 
 ## Next automation tiers
 
 1. **Formal coverage expansion**: rational OGFs with ambiguous nonzero-offset conventions, index-shift maps, and additional delayed-recurrence grammars with explicit index-map certificates.
-2. **P-recursive / D-finite:** polynomial-coefficient recurrences and D-finite generating functions using Ore operator reduction; record singular indices and proof domains.
-3. **Hypergeometric and Pochhammer bridge families:** Ore-Sato/Zeilberger creative telescoping, exact factorial-lane and polyphase maps, singular boundary conditions.
+2. **P-recursive / D-finite:** expand the existing polynomial-coefficient recurrence and algebraic generating-function gates to wider D-finite operators, retaining singular indices and proof domains.
+3. **Hypergeometric and Pochhammer bridge families:** extend the existing rational gauges and affine-lane maps to more general factorial lanes, creative telescoping and singular boundary conditions.
 4. **Combinatorial definitions:** executable small-case checks are insufficient; add a proof language for bijections, species and recurrence derivations.
 5. **Proof backend:** optional Lean generated theorems with a verified kernel replay. Current exact Python proofs are not Lean-verified.
 6. **Cost and precision compiler:** directed hypergraph routing with input reconstruction, 2-adic/odd-adic valuations, Hensel branching and measured cost models. Never infer invertibility from undirected connectivity.

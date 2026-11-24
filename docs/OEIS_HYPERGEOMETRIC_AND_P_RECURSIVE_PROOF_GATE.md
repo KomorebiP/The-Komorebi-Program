@@ -1,15 +1,15 @@
 # OEIS conditional P-recursive and Pochhammer certificate layer
 
 **Author: Komorebi P.**
-**Checkpoint: 23 November 2026.**
+**Published: 23 November 2026.**
 **Scope:** exact first-order hypergeometric/Pochhammer and orders 2–4 P-recursive transfer implications.
-**Status:** tested locally on faithful *excerpts* and explicitly synthetic controls, not a full official OEIS source replay or an independent OEIS identification proof.
+**Evidence:** Exact checks on faithful excerpts and synthetic controls, together with bounded official-source replay. No independent OEIS identification proof or full-corpus verification is claimed.
 
 ## What the added engines certify
 
 ### First-order polynomial-coefficient recurrences
 
-The new `tools/oeis_hypergeometric_gate.py` parses a restricted OEIS `%F` statement of the form
+The `tools/oeis_hypergeometric_gate.py` module parses a restricted OEIS `%F` statement of the form
 
 \[
   a(n+1)=r(n)a(n),\qquad r(n)=\frac{P(n)}{Q(n)}\in\mathbb Q(n),\quad n\ge b.
@@ -72,7 +72,7 @@ Their corresponding **conditional** Pochhammer certificates are
 
 The exact rational-gauge certificate gives `C_n = binomial(2n,n)/(n+1)`, under both source statements and the initial terms. `A987110...` and `A987200...` are **synthetic test identifiers**, not asserted OEIS entries. The order-two demonstration is a designed positive control rather than a previously unknown OEIS transfer.
 
-The three audit collections generate five first-order Pochhammer normal forms, eight first-order directed gauge certificates, and six order-two directed gauge certificates from the source-excerpt/synthetic fixture pools. These counts are for **local fixtures only**, not official OEIS corpus coverage. All 58 local Python unit tests passed at the checkpoint, including source hash replay and adversarial controls.
+The three audit collections generate five first-order Pochhammer normal forms, eight first-order directed gauge certificates, and six order-two directed gauge certificates from the source-excerpt/synthetic fixture pools. These counts are for **local fixtures only**, not official OEIS corpus coverage. The original 58-test fixture suite passed, including source hash replay and adversarial controls. The integrated [recurrence certification workflow](https://github.com/KomorebiP/The-Komorebi-Program/actions/runs/45325359220/job/138213522864) passed 74 tests and separately rechecked the selected official Catalan, factorial and central-binomial source records.
 
 ## Exact reproduction
 
@@ -99,7 +99,7 @@ python -B tools/oeis_hypergeometric_gate.py \
   --output verification/oeis/official-hypergeom --verify-report
 ```
 
-The optional CI workflow stores receipts as artifacts. **Nothing is promoted into the existing static transfer graph without explicit review.** The release does not assert that full official OEIS ingestion, browser deployment, Lean certification or performance optimization has been completed.
+The CI workflow stores source-bound receipts as artifacts. **Nothing is promoted into the existing static transfer graph without explicit review.** These bounded verifications do not establish full official OEIS ingestion, public graph promotion, Lean certification or performance improvement.
 
 ## Remaining automation boundaries
 

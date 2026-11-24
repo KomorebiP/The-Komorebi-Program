@@ -1,7 +1,7 @@
-# Stage 5: algebraic generating functions and joint recurrence transfers
+# Algebraic generating functions and joint recurrence transfers
 
 **Author: Komorebi P.**
-**Checkpoint:** 23 November 2026.
+**Published:** 23 November 2026.
 **Scope:** bounded, exact, source-conditional proof automation. No claim of new classical identities, unconditional OEIS identifications, whole-corpus coverage, or measured speedups.
 
 ## Algebraic generating functions
@@ -80,7 +80,7 @@ For A001045 the exact target polynomial is `(z-2)(z+1)`. The algorithm chooses A
 
 ## Reproduction
 
-Requires Python and SymPy 1.14.0 (mpmath 1.3.0). SymPy is supplied only validated, constructed rational polynomials. No raw OEIS expression is passed to eval, exec, or sympify. The earlier gates remain dependency-free. The Stage 5 test directory is separate so existing sparse-checkout workflows do not unintentionally run it.
+Requires Python and SymPy 1.14.0 (mpmath 1.3.0). SymPy is supplied only validated, constructed rational polynomials. No raw OEIS expression is passed to eval, exec, or sympify. The recurrence gates remain dependency-free. The algebraic and joint-transfer test directory is separate so the standard-library workflows do not unintentionally run tests requiring symbolic algebra.
 
 ```sh
 python -m pip install sympy==1.14.0 mpmath==1.3.0
@@ -90,6 +90,6 @@ python -B tools/oeis_algebraic_gate.py --oeis-root fixtures/oeis_stage5 --plan f
 python -B tools/oeis_algebraic_gate.py --oeis-root fixtures/oeis_stage5 --plan fixtures/oeis_stage5/plan.json --output stage5.json --verify-report
 ```
 
-The six selected source excerpts preserve the original `%S`, `%F`, `%O` lines. The full-source plan requires the exact official Git blob and selected original formula line at the pinned revision. Source: The Online Encyclopedia of Integer Sequences, OEIS Foundation Inc., CC BY-SA 4.0. Excerpts are not whole records; the two modes intentionally have distinct source hashes. The new CI workflow downloads the six full records at the pinned revision and replays the exact certificates. It does not harvest the full corpus.
+The six selected source excerpts preserve the original `%S`, `%F`, `%O` lines. The full-source plan requires the exact official Git blob and selected original formula line at the pinned revision. Source: The Online Encyclopedia of Integer Sequences, OEIS Foundation Inc., CC BY-SA 4.0. Excerpts are not whole records; the two modes intentionally have distinct source hashes. The integrated [algebraic and joint-transfer verification](https://github.com/KomorebiP/The-Komorebi-Program/actions/runs/45325359130/job/138213522547) passed all 21 tests and replayed the six full records at their pinned revision. The full-record audit reproduced one joint certificate, two composition certificates, three family normal forms and three finite-sum normal forms. It does not harvest the full corpus.
 
 Current bounds: ordinary zero-offset algebraic generating functions, simple formal branches, squarefree polynomial quotient, bounded polynomial degree and recurrence order, at most four inputs and bounded recurrence state dimensions. Non-simple branches, arbitrary P-recursive operator factorization, D-finite closure, telescoping, general nonlinear multi-input identities, global cost minimization, complete corpus scheduling, and unconditional source identification remain outside this gate. All results stay in a separate conditional overlay. No change is made to the public Sequence Network.
