@@ -1,7 +1,7 @@
 # Cycle–Path Walk Transfers
 
 **Author: Komorebi P.**  
-**Version:** 1.1, 2026-11-24 (audited revision)  
+**Version:** 1.2, 2026-11-24 (OEIS source audit)  
 **Status:** mathematical proof with exact integer verification; not Lean-certified or peer reviewed.
 
 ## Abstract
@@ -120,13 +120,13 @@ These six remainders were independently checked by exact polynomial arithmetic. 
 
 For clarity, write $a=\mathrm{A094233}$ and $b=\mathrm{A005023}$. The original identity holds for every $n\geq0$ (the target index is always at least 1):
 
-$
+$$
 \begin{aligned}
 2b(n+1)={}&16a(2n)-24a(2n+1)\\
 &-64a(2n+2)-6a(2n+3)\\
 &+21a(2n+4).
 \end{aligned}
-$
+$$
 
 At $n=0$, the right-hand side is $16-128+126=14$, so $b(1)=7$. At $n=1$ it is $32-384+420=68$, so $b(2)=34$.
 
@@ -183,6 +183,36 @@ Here are two worked examples with the mathematical index starting at zero:
 - **Path 5 / cycle 6.** With $a=\mathrm{A047849}$, the formula becomes $2B_5(n)=a(n+3)-4a(n+2)-H_6(n+3)+4H_6(n+2)$. The lift gives $H_6(2)=6$ and $H_6(3)=20$, hence $2B_5(0)=22-24-20+24=2$. The sequence is $(3^{n+1}-1)/2$, which agrees with A003462 shifted by one.
 
 For $P_7$ the endpoint sequence begins $1,6,26,100,364$; for $P_8$ it begins $1,7,34,143,560$. These normalizations are essential: A063376 records only even-length cycle counts and starts at index -1, while A005023 omits the shortest walk and starts at index 1. The OEIS mappings in the table were rechecked on 2026-11-24.
+
+### Family-level OEIS correspondence
+
+Three existing arrays cover the whole family:
+
+- [A199571](https://oeis.org/A199571): the underlying array $w(m,k)$ equals $A_m(k)$ for $m\geq3$.
+- [A259475](https://oeis.org/A259475): zero-based square-array row $m-2$ equals $B_{m-1}(n)$.
+- [A198632](https://oeis.org/A198632): its underlying array of total closed path walks gives $V(p,h)=\operatorname{tr}(P_p^{2h})$.
+
+For the endpoint array, define $F_0(t)=F_1(t)=1$ and $F_{p+1}(t)=F_p(t)-tF_{p-1}(t)$, as in A259475. The tridiagonal determinant recurrence gives $\det(I-zP_p)=F_p(z^2)$, and the endpoint cofactor is $z^{p-1}$. Consequently
+
+$
+\sum_{n\geq0}B_p(n)t^n=\frac{1}{F_p(t)}.
+$
+
+Since row $r$ of A259475 has generating function $1/F_{r+1}(t)$, the stated row correspondence follows. In particular, row 4 is A003462 shifted by one, not A003432 (the maximum-determinant sequence named in the retrieved cross-reference). The latter appears to be an OEIS cross-reference typo.
+
+Section 6 gives an additional array-level transfer:
+
+$
+V(m-1,h)=m\sum_{j=0}^h\binom hj2^{h-j}w(m,j)-4^h.
+$
+
+### Independent OEIS data audit
+
+The [source audit checker](../../examples/check_cycle_path_oeis.py) compares retrieved OEIS records with exact walk enumeration. It passed 868 checks: 96 cycle terms, 85 path terms, 83 endpoint transfers compared with OEIS target terms, 16 original five-term transfers evaluated using only the retrieved source and target terms, and 588 reciprocal-determinant coefficient checks against direct walks (cycle orders 3 through 30, indices 0 through 20). The last group is not downloaded OEIS data.
+
+Run with Python 3, without optimization: `python -B examples/check_cycle_path_oeis.py`.
+
+Source audit date: 2026-11-24. Some live pages returned HTTP 403; indexed and internal-format records were used instead. The original A094233/A005023 identity was not present in either retrieved entry's formula fields. Absence of every other family transfer has not been exhaustively established. No OEIS submissions or edits were made.
 
 ## 8. Verification and research boundary
 
