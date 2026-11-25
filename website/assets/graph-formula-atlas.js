@@ -28,6 +28,9 @@
         if(form.dataset.arrayModel){
           if(!window.graphArrayEngine)throw Error('The array evaluator is unavailable. Reload the page.');
           result=window.graphArrayEngine.value(JSON.parse(form.dataset.arrayModel),n);
+        }else if(form.dataset.supplementId){
+          if(!window.graphSupplementEngine)throw Error('The graph evaluator is unavailable. Reload the page.');
+          result=window.graphSupplementEngine.value(form.dataset.supplementId,n);
         }else{result=value(JSON.parse(form.dataset.model),n)}
         output.textContent='a('+input.value+') = '+result;
       }
