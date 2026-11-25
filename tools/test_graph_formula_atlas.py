@@ -2,9 +2,27 @@
 import unittest
 import tempfile
 from pathlib import Path
+from html.parser import HTMLParser
 from graph_formula_atlas import load, evaluate, build, PreviewSite, FAMILIES
 
 ROOT=Path(__file__).resolve().parents[1]
+
+class Controls(HTMLParser):
+    def __init__(self, text):
+        super().__init__()
+        self.labels=set()
+        self.controls=[]
+        self.ids=[]
+        self.feed(text)
+    def handle_starttag(self, tag, attrs):
+        a=dict(attrs)
+        if a.get('id'):
+            self.ids.append(a['id'])
+        if tag=='label' and a.get('for'):
+            self.labels.add(a['for'])
+        if tag in ('input','select','textarea'):
+            self.controls.append(a)
+
 class GraphFormulaAtlasTests(unittest.TestCase):
     def test_inventory_and_exact_evaluation(self):
         *_, records, counts=load(ROOT)
@@ -21,8 +39,16 @@ class GraphFormulaAtlasTests(unittest.TestCase):
             result=build(site)
             self.assertEqual(result['formula_records'],462)
             self.assertEqual((Path(out)/'graph-formulas.html').read_text().count('data-gfa-record '),462)
+            controls=Controls((Path(out)/'graph-formulas.html').read_text())
+            self.assertEqual(len(controls.controls),3)
+            self.assertTrue(all(c.get('id') in controls.labels or c.get('aria-label') for c in controls.controls))
+            self.assertEqual(len(controls.ids),len(set(controls.ids)))
             for slug,_,_,count,_ in FAMILIES:
                 body=(Path(out)/'graph-formulas'/f'{slug}.html').read_text()
                 self.assertEqual(body.count('<details class="gfa-record"'),count)
+                controls=Controls(body)
+                self.assertTrue(all(c.get('id') in controls.labels or c.get('aria-label') for c in controls.controls))
+                self.assertEqual(len(controls.ids),len(set(controls.ids)))
+                self.assertEqual(len(controls.controls),count if slug in {f[0] for f in FAMILIES[:8]} else 0)
 
 if __name__=='__main__':unittest.main()
