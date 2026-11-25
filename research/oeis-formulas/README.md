@@ -107,3 +107,7 @@ Official OEIS source revision `12ede576d2f5b5c96c54d315a558be3ac56ee474` was imp
 [Read the lattice factorization, polyphase spectra and sharp graph realization continuation](../../docs/LATTICE_POLYPHASE_GRAPH.md). It extends the exact recurrence orders through width ten, closes five weighted minima using integer spectral obstructions, and gives a direct cyclic graph construction and full-table independence-polynomial reconstruction theorem.
 
 [Exact audit](LATTICE_POLYPHASE_GRAPH_AUDIT.json) · [Direct graph verifier](../../tools/check_direct_lattice_graph.py).
+
+## Graph and array formula atlas
+
+[Browse 462 graph, tree and constrained-array formulas](https://komorebip.github.io/The-Komorebi-Program/graph-formulas.html) · [Retained source catalogs](../graph-formula-atlas/). The 15 groups contain 184 distinct inherited OEIS bindings and 288 structural-core models with exact binomial-residue evaluation. See the atlas source manifest and proof files for the evidence boundaries.

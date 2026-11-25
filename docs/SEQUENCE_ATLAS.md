@@ -412,3 +412,7 @@ certification or new mathematical review.
 ## Lattice and spectral generalization
 
 [Read the lattice factorization, polyphase spectra and sharp graph realization continuation](LATTICE_POLYPHASE_GRAPH.md). It extends the exact recurrence orders through width ten, closes five weighted minima using integer spectral obstructions, and gives a direct cyclic graph construction and full-table independence-polynomial reconstruction theorem.
+
+## Graph and array formula atlas
+
+[Browse the graph and array formula atlas](https://komorebip.github.io/The-Komorebi-Program/graph-formulas.html). The atlas contains 462 retained formula records in 15 groups, including 288 structural-core graph and tree models, 168 array models, and six additional graph formulas. There are 184 distinct OEIS identifiers and 262 distinct rational functions among the structural-core models. Every coefficient and the complete binomial-residue expansions are retained. The original evidence labels are preserved; this is not a new corpus scan.

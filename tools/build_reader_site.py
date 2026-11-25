@@ -784,6 +784,8 @@ class Site:
         chemistry_responses = build_chemistry_responses(self)
         from sequence_atlas import build as build_sequence_atlas
         sequence_atlas = build_sequence_atlas(self)
+        from graph_formula_atlas import build as build_graph_formula_atlas
+        graph_formula_atlas = build_graph_formula_atlas(self)
         from jspace_lab import build as build_jspace_lab
         jspace_lab = build_jspace_lab(self)
         self.indexes()
@@ -807,6 +809,7 @@ class Site:
         result['chemistry_lab'] = chemistry_lab
         result['chemistry_responses'] = chemistry_responses
         result['sequence_atlas'] = sequence_atlas
+        result['graph_formula_atlas'] = graph_formula_atlas
         result['search'] = self.search_summary
         result['discovery'] = discovery
         self.write('build-info.json',json.dumps(result,indent=2)+'\n')
