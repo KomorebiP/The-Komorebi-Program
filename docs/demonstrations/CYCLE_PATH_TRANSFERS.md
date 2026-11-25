@@ -1,12 +1,23 @@
 # Cycle–Path Walk Transfers
 
 **Author: Komorebi P.**  
-**Version:** 1.3, 2026-11-24 (reversible triangular transfer)  
+**Version:** 2.0, 2026-11-24 (consolidated theorem and verification edition)  
 **Status:** mathematical proof with exact integer verification; not Lean-certified or peer reviewed.
 
 ## Abstract
 
 Given the return-walk sequence of a simple cycle of known order, explicit sequence transforms produce every entry of every adjacency matrix power of the path obtained by removing one vertex. The construction consists of a binomial lift to a doubled cycle and an antisymmetric boundary projection expressed by Chebyshev polynomials. Endpoint enumeration simplifies to a two-term transfer for odd cycle orders. For even orders a direct stride-two polynomial transfer is obstructed by missing spectral support, but the binomial lift removes the obstruction. The cycle sequence is also recoverable from path traces. This is an explicit sequence-level formulation of classical discrete reflection and spectral methods within Realization Calculus; no priority claim is made for the reflection principle.
+
+## Unified formula map
+
+Use $a_n=A_m(n)$, $b_n=B_{m-1}(n)$, $h_n=H_m(n)$, and $v_n=\operatorname{tr}(P_{m-1}^{2n})$. The core equivalence is
+
+$
+a\ \longleftrightarrow\ h\ \longleftrightarrow\ v\
+\longleftrightarrow\ b.
+$
+
+The binomial lift and the affine trace transfer are invertible. The logarithmic-derivative transfer between traces and endpoint counts is triangular and invertible over normalized rational series. For graph inputs, all recovered values are integers. The linear Chebyshev projection additionally reconstructs every path matrix entry. The following sections present complete proofs, the original OEIS example, parity-dependent compression and the obstruction, the equally long prefix transfer, a uniform lifted filter, explicit matrix coefficients, and the general spectral criterion.
 
 ## 1. Definitions
 
@@ -330,3 +341,207 @@ python -B examples/check_cycle_path_triangular.py
 The development run returned 13,382 explicit comparisons: 5,978 forward, 5,978 inverse, 1,372 prefix-level comparisons and 54 OEIS term comparisons, in addition to internal exact-division checks. The proof above, rather than the finite tests, establishes the unrestricted identity.
 
 The determinant and logarithmic-derivative identities use classical spectral and symmetric-function methods. This extension identifies a different, reversible transfer class and a finite-prefix sufficiency result. It makes no claim of literature-wide priority or lower computational complexity. No Lean certification is claimed.
+
+## 11. Unified linear transfer for both parities
+
+The fixed-stride obstruction in Section 5 is a restriction on the *unlifted* cycle sequence. After the binomial lift, one integer polynomial filter works for every order.
+
+Let $a_n=A_m(n)$, $h_n=H_m(n)$, $b_n=B_{m-1}(n)$. Write $c_d(x)=2T_d(x/2)$, with $c_0=2$, $c_1=x$, and $c_{d+1}=xc_d-c_{d-1}$. Define $J_m(y)$ by
+
+$$
+J_m(x^2)=x^{m-2}\bigl(c_{m-2}(x)-c_m(x)\bigr).
+$$
+
+This defines an integer polynomial uniquely, because $c_d$ has parity $d$. Set $r=\lfloor m/2\rfloor$ and
+
+$$
+M_m(x)=
+\begin{cases}
+(x-2)(U_r(x/2)+U_{r-1}(x/2)),&m=2r+1,\\
+(x^2-4)U_{r-1}(x/2),&m=2r.
+\end{cases}
+$$
+
+Both polynomials are monic, with precisely the distinct eigenvalues of the simple cycle as their roots. The even case follows from the roots $2\cos(\pi j/r)$ of $U_{r-1}(x/2)$ for $1\le j<r$, together with $2,-2$. Define
+
+$$
+R_m(y)=\operatorname{rem}_{M_m(y-2)}J_m(y).
+$$
+
+**Theorem.** For all $m\ge3$ and $n\ge0$,
+
+$$
+\boxed{2b_n=[R_m(E)h](n)},\qquad \deg R_m\le\lfloor m/2\rfloor.
+$$
+
+**Proof.** In Section 2 take $i=1$, $j=m-1$, and $k=2n+m-2$. Twice the resulting entry is $[J_m(E^2)A_{2m}](2n)=[J_m(E)h](n)$. The sequence $h$ consists of diagonal moments of $2I+C_m$, whose distinct-eigenvalue polynomial is $M_m(y-2)$. It annihilates $h$, so polynomial reduction leaves the output unchanged. Its degree is $r+1$, giving the stated degree bound. Monicity ensures integer remainders. QED.
+
+The following coefficient vectors are in ascending powers of $y$, including a zero constant where appropriate. These filters output $2b_n$ from $h_n,h_{n+1},\ldots$; unlike the $Q_m$ of Section 4, they do not output $2b_{n+1}$ from the unlifted sequence at stride two.
+
+| $m$ | Coefficients of $R_m$ |
+|---:|---|
+| 3 | 4, -1 |
+| 4 | 0, 4, -1 |
+| 5 | -4, 9, -2 |
+| 6 | 0, -12, 11, -2 |
+| 7 | 8, -46, 31, -5 |
+| 8 | 0, 32, -72, 36, -5 |
+| 9 | -20, 197, -272, 112, -14 |
+| 10 | 0, -100, 385, -370, 126, -14 |
+| 11 | 56, -834, 1873, -1401, 414, -42 |
+| 12 | 0, 336, -1924, 2944, -1773, 456, -42 |
+| 13 | -168, 3514, -11472, 13255, -6743, 1551, -132 |
+
+For $m=6$, the identity is $2b_n=-12h_{n+1}+11h_{n+2}-2h_{n+3}$. At $n=0$ the lifted terms $2,6,20$ give $-24+66-40=2$. At $n=1$ the terms $6,20,70$ give $-72+220-140=8$. Thus $b_0=1$ and $b_1=4$.
+
+For $m=8$, the identity is $2b_n=32h_{n+1}-72h_{n+2}+36h_{n+3}-5h_{n+4}$. At $n=0$ the terms $2,6,20,70$ give $64-432+720-350=2$. At $n=1$ the terms $6,20,70,252$ give $192-1440+2520-1260=12$. Thus $b_0=1$ and $b_1=6$.
+
+### Explicit scalar-to-matrix transfer coefficients
+
+Let $d_s=[x^s](c_{|i-j|}(x)-c_{i+j}(x))$. For a fixed path order $m-1$, define the integer matrix rows indexed by $(k,i,j)$ and columns indexed by $u\ge0$:
+
+$$
+\mathsf L_{(k,i,j),u}=
+\sum_{\substack{0\le s\le i+j\\ k+s\ \mathrm{even}\\(k+s)/2\ge u}}
+d_s\binom{(k+s)/2}{u}2^{(k+s)/2-u}.
+$$
+
+Then
+
+$$
+\boxed{2(P_{m-1}^k)_{ij}
+=\sum_{u=0}^{\lfloor(k+i+j)/2\rfloor}
+\mathsf L_{(k,i,j),u}a_u.}
+$$
+
+This is the explicit transfer matrix obtained by substituting the binomial lift into the Chebyshev projection. Each row is finite. The order is supplied, and the formula recovers the walk matrix, not an unknown graph topology. For $m=5,k=3,i=1,j=2$, the Chebyshev difference is $(4x-x^3)/2$. Hence $(P_4^3)_{12}=(4h_2-h_3)/2=(24-20)/2=2$.
+
+## 12. Closed forms and a unified generating-function diagram
+
+Let $\mathcal A(t)=\sum_{n\ge0}a_nt^n$, $\mathcal H(t)=\sum_{n\ge0}h_nt^n$, $\mathcal B(t)=\sum_{n\ge0}b_nt^n$, and $\mathcal V(t)=\sum_{n\ge0}\operatorname{tr}(P_{m-1}^{2n})t^n$. All identities below are formal power-series identities.
+
+The cycle itself has the finite counting formula
+
+$$
+a_k=\sum_{\substack{0\le j\le k\\m\mid(2j-k)}}\binom{k}{j},
+$$
+
+because a walk consists of $j$ clockwise steps and $k-j$ counterclockwise steps and returns precisely when its net displacement is divisible by $m$. Its equivalent Fourier expression is $a_k=m^{-1}\sum_{j=0}^{m-1}(2\cos(2\pi j/m))^k$, with the zeroth powers interpreted as 1.
+
+The binomial, trace and logarithmic-derivative transfers are
+
+$$
+\begin{aligned}
+\mathcal H(t)&=\frac{\mathcal A(t/(1-2t))}{1-2t},\\
+\mathcal A(t)&=\frac{\mathcal H(t/(1+2t))}{1+2t},\\
+\mathcal V(t)&=m\mathcal H(t)-\frac1{1-4t},\\
+\mathcal V(t)&=(m-1)+2t\,\mathcal B'(t)/\mathcal B(t).
+\end{aligned}
+$$
+
+The constant term of the trace series is $m-1$, not zero. The two binomial formulas follow by summing the binomial transform and its inverse. The trace and logarithmic-derivative formulas follow from Sections 6 and 10.
+
+Equivalently, if $g_k=mh_k-4^k$ for $k\ge1$, the exponential transfer has the fully finite coefficient form
+
+$$
+\boxed{
+b_n=\sum_{\substack{r_1,\ldots,r_n\ge0\\
+\sum_{k=1}^n kr_k=n}}
+\prod_{k=1}^n\frac{1}{r_k!}
+\left(\frac{g_k}{2k}\right)^{r_k}.
+}
+$$
+
+The empty product and sum over the empty tuple give $b_0=1$. The formula is obtained by multiplying the series for $\exp(g_kt^k/(2k))$. For instance $b_1=g_1/2$, $b_2=g_2/4+g_1^2/8$, and $b_3=g_3/6+g_1g_2/8+g_1^3/48$. For $m=8$ these give 6, 26 and 100. Rational summands need not individually be integers; the graph-derived sum is an integer.
+
+The reciprocal determinant also supplies a coefficient recurrence with no spectral quantities:
+
+$$
+F_p(t)=\sum_{j=0}^{\lfloor p/2\rfloor}(-1)^j\binom{p-j}{j}t^j,\qquad
+b_n=\sum_{j=1}^{\min(n,\lfloor p/2\rfloor)}
+(-1)^{j+1}\binom{p-j}{j}b_{n-j},
+$$
+
+where $p=m-1$. The first equality follows from the recurrence for $F_p$ and Pascal's identity. The second follows by multiplying $\mathcal B F_p=1$.
+
+### Special mixed-dilation formulas: cycle 8 and path 7
+
+For this subsection only, write $a(n)=\mathrm{A063376}(n)=2^n+4^n$ for $n\ge0$ and $b(n)=\mathrm{A005022}(n)$. Thus this $a(n)$ is the shifted even bisection, not the full cycle moment. Let $f(n)=4a(n)-a(n+1)$ and $d(n)=b(n+2)-4b(n+1)+2b(n)$. Then
+
+$$
+2b(n)=\sum_{j=1}^{\lfloor(n+2)/2\rfloor}\binom{n+2}{2j}f(n+1-j),
+$$
+
+$$
+4a(n)=d(n)+d(2n).
+$$
+
+Indeed $f(n)=2^{n+1}$, and the reciprocal path determinant gives
+
+$$
+b(n)=\frac{(2+\sqrt2)^{n+2}+(2-\sqrt2)^{n+2}-2^{n+3}}4.
+$$
+
+Expanding the two radical powers proves the forward formula; applying the polynomial $x^2-4x+2$ kills both radical bases and gives $d(n)=4\cdot2^n$, proving the reverse formula. For example, $2b(2)=6f(2)+f(1)=48+4=52$. Also $d(0)=26-24+2=4$ and $d(1)=100-104+12=8$, $d(2)=364-400+52=16$, so $a(0)=2$, $a(1)=(8+16)/4=6$. The boundary term $a(-1)=1$ must be supplied separately. This is a different transfer class from the obstructed fixed-stride operator.
+
+### Small cases and OEIS normalization
+
+The following prefixes use the mathematical endpoint index $n=0$ for every row. They are generated by the universal formulas, not estimates.
+
+| Path / cycle | $b_0,b_1,b_2,b_3,b_4$ |
+|---|---|
+| 2 / 3 | 1, 1, 1, 1, 1 |
+| 3 / 4 | 1, 2, 4, 8, 16 |
+| 4 / 5 | 1, 3, 8, 21, 55 |
+| 5 / 6 | 1, 4, 13, 40, 121 |
+| 6 / 7 | 1, 5, 19, 66, 221 |
+| 7 / 8 | 1, 6, 26, 100, 364 |
+| 8 / 9 | 1, 7, 34, 143, 560 |
+| 9 / 10 | 1, 8, 43, 196, 820 |
+| 10 / 11 | 1, 9, 53, 260, 1156 |
+| 11 / 12 | 1, 10, 64, 336, 1581 |
+| 12 / 13 | 1, 11, 76, 425, 2109 |
+
+In addition to the individual entries in Section 7, A094811 gives $B_7(n)$ at its index $n+2$, and A094256 gives $B_8(n)$ at its index $n+1$ (including the shortest walk). The entire table belongs to the row-indexed array A259475. The A003432 cross-reference there appears to be a typo for A003462; the current records were checked again for this revision. No OEIS edits were submitted.
+
+## 13. General finite spectral transfer theorem
+
+The cycle/path results are a concrete instance of a general classification for scalar observables of finite real symmetric matrices. Let $a_n=u^\top A^nv$ and $b_n=s^\top B^nt$. Write their active spectral expansions as $a_n=\sum_{\lambda\in S_a}\alpha_\lambda\lambda^n$ and $b_n=\sum_{\mu\in S_b}\beta_\mu\mu^n$, retaining only nonzero weights. For a positive integer stride $q$, a fixed polynomial transfer $b_n=[P(E)a](qn)$ for all $n\ge0$ exists over the reals if and only if
+
+$$
+S_b\subseteq\{\lambda^q:\lambda\in S_a\}.
+$$
+
+To prove necessity, group terms by the powered eigenvalue and use independence of the sequences $\mu^n$ on distinct nodes (the Vandermonde determinant, with $0^0=1$ at index zero). For sufficiency, select one active source node in each powered class, assign it the value $\beta_\mu/\alpha_\lambda$ with zero for absent target weights, set the remaining node values to zero, and interpolate. The zero source/target case is interpreted separately as the zero transfer. When $S_a$ is nonempty the degree is at most $|S_a|-1$. More explicitly, for $P(x)=\sum_{j=0}^d c_jx^j$, the finite transfer system is
+
+$$
+\sum_{j=0}^{d}M_{\mu j}c_j=\beta_\mu,\qquad
+M_{\mu j}=\sum_{\lambda^q=\mu}\alpha_\lambda\lambda^j.
+$$
+
+The target weight is zero at absent target nodes. This system describes degree-constrained existence and nonuniqueness, including collisions under powering. If the matrices and observable vectors are rational, rational coefficients exist whenever real coefficients do: at degree $|S_a|-1$ the equations for the first $|S_a^q\cup S_b|$ sequence indices form a consistent rational linear system; equality at those indices implies equality at every index by the Vandermonde argument. This does not imply integral coefficients or a computational advantage. The even-cycle obstruction is exactly a failure of this containment condition; lifting replaces the admissible spectral nodes.
+
+## 14. Consolidated reproducibility record
+
+The [unified checker](../../examples/check_cycle_path_unified.py) adds the following exact comparisons to the three earlier programs:
+
+| New check | Count |
+|---|---:|
+| Cycle binomial counting formula, orders 3–100 | 3,038 |
+| Reduced all-order lifted polynomial filters | 3,038 |
+| Displayed filter coefficient vectors | 11 |
+| Explicit scalar-to-matrix transfer rows, orders 3–16, lengths 0–8 | 11,151 |
+| Finite partition formula, orders 3–100, indices 0–8 | 882 |
+| Mixed-dilation order-8 identities, indices 0–40 | 82 |
+| **New comparisons** | **18,202** |
+
+All four programs were rerun with assertions enabled for version 2.0:
+
+```sh
+python -B examples/check_cycle_path.py
+python -B examples/check_cycle_path_oeis.py
+python -B examples/check_cycle_path_triangular.py
+python -B examples/check_cycle_path_unified.py
+```
+
+Their counted comparisons total 218,546 (186,094 + 868 + 13,382 + 18,202), with overlapping mathematical cases across programs, not 218,546 independent theorems. All passed. The spectral classification in Section 13 is proved algebraically, not presented as a separate software or Lean certification. The scope remains simple cycles and paths of known order, and scalar transfers for finite real symmetric matrices. Classical reflection, determinant identities, Chebyshev recurrences and spectral interpolation are the underlying methods. No literature-wide priority claim, Lean verification, or computational complexity improvement is established.
