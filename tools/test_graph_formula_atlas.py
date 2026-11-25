@@ -1,9 +1,12 @@
 """Author: Komorebi P. Static source, arithmetic and route checks."""
 import unittest
 import tempfile
+import json
+import subprocess
 from pathlib import Path
 from html.parser import HTMLParser
 from graph_formula_atlas import load, evaluate, build, PreviewSite, FAMILIES
+from graph_formula_atlas_transfers import ADDED_FAMILIES, TRANSFER_JSON, TRANSFER_PAGE
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -37,18 +40,35 @@ class GraphFormulaAtlasTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as out:
             site=PreviewSite(ROOT,Path(out))
             result=build(site)
-            self.assertEqual(result['formula_records'],462)
-            self.assertEqual((Path(out)/'graph-formulas.html').read_text().count('data-gfa-record '),462)
+            self.assertEqual(result['formula_records'],537)
+            self.assertEqual(result['families'],17)
+            self.assertEqual(result['exact_calculators'],363)
+            bundle=json.loads((Path(out)/TRANSFER_JSON).read_text())
+            self.assertEqual(len(bundle['coreModels']),288)
+            self.assertEqual(len(bundle['nonbipartiteModels']),75)
+            self.assertEqual(len(bundle['transfers']),60)
+            self.assertEqual(len(bundle['zeroComplements']),11)
+            self.assertEqual(len(bundle['equivalenceGroups']),16)
+            self.assertTrue((Path(out)/TRANSFER_PAGE).is_file())
+            self.assertEqual((Path(out)/'graph-formulas.html').read_text().count('data-gfa-record '),537)
             controls=Controls((Path(out)/'graph-formulas.html').read_text())
             self.assertEqual(len(controls.controls),3)
             self.assertTrue(all(c.get('id') in controls.labels or c.get('aria-label') for c in controls.controls))
             self.assertEqual(len(controls.ids),len(set(controls.ids)))
-            for slug,_,_,count,_ in FAMILIES:
+            for slug,_,_,count,_ in FAMILIES+ADDED_FAMILIES:
                 body=(Path(out)/'graph-formulas'/f'{slug}.html').read_text()
                 self.assertEqual(body.count('<details class="gfa-record"'),count)
                 controls=Controls(body)
                 self.assertTrue(all(c.get('id') in controls.labels or c.get('aria-label') for c in controls.controls))
                 self.assertEqual(len(controls.ids),len(set(controls.ids)))
-                self.assertEqual(len(controls.controls),count if slug in {f[0] for f in FAMILIES[:8]} else 0)
+                self.assertEqual(len(controls.controls),count if slug in {f[0] for f in FAMILIES[:8]+ADDED_FAMILIES} else 0)
+
+    def test_all_index_audit_negative_control(self):
+        p=subprocess.run(['node',str(ROOT/'tools/verify_graph_formula_atlas_exact.js')],
+                         cwd=ROOT,check=True,capture_output=True,text=True)
+        report=json.loads(p.stdout)
+        self.assertEqual(report['identities'],288)
+        self.assertEqual(report['lanes'],1752)
+        self.assertTrue(report['negativeControlRejected'])
 
 if __name__=='__main__':unittest.main()
