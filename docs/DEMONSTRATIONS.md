@@ -29,6 +29,7 @@ seed-generation example.
 | [Quantum phase and measurement](demonstrations/QUANTUM_PHASE_MEASUREMENT.md) | Determine which information a measurement retains. | Exact tomography, a coherence-loss obstruction, reversible records, amplitude damping, and finite syndrome recovery. |
 | [Stirling, Bell, and Fubini numbers](demonstrations/STIRLING_BELL_FUBINI.md) | Transfer between counting families and coordinate profiles. | Inverse triangular kernels, generating functions, moment representations, residue transfer, and exact interpolation. |
 | [Roots of unity and falling factorials](demonstrations/ROOTS_UNITY_FALLING_FACTORIAL.md) | Move residue projectors into Newton coordinates. | Exact spectral projectors, refinement, translation transfer, and failures caused by filtering in the wrong basis. |
+| [Cycle–path walk transfers](demonstrations/CYCLE_PATH_TRANSFERS.md) | Recover path walks from scalar cycle return counts. | Exact binomial lifts, Chebyshev transfer polynomials, inverse trace reconstruction, and an even-order spectral obstruction. |
 
 Each study includes hand derivations, failure controls, source links, and exact
 Python checks. Its own scope section identifies the statements and tested
