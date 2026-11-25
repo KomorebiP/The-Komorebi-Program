@@ -7,6 +7,8 @@ import math
 import posixpath
 import re
 import shutil
+import subprocess
+import tempfile
 from fractions import Fraction
 from pathlib import Path
 
@@ -170,29 +172,78 @@ def render(text):
 def family_url(slug):return 'graph-formulas/'+slug+'.html'
 
 def build(site):
+    from graph_formula_atlas_transfers import compile_transfers, ADDED_FAMILIES, TRANSFER_PAGE, TRANSFER_JSON
     raw,graph,arr,supplement,records,counts=load(site.root)
+    bundle, additions=compile_transfers(site.root,records,evaluate)
+    with tempfile.TemporaryDirectory() as tmp:
+        array_path=Path(tmp)/'array-index.json'
+        subprocess.run(['node',str(site.root.resolve()/'tools/compile_graph_array_atlas.js'),str(array_path)],
+                       cwd=site.root.resolve(),check=True,capture_output=True,text=True)
+        array_bundle=json.loads(array_path.read_text(encoding='utf-8'))
+    array_models=array_bundle['models']
+    array_families={'parity-arrays','boundary-arrays','binomial-arrays','finite-state-arrays','block-arrays'}
+    if set(array_models)!={r['id'] for r in records if r['family'] in array_families}:
+        raise ValueError('Array calculator inventory mismatch')
+    for row in records:
+        if row['id'] in array_models:
+            row['array_model']=array_models[row['id']]
+    site.write('graph-formulas/sources/array-calculator-index.json',json.dumps(array_bundle,separators=(',',':'))+'\n')
+    with tempfile.TemporaryDirectory() as tmp:
+        supplement_path=Path(tmp)/'supplement-index.json'
+        subprocess.run(['node',str(site.root.resolve()/'website/assets/graph-supplement-evaluator.js'),str(supplement_path)],
+                       cwd=site.root.resolve(),check=True,capture_output=True,text=True)
+        supplement_bundle=json.loads(supplement_path.read_text(encoding='utf-8'))
+    supplement_models=supplement_bundle['models']
+    if set(supplement_models)!={r['id'] for r in records if r['family'] in {'walks','labeled'}}:
+        raise ValueError('Supplement calculator inventory mismatch')
+    for row in records:
+        if row['id'] in supplement_models:
+            row['supplement_model']=supplement_models[row['id']]
+    site.write('graph-formulas/sources/graph-supplement-index.json',json.dumps(supplement_bundle,separators=(',',':'))+'\n')
+    records=records+additions
+    families=FAMILIES+ADDED_FAMILIES
+    site.write(TRANSFER_JSON,json.dumps(bundle,separators=(',',':'))+'\n')
+    by_id={r['id']:r for r in records}
+    equivalent={m['id']:m['equivalentTo'] for m in bundle['coreModels']}
+    by_target={}
+    for relation in bundle['transfers']:
+        by_target.setdefault(relation['target'],[]).append(relation)
+    def record_link(rid,page):
+        return '<a href="'+site.rel(family_url(by_id[rid]['family']),page)+'#'+esc(rid)+'">'+esc(rid)+'</a>'
+    def related(row,page):
+        rid=row['id']; out=[]
+        if equivalent.get(rid):
+            out.append('<p>Exactly equal generating functions: '+', '.join(record_link(v,page) for v in equivalent[rid])+'. Equality concerns the counting sequence, not necessarily the objects counted.</p>')
+        if row.get('parents'):
+            a,b=row['parents']
+            out.append('<p>Exact complement transfer: '+record_link(a,page)+' minus '+record_link(b,page)+'.</p>')
+        for t in by_target.get(rid,[]):
+            out.append('<p>Exact transfer ('+esc(t['type'])+'): '+' + '.join(record_link(v,page) for v in t['sources'])+'.</p>')
+        return ''.join(out)
     for name,source in raw.items():site.write('graph-formulas/sources/'+name,source)
     manifest={name:hashlib.sha256(source.encode()).hexdigest() for name,source in raw.items()}
     site.write('graph-formulas/sources/manifest.json',json.dumps(manifest,indent=2)+'\n')
     version=hashlib.sha256((site.root/'website/assets/graph-formula-atlas.js').read_bytes()).hexdigest()[:12]
     cssver=hashlib.sha256((site.root/'website/assets/graph-formula-atlas.css').read_bytes()).hexdigest()[:12]
+    arrayver=hashlib.sha256((site.root/'website/assets/graph-array-evaluator.js').read_bytes()).hexdigest()[:12]
+    supplementver=hashlib.sha256((site.root/'website/assets/graph-supplement-evaluator.js').read_bytes()).hexdigest()[:12]
     def shell(page,title,content):
         asset=lambda name:site.rel('assets/'+name,page)
-        site.page(page,title,'<link rel="stylesheet" href="'+asset('graph-formula-atlas.css')+'?v='+cssver+'"><div class="gfa">'+content+'</div><script defer src="'+asset('graph-formula-atlas.js')+'?v='+version+'"></script>')
+        site.page(page,title,'<link rel="stylesheet" href="'+asset('graph-formula-atlas.css')+'?v='+cssver+'"><div class="gfa">'+content+'</div><script defer src="'+asset('graph-array-evaluator.js')+'?v='+arrayver+'"></script><script defer src="'+asset('graph-supplement-evaluator.js')+'?v='+supplementver+'"></script><script defer src="'+asset('graph-formula-atlas.js')+'?v='+version+'"></script>')
     def nav(page):
-        return '<nav class="gfa-nav" aria-label="Formula atlas navigation"><a href="'+site.rel(HUB,page)+'">Formula atlas</a><a href="'+site.rel('graph-formulas/definitions.html',page)+'">Definitions and sources</a><a href="'+site.rel('sequence-library.html',page)+'">Sequence Library</a></nav>'
-    cards=''.join('<a class="gfa-family" href="'+family_url(slug)+'"><span class="gfa-count">'+str(count)+' records</span><h3>'+esc(title)+'</h3><p>'+esc(desc)+'</p></a>' for slug,title,source,count,desc in FAMILIES)
-    opts=''.join('<option value="'+slug+'">'+esc(title)+' ('+str(count)+')</option>' for slug,title,_,count,_ in FAMILIES)
-    names={f[0]:f[1] for f in FAMILIES}
+        return '<nav class="gfa-nav" aria-label="Formula atlas navigation"><a href="'+site.rel(HUB,page)+'">Formula atlas</a><a href="'+site.rel('graph-formulas/definitions.html',page)+'">Definitions and sources</a><a href="'+site.rel('sequence-library.html',page)+'">Sequence Library</a><a href="'+site.rel(TRANSFER_PAGE,page)+'">Exact transfers</a></nav>'
+    cards=''.join('<a class="gfa-family" href="'+family_url(slug)+'"><span class="gfa-count">'+str(count)+' records</span><h3>'+esc(title)+'</h3><p>'+esc(desc)+'</p></a>' for slug,title,source,count,desc in families)
+    opts=''.join('<option value="'+slug+'">'+esc(title)+' ('+str(count)+')</option>' for slug,title,_,count,_ in families)
+    names={f[0]:f[1] for f in families}
     index=[]
     for row in records:
         rid=row['id']; slug=row['family']; title=row['title']; oeis=' '.join(row['oeis'])
         search=' '.join((rid,title,oeis,names[slug],row['meta'],row['body'][:500] if 'data' not in row else ''))
         index.append('<li data-gfa-record data-family="'+slug+'" data-oeis="'+('yes' if oeis else 'no')+'" data-search="'+esc(search.lower())+'"><a href="'+family_url(slug)+'#'+rid+'"><strong>'+esc(rid)+'</strong> '+esc(title)+'</a><small>'+esc(names[slug]+(' · '+oeis if oeis and rid not in row['oeis'] else ''))+'</small></li>')
-    hero='<header class="gfa-hero"><p class="gfa-kicker">Komorebi / Realization Calculus</p><h1>Graph &amp; array formula atlas</h1><p>Browse exact graph, tree and constrained-array formulas by mathematical family. Read the underlying constructions, inspect every coefficient, and evaluate the structural-core models with exact integer arithmetic.</p><div class="gfa-stats"><div><strong>462</strong><span>formula records</span></div><div><strong>15</strong><span>family groups</span></div><div><strong>184</strong><span>distinct OEIS IDs</span></div><div><strong>262</strong><span>distinct core rational functions</span></div></div></header>'
-    search='<section id="formula-index"><h2>Find an individual formula</h2><form class="gfa-controls" id="gfa-search" hidden><label for="gfa-query">Search identifier, pattern or description<input type="search" id="gfa-query" placeholder="A202485, g=2, 000, leaves"></label><label for="gfa-family">Family<select id="gfa-family"><option value="">All families</option>'+opts+'</select></label><label for="gfa-bound">OEIS binding<select id="gfa-bound"><option value="">All records</option><option value="yes">OEIS-linked</option><option value="no">Unbound research models</option></select></label><button type="reset">Clear</button></form><p id="gfa-status" role="status" aria-live="polite">462 records. Enable JavaScript to search and paginate.</p><ul class="gfa-index" id="gfa-results">'+''.join(index)+'</ul><div class="gfa-pagination" id="gfa-pagination" hidden><button type="button" id="gfa-prev">Previous</button><span id="gfa-page"></span><button type="button" id="gfa-next">Next</button></div></section>'
-    shell(HUB,'Graph and array formula atlas',hero+nav(HUB)+'<p class="gfa-note">Scope: 288 v31–v32 structural-core records (262 distinct rational functions), 168 constrained-array entries, and six other OEIS graph formulas. The 64-entry graph supplement overlaps these collections; ten tree bindings appear under Rooted trees. These are retained models and finite OEIS identifications, not 462 new OEIS admissions.</p><p><a href="#formula-index">Find a formula</a> · <a href="graph-formulas/definitions.html#sources">Proofs and source downloads</a></p><section><h2>Browse by mathematical family</h2><div class="gfa-families">'+cards+'</div></section>'+search)
-    for slug,title,source,count,desc in FAMILIES:
+    hero='<header class="gfa-hero"><p class="gfa-kicker">Komorebi / Realization Calculus</p><h1>Graph &amp; array formula atlas</h1><p>Browse exact graph, tree and constrained-array formulas by mathematical family. Read the underlying constructions, inspect every coefficient, and evaluate the structural-core models with exact integer arithmetic.</p><div class="gfa-stats"><div><strong>537</strong><span>formula records</span></div><div><strong>17</strong><span>family groups</span></div><div><strong>184</strong><span>distinct OEIS IDs</span></div><div><strong>336</strong><span>distinct core and complement rational functions</span></div></div></header>'
+    search='<section id="formula-index"><h2>Find an individual formula</h2><form class="gfa-controls" id="gfa-search" hidden><label for="gfa-query">Search identifier, pattern or description<input type="search" id="gfa-query" placeholder="A202485, g=2, 000, leaves"></label><label for="gfa-family">Family<select id="gfa-family"><option value="">All families</option>'+opts+'</select></label><label for="gfa-bound">OEIS binding<select id="gfa-bound"><option value="">All records</option><option value="yes">OEIS-linked</option><option value="no">Unbound research models</option></select></label><button type="reset">Clear</button></form><p id="gfa-status" role="status" aria-live="polite">537 records. Enable JavaScript to search and paginate.</p><ul class="gfa-index" id="gfa-results">'+''.join(index)+'</ul><div class="gfa-pagination" id="gfa-pagination" hidden><button type="button" id="gfa-prev">Previous</button><span id="gfa-page"></span><button type="button" id="gfa-next">Next</button></div></section>'
+    shell(HUB,'Graph and array formula atlas',hero+nav(HUB)+'<p class="gfa-note">Scope: 288 retained structural-core records, 168 constrained-array entries, six other OEIS graph formulas, and 75 derived nonbipartite models. The 64-entry graph supplement overlaps the retained collections; ten tree bindings appear under Rooted trees. There are 336 distinct rational functions across the structural-core and complement records. The new complements introduce no new OEIS identifications.</p><p><a href="#formula-index">Find a formula</a> · <a href="graph-formulas/definitions.html#sources">Proofs and source downloads</a> · <a href="graph-formulas/transfers.html">Exact transfers and machine-readable data</a></p><section><h2>Browse by mathematical family</h2><div class="gfa-families">'+cards+'</div></section>'+search)
+    for slug,title,source,count,desc in families:
         page=family_url(slug); body=[]
         for row in [r for r in records if r['family']==slug]:
             rid=row['id']; links=' '.join('<a href="https://oeis.org/'+a+'">'+a+'</a>' for a in row['oeis'])
@@ -201,7 +252,14 @@ def build(site):
             if 'data' in row:
                 model=json.dumps(row['data'],separators=(',',':'))
                 extra='<form class="gfa-eval" data-model="'+esc(model)+'" hidden><label for="gfa-n-'+rid+'">Vertex count n<input id="gfa-n-'+rid+'" type="number" min="0" max="10000" step="1" value="8" required></label><button type="submit">Evaluate exactly</button><output aria-live="polite"></output></form><details class="gfa-lanes"><summary>Complete binomial-residue expansion</summary>'+render(row['lanes'])+'</details>'
-            body.append('<details class="gfa-record" id="'+rid+'"><summary>'+heading+'</summary><div class="gfa-record-body">'+('<p class="gfa-oeis">OEIS reference: '+links+'. Identification retains finite-check evidence.</p>' if links else '<p class="gfa-note">Research model; no OEIS identifier assigned in the retained source.</p>')+render(row['body'])+extra+'<p><a href="'+site.rel('graph-formulas/definitions.html',page)+'">Notation, evaluation formulas and proof sources</a></p></div></details>')
+            elif 'array_model' in row:
+                model=json.dumps(row['array_model'],separators=(',',':'))
+                extra='<form class="gfa-eval" data-array-model="'+esc(model)+'" hidden><label for="gfa-n-'+rid+'">Sequence index n<input id="gfa-n-'+rid+'" type="number" min="1" max="10000" step="1" value="1" required></label><button type="submit">Evaluate exactly</button><output aria-live="polite"></output></form><p class="gfa-note">Counts are exact integers. Expensive array sizes may exceed the browser work limit; reduce the index or use the archived construction offline.</p>'
+            elif 'supplement_model' in row:
+                model=row['supplement_model']
+                lo,hi=str(model['min']),str(model['max'])
+                extra='<form class="gfa-eval" data-supplement-id="'+esc(rid)+'" hidden><label for="gfa-n-'+rid+'">Sequence index n<input id="gfa-n-'+rid+'" type="number" min="'+lo+'" max="'+hi+'" step="1" value="'+lo+'" required></label><button type="submit">Evaluate exactly</button><output aria-live="polite"></output></form><p class="gfa-note">Exact integer arithmetic within the indicated interface index range.</p>'
+            body.append('<details class="gfa-record" id="'+rid+'"><summary>'+heading+'</summary><div class="gfa-record-body">'+('<p class="gfa-oeis">OEIS reference: '+links+'. Identification retains finite-check evidence.</p>' if links else '<p class="gfa-note">Research model; no OEIS identifier assigned in the retained source.</p>')+render(row['body'])+related(row,page)+extra+'<p><a href="'+site.rel('graph-formulas/definitions.html',page)+'">Notation, evaluation formulas and proof sources</a></p></div></details>')
         prefix=''
         if slug in ('walks','labeled'):
             prefix=render(supplement[source].split('### ',1)[0])
@@ -209,11 +267,29 @@ def build(site):
             prefix='<p>Index n starts at 1. Square and flattened-table models have variable width. See the <a href="definitions.html#array-definitions">array matrix definitions</a> before evaluating a formula.</p>'
         shell(page,title,'<header class="gfa-hero"><p class="gfa-kicker">Formula atlas / '+esc(str(count))+' records</p><h1>'+esc(title)+'</h1><p>'+esc(desc)+'</p></header>'+nav(page)+prefix+'<section aria-label="Individual formulas">'+''.join(body)+'</section>')
         site.search.append(dict(title=title+' — formula atlas',group='Collection',kind='Examples',url=page,text=desc+' '+' '.join(r['id']+' '+r['title'] for r in records if r['family']==slug),work_ids=[]))
+    page=TRANSFER_PAGE
+    report=bundle['report']
+    groups_html=''.join('<li>'+', '.join(record_link(rid,page) for rid in ids)+'</li>'
+                        for ids in bundle['equivalenceGroups'])
+    relations_html=''.join('<li>'+record_link(t['target'],page)+' = '+' + '.join(record_link(rid,page) for rid in t['sources'])+' ('+esc(t['type'])+')</li>'
+                           for t in bundle['transfers'])
+    zeros_html=''.join('<li>'+record_link(z['positive'],page)+' − '+record_link(z['negative'],page)+' = 0</li>'
+                       for z in bundle['zeroComplements'])
+    shell(page,'Exact graph atlas transfers',
+          '<header class="gfa-hero"><h1>Exact transfers and nonbipartite complements</h1><p>All-index polynomial identities, reduced rational functions, and machine-readable coefficients. Author: Komorebi P.</p></header>'+nav(page)+
+          '<p class="gfa-note">The original source hashes are unchanged. These exact algebraic transfers preserve the evidence boundaries of their input counting models. They do not imply independent OEIS verification or a literature-priority claim.</p>'+
+          '<p><a download href="'+site.rel(TRANSFER_JSON,page)+'">Download exact core and complement data (JSON)</a>. All unbounded integers are decimal strings; numerator coefficients ascend in degree. Each cyclotomic factor pair gives its index and exponent. The residue expansions retain their original scales and finite parts.</p>'+
+          '<p>288 exact rational/residue identities, 1,752 lanes, 60 transfer identities, 75 nonzero complements, 11 zero complements and 6,000 coefficient checks.</p><p>All 168 retained array formulas have exact integer calculators. <a download href="sources/array-calculator-index.json">Download array calculator definitions and verification results (JSON)</a>. The independent cell-frontier recurrence agreed in 499 comparisons; five expensive inputs reached the browser work limit.</p><p>All six remaining graph-walk and labeled-graph parity formulas also have exact calculators. <a download href="sources/graph-supplement-index.json">Download model definitions and verification results (JSON)</a>. The supplement passed 140 comparisons and 18 invalid-index rejection checks.</p>'+
+          '<section><h2>Nonbipartite formulas</h2><p>The coefficient of the difference between connected and bipartite connected graphs counts connected graphs containing an odd cycle.</p><p><a href="nonbipartite.html">13 cycle-rank and leaf-count models</a> · <a href="nonbipartite-profiles.html">62 prescribed degree-profile models</a></p></section>'+
+          '<section><h2>Equivalent core formulas</h2><p>16 equivalence classes contain 42 records. Equal generating functions do not by themselves prove a bijection.</p><ul>'+groups_html+'</ul></section>'+
+          '<section><h2>Exact profile and construction transfers</h2><ul>'+relations_html+'</ul></section>'+
+          '<section><h2>Zero complements</h2><ul>'+zeros_html+'</ul></section>')
+    site.search.append(dict(title='Exact graph atlas transfers',group='Collection',kind='Examples',url=page,text='Exact rational profile sums, nonbipartite graphs, equal generating functions, transfer index JSON',work_ids=[]))
     page='graph-formulas/definitions.html'
     downloads=''.join('<li><a download href="sources/'+name+'">'+esc(name)+'</a></li>' for name in SOURCES)
     shell(page,'Formula definitions and source collection','<header class="gfa-hero"><h1>Definitions, proofs and exact source data</h1><p>Author: Komorebi P. Written proofs and exact computational checks retain their original evidence scope.</p></header>'+nav(page)+'<section><h2>Structural-core formula conventions</h2>'+render(graph['Common explicit a(n) formula'])+'<h3>Explicit cyclotomic factors</h3>'+render(graph['Explicit cyclotomic factors'])+'<h3>Binomial-residue evaluation</h3>'+render(raw[SOURCES[1]].split('## Connected graphs',1)[0].split('\n\n',1)[1])+'</section><section id="array-definitions"><h2>Array definitions and matrices</h2>'+render(arr['Definitions'].split('### A184200',1)[0])+'<h3>Explicit strip polynomials</h3>'+render(arr['Appendix: explicit strip polynomials'])+'</section><section id="sources"><h2>Sources and evidence</h2><p>Original definitions and reference terms are credited to the OEIS Foundation Inc., <a href="https://oeis.org/">OEIS</a>, CC BY-SA 4.0. Written arguments are not Lean verification or a literature-priority claim. No full-corpus scan is implied.</p><ul>'+downloads+'</ul><p><a href="sources/manifest.json">SHA-256 source manifest</a></p><p><a href="../collection/PARITY_ARRAY_TRANSFER.html">Parity array proof</a> · <a href="../collection/LATTICE_POLYPHASE_GRAPH.html">Lattice and spectral generalization</a></p></section>')
-    site.search.append(dict(title='Graph and array formula atlas',group='Collection',kind='Examples',url=HUB,text='462 graph tree array formulas, cycle rank, leaves, forbidden patterns, OEIS, structural cores and exact recurrence data',work_ids=[]))
-    return {'formula_records':len(records),'families':len(FAMILIES),'oeis_ids':184,'core_models':288,'source_hashes':manifest}
+    site.search.append(dict(title='Graph and array formula atlas',group='Collection',kind='Examples',url=HUB,text='537 graph tree array formulas, cycle rank, leaves, forbidden patterns, OEIS, structural cores, nonbipartite complements and exact recurrence data',work_ids=[]))
+    return {'formula_records':len(records),'families':len(families),'oeis_ids':184,'core_models':288,'nonbipartite_models':75,'exact_calculators':537,'array_calculators':168,'supplement_calculators':6,'supplement_report':supplement_bundle['report'],'array_report':array_bundle['report'],'transfer_report':report,'source_hashes':manifest}
 
 class PreviewSite:
     """Local static preview without the full reader shell or MathJax runtime."""
@@ -227,5 +303,5 @@ class PreviewSite:
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--root',type=Path,default=Path(__file__).resolve().parents[1]);p.add_argument('--preview',type=Path,required=True);args=p.parse_args();args.preview.mkdir(parents=True,exist_ok=True)
     assets=args.preview/'assets';assets.mkdir(exist_ok=True)
-    for n in ('graph-formula-atlas.css','graph-formula-atlas.js'):shutil.copyfile(args.root/'website/assets'/n,assets/n)
+    for n in ('graph-formula-atlas.css','graph-formula-atlas.js','graph-array-evaluator.js','graph-supplement-evaluator.js'):shutil.copyfile(args.root/'website/assets'/n,assets/n)
     print(json.dumps(build(PreviewSite(args.root,args.preview)),indent=2))
