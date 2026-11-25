@@ -21,7 +21,16 @@
     form.hidden=false;
     form.addEventListener('submit',event=>{
       event.preventDefault();const output=form.querySelector('output');const input=form.querySelector('input');
-      try{if(!input.value.trim())throw Error('Enter a vertex count.');output.textContent='a('+input.value+') = '+value(JSON.parse(form.dataset.model),Number(input.value));}
+      try{
+        if(!input.value.trim())throw Error('Enter an integer index.');
+        const n=Number(input.value);
+        let result;
+        if(form.dataset.arrayModel){
+          if(!window.graphArrayEngine)throw Error('The array evaluator is unavailable. Reload the page.');
+          result=window.graphArrayEngine.value(JSON.parse(form.dataset.arrayModel),n);
+        }else{result=value(JSON.parse(form.dataset.model),n)}
+        output.textContent='a('+input.value+') = '+result;
+      }
       catch(error){output.textContent=error.message;}
     });
   }
