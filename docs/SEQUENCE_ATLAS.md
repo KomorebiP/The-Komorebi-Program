@@ -408,3 +408,7 @@ certification or new mathematical review.
 ## Parity array transfer calculus
 
 [Parity factorization of forbidden-pattern arrays](PARITY_ARRAY_TRANSFER.md) gives exact structural proofs and direct formulas for A202485–A202491. It reduces the original arrays to four independent-set grids and certifies two sharp weighted graph realizations. The note includes an executable verifier and explicit evidence boundaries.
+
+## Lattice and spectral generalization
+
+[Read the lattice factorization, polyphase spectra and sharp graph realization continuation](LATTICE_POLYPHASE_GRAPH.md). It extends the exact recurrence orders through width ten, closes five weighted minima using integer spectral obstructions, and gives a direct cyclic graph construction and full-table independence-polynomial reconstruction theorem.

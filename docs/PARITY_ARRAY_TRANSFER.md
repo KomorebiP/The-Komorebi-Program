@@ -178,3 +178,7 @@ This note consolidates the array-related development from the retained v19 parse
 The original sequence definitions and reference values are credited to R. H. Hardin and The On-Line Encyclopedia of Integer Sequences, OEIS Foundation Inc. See [A202485](https://oeis.org/A202485), [A202487](https://oeis.org/A202487) and the adjacent entries. The reference data are retained under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). The source is the official [OEIS GitHub export](https://github.com/oeis/oeisdata), pinned to commit c5bd71de9eee0894df1301baa4f43f6431d8a08d. The live A202487 page returned HTTP 403, but its official source record was accessible and independently verified, including its mathematical offset. Independent Komorebi code follows the host repository's code license.
 
 The parity bijection and graph construction are written mathematical proofs. Finite computational checks corroborate them and verify source identification. Literature novelty, peer review, Lean formalization, and a comprehensive global OEIS integration are outside this note's scope.
+
+## Lattice and spectral generalization
+
+[Read the lattice factorization, polyphase spectra and sharp graph realization continuation](LATTICE_POLYPHASE_GRAPH.md). It extends the exact recurrence orders through width ten, closes five weighted minima using integer spectral obstructions, and gives a direct cyclic graph construction and full-table independence-polynomial reconstruction theorem.

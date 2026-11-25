@@ -1,0 +1,162 @@
+{
+  "direct_walk_checks": 416,
+  "interpolation_checks": 441,
+  "brute_force_checks": 324,
+  "trace_orbit_checks": 512,
+  "direct_graph_sizes": [
+    {
+      "width": 3,
+      "row_states": 6,
+      "vertices": 37,
+      "distinct_arcs": 144,
+      "max_weight": 1
+    },
+    {
+      "width": 4,
+      "row_states": 6,
+      "vertices": 37,
+      "distinct_arcs": 156,
+      "max_weight": 2
+    },
+    {
+      "width": 5,
+      "row_states": 15,
+      "vertices": 226,
+      "distinct_arcs": 1395,
+      "max_weight": 1
+    },
+    {
+      "width": 6,
+      "row_states": 15,
+      "vertices": 226,
+      "distinct_arcs": 1500,
+      "max_weight": 2
+    },
+    {
+      "width": 7,
+      "row_states": 40,
+      "vertices": 1601,
+      "distinct_arcs": 16160,
+      "max_weight": 1
+    },
+    {
+      "width": 8,
+      "row_states": 36,
+      "vertices": 1297,
+      "distinct_arcs": 14616,
+      "max_weight": 2
+    },
+    {
+      "width": 9,
+      "row_states": 104,
+      "vertices": 10817,
+      "distinct_arcs": 185536,
+      "max_weight": 1
+    },
+    {
+      "width": 10,
+      "row_states": 91,
+      "vertices": 8282,
+      "distinct_arcs": 158613,
+      "max_weight": 2
+    }
+  ],
+  "minimum_graph_sizes": [
+    {
+      "width": 3,
+      "order": 30,
+      "trace1": 1,
+      "trace2": -3,
+      "primitive_orbit2": -2,
+      "first_negative_primitive": 2,
+      "minimum_vertices": [
+        31,
+        31
+      ]
+    },
+    {
+      "width": 4,
+      "order": 27,
+      "trace1": 5,
+      "trace2": 5,
+      "primitive_orbit2": 0,
+      "first_negative_primitive": null,
+      "minimum_vertices": [
+        27,
+        28
+      ]
+    },
+    {
+      "width": 5,
+      "order": 165,
+      "trace1": 1,
+      "trace2": -19,
+      "primitive_orbit2": -10,
+      "first_negative_primitive": 2,
+      "minimum_vertices": [
+        166,
+        166
+      ]
+    },
+    {
+      "width": 6,
+      "order": 134,
+      "trace1": 10,
+      "trace2": 10,
+      "primitive_orbit2": 0,
+      "first_negative_primitive": null,
+      "minimum_vertices": [
+        134,
+        135
+      ]
+    },
+    {
+      "width": 7,
+      "order": 1040,
+      "trace1": 1,
+      "trace2": -99,
+      "primitive_orbit2": -50,
+      "first_negative_primitive": 2,
+      "minimum_vertices": [
+        1041,
+        1041
+      ]
+    },
+    {
+      "width": 8,
+      "order": 652,
+      "trace1": 21,
+      "trace2": 13,
+      "primitive_orbit2": -4,
+      "first_negative_primitive": 2,
+      "minimum_vertices": [
+        653,
+        653
+      ]
+    },
+    {
+      "width": 9,
+      "order": 6376,
+      "trace1": 1,
+      "trace2": -397,
+      "primitive_orbit2": -199,
+      "first_negative_primitive": 2,
+      "minimum_vertices": [
+        6377,
+        6377
+      ]
+    },
+    {
+      "width": 10,
+      "order": 3445,
+      "trace1": 43,
+      "trace2": 59,
+      "primitive_orbit2": 8,
+      "first_negative_primitive": null,
+      "minimum_vertices": [
+        3445,
+        3446
+      ]
+    }
+  ]
+}

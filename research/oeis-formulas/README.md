@@ -101,3 +101,9 @@ Official OEIS source revision `12ede576d2f5b5c96c54d315a558be3ac56ee474` was imp
 ## Parity array transfer calculus
 
 [Read the proof and exact formulas for A202485–A202491](../../docs/PARITY_ARRAY_TRANSFER.md). This note gives the arbitrary-rectangle parity bijection, small transfer matrices, closed integer formulas, exact minimal orders 30 and 165, and sharp weighted single-mark graph sizes 31 and 166. The [reproduction program](../../tools/check_parity_array_transfer.mjs) and [audit report](PARITY_ARRAY_TRANSFER_AUDIT.json) retain the evidence and scope.
+
+## Lattice and spectral generalization
+
+[Read the lattice factorization, polyphase spectra and sharp graph realization continuation](../../docs/LATTICE_POLYPHASE_GRAPH.md). It extends the exact recurrence orders through width ten, closes five weighted minima using integer spectral obstructions, and gives a direct cyclic graph construction and full-table independence-polynomial reconstruction theorem.
+
+[Exact audit](LATTICE_POLYPHASE_GRAPH_AUDIT.json) · [Direct graph verifier](../../tools/check_direct_lattice_graph.py).
