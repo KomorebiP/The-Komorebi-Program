@@ -1,7 +1,7 @@
 # Cycle–Path Walk Transfers
 
 **Author: Komorebi P.**  
-**Version:** 1.2, 2026-11-24 (OEIS source audit)  
+**Version:** 1.3, 2026-11-24 (reversible triangular transfer)  
 **Status:** mathematical proof with exact integer verification; not Lean-certified or peer reviewed.
 
 ## Abstract
@@ -255,3 +255,78 @@ Reflection, discrete Fourier diagonalization, and Chebyshev representations of p
 - [OEIS A199571](https://oeis.org/A199571) tabulates cycle return-walk counts, with spectral and Chebyshev descriptions.
 
 The focus here is the explicit composition of scalar sequence transforms, compressed integer coefficients, the even-order operator obstruction, and the bidirectional reconstruction statement as a case study of Realization Calculus. The projection is a classical method. The paper records its sequence-level consequences and does not claim to have discovered the underlying cycle-to-path reflection relation. The original order-9 relation was not present in the A094233 and A005023 formulas examined. Absence from OEIS does not establish publication novelty. A literature-wide priority review is outstanding.
+
+## 10. Reversible triangular transfer: cycle moments and endpoint counts
+
+The earlier transfers are linear in the source sequence, but may require source terms beyond the destination index. The following alternative is nonlinear and triangular. It reconstructs the endpoint sequence and the cycle sequence from equally long prefixes, for both odd and even cycle orders.
+
+Write $a_n=A_m(n)$, $b_n=B_{m-1}(n)$, and $h_n=H_m(n)$, with $H_m$ the binomial lift in Section 3. Define $g_n=mh_n-4^n$ for $n\geq1$. Then
+
+$$
+\boxed{2n b_n=\sum_{k=1}^n g_k b_{n-k}},\qquad b_0=1.
+$$
+
+The inverse uses only the endpoint sequence:
+
+$$
+\begin{aligned}
+g_n&=2n b_n-\sum_{k=1}^{n-1}g_k b_{n-k},\\
+h_0&=1,\qquad h_n=(g_n+4^n)/m,\\
+a_n&=\sum_{j=0}^n\binom nj(-2)^{n-j}h_j.
+\end{aligned}
+$$
+
+All divisions are exact over the integers on the specified cycle and path inputs. In particular, the first $N+1$ terms of either sequence determine the first $N+1$ terms of the other, given $m$.
+
+### Proof and closed form
+
+Let $F_p(t)=\det(I-zP_p)$ with $t=z^2$, as in Section 7, and let $\mathcal B_m(t)=\sum_{n\geq0}b_nt^n=1/F_{m-1}(t)$. The squared nonzero eigenvalues of $P_{m-1}$, counted once per opposite pair, are
+
+$$
+\mu_j=2+2\cos(2\pi j/m),\qquad
+1\leq j\leq\lfloor(m-1)/2\rfloor.
+$$
+
+An unpaired zero eigenvalue, when present, contributes a factor of one to the determinant. Thus $F_{m-1}(t)=\prod_j(1-\mu_jt)$, and
+
+$$
+\det(I-t(2I+C_m))=(1-4t)F_{m-1}(t)^2.
+$$
+
+Indeed, the eigenvalues of $2I+C_m$ are $4$, two copies of each $\mu_j$, and one zero if $m$ is even. This determinant identity gives the generating-function transfer
+
+$$
+\boxed{\mathcal B_m(t)=
+\exp\left(\frac12\sum_{n\geq1}
+\frac{mh_n-4^n}{n}t^n\right)}.
+$$
+
+The exponential is formal over $\mathbb Q[[t]]$; no analytic convergence assumption is needed. To see the same identity directly, the binomial lift yields $mh_n=\operatorname{tr}((2I+C_m)^n)$, so $g_n=2\sum_j\mu_j^n$ for $n\geq1$. Taking the logarithm of $1/F_{m-1}(t)$ now gives the displayed series.
+
+Logarithmic differentiation gives $2t\mathcal B_m'(t)=\mathcal B_m(t)\sum_{n\geq1}g_nt^n$. Coefficient comparison proves the forward recurrence. Solving for the newest $g_n$ gives the inverse recurrence, and binomial inversion recovers $a_n$. QED.
+
+Over normalized rational series, the two triangular formulas are mutually inverse, since the coefficient of $a_n$ in the forward equation for $b_n$ is $m/(2n)$ and all other terms use earlier coordinates. Integer preservation is asserted only on the graph-derived sequences, not arbitrary integer inputs.
+
+### Example: cycle 8 and path 7
+
+The source cycle prefix is $a=(1,0,2,0,6,\ldots)$ (full-length moments, with odd positions zero). The lifted values are $h_1=2$, $h_2=6$, $h_3=20$. Therefore $g_1=12$, $g_2=32$, $g_3=96$. The forward recurrence gives
+
+$$
+b_1=6,\qquad b_2=26,\qquad b_3=100.
+$$
+
+These are the first nontrivial terms of A005022, and the inverse recovers $a_1=0$, $a_2=2$, $a_3=0$. This is not a fixed stride-two polynomial transfer and therefore does not contradict the obstruction in Section 5.
+
+### OEIS scope and verification
+
+The triangular equations apply directly between the underlying cycle array of [A199571](https://oeis.org/A199571) and row $m-2$ of [A259475](https://oeis.org/A259475). They also factor through the closed-path trace array [A198632](https://oeis.org/A198632), since $g_n=\operatorname{tr}(P_{m-1}^{2n})$ for $n\geq1$. In this way the endpoint counts alone recover the entire path trace sequence; the known order supplies its zeroth term. The order itself is recoverable from the endpoint sequence by $m=b_1+2$, because $a_1=0$.
+
+The [triangular transfer checker](../../examples/check_cycle_path_triangular.py) independently enumerates graph walks and verifies forward and inverse recovery for cycle orders 3 through 100, indices 0 through 60. It also tests truncated prefixes and compares 54 endpoint values with the published square-array rows 1 through 9 of A259475.
+
+```sh
+python -B examples/check_cycle_path_triangular.py
+```
+
+The development run returned 13,382 explicit comparisons: 5,978 forward, 5,978 inverse, 1,372 prefix-level comparisons and 54 OEIS term comparisons, in addition to internal exact-division checks. The proof above, rather than the finite tests, establishes the unrestricted identity.
+
+The determinant and logarithmic-derivative identities use classical spectral and symmetric-function methods. This extension identifies a different, reversible transfer class and a finite-prefix sufficiency result. It makes no claim of literature-wide priority or lower computational complexity. No Lean certification is claimed.
