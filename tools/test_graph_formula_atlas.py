@@ -42,7 +42,13 @@ class GraphFormulaAtlasTests(unittest.TestCase):
             result=build(site)
             self.assertEqual(result['formula_records'],537)
             self.assertEqual(result['families'],17)
-            self.assertEqual(result['exact_calculators'],363)
+            self.assertEqual(result['exact_calculators'],531)
+            self.assertEqual(result['array_calculators'],168)
+            array_index=json.loads((Path(out)/'graph-formulas/sources/array-calculator-index.json').read_text())
+            self.assertEqual(len(array_index['models']),168)
+            self.assertEqual(array_index['report']['independentComparisons'],499)
+            self.assertEqual(array_index['report']['firstTermChecks'],168)
+            self.assertEqual(array_index['report']['browserLimits'],5)
             bundle=json.loads((Path(out)/TRANSFER_JSON).read_text())
             self.assertEqual(len(bundle['coreModels']),288)
             self.assertEqual(len(bundle['nonbipartiteModels']),75)
@@ -61,7 +67,7 @@ class GraphFormulaAtlasTests(unittest.TestCase):
                 controls=Controls(body)
                 self.assertTrue(all(c.get('id') in controls.labels or c.get('aria-label') for c in controls.controls))
                 self.assertEqual(len(controls.ids),len(set(controls.ids)))
-                self.assertEqual(len(controls.controls),count if slug in {f[0] for f in FAMILIES[:8]+ADDED_FAMILIES} else 0)
+                self.assertEqual(len(controls.controls),count if slug not in {'walks','labeled-graphs'} and slug in {f[0] for f in FAMILIES[:8]+ADDED_FAMILIES} | {'parity-arrays','boundary-arrays','binomial-arrays','finite-state-arrays','block-arrays'} else 0)
 
     def test_all_index_audit_negative_control(self):
         p=subprocess.run(['node',str(ROOT/'tools/verify_graph_formula_atlas_exact.js')],
