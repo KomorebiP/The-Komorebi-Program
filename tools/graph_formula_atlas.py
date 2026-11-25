@@ -188,6 +188,18 @@ def build(site):
         if row['id'] in array_models:
             row['array_model']=array_models[row['id']]
     site.write('graph-formulas/sources/array-calculator-index.json',json.dumps(array_bundle,separators=(',',':'))+'\n')
+    with tempfile.TemporaryDirectory() as tmp:
+        supplement_path=Path(tmp)/'supplement-index.json'
+        subprocess.run(['node',str(site.root.resolve()/'website/assets/graph-supplement-evaluator.js'),str(supplement_path)],
+                       cwd=site.root.resolve(),check=True,capture_output=True,text=True)
+        supplement_bundle=json.loads(supplement_path.read_text(encoding='utf-8'))
+    supplement_models=supplement_bundle['models']
+    if set(supplement_models)!={r['id'] for r in records if r['family'] in {'walks','labeled'}}:
+        raise ValueError('Supplement calculator inventory mismatch')
+    for row in records:
+        if row['id'] in supplement_models:
+            row['supplement_model']=supplement_models[row['id']]
+    site.write('graph-formulas/sources/graph-supplement-index.json',json.dumps(supplement_bundle,separators=(',',':'))+'\n')
     records=records+additions
     families=FAMILIES+ADDED_FAMILIES
     site.write(TRANSFER_JSON,json.dumps(bundle,separators=(',',':'))+'\n')
@@ -214,9 +226,10 @@ def build(site):
     version=hashlib.sha256((site.root/'website/assets/graph-formula-atlas.js').read_bytes()).hexdigest()[:12]
     cssver=hashlib.sha256((site.root/'website/assets/graph-formula-atlas.css').read_bytes()).hexdigest()[:12]
     arrayver=hashlib.sha256((site.root/'website/assets/graph-array-evaluator.js').read_bytes()).hexdigest()[:12]
+    supplementver=hashlib.sha256((site.root/'website/assets/graph-supplement-evaluator.js').read_bytes()).hexdigest()[:12]
     def shell(page,title,content):
         asset=lambda name:site.rel('assets/'+name,page)
-        site.page(page,title,'<link rel="stylesheet" href="'+asset('graph-formula-atlas.css')+'?v='+cssver+'"><div class="gfa">'+content+'</div><script defer src="'+asset('graph-array-evaluator.js')+'?v='+arrayver+'"></script><script defer src="'+asset('graph-formula-atlas.js')+'?v='+version+'"></script>')
+        site.page(page,title,'<link rel="stylesheet" href="'+asset('graph-formula-atlas.css')+'?v='+cssver+'"><div class="gfa">'+content+'</div><script defer src="'+asset('graph-array-evaluator.js')+'?v='+arrayver+'"></script><script defer src="'+asset('graph-supplement-evaluator.js')+'?v='+supplementver+'"></script><script defer src="'+asset('graph-formula-atlas.js')+'?v='+version+'"></script>')
     def nav(page):
         return '<nav class="gfa-nav" aria-label="Formula atlas navigation"><a href="'+site.rel(HUB,page)+'">Formula atlas</a><a href="'+site.rel('graph-formulas/definitions.html',page)+'">Definitions and sources</a><a href="'+site.rel('sequence-library.html',page)+'">Sequence Library</a><a href="'+site.rel(TRANSFER_PAGE,page)+'">Exact transfers</a></nav>'
     cards=''.join('<a class="gfa-family" href="'+family_url(slug)+'"><span class="gfa-count">'+str(count)+' records</span><h3>'+esc(title)+'</h3><p>'+esc(desc)+'</p></a>' for slug,title,source,count,desc in families)
@@ -242,6 +255,10 @@ def build(site):
             elif 'array_model' in row:
                 model=json.dumps(row['array_model'],separators=(',',':'))
                 extra='<form class="gfa-eval" data-array-model="'+esc(model)+'" hidden><label for="gfa-n-'+rid+'">Sequence index n<input id="gfa-n-'+rid+'" type="number" min="1" max="10000" step="1" value="1" required></label><button type="submit">Evaluate exactly</button><output aria-live="polite"></output></form><p class="gfa-note">Counts are exact integers. Expensive array sizes may exceed the browser work limit; reduce the index or use the archived construction offline.</p>'
+            elif 'supplement_model' in row:
+                model=row['supplement_model']
+                lo,hi=str(model['min']),str(model['max'])
+                extra='<form class="gfa-eval" data-supplement-id="'+esc(rid)+'" hidden><label for="gfa-n-'+rid+'">Sequence index n<input id="gfa-n-'+rid+'" type="number" min="'+lo+'" max="'+hi+'" step="1" value="'+lo+'" required></label><button type="submit">Evaluate exactly</button><output aria-live="polite"></output></form><p class="gfa-note">Exact integer arithmetic within the indicated interface index range.</p>'
             body.append('<details class="gfa-record" id="'+rid+'"><summary>'+heading+'</summary><div class="gfa-record-body">'+('<p class="gfa-oeis">OEIS reference: '+links+'. Identification retains finite-check evidence.</p>' if links else '<p class="gfa-note">Research model; no OEIS identifier assigned in the retained source.</p>')+render(row['body'])+related(row,page)+extra+'<p><a href="'+site.rel('graph-formulas/definitions.html',page)+'">Notation, evaluation formulas and proof sources</a></p></div></details>')
         prefix=''
         if slug in ('walks','labeled'):
@@ -262,7 +279,7 @@ def build(site):
           '<header class="gfa-hero"><h1>Exact transfers and nonbipartite complements</h1><p>All-index polynomial identities, reduced rational functions, and machine-readable coefficients. Author: Komorebi P.</p></header>'+nav(page)+
           '<p class="gfa-note">The original source hashes are unchanged. These exact algebraic transfers preserve the evidence boundaries of their input counting models. They do not imply independent OEIS verification or a literature-priority claim.</p>'+
           '<p><a download href="'+site.rel(TRANSFER_JSON,page)+'">Download exact core and complement data (JSON)</a>. All unbounded integers are decimal strings; numerator coefficients ascend in degree. Each cyclotomic factor pair gives its index and exponent. The residue expansions retain their original scales and finite parts.</p>'+
-          '<p>288 exact rational/residue identities, 1,752 lanes, 60 transfer identities, 75 nonzero complements, 11 zero complements and 6,000 coefficient checks.</p><p>All 168 retained array formulas have exact integer calculators. <a download href="sources/array-calculator-index.json">Download array calculator definitions and verification results (JSON)</a>. The independent cell-frontier recurrence agreed in 499 comparisons; five expensive inputs reached the browser work limit.</p>'+
+          '<p>288 exact rational/residue identities, 1,752 lanes, 60 transfer identities, 75 nonzero complements, 11 zero complements and 6,000 coefficient checks.</p><p>All 168 retained array formulas have exact integer calculators. <a download href="sources/array-calculator-index.json">Download array calculator definitions and verification results (JSON)</a>. The independent cell-frontier recurrence agreed in 499 comparisons; five expensive inputs reached the browser work limit.</p><p>All six remaining graph-walk and labeled-graph parity formulas also have exact calculators. <a download href="sources/graph-supplement-index.json">Download model definitions and verification results (JSON)</a>. The supplement passed 140 comparisons and 18 invalid-index rejection checks.</p>'+
           '<section><h2>Nonbipartite formulas</h2><p>The coefficient of the difference between connected and bipartite connected graphs counts connected graphs containing an odd cycle.</p><p><a href="nonbipartite.html">13 cycle-rank and leaf-count models</a> · <a href="nonbipartite-profiles.html">62 prescribed degree-profile models</a></p></section>'+
           '<section><h2>Equivalent core formulas</h2><p>16 equivalence classes contain 42 records. Equal generating functions do not by themselves prove a bijection.</p><ul>'+groups_html+'</ul></section>'+
           '<section><h2>Exact profile and construction transfers</h2><ul>'+relations_html+'</ul></section>'+
@@ -272,7 +289,7 @@ def build(site):
     downloads=''.join('<li><a download href="sources/'+name+'">'+esc(name)+'</a></li>' for name in SOURCES)
     shell(page,'Formula definitions and source collection','<header class="gfa-hero"><h1>Definitions, proofs and exact source data</h1><p>Author: Komorebi P. Written proofs and exact computational checks retain their original evidence scope.</p></header>'+nav(page)+'<section><h2>Structural-core formula conventions</h2>'+render(graph['Common explicit a(n) formula'])+'<h3>Explicit cyclotomic factors</h3>'+render(graph['Explicit cyclotomic factors'])+'<h3>Binomial-residue evaluation</h3>'+render(raw[SOURCES[1]].split('## Connected graphs',1)[0].split('\n\n',1)[1])+'</section><section id="array-definitions"><h2>Array definitions and matrices</h2>'+render(arr['Definitions'].split('### A184200',1)[0])+'<h3>Explicit strip polynomials</h3>'+render(arr['Appendix: explicit strip polynomials'])+'</section><section id="sources"><h2>Sources and evidence</h2><p>Original definitions and reference terms are credited to the OEIS Foundation Inc., <a href="https://oeis.org/">OEIS</a>, CC BY-SA 4.0. Written arguments are not Lean verification or a literature-priority claim. No full-corpus scan is implied.</p><ul>'+downloads+'</ul><p><a href="sources/manifest.json">SHA-256 source manifest</a></p><p><a href="../collection/PARITY_ARRAY_TRANSFER.html">Parity array proof</a> · <a href="../collection/LATTICE_POLYPHASE_GRAPH.html">Lattice and spectral generalization</a></p></section>')
     site.search.append(dict(title='Graph and array formula atlas',group='Collection',kind='Examples',url=HUB,text='537 graph tree array formulas, cycle rank, leaves, forbidden patterns, OEIS, structural cores, nonbipartite complements and exact recurrence data',work_ids=[]))
-    return {'formula_records':len(records),'families':len(families),'oeis_ids':184,'core_models':288,'nonbipartite_models':75,'exact_calculators':531,'array_calculators':168,'array_report':array_bundle['report'],'transfer_report':report,'source_hashes':manifest}
+    return {'formula_records':len(records),'families':len(families),'oeis_ids':184,'core_models':288,'nonbipartite_models':75,'exact_calculators':537,'array_calculators':168,'supplement_calculators':6,'supplement_report':supplement_bundle['report'],'array_report':array_bundle['report'],'transfer_report':report,'source_hashes':manifest}
 
 class PreviewSite:
     """Local static preview without the full reader shell or MathJax runtime."""
@@ -286,5 +303,5 @@ class PreviewSite:
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--root',type=Path,default=Path(__file__).resolve().parents[1]);p.add_argument('--preview',type=Path,required=True);args=p.parse_args();args.preview.mkdir(parents=True,exist_ok=True)
     assets=args.preview/'assets';assets.mkdir(exist_ok=True)
-    for n in ('graph-formula-atlas.css','graph-formula-atlas.js','graph-array-evaluator.js'):shutil.copyfile(args.root/'website/assets'/n,assets/n)
+    for n in ('graph-formula-atlas.css','graph-formula-atlas.js','graph-array-evaluator.js','graph-supplement-evaluator.js'):shutil.copyfile(args.root/'website/assets'/n,assets/n)
     print(json.dumps(build(PreviewSite(args.root,args.preview)),indent=2))
